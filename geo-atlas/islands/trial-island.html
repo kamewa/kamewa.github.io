@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>試煉島｜風格測試</title>
+<style>
+:root{color-scheme:light;--ink:#6b4a22;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:#f3dfaa;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;transition:opacity .32s}
+body.leaving{opacity:0}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+canvas:active{cursor:grabbing}
+p#hint{position:fixed;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom,0px));margin:0;text-align:center;color:var(--ink);opacity:.7;font-size:14px;pointer-events:none}
+#toast{position:fixed;left:50%;top:18%;transform:translateX(-50%);padding:10px 20px;border-radius:16px;background:rgba(255,248,226,.96);border:2px solid rgba(120,75,30,.4);color:var(--ink);font-size:16px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s}
+#toast.on{opacity:1}
+.back{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:20;width:46px;height:46px;border-radius:50%;background:rgba(255,248,226,.88);border:2px solid rgba(120,75,30,.45);box-shadow:0 3px 8px rgba(90,60,20,.25);display:grid;place-items:center;transition:transform .15s}
+.back:hover,.back:focus-visible{transform:scale(1.1)}
+.back svg{width:26px;height:26px}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html" aria-label="回地圖集" title="回地圖集"><svg viewBox="0 0 24 24" fill="none" stroke="#6b4a22" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
+<canvas id="paper" style="pointer-events:none"></canvas>
+<p id="hint">拖曳旋轉，滾輪縮放，點點火山</p>
+<div id="toast">考題頁面還沒有接上，之後會從這裡進入</div>
+<script src="../lib/three.min.js"></script>
+<script>
+// 魔王出現後再點一下魔王，會進入的考題頁面。還沒有設定時請留空，之後接上頁面時再填路徑。
+const EXAM_URL='../teaching/trial/互動式評量系統_USB版_V1.18.5/互動式評量系統.html';
+if(!window.THREE){document.body.insertAdjacentHTML('beforeend','<p style="top:45%">3D 函式庫載入失敗，請確認 lib 資料夾是否完整。</p>');}
+else{
+const R=new THREE.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(R.domElement);
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(38,1,.1,60);
+sc.add(new THREE.HemisphereLight(0xffffff,0xe8d8e8,.5));
+const sun=new THREE.DirectionalLight(0xffffff,.62);sun.position.set(3,7,3);sun.castShadow=true;
+sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-5,right:5,top:6,bottom:-5});sc.add(sun);
+const gm=new THREE.DataTexture(new Uint8Array([150,150,150,255,215,215,215,255,255,255,255,255]),3,1,THREE.RGBAFormat);
+gm.minFilter=gm.magFilter=THREE.NearestFilter;gm.generateMipmaps=false;gm.needsUpdate=true;
+const world=new THREE.Group();sc.add(world);
+const M=c=>new THREE.MeshToonMaterial({color:c,gradientMap:gm});
+const B=c=>new THREE.MeshBasicMaterial({color:c});
+function S(r,c,x,y,z,sx,sy,sz,p){const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),M(c));
+m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;(p||world).add(m);return m}
+function G(r,c,x,y,z,sx,sy,sz,p){const m=new THREE.Mesh(new THREE.SphereGeometry(r,16,10),B(c));m.position.set(x,y,z);m.scale.set(sx,sy,sz);(p||world).add(m);return m}
+const cl=(x,a,b)=>Math.max(a,Math.min(b,x)),sm=(a,b,x)=>{const t=cl((x-a)/(b-a),0,1);return t*t*(3-2*t)};
+const back=x=>1+2.7*Math.pow(x-1,3)+1.7*Math.pow(x-1,2);
+const gy=(x,z)=>.45*Math.sqrt(Math.max(0,1-(x*x+z*z)/5.76));
+// 發光貼圖
+const gc=document.createElement('canvas');gc.width=gc.height=64;const gx=gc.getContext('2d'),gr=gx.createRadialGradient(32,32,0,32,32,32);
+gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.35,'rgba(255,255,255,.4)');gr.addColorStop(1,'rgba(255,255,255,0)');gx.fillStyle=gr;gx.fillRect(0,0,64,64);
+const gtex=new THREE.CanvasTexture(gc);
+const glowSpr=(col,op,s)=>new THREE.Sprite(new THREE.SpriteMaterial({map:gtex,color:col,transparent:true,opacity:op,depthWrite:false}));
+// 島：綠色草皮
+S(1,'#5fd65c',0,0,0,2.4,.45,2.4).receiveShadow=true;
+const bot=new THREE.Mesh(new THREE.SphereGeometry(1,32,16,0,Math.PI*2,Math.PI/2,Math.PI/2),M('#b57a40'));
+bot.scale.set(2.3,1.7,2.3);bot.position.y=-.02;bot.castShadow=true;world.add(bot);
+S(.3,'#9b6431',.6,-1.6,.3,1,1.4,1);S(.2,'#9b6431',-.7,-1.4,-.4,1,1.4,1);S(.14,'#9b6431',-.1,-1.9,.5,1,1.3,1);
+// 火山：圓胖的鐘形山，山腳剛好貼在草皮上
+const TY=.12;const vol=new THREE.Group();vol.position.set(0,gy(1.7,0),0);world.add(vol);
+const NO=24,lpO=[];for(let i=0;i<=NO;i++){const s=i/NO;lpO.push([1.7-1.1*s,(1.7+TY)*Math.pow(Math.sin(s*Math.PI/2),1.15)])}
+const lp=lpO.map(p=>new THREE.Vector2(p[0],p[1]));lp.push(new THREE.Vector2(.52,1.74+TY),new THREE.Vector2(.4,1.62+TY),new THREE.Vector2(.001,1.55+TY));
+const KI=lpO.length,NP=lp.length-1;
+const profY=r=>{if(r>=1.7)return 0;if(r<=.6)return 1.62+TY;for(let i=0;i<NO;i++){const a=lpO[i],b=lpO[i+1];if(r<=a[0]&&r>=b[0])return a[1]+(b[1]-a[1])*(a[0]-r)/(a[0]-b[0])}return 1.62+TY};
+// 山體只有兩種純色：藍色與白色的雪頂，雪線是彎彎的不規則曲線
+const bandTex=(()=>{const W=1024,H=512,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d'),im=x.createImageData(W,H),
+cols=['#5aa9ff','#ffffff'].map(h=>new THREE.Color(h)),cd=new THREE.Color('#4a3a3a');
+for(let py=0;py<H;py++){const v=1-(py+.5)/H,pi=v*NP,i0=Math.min(NP-1,Math.floor(pi)),yy=lp[i0].y+(pi-i0)*(lp[i0+1].y-lp[i0].y);
+for(let px=0;px<W;px++){const th=px/W*Math.PI*2,b3=1.3+TY*.8+.12*Math.sin(5*th+.5)+.05*Math.sin(8*th+1);
+const k=pi>=KI?-1:yy<b3?0:1,cc=k<0?cd:cols[k],o=(py*W+px)*4;
+im.data[o]=cc.r*255;im.data[o+1]=cc.g*255;im.data[o+2]=cc.b*255;im.data[o+3]=255}}
+x.putImageData(im,0,0);return new THREE.CanvasTexture(c)})();
+const cone=new THREE.Mesh(new THREE.LatheGeometry(lp,64),new THREE.MeshToonMaterial({map:bandTex,gradientMap:gm,side:THREE.DoubleSide}));
+cone.castShadow=true;cone.receiveShadow=true;vol.add(cone);
+const crater=new THREE.Mesh(new THREE.CircleGeometry(.46,32),B('#ffb02e'));crater.rotation.x=-Math.PI/2;crater.position.y=1.6+TY;vol.add(crater);
+const lc=new THREE.Color();
+// 熔岩河：三條固定形狀的長條，用流動的亮色紋理表現流動，越往下游越寬，一直流到草地邊緣
+const lavaTex=(()=>{const c=document.createElement('canvas');c.width=64;c.height=256;const x=c.getContext('2d'),im=x.createImageData(64,256),r0=new THREE.Color('#d6200f'),r1=new THREE.Color('#ff7a1a'),r2=new THREE.Color('#ffe14a'),tc=new THREE.Color();
+for(let y=0;y<256;y++)for(let i=0;i<64;i++){const u=i/63,v=y/256,edge=1-Math.pow(Math.abs(2*u-1),1.6),wave=.5+.5*Math.sin(Math.PI*2*(v*3+.25*Math.sin(Math.PI*2*u*2))),s=Math.min(1,Math.max(0,.15+.45*edge+.45*wave*edge));
+if(s<.5)tc.copy(r0).lerp(r1,s/.5);else tc.copy(r1).lerp(r2,(s-.5)/.5);const k=(y*64+i)*4;im.data[k]=tc.r*255;im.data[k+1]=tc.g*255;im.data[k+2]=tc.b*255;im.data[k+3]=255}
+x.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,3);return t})();
+const gl=r=>gy(r,0)-gy(1.7,0),hr=r=>r<=1.7?profY(r):gl(r);
+[.35,1.55,4.2].forEach(a0=>{const N=60,M2=10,pos=[],uv=[],idx=[];
+for(let i=0;i<=N;i++){const f=i/N,r=.64+f*1.75,th=a0+.14*Math.sin(f*7+a0*3),w=.25+1.5*Math.pow(f,1.2);
+for(let j=0;j<=M2;j++){const u=j/M2,an=th+(u-.5)*w/r;pos.push(r*Math.cos(an),hr(r)+.04,r*Math.sin(an));uv.push(u,f)}}
+for(let i=0;i<N;i++)for(let j=0;j<M2;j++){const k=i*(M2+1)+j,k2=k+M2+1;idx.push(k,k+1,k2,k+1,k2+1,k2)}
+const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);
+vol.add(new THREE.Mesh(g,new THREE.MeshBasicMaterial({map:lavaTex,side:THREE.DoubleSide})))});
+// 火山後方的暖色光暈與往外擴散的熱浪光環
+const vhalo=glowSpr('#ffb347',.25);vhalo.scale.set(6.5,6.5,1);vhalo.position.set(0,1.2+TY*.5,-1);vol.add(vhalo);
+const hrings=[0,1,2].map(i=>{const m=new THREE.Mesh(new THREE.RingGeometry(.92,1,56),new THREE.MeshBasicMaterial({color:'#ffcf70',transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));m.position.set(0,1.9+TY,.2);vol.add(m);return m});
+// 火山的臉：像太陽一樣，彎彎的眼睛、彎彎的嘴巴、一點點腮紅，小小的很可愛
+const vf=new THREE.Group();vol.add(vf);let rF=1.3;for(let r=1.7;r>.6;r-=.005){if(profY(r)>=.8){rF=r;break}}
+const eyeA=[],blush=[];
+[-1,1].forEach(s=>{const e=new THREE.Mesh(new THREE.TorusGeometry(.05,.013,6,14,Math.PI),M('#6b3a12'));e.position.set(.15*s,.06,.03);vf.add(e);eyeA.push(e);
+blush.push(S(.055,'#ff9a8a',.27*s,-.04,0,1.1,.6,.4,vf))});
+const mSmile=new THREE.Mesh(new THREE.TorusGeometry(.065,.013,6,16,Math.PI),M('#6b3a12'));mSmile.rotation.z=Math.PI;mSmile.position.set(0,-.01,.03);vf.add(mSmile);
+const mOpen=S(.045,'#6b3a12',0,-.07,.03,1,1.2,.4,vf);
+const sweat=new THREE.Group();vf.add(sweat);S(.03,'#8ed0ff',0,0,0,.8,1,.6,sweat);{const k=new THREE.Mesh(new THREE.ConeGeometry(.021,.055,10),M('#8ed0ff'));k.position.y=.042;sweat.add(k)}
+vf.traverse(o=>{o.castShadow=false});
+// 煙：圓滾滾的雲團
+const sm1=[],smMat=new THREE.MeshToonMaterial({color:'#f4f4f8',gradientMap:gm,transparent:true,opacity:.8});
+for(let i=0;i<10;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(1,16,12),smMat.clone());m.castShadow=false;vol.add(m);sm1.push(m)}
+// 往上飄的火星
+const emb=[];for(let i=0;i<18;i++){const m=G(.035,i%2?'#ffd36b':'#ff9a2e',0,0,0,1,1,1,vol);emb.push(m)}
+// 岩漿彈：圓潤的小岩石
+const bombs=[];for(let i=0;i<40;i++){const m=G(.07+Math.random()*.05,i%2?'#ffd24a':'#ff6a1a',0,-5,0,1,1,1,vol);m.visible=false;bombs.push({m,vx:0,vy:0,vz:0,on:0})}
+function spawn(n,pw){for(const b of bombs){if(n<=0)break;if(b.on)continue;const a=Math.random()*6.283,s=pw*(.3+Math.random()*.7);
+b.on=1;b.vx=Math.cos(a)*s*.9;b.vz=Math.sin(a)*s*.9;b.vy=2.6+Math.random()*2.8*Math.min(1.6,pw);b.m.position.set(Math.cos(a)*.15,1.7+TY,Math.sin(a)*.15);b.m.visible=true;n--}}
+const flare=glowSpr('#ffc04a',0);flare.position.y=1.8+TY;flare.scale.set(5,5,1);vol.add(flare);
+const wave=new THREE.Mesh(new THREE.RingGeometry(.9,1,64),new THREE.MeshBasicMaterial({color:'#ff9a2e',transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));
+wave.rotation.x=-Math.PI/2;wave.position.y=1.7+TY;vol.add(wave);
+const pl=new THREE.PointLight(0xffa860,.35,4);pl.position.set(0,2.2+TY,0);vol.add(pl);
+// 大魔王：超巨大的熔岩水晶寶寶
+const boss=new THREE.Group();boss.position.set(0,1.5+TY,0);boss.scale.setScalar(.001);vol.add(boss);
+const bg=new THREE.IcosahedronGeometry(.95,2),ps=bg.attributes.position,cols2=[],c0=new THREE.Color('#d6200f'),c1=new THREE.Color('#ff7a1a'),c2=new THREE.Color('#ffe14a'),tc=new THREE.Color();
+for(let i=0;i<ps.count;i+=3){const cy=(ps.getY(i)+ps.getY(i+1)+ps.getY(i+2))/3,tt=Math.min(1,Math.max(0,(cy+.95)/1.9+(Math.random()-.5)*.22));
+if(tt<.5)tc.copy(c0).lerp(c1,tt/.5);else tc.copy(c1).lerp(c2,(tt-.5)/.5);for(let k=0;k<3;k++)cols2.push(tc.r,tc.g,tc.b)}
+bg.setAttribute('color',new THREE.Float32BufferAttribute(cols2,3));
+const bm=new THREE.MeshPhongMaterial({vertexColors:true,flatShading:true,shininess:80,specular:0xffffff,emissive:0xff4a00,emissiveIntensity:.25});
+const body=new THREE.Mesh(bg,bm);body.scale.set(1,1.25,1);body.position.y=1.2;body.castShadow=true;boss.add(body);
+[[0,2.5,0,0],[-.45,2.35,0,.45],[.45,2.35,0,-.45]].forEach(h=>{const c=new THREE.Mesh(new THREE.ConeGeometry(.17,.6,14),new THREE.MeshPhongMaterial({color:'#ffe14a',flatShading:true,shininess:90,emissive:'#ffb000',emissiveIntensity:.5}));
+c.position.set(h[0],h[1],h[2]);c.rotation.z=h[3];boss.add(c);S(.075,'#fff2a0',h[0]-Math.sin(h[3])*.3,h[1]+Math.cos(h[3])*.3,h[2],1,1,1,boss)});
+const bsh=new THREE.Shape();bsh.moveTo(-.17,-.05);bsh.quadraticCurveTo(-.14,.02,.05,.1);bsh.quadraticCurveTo(.12,.07,.21,-.07);bsh.quadraticCurveTo(.1,-.01,-.02,-.02);bsh.quadraticCurveTo(-.1,-.04,-.17,-.05);
+const browGeo=new THREE.ExtrudeGeometry(bsh,{depth:.05,bevelEnabled:true,bevelSize:.012,bevelThickness:.012,bevelSegments:2,curveSegments:10}),browMat=new THREE.MeshToonMaterial({color:'#2a0d05',gradientMap:gm,side:THREE.DoubleSide});
+[-1,1].forEach(s=>{S(.2,'#fffbe0',.3*s,1.5,.86,1.2,.42,.5,boss);S(.07,'#2a0d05',.3*s,1.49,.97,1,1,.6,boss);S(.022,'#ffffff',.32*s,1.52,1.01,1,1,.6,boss);
+const br=new THREE.Mesh(browGeo,browMat);br.scale.set(1.15*s,1.15,1.15);br.position.set(.3*s,1.7,.88);br.rotation.z=-.22*s;boss.add(br);
+S(.1,'#ff7a1a',.58*s,1.15,.55,1.2,.7,.5,boss)});
+const mouth=S(.26,'#2a0d05',0,.95,.93,1.6,.55,.4,boss);
+S(.035,'#4a2a1a',.6,.83,.69,1,1,.6,boss);
+const fangs=[];[-1,1].forEach(s=>{const f=new THREE.Mesh(new THREE.ConeGeometry(.06,.15,8),M('#ffffff'));f.rotation.x=Math.PI;f.position.set(.2*s,1.05,.98);boss.add(f);fangs.push(f)});
+const arms=[-1,1].map(s=>S(.2,'#ff7a1a',1.05*s,1.1,.1,1,1.3,1,boss));
+const bglow=glowSpr('#ff9a2e',.55);bglow.position.set(0,1.4,-.5);bglow.scale.set(5.5,5.5,1);boss.add(bglow);
+const brings=[0,1].map(i=>{const m=new THREE.Mesh(new THREE.RingGeometry(.92,1,56),new THREE.MeshBasicMaterial({color:'#ffcf70',transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));m.position.set(0,1.3,-.2);boss.add(m);return m});
+boss.traverse(o=>{if(o.isMesh)o.castShadow=false});
+// 互動：點火山噴發；魔王出現後，再點一下魔王進入考題
+const el=R.domElement,ray=new THREE.Raycaster(),toast=document.getElementById('toast'),hint=document.getElementById('hint');
+let drag=0,px=0,moved=0,E=-1,tIdle=0,cb=0,Z0=8.4,hitT=-9,toastT=0,zoom=1,zoomT=1;
+const ndc=e=>new THREE.Vector2(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);
+const bossReady=()=>E>=3.6&&E<45;
+function enterExam(){hitT=clk.elapsedTime;if(EXAM_URL){window.open(encodeURI(EXAM_URL),'_blank')}else{toast.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>toast.classList.remove('on'),2600)}}
+el.addEventListener('wheel',e=>{e.preventDefault();zoomT=cl(zoomT*Math.exp(e.deltaY*.0012),.55,1.7)},{passive:false});
+el.addEventListener('pointerdown',e=>{drag=1;px=e.clientX;moved=0;el.setPointerCapture(e.pointerId)});
+el.addEventListener('pointermove',e=>{if(drag){const d=e.clientX-px;px=e.clientX;moved+=Math.abs(d);world.rotation.y+=d*.01;return}
+ray.setFromCamera(ndc(e),cam);const hb=bossReady()&&ray.intersectObject(boss,true).length,hv=E<0&&ray.intersectObject(vol,true).length;el.style.cursor=(hb||hv)?'pointer':'grab'});
+el.addEventListener('pointerup',e=>{drag=0;if(moved<5){ray.setFromCamera(ndc(e),cam);
+if(bossReady()){if(ray.intersectObject(boss,true).length)enterExam()}
+else if(E<0&&ray.intersectObject(vol,true).length)E=0}});
+function fit(){R.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();Z0=Math.max(8.4,8.4*(1.15/cam.aspect))}
+function paper(){const c=document.getElementById('paper'),d=Math.min(devicePixelRatio,2),w=innerWidth,h=innerHeight;
+c.width=w*d;c.height=h*d;const g=c.getContext('2d');g.scale(d,d);
+const b=g.createRadialGradient(w/2,h*.42,Math.min(w,h)*.2,w/2,h/2,Math.max(w,h)*.75);
+b.addColorStop(0,'#fff8e2');b.addColorStop(.65,'#f6e5b8');b.addColorStop(1,'#dcb872');g.fillStyle=b;g.fillRect(0,0,w,h);
+for(let i=0;i<Math.floor(w*h/120);i++){g.fillStyle=Math.random()<.5?'rgba(140,100,40,.05)':'rgba(255,255,255,.08)';g.fillRect(Math.random()*w,Math.random()*h,1+Math.random()*2,1+Math.random()*2)}
+g.lineJoin='round';const cx=w/2,cy=h*.6,u=Math.max(w,h)*.045;
+for(let k=1;k<=11;k++){g.beginPath();for(let s=0;s<=120;s++){const t=s/120*Math.PI*2,
+r=u*k*(1+.16*Math.sin(2*t+k*.7)+.1*Math.sin(3*t+1.7*k)+.06*Math.sin(5*t+k));
+const x=cx+r*1.5*Math.cos(t),y=cy+r*.75*Math.sin(t);s?g.lineTo(x,y):g.moveTo(x,y)}
+g.closePath();g.strokeStyle=k%4==0?'rgba(120,75,30,.36)':'rgba(120,75,30,.22)';g.lineWidth=k%4==0?2.2:1.3;g.stroke()}}
+addEventListener('resize',()=>{fit();paper()});fit();paper();
+const clk=new THREE.Clock();let pE=-1,lavaSp=.1,lavaPh=0;
+R.setAnimationLoop(()=>{
+const dt=Math.min(clk.getDelta(),.05),t=clk.elapsedTime;
+if(!drag)world.rotation.y+=dt*.1;
+if(E>=0){E+=dt;if(E>46.5){E=-1;tIdle=0}}else tIdle+=dt;
+const act=E>=0,inten=act?(E<2.4?1:.5):Math.min(.9,.25+tIdle*.012),erupt=act&&E<5?1:0,th=world.rotation.y;
+hint.style.opacity=act&&E>=3.6?0:.7;
+// 搖晃：越來越激烈，噴發時最強，魔王出場後只剩輕微的震動
+const a=.008+.045*inten*inten+erupt*.05;
+world.position.set((Math.random()-.5)*a,Math.sin(t*.9)*.05+(Math.random()-.5)*a,(Math.random()-.5)*a);
+if(act&&pE<1.2&&E>=1.2)spawn(28,2.4);if(act&&pE<1.9&&E>=1.9)spawn(12,1.7);if(act&&pE<2.6&&E>=2.6)spawn(10,1.4);pE=act?E:-1;
+if((!act||E<5)&&Math.random()<dt*(.4+4*inten*inten))spawn(1,.7);
+// 火山口與熔岩流：點火山之前流得很慢，點了之後才變快
+lc.setHSL(.09+.03*Math.sin(t*3),1,.5+.12*inten+(act&&E<2?.15:0));crater.material.color.copy(lc);
+lavaSp+=((act?.7:.08+.08*inten)-lavaSp)*Math.min(1,dt*3);lavaPh+=dt*lavaSp;lavaTex.offset.y=-(lavaPh%1);
+// 煙
+sm1.forEach((m,i)=>{const f=(t*(.14+.12*inten)+i/10)%1,H=1.8+1.4*erupt;
+m.position.set(Math.sin(i*3+f*2)*.25*f+.35*f,1.78+TY+f*H,Math.cos(i*2.3)*.2*f);
+m.scale.setScalar((.16+.5*f)*(.7+.6*inten)*(1+.6*erupt));m.material.opacity=.9*Math.pow(1-f,1.1)*cl(.5+inten,0,1)});
+// 火星：越激烈越多
+emb.forEach((m,i)=>{const f=(t*.25+i/18)%1,on=i/18<inten+.15;m.visible=on;m.position.set(Math.sin(i*2.3+f*3)*.5*f,1.8+TY+f*(1.4+inten),Math.cos(i*1.7)*.4*f);m.scale.setScalar(Math.max(.01,(1-f)*(.6+.8*(.5+.5*Math.sin(t*5+i)))))});
+// 岩漿彈
+bombs.forEach(b=>{if(!b.on)return;b.vy-=5.5*dt;const p=b.m.position;p.x+=b.vx*dt;p.y+=b.vy*dt;p.z+=b.vz*dt;
+if(b.vy<0&&p.y<profY(Math.hypot(p.x,p.z))+.02||p.y<-.2){b.on=0;b.m.visible=false}});
+// 光暈、熱浪光環、衝擊波、點光源
+flare.material.opacity=Math.max(.2*inten,act&&E>1.1&&E<2.2?1-(E-1.1)/1.1:0);
+vhalo.material.opacity=.2+.2*inten+(act&&E<3?.2:0);
+hrings.forEach((m,i)=>{const q=((t+i)/3.2)%1;m.rotation.y=-th;m.scale.setScalar(1+q*1.6);m.material.opacity=.3*inten*(1-q)*(1-q)});
+const wr=(E-1.2)/1.6,wv=act&&wr>0&&wr<1;wave.visible=wv;if(wv){wave.scale.setScalar(.5+wr*3.6);wave.material.opacity=.8*(1-wr)}
+pl.intensity=(.2+inten*.25+(act&&E<3?.5:0))*(.85+Math.random()*.3);
+// 火山的臉
+const st=!act?'idle':E<1.3?'strain':E<3.2?'blow':'relief',tight=st==='strain'||st==='blow';
+vf.position.set(-Math.sin(th)*(rF+.1),.8,Math.cos(th)*(rF+.1));vf.rotation.y=-th;
+const hot=st==='idle'?inten:st==='relief'?.1:1;
+eyeA.forEach(e=>{e.scale.y=tight?.3:1});
+blush.forEach(m=>{m.scale.set(1.1+.35*hot,.62+.22*hot,.4);m.material.color.setHSL(.03+.02*(1-hot),1,.8-.2*hot)});
+mSmile.visible=st!=='blow';mSmile.scale.set(1-.25*hot,st==='strain'?.3:1-.35*hot,1);
+mOpen.visible=st==='blow';mOpen.scale.set(1,1+.4*Math.abs(Math.sin(t*9)),.4);
+sweat.visible=(st==='idle'&&inten>.6)||st==='strain';{const f=(t*.7)%1;sweat.position.set(.34,.2-f*.28,.05);sweat.scale.setScalar(.8+.4*(1-f))}
+// 大魔王：出現後會一直等著被點，沒人點約四十秒後才縮回去
+const bs=E<2?0:E<3.3?back((E-2)/1.3):E<45?1:Math.max(0,1-(E-45)/1.5);
+const hit=Math.max(0,1-(t-hitT)/.6);
+boss.scale.setScalar(Math.max(.001,bs)*(1+.12*Math.sin(Math.min(1,(t-hitT)/.6)*Math.PI)*(hitT>0?1:0)));boss.visible=bs>.002;
+boss.position.y=1.5+TY+(E>=2?Math.min(1,(E-2)/1.3)*.25:0)+Math.sin(t*2)*.05;
+const rq=E>=6?(E-6)%7:9,roar=E>=3.3&&E<6?Math.max(0,Math.sin((E-3.3)*5)):rq<1?Math.sin(rq*Math.PI):hit;
+mouth.scale.y=.2+.9*roar;fangs.forEach(f=>{f.visible=roar>.15});boss.rotation.z=roar*Math.sin(t*28)*.03;
+arms.forEach((m,i)=>{m.position.y=1.1+.35*roar+Math.sin(t*3+i)*.05+(E>=6?.12*Math.sin(t*2.5+i*3):0)});
+bm.emissiveIntensity=.25+.15*Math.sin(t*5)+.3*roar;boss.rotation.y=-th+Math.sin(t*.7)*.25;
+bglow.material.opacity=.45+.15*Math.sin(t*2)+.25*roar;
+brings.forEach((m,i)=>{const q=((t+i*1.2)/2.4)%1;m.rotation.y=-th-boss.rotation.y;m.scale.setScalar(1.6+q*2);m.material.opacity=(bs>.9?.28:0)*(1-q)*(1-q)});
+// 鏡頭：噴發、魔王出場時拉遠
+cb+=((act&&E>.8&&E<45?1:0)-cb)*Math.min(1,dt*2.2);
+const sh=act&&E<5?(Math.random()-.5)*.05:0;
+zoom+=(zoomT-zoom)*Math.min(1,dt*8);const ty0=.9+1*cb;cam.position.set(sh,ty0+(3.8+1.4*cb-ty0)*zoom,(Z0+2.4*cb)*zoom);cam.lookAt(0,ty0,0);
+R.render(sc,cam)});
+}
+</script>
+</body>
+</html>

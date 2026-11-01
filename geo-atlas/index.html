@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>地理地圖集</title>
+<style>
+:root{color-scheme:light;--ink:#4a2a0a}
+html,body{height:100%;margin:0;overflow:hidden;background:#2a1a0e}
+body{font-family:"Noto Serif TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",serif;transition:opacity .35s}
+body.leaving{opacity:0}
+.bg{position:fixed;inset:-6%;background:#2a1a0e center/cover no-repeat;filter:blur(26px) brightness(.5) saturate(1.1)}
+.stage{position:absolute;left:50%;top:50%;width:min(100vw,calc(100vh * 16 / 9));aspect-ratio:16/9;transform:translate(-50%,-50%);container-type:inline-size;user-select:none;-webkit-user-select:none}
+.world{position:absolute;inset:0;transition:transform .9s cubic-bezier(.55,0,.85,.4),opacity .9s ease-in}
+.world.out{transform:scale(1.9);opacity:0}
+.world.pre{transform:scale(1.45);opacity:0;transition:none}
+.world.back{transition:transform 1s cubic-bezier(.2,.6,.3,1),opacity 1s ease-out}
+.map{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.hs{position:absolute;transform:translate(-50%,-50%);aspect-ratio:1/1;border-radius:50%;display:block;text-decoration:none;outline:none;-webkit-tap-highlight-color:transparent;z-index:2}
+.hs:hover{cursor:pointer}
+.glow,.rays{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;mix-blend-mode:screen}
+.glow{width:290%;aspect-ratio:1;transform:translate(-50%,-50%) scale(var(--gs,.85));opacity:var(--g,0);background:radial-gradient(circle,rgba(255,244,190,.98) 0,rgba(255,206,100,.82) 22%,rgba(255,150,50,.5) 45%,rgba(255,110,30,.18) 62%,rgba(255,100,30,0) 72%)}
+.glow i{position:absolute;inset:0;border-radius:50%;animation:breathe 2.6s ease-in-out infinite}
+.glow i{background:radial-gradient(circle,rgba(255,240,170,.5) 0,rgba(255,240,170,0) 55%)}
+.rays{width:340%;aspect-ratio:1;transform:translate(-50%,-50%) rotate(0deg);opacity:calc(var(--g,0)*.65);background:repeating-conic-gradient(from 0deg,rgba(255,232,150,.55) 0 4deg,rgba(255,232,150,0) 4deg 18deg);-webkit-mask-image:radial-gradient(circle,#000 0,rgba(0,0,0,.55) 26%,transparent 56%);mask-image:radial-gradient(circle,#000 0,rgba(0,0,0,.55) 26%,transparent 56%);animation:spin 50s linear infinite}
+.lab{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--ls,.9));opacity:var(--l,0);white-space:nowrap;pointer-events:none;font-weight:900;letter-spacing:.1em;color:#fff3c2;font-size:clamp(18px,2.4vw,46px);font-size:calc(var(--r)*.62cqw);-webkit-text-stroke:.16em #4a2a0a;paint-order:stroke fill;text-shadow:0 0 .3em rgba(255,160,40,.95),0 0 .8em rgba(255,140,30,.9),0 .06em 0 #4a2a0a}
+.sps{position:absolute;left:50%;top:50%;width:34%;aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;opacity:calc(1 - var(--g,0)*1.8)}
+.sps .halo,.sps .star{position:absolute;animation:breath 4.8s ease-in-out infinite;animation-delay:var(--sd,0s)}
+.sps .halo{inset:-70%;border-radius:50%;background:radial-gradient(circle,rgba(255,228,140,.9) 0,rgba(255,192,84,.5) 34%,rgba(255,170,60,0) 70%);mix-blend-mode:screen}
+.sps .star{inset:0;background:radial-gradient(circle,#fff 0,#fff3c4 38%,rgba(255,214,120,.75) 80%);clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%)}
+.flash{position:fixed;inset:0;pointer-events:none;opacity:0;z-index:20;background:radial-gradient(circle at var(--fx,50%) var(--fy,50%),rgba(255,244,190,1) 0,rgba(255,190,80,.95) 30%,rgba(255,150,40,.85) 70%);transition:opacity .34s ease-in}
+body.leaving .flash{opacity:1}
+.ttl{position:absolute;left:50%;top:2.2%;transform:translateX(-50%);z-index:3;text-align:center;color:#fff3c2;font-weight:900;letter-spacing:.14em;font-size:clamp(16px,2.4cqw,40px);-webkit-text-stroke:.14em #4a2a0a;paint-order:stroke fill;text-shadow:0 0 .4em rgba(255,150,40,.7)}
+.ttl small{display:block;font-size:.5em;letter-spacing:.1em;margin-top:.2em}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes breath{0%,100%{opacity:.28;transform:scale(.86)}50%{opacity:1;transform:scale(1.12)}}
+.stage.edit .hs{outline:3px dashed rgba(255,255,255,.95);background:rgba(255,190,70,.28);cursor:move;touch-action:none}
+.stage.edit .lab{opacity:1;--ls:.55;font-size:calc(var(--r)*.36cqw)}
+.stage.edit .glow,.stage.edit .rays,.stage.edit .sps{display:none}
+#edit{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:30;width:min(92vw,720px);padding:10px 12px;border-radius:14px;background:rgba(40,24,10,.92);color:#ffe9b0;font:13px/1.5 "Noto Sans TC","Microsoft JhengHei",sans-serif}
+#edit textarea{width:100%;height:120px;margin-top:6px;border-radius:8px;border:1px solid #8a6a3a;background:#1d1208;color:#ffe9b0;font:12px/1.4 Consolas,monospace;box-sizing:border-box}
+#edit button{margin-top:6px;margin-right:8px;padding:5px 14px;border-radius:10px;border:0;background:#ffc04a;color:#3a2208;font-weight:700;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.glow i,.rays,.sps .halo,.sps .star{animation:none}}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+<div class="stage" id="stage"><div class="world" id="world"><img class="map" id="map" alt="" draggable="false"><div id="hs"></div></div><div class="ttl" id="ttl" hidden></div></div>
+<div class="flash" id="flash"></div>
+<div id="edit" hidden><div>校準模式：拖曳圓圈調整位置，在圓圈上滾動滾輪調整大小。調好後按「複製設定」，貼到 config.js，取代這一張藏寶圖的 buttons 整段。按 E 離開。</div><textarea id="out" readonly></textarea><button id="cp">複製設定</button><button id="ex">離開校準模式</button></div>
+<script src="config.js"></script>
+<script>
+(function(){
+// 預設設定：即使 config.js 不見了，地圖集一樣能打開
+var DEFB=[['general','通論島','islands/compass-island.html',21,37],['terrain','地形島','islands/terrain-island.html',43,26],['climate','氣候島','islands/climate-island.html',77,10],['hydro','水文島','islands/hydro-island.html',54,31],['population','人口島','islands/population-island.html',45.5,40],['industry','產業島','islands/industry-island.html',36,55],['transport','交通聚落島','islands/transport-island.html',60,50],['regional','區域發展島','islands/regional-island.html',52,70],['trial','試煉島','islands/trial-island.html',82,45]].map(function(a){return{id:a[0],name:a[1],href:a[2],x:a[3],y:a[4],r:4.4}}).concat([{id:'voyage1',name:'遠航',goto:'map2',x:36.5,y:69,r:5}]);
+var C=window.ATLAS_CONFIG||{},MAPS=(C.maps&&C.maps.length)?C.maps:[{id:'map1',image:'assets/map',buttons:DEFB},{id:'map2',image:'assets/map2',buttons:[{id:'voyage2',name:'遠航',goto:'map1',x:12,y:41.5,r:5}]}];
+if(C.title)document.title=C.title;
+var big=(innerWidth*(devicePixelRatio||1)>2100);
+function imgOf(m){return m.image+(big?'-2560.jpg':'-1920.jpg')}
+function mapById(id){for(var i=0;i<MAPS.length;i++)if(MAPS[i].id===id)return MAPS[i];return MAPS[0]}
+var stage=document.getElementById('stage'),world=document.getElementById('world'),mapEl=document.getElementById('map'),hsBox=document.getElementById('hs'),bgEl=document.getElementById('bg');
+if(C.showTitle){var t=document.getElementById('ttl');t.innerHTML=(C.title||'')+(C.subtitle?'<small>'+C.subtitle+'</small>':'');t.hidden=false}
+var cur=null,items=[],mx=-1e4,my=-1e4,editing=false,ptype='mouse',armed=null,armT=0,busy=false;
+function place(it){var p=it.b;it.a.style.left=p.x+'%';it.a.style.top=p.y+'%';it.a.style.width=(p.r*2)+'%';it.a.style.setProperty('--r',p.r)}
+// 顯示一張藏寶圖，並建立它的透明按鈕
+function build(m){cur=m;items=[];hsBox.innerHTML='';
+m.buttons.forEach(function(b,i){var a=document.createElement('a');a.className='hs';a.href=b.href||'#';a.setAttribute('aria-label',b.name||'');a.dataset.id=b.id;if(b.goto)a.dataset.goto=b.goto;
+a.innerHTML='<div class="rays"></div><div class="glow"><i></i></div><div class="sps" style="--sd:'+(i*1.3%4.8).toFixed(1)+'s"><span class="halo"></span><span class="star"></span></div><div class="lab">'+(b.name||'')+'</div>';
+hsBox.appendChild(a);var it={a:a,b:b,cur:0,tgt:0};items.push(it);place(it)});
+if(editing)dump()}
+function loadImg(m,cb){var im=new Image();im.onload=function(){cb(im.src)};im.onerror=function(){cb(imgOf(m))};im.src=imgOf(m)}
+function showNow(m,src){mapEl.src=src;bgEl.style.backgroundImage='url('+src.replace('2560','1920')+')';build(m);try{history.replaceState(null,'',m.id==='map1'?location.pathname:'#'+m.id)}catch(e){}}
+// 遠航：鏡頭朝帆船拉近、淡出，換成另一張藏寶圖，再從那張圖的帆船處慢慢拉遠
+function sail(targetId,fromBtn){if(busy)return;var m=mapById(targetId);if(m===cur)return;busy=true;var from=fromBtn.b;
+loadImg(m,function(src){world.style.transformOrigin=from.x+'% '+from.y+'%';world.className='world out';
+setTimeout(function(){var to=null;m.buttons.forEach(function(b){if(b.goto===cur.id)to=b});showNow(m,src);
+world.style.transformOrigin=(to?to.x:50)+'% '+(to?to.y:50)+'%';world.className='world pre';void world.offsetWidth;world.className='world back';
+setTimeout(function(){world.className='world';busy=false},1050)},900)})}
+var h0=(location.hash||'').replace('#','');var first=mapById(h0||MAPS[0].id);
+loadImg(first,function(src){showNow(first,src)});
+// 滑鼠越靠近，暖暖的光就越亮，島名浮現；一次只有最近的一座發光
+function sm(a,b,x){x=Math.max(0,Math.min(1,(x-a)/(b-a)));return x*x*(3-2*x)}
+stage.addEventListener('pointermove',function(e){ptype=e.pointerType||'mouse';mx=e.clientX;my=e.clientY});
+stage.addEventListener('pointerdown',function(e){ptype=e.pointerType||'mouse';mx=e.clientX;my=e.clientY});
+document.documentElement.addEventListener('mouseleave',function(){mx=my=-1e4});
+var last=performance.now();
+function loop(now){var dt=Math.min(.05,(now-last)/1000);last=now;var r0=stage.getBoundingClientRect(),W=r0.width,H=r0.height,best=-1,bk=0;
+items.forEach(function(it,i){var p=it.b,R=p.r/100*W,cx=r0.left+p.x/100*W,cy=r0.top+p.y/100*H,d=Math.hypot(mx-cx,my-cy),k=Math.max(0,Math.min(1,(2.4*R-d)/(1.4*R)));
+if(it.a===document.activeElement||armed===it.b.id)k=1;if(k>bk){bk=k;best=i}});
+if(armed&&now>armT)armed=null;
+items.forEach(function(it,i){it.tgt=(!editing&&!busy&&i===best)?bk:0;it.cur+=(it.tgt-it.cur)*Math.min(1,dt*7);var c=it.cur;
+it.a.style.setProperty('--g',c.toFixed(3));it.a.style.setProperty('--gs',(.85+.3*c).toFixed(3));it.a.style.setProperty('--l',sm(.35,.85,c).toFixed(3));it.a.style.setProperty('--ls',(.88+.12*sm(.35,.9,c)).toFixed(3))});
+requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+// 點按鈕：進入島（暖色的光淡出後進入），或遠航到另一張藏寶圖；觸控螢幕第一次點只顯示光暈和名字，第二次才動作
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a.hs');if(!a)return;e.preventDefault();if(editing||busy)return;
+if(ptype==='touch'&&armed!==a.dataset.id){armed=a.dataset.id;armT=performance.now()+4500;return}
+var it=items.filter(function(i){return i.a===a})[0];
+if(a.dataset.goto){sail(a.dataset.goto,it);return}
+var r=a.getBoundingClientRect(),f=document.getElementById('flash');f.style.setProperty('--fx',(r.left+r.width/2)+'px');f.style.setProperty('--fy',(r.top+r.height/2)+'px');
+document.body.classList.add('leaving');setTimeout(function(){location.href=a.getAttribute('href')},360)});
+addEventListener('pageshow',function(){document.body.classList.remove('leaving')});
+// 校準模式（按 E）：拖曳按鈕調位置、滾輪調大小，並產生可以貼回 config.js 的設定
+var panel=document.getElementById('edit'),out=document.getElementById('out'),drag=null;
+function dump(){var s='      buttons: [\n';cur.buttons.forEach(function(b,i){s+='        { id: \''+b.id+'\', name: \''+(b.name||'')+'\', '+(b.goto?'goto: \''+b.goto+'\'':'href: \''+(b.href||'')+'\'')+', x: '+b.x.toFixed(1)+', y: '+b.y.toFixed(1)+', r: '+b.r.toFixed(1)+' }'+(i<cur.buttons.length-1?',':'')+'\n'});out.value='// 這是「'+cur.id+'」這張藏寶圖的按鈕，貼到 config.js 取代這一張圖的 buttons 整段\n'+s+'      ]'}
+function setEdit(on){editing=on;stage.classList.toggle('edit',on);panel.hidden=!on;if(on)dump()}
+addEventListener('keydown',function(e){if((e.key==='e'||e.key==='E')&&!e.ctrlKey&&!e.metaKey&&!e.altKey)setEdit(!editing)});
+document.getElementById('ex').onclick=function(){setEdit(false)};
+document.getElementById('cp').onclick=function(){out.select();try{document.execCommand('copy')}catch(x){}};
+stage.addEventListener('pointerdown',function(e){if(!editing)return;var a=e.target.closest('a.hs');if(!a)return;drag=items.filter(function(i){return i.a===a})[0];a.setPointerCapture(e.pointerId);e.preventDefault()});
+stage.addEventListener('pointermove',function(e){if(!editing||!drag)return;var r0=stage.getBoundingClientRect(),p=drag.b;p.x=Math.max(0,Math.min(100,(e.clientX-r0.left)/r0.width*100));p.y=Math.max(0,Math.min(100,(e.clientY-r0.top)/r0.height*100));place(drag);dump()});
+stage.addEventListener('pointerup',function(){drag=null});
+stage.addEventListener('wheel',function(e){if(!editing)return;var a=e.target.closest('a.hs');if(!a)return;e.preventDefault();var it=items.filter(function(i){return i.a===a})[0],p=it.b;p.r=Math.max(1.5,Math.min(12,p.r*(e.deltaY<0?1.06:.94)));place(it);dump()},{passive:false});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>氣候島｜風格測試</title>
+<style>
+:root{color-scheme:light;--ink:#6b4a22;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:#f3dfaa;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+canvas:active{cursor:grabbing}
+p{position:fixed;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom,0px));margin:0;text-align:center;color:var(--ink);opacity:.65;font-size:14px;pointer-events:none}
+#toast{position:fixed;left:50%;top:18%;transform:translateX(-50%);padding:10px 20px;border-radius:16px;background:rgba(255,248,226,.96);border:2px solid rgba(120,75,30,.4);color:var(--ink);font-size:16px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s}
+#toast.on{opacity:1}
+.back{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:20;width:46px;height:46px;border-radius:50%;background:rgba(255,248,226,.88);border:2px solid rgba(120,75,30,.45);box-shadow:0 3px 8px rgba(90,60,20,.25);display:grid;place-items:center;transition:transform .15s}
+.back:hover,.back:focus-visible{transform:scale(1.1)}
+.back svg{width:26px;height:26px}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html" aria-label="回地圖集" title="回地圖集"><svg viewBox="0 0 24 24" fill="none" stroke="#6b4a22" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
+<canvas id="paper" style="pointer-events:none"></canvas>
+<p>拖曳旋轉，點藍色水晶打開氣候模型，點水晶小精靈會跳</p>
+<div id="toast">這個入口要放在地圖集資料夾裡，才能打開你的模型</div>
+<script src="../lib/three.min.js"></script>
+<script>
+const MODEL_URL='../teaching/climate/地形觀察系統_050_重播功能修正版_1.html';
+if(!window.THREE){document.body.insertAdjacentHTML('beforeend','<p style="top:45%">3D 函式庫載入失敗，請確認 lib 資料夾是否完整。</p>');}
+else{
+const R=new THREE.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(R.domElement);
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(38,1,.1,50);
+const hl=new THREE.HemisphereLight(0xffffff,0xdde2f4,.5);sc.add(hl);
+const sun=new THREE.DirectionalLight(0xffffff,.62);sun.position.set(4.5,5.5,-2);sun.castShadow=true;
+sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-5,right:5,top:5,bottom:-5});sc.add(sun);
+const gm=new THREE.DataTexture(new Uint8Array([150,150,150,255,215,215,215,255,255,255,255,255]),3,1,THREE.RGBAFormat);
+gm.minFilter=gm.magFilter=THREE.NearestFilter;gm.generateMipmaps=false;gm.needsUpdate=true;
+const world=new THREE.Group();sc.add(world);
+const M=c=>new THREE.MeshToonMaterial({color:c,gradientMap:gm});
+function S(r,c,x,y,z,sx,sy,sz,p){const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),M(c));
+m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;(p||world).add(m);return m}
+const cl=(x,a,b)=>Math.max(a,Math.min(b,x)),sm=(a,b,x)=>{const t=cl((x-a)/(b-a),0,1);return t*t*(3-2*t)};
+const gy=(x,z)=>.45*Math.sqrt(Math.max(0,1-(x*x+z*z)/5.76));
+// 島底
+const bot=new THREE.Mesh(new THREE.SphereGeometry(1,32,16,0,Math.PI*2,Math.PI/2,Math.PI/2),M('#b57a40'));
+bot.scale.set(2.3,1.7,2.3);bot.position.y=-.02;bot.castShadow=true;world.add(bot);
+S(.3,'#9b6431',.6,-1.6,.3,1,1.4,1);S(.2,'#9b6431',-.7,-1.4,-.4,1,1.4,1);S(.14,'#9b6431',-.1,-1.9,.5,1,1.3,1);
+// 地形：一道圓潤的山脊把島分成迎風面（左）和背風面（右）
+const F=[];
+const hAt=(x,z)=>{let h=0;for(const f of F)h+=f[4]*Math.exp(-((x-f[0])**2/(2*f[2]*f[2])+(z-f[1])**2/(2*f[3]*f[3])));return h*sm(2.35,1.8,Math.hypot(x,z))};
+const yAt=(x,z)=>gy(x,z)+hAt(x,z);
+const NR=40,NS=96,NV=(NR+1)*(NS+1),idx=[],tp=new Float32Array(NV*3),wp=new Float32Array(NV*3),tu=new Float32Array(NV*2);
+for(let i=0;i<=NR;i++)for(let j=0;j<=NS;j++){const r=i/NR*2.4,a=j/NS*Math.PI*2,k=i*(NS+1)+j,x=r*Math.cos(a),z=r*Math.sin(a),h=hAt(x,z),b=gy(x,z);
+tp[k*3]=wp[k*3]=x;tp[k*3+2]=wp[k*3+2]=z;tp[k*3+1]=b+h;wp[k*3+1]=b-.12;
+tu[k*2]=.5+cl((x+.15*Math.sin(z*3.2))*2.5,-.4,.4);tu[k*2+1]=cl((h+.4)/1.5,0,1)}
+for(let i=0;i<NR;i++)for(let j=0;j<NS;j++){const a=i*(NS+1)+j,b=a+NS+1;idx.push(a,a+1,b,a+1,b+1,b)}
+const tg=new THREE.BufferGeometry(),wg=new THREE.BufferGeometry();
+tg.setAttribute('position',new THREE.BufferAttribute(tp,3));tg.setAttribute('uv',new THREE.BufferAttribute(tu,2));tg.setIndex(idx);tg.computeVertexNormals();
+wg.setAttribute('position',new THREE.BufferAttribute(wp,3));wg.setIndex(idx);wg.computeVertexNormals();
+// 等高色帶：左欄是濕潤的迎風面，右欄是乾燥的背風面，每一階都是純色，邊界留細線
+const tex=(()=>{const H=128,c=document.createElement('canvas');c.width=2;c.height=H;const x=c.getContext('2d'),
+cols=[['#3fc7a3','#67d95a','#b9e24c','#e9b94f','#ffffff'],['#f2dc82','#f0b95a','#e58f4a','#c9694a','#ffffff']],ln=['#3d8f52','#a2623a'],ed=[.213,.347,.533,.767];
+for(let r=0;r<H;r++){const v=1-(r+.5)/H;let k=0;while(k<4&&v>ed[k])k++;for(let s=0;s<2;s++){let col=cols[s][k];for(const e of ed)if(Math.abs(v-e)<1.2/H)col=ln[s];x.fillStyle=col;x.fillRect(s,r,1,1)}}
+const t=new THREE.CanvasTexture(c);t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;return t})();
+S(1,'#5fd65c',0,0,0,2.4,.45,2.4).receiveShadow=true;
+
+// 彩虹：七條純色的半圓弧，立在島的後方
+const RB=['#ff8a96','#ffb36b','#ffe58a','#8ff0a8','#8cc8ff','#9a95ff','#d9a0ff'],rb=new THREE.Group();rb.position.set(-.3,yAt(-.3,-.2)+.05,-.2);world.add(rb);
+const rbm=RB.map((c,i)=>{const m=new THREE.MeshToonMaterial({color:c,gradientMap:gm,transparent:true,opacity:0,depthWrite:false});
+rb.add(new THREE.Mesh(new THREE.TorusGeometry(.62-i*.04,.02,8,48,Math.PI),m));return m});
+// 雲精靈與雨
+function cloud(){const g=new THREE.Group();world.add(g);const ms=[[0,0,0,.5],[.5,-.05,.05,.38],[-.5,-.05,-.05,.4],[.2,.28,0,.36],[-.25,.25,.1,.3]].map(a=>S(a[3],'#ffffff',a[0],a[1],a[2],1,.85,1,g));
+[-1,1].forEach(s=>{S(.035,'#2b2b3a',.15*s,.04,.48,1,1,1,g);S(.04,'#ff9fb8',.27*s,-.04,.44,1,.6,.5,g)});
+const N=26,pa=new Float32Array(N*3),pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pa,3));
+const pm=new THREE.PointsMaterial({color:0x4aa8ff,size:.1,transparent:true}),pts=new THREE.Points(pg,pm);pts.frustumCulled=false;world.add(pts);
+const o=Array.from({length:N},()=>({x:(Math.random()-.5)*.9,z:(Math.random()-.5)*.6,f:Math.random(),v:.5+Math.random()*.4}));
+g.traverse(o=>{o.castShadow=false});return{g,ms,pa,pg,pm,o}}
+const clouds=[{...cloud(),z:.15,off:0}];
+// 雲的狀態循環：出現、不下雨、下雨、閃電、消失，再重新出現
+const back=x=>1+2.7*Math.pow(x-1,3)+1.7*Math.pow(x-1,2);let rbX=-.3,rbZ=-.2,bn=-1,bp=[],cX=0,cZ=0,rainOn=0,phi=0,W=0,rbPrev=0;
+const SEG=[['appear',2],['calm',7],['wind',3],['storm',8],['clear',4],['vanish',2]],TOT=26;
+function mode(t){let q=t,a=0;for(let i=0;i<SEG.length;i++){if(q<a+SEG[i][1])return{m:SEG[i][0],u:(q-a)/SEG[i][1],i};a+=SEG[i][1]}return{m:'hide',u:0,i:6}}
+const bg2=new THREE.Group();world.add(bg2);const bseg=[];for(let i=0;i<7;i++){const m=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,1,6),new THREE.MeshBasicMaterial({color:'#fff27a'}));bg2.add(m);bseg.push(m)}
+let lastSeg=-1,panicNow=0;
+function bolt(c,x,yc,z,t,md){const on=md.m==='storm',dur=(SEG[md.i]||[0,1])[1],tl=md.u*dur,sa=dur*.8,vis=on&&c.g.visible&&tl>=sa&&tl<sa+.3;
+const fw=on&&tl>=sa-3.2&&tl<sa,ft=(tl-(sa-3.2))*1.15%1,fk=fw&&ft<.22;bg2.visible=vis;hl.intensity=.5+(vis?.4*(1-(tl-sa)/.3):0)+(fk?.28*(1-ft/.22):0);panicNow=fw?1:0;
+const id=cycN*12+md.i;
+if(on&&tl>=sa&&id!==lastSeg){lastSeg=id;
+const al=spr.filter(o=>o.alive),pk=al.length&&Math.random()<.6?al[Math.floor(Math.random()*al.length)]:null;
+const gx=cl(pk?pk.x+(Math.random()-.5)*.15:(Math.random()-.5)*3.2,-1.9,1.9),gz=cl(pk?pk.z+(Math.random()-.5)*.15:(Math.random()-.5)*3.2,-1.9,1.9),top=yc-.2,gnd=yAt(gx,gz);
+bp=[];for(let i=0;i<=6;i++){const k=i/6;bp.push(new THREE.Vector3(x+(gx-x)*k+(i&&i<6?(Math.random()-.5)*.28:0),top+(gnd-top)*k,z+(gz-z)*k))}
+for(let i=0;i<6;i++){const a=bp[i],b=bp[i+1],d=b.clone().sub(a),m=bseg[i];m.position.copy(a).add(b).multiplyScalar(.5);m.scale.set(1,d.length(),1);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize())}
+spr.forEach(o=>{if(o.alive&&Math.hypot(o.x-gx,o.z-gz)<.4){o.alive=false;o.dt=t;o.back=t+8}})}}
+// 水晶小精靈
+const COLS=['#ff6fb0','#4cc9ff','#b58bff','#ffb340','#5df0b0','#ff7a6a','#ffe15a','#7a9bff','#9be85a','#ff9a4a'],spr=[];
+function crystal(col){const g=new THREE.Group();world.add(g);
+const mt=new THREE.MeshPhongMaterial({color:col,flatShading:true,shininess:90,specular:0xffffff,transparent:true,opacity:.93,emissive:col,emissiveIntensity:.3});
+const b=new THREE.Mesh(new THREE.IcosahedronGeometry(.11,0),mt);b.scale.set(1,1.3,1);b.position.y=.2;b.castShadow=true;g.add(b);
+[-1,1].forEach(s=>{const c=new THREE.Mesh(new THREE.ConeGeometry(.03,.1,4),mt);c.position.set(.04*s,.37,0);c.rotation.z=-.3*s;g.add(c);
+S(.017,'#10131c',.04*s,.22,.1,1,1,1,g);S(.04,col,.05*s,.03,.02,1,.7,1.2,g)});return g}
+[[-1.4,.05],[-1.1,-.4],[-1.55,.5],[-.8,.2],[1.3,-.2],[.4,.9],[.9,-.9],[-.3,-1.1],[.1,.3],[1.5,.8]].forEach((p,i)=>{const g=crystal(COLS[i]),o={g,i,cx:p[0],cz:p[1],ph:i*1.3,sp:.4+i*.05,hop:-1,x:p[0],z:p[1],th:Math.random()*6.283,v:0,wx:p[0],wz:p[1],wt:0,idle:false,alive:true,dt:0,back:0,rs:-9,st:'n',su:0,sx0:0,sz0:0,fx:0,fy:0,fz:0,fv:0};g.userData.o=o;spr.push(o)});
+// 龍捲風角色：一疊越往上越寬的橢圓層，頭頂有小雲帽
+let tc0=0,cycN=0,torn=0,tstate='',tss=0,TX=0,TZ=0,tspin=0,tsc=0;
+const tor=new THREE.Group();world.add(tor);tor.visible=false;
+const TN=16,TL=[],rad0=t=>.1+.72*Math.pow(t,1.35),rad=t=>rad0(t)*(1+sm(.45,1,t)),hy=t=>.08+1.8*t;
+const sway=(t,tm)=>[Math.sin(tm*1.3-t*3.2)*.2*t,Math.cos(tm*1.1-t*3)*.2*t];
+for(let i=0;i<TN;i++){const t=i/(TN-1),g=new THREE.Group();tor.add(g);const r=rad(t),r0=rad0(t),col=i%2?'#cfd9ee':'#eef2fa',k=r/r0;
+S(r0,col,0,0,0,1.18*k,.4,.82*k,g);S((.05+.03*t)*(1+.5*(k-1)),'#ffffff',r*1.1,0,0,1,1,1,g);S((.05+.03*t)*(1+.5*(k-1)),'#ffffff',-r*1.1,0,0,1,1,1,g);TL.push({g,t,r})}
+const tface=new THREE.Group();tor.add(tface);
+[-1,1].forEach(s=>{S(.085,'#ffffff',.14*s,.05,0,1,1.1,.6,tface);S(.04,'#1d1410',.14*s,.04,.045,1,1.1,.6,tface);S(.05,'#ffb6c8',.27*s,-.06,0,1,.6,.4,tface)});
+const tsm=new THREE.Mesh(new THREE.TorusGeometry(.06,.014,6,16,Math.PI),M('#6b4a22'));tsm.rotation.z=Math.PI;tsm.position.set(0,-.05,.02);tface.add(tsm);
+const tcap=new THREE.Group();tor.add(tcap);
+[[0,0,0,.42],[.38,-.05,.05,.3],[-.38,-.05,-.05,.32],[.15,.22,0,.28],[-.2,.2,.1,.24]].forEach(a=>S(a[3],'#ffffff',a[0],a[1],a[2],1,.8,1,tcap));
+const tdeb=[],tdc=['#7be37c','#ff9fb8','#8cc8ff','#ffe58a','#b58bff','#ffffff'];
+for(let i=0;i<14;i++){let m;if(i%3==0)m=S(.05,'#58d068',0,0,0,1.6,.4,1);else if(i%3==1)m=new THREE.Mesh(new THREE.IcosahedronGeometry(.045,0),new THREE.MeshPhongMaterial({color:tdc[i%6],flatShading:true,shininess:90,emissive:tdc[i%6],emissiveIntensity:.25}));else m=S(.05,'#ffffff',0,0,0,1,.8,1);tor.add(m);tdeb.push({m,ph:i/14,sp:.1+(i%4)*.02,a0:i*2.4})}
+const tdust=[];for(let i=0;i<8;i++){const m=S(.07,'#e8d5a0',0,0,0,1,.6,1);m.material.transparent=true;m.castShadow=false;tor.add(m);tdust.push({m,a0:i*.785})}
+tor.traverse(o=>{o.castShadow=false});
+// 頂端的遊樂場位置：雲帽上的一圈
+function setSh(o,on){if(o.sh===on)return;o.sh=on;o.g.traverse(m=>{if(m.isMesh)m.castShadow=on})}
+function topAt(i,t){const a=t*.5+i*.628,s=sway(1,tspin);return{x:TX+s[0]+Math.cos(a)*.42,z:TZ+s[1]+Math.sin(a)*.42,y:gy(TX,TZ)+hy(1)+.28+.54,a}}
+function tornSprite(o,t,dt){let x,y,z,rot;const ty=gy(TX,TZ);
+if(o.st==='suck'){const u=cl((t-o.su)/3.5,0,1),e=u*u*(3-2*u),h=cl(e/.8,0,1),s=sway(h,tspin),d0=Math.hypot(o.sx0-TX,o.sz0-TZ),a0=Math.atan2(o.sz0-TZ,o.sx0-TX),a=a0+e*10;
+if(e<.8){const rO=rad(h)*1.25+.12,rho=d0+(rO-d0)*sm(0,.25,e);x=TX+s[0]+Math.cos(a)*rho;z=TZ+s[1]+Math.sin(a)*rho;y=ty+hy(h)}
+else{const f=sm(.8,1,e),p=topAt(o.i,t),s1=sway(1,tspin),rp=rad(1)*1.25+.12,df=Math.atan2(Math.sin(p.a-a),Math.cos(p.a-a)),ab=a+df*f,rr=rp+(.42-rp)*f;x=TX+s1[0]+Math.cos(ab)*rr;z=TZ+s1[1]+Math.sin(ab)*rr;y=ty+hy(1)+(p.y-(ty+hy(1)))*f}
+rot=Math.atan2(-Math.sin(a),Math.cos(a));if(u>=1)o.st='top'}
+else if(o.st==='top'){const p=topAt(o.i,t);x=p.x;z=p.z;y=p.y+Math.abs(Math.sin(t*5+o.i))*.08;rot=Math.atan2(-Math.sin(p.a),Math.cos(p.a))}
+else{o.fv-=7*dt;o.fy+=o.fv*dt;x=o.fx;z=o.fz;const rr=Math.hypot(x,z);if(rr>1.95){x*=1.95/rr;z*=1.95/rr;o.fx=x;o.fz=z}
+const gr=gy(x,z);if(o.fy<=gr){o.fy=gr;if(o.fv<-2.5)o.fv=-o.fv*.3;else{o.st='n';o.v=0;o.idle=false;o.wx=x;o.wz=z;o.wt=t+1}}
+y=o.fy;rot=o.th+t*6}
+setSh(o,o.st==='fall');o.x=x;o.z=z;o.th=rot;o.g.position.set(x,y,z);o.g.rotation.y=rot;o.g.scale.setScalar(1);o.g.visible=true}
+// 太陽：固定在畫面左上方的裝飾，不跟著島旋轉
+const sgc=document.createElement('canvas');sgc.width=sgc.height=64;const sgx=sgc.getContext('2d'),sgr=sgx.createRadialGradient(32,32,0,32,32,32);
+sgr.addColorStop(0,'rgba(255,255,255,1)');sgr.addColorStop(.35,'rgba(255,255,255,.4)');sgr.addColorStop(1,'rgba(255,255,255,0)');sgx.fillStyle=sgr;sgx.fillRect(0,0,64,64);
+const SUN=new THREE.Group();SUN.position.set(3,1.8,-6);SUN.scale.setScalar(.56);sc.add(SUN);SUN.lookAt(0,.5,0);
+const shalo=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(sgc),color:'#ffb347',transparent:true,opacity:.55,depthWrite:false}));shalo.scale.set(5.6,5.6,1);shalo.position.z=-.5;SUN.add(shalo);
+const srings=[0,1,2].map(i=>{const m=new THREE.Mesh(new THREE.RingGeometry(.92,1,56),new THREE.MeshBasicMaterial({color:'#ffcf70',transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));m.position.z=-.2;SUN.add(m);return m});
+const srays=new THREE.Group();SUN.add(srays);const SRC=['#ff3b4a','#ff8a1f','#ffd93a','#2ee66b','#2f9bff','#4a46e8','#b04dff'],srayM=[];
+for(let i=0;i<7;i++){const g=new THREE.Group();g.rotation.z=i/7*Math.PI*2;srays.add(g);srayM.push(S(.2,SRC[i],0,.92,0,.78,1.55,.6,g))}
+const sbody=S(.62,'#ffc83d',0,0,0,1,.97,1,SUN);
+[-1,1].forEach(s=>{const e=new THREE.Mesh(new THREE.TorusGeometry(.075,.018,6,14,Math.PI),M('#6b3a12'));e.position.set(.2*s,.1,.58);SUN.add(e);S(.09,'#ff9a8a',.36*s,-.08,.5,1,.6,.4,SUN)});
+const ssm=new THREE.Mesh(new THREE.TorusGeometry(.13,.02,6,18,Math.PI),M('#6b3a12'));ssm.rotation.z=Math.PI;ssm.position.set(0,-.02,.6);SUN.add(ssm);
+SUN.traverse(o=>{o.castShadow=false;if(o.isMesh&&o.material.isMeshToonMaterial)o.material=new THREE.MeshBasicMaterial({color:o.material.color.clone()})});
+const sSp=[];for(let i=0;i<16;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.035,8,6),new THREE.MeshBasicMaterial({color:i%2?'#fff2b0':'#ffd36b'}));SUN.add(m);sSp.push({m,ph:i*.7})}
+// 雨滴水晶：點下去打開你的地形與氣候模型
+const gemE=new THREE.Group();gemE.position.set(-.3,gy(-.3,1.55)+.34,1.55);world.add(gemE);
+const gemM=new THREE.Mesh(new THREE.OctahedronGeometry(.16,0),new THREE.MeshPhongMaterial({color:'#4fc3ff',flatShading:true,shininess:150,specular:0xffffff,transparent:true,opacity:.85,emissive:'#2a9bff',emissiveIntensity:.45}));gemM.scale.set(.8,1.6,.8);gemE.add(gemM);
+const gemH=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(sgc),color:'#7fd6ff',transparent:true,opacity:.55,depthWrite:false}));gemE.add(gemH);
+gemE.add(new THREE.Mesh(new THREE.SphereGeometry(.4,12,8),new THREE.MeshBasicMaterial({visible:false})));
+// 互動
+const el=R.domElement,ray=new THREE.Raycaster();let drag=0,px=0,moved=0;
+el.addEventListener('pointerdown',e=>{drag=1;px=e.clientX;moved=0;el.setPointerCapture(e.pointerId)});
+const toastEl=document.getElementById('toast');let toastT=0;function openModel(){if(MODEL_URL){window.open(encodeURI(MODEL_URL),'_blank')}else{toastEl.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>toastEl.classList.remove('on'),2800)}}
+el.addEventListener('pointermove',e=>{if(drag){const d=e.clientX-px;px=e.clientX;moved+=Math.abs(d);world.rotation.y+=d*.01;return}ray.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1),cam);el.style.cursor=ray.intersectObject(gemE,true).length?'pointer':'grab'});
+el.addEventListener('pointerup',e=>{drag=0;if(moved<5){
+ray.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1),cam);
+if(ray.intersectObject(gemE,true).length){openModel();return}
+const h=ray.intersectObjects(spr.map(o=>o.g),true);
+if(h.length){let ob=h[0].object;while(ob&&!ob.userData.o)ob=ob.parent;if(ob)ob.userData.o.hop=0}}});
+function fit(){R.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.position.set(0,3.8,Math.max(8.4,8.4*(1.15/cam.aspect)));cam.lookAt(0,.9,0);cam.updateProjectionMatrix()}
+function paper(){const c=document.getElementById('paper'),d=Math.min(devicePixelRatio,2),w=innerWidth,h=innerHeight;
+c.width=w*d;c.height=h*d;const g=c.getContext('2d');g.scale(d,d);
+const b=g.createRadialGradient(w/2,h*.42,Math.min(w,h)*.2,w/2,h/2,Math.max(w,h)*.75);
+b.addColorStop(0,'#fff8e2');b.addColorStop(.65,'#f6e5b8');b.addColorStop(1,'#dcb872');g.fillStyle=b;g.fillRect(0,0,w,h);
+for(let i=0;i<Math.floor(w*h/120);i++){g.fillStyle=Math.random()<.5?'rgba(140,100,40,.05)':'rgba(255,255,255,.08)';g.fillRect(Math.random()*w,Math.random()*h,1+Math.random()*2,1+Math.random()*2)}
+g.lineJoin='round';const cx=w/2,cy=h*.6,u=Math.max(w,h)*.045;
+for(let q=1;q<=11;q++){g.beginPath();for(let s=0;s<=120;s++){const t=s/120*Math.PI*2,
+r=u*q*(1+.16*Math.sin(2*t+q*.7)+.1*Math.sin(3*t+1.7*q)+.06*Math.sin(5*t+q));
+const x=cx+r*1.5*Math.cos(t),y=cy+r*.75*Math.sin(t);s?g.lineTo(x,y):g.moveTo(x,y)}
+g.closePath();g.strokeStyle=q%4==0?'rgba(120,75,30,.36)':'rgba(120,75,30,.22)';g.lineWidth=q%4==0?2.2:1.3;g.stroke()}}
+addEventListener('resize',()=>{fit();paper()});fit();paper();
+const clk=new THREE.Clock(),gray=new THREE.Color('#a9bbd6'),wh=new THREE.Color('#ffffff'),tc=new THREE.Color();
+R.setAnimationLoop(()=>{
+const dt=Math.min(clk.getDelta(),.05),t=clk.elapsedTime;
+if(!drag)world.rotation.y+=dt*.1*(1-rbPrev);
+world.position.y=Math.sin(t*.9)*.05;
+// 雲從左邊飄來：爬上山脊時變灰、下雨；翻過山頂後雨停、變白變小，彩虹出現
+const md=mode(t-tc0);let rbi=0;const gust=md.m==='wind'?sm(0,.35,md.u)*(1-sm(.65,1,md.u)):0;phi+=dt*.38;W+=(1.1*gust-.45*W)*dt;
+clouds.forEach(c=>{const x=cl(1.1*Math.sin(phi*.62)+.55*Math.sin(phi*1.14+1.2)+W,-2.4,2.4),z=.9*Math.sin(phi*.46+.5)+.45*Math.sin(phi*.94),yc=yAt(x,z)+1.15+Math.sin(t*1.2)*.05;
+c.g.position.set(x,yc,z);c.g.rotation.y=-world.rotation.y;const csz=md.m==='appear'?back(md.u):md.m==='vanish'?1-sm(0,1,md.u):md.m==='hide'?0:1;c.g.visible=csz>.01;
+{const sz=.55*Math.max(.001,csz);c.g.scale.set(sz*(1+.3*gust),sz*(1-.1*gust),sz)}
+const ri=md.m==='storm'?sm(0,.1,md.u)*(1-sm(.9,1,md.u)):0;c.pm.opacity=ri;cX=x;cZ=z;rainOn=ri;if(md.m==='storm'){rbX=x;rbZ=z}
+for(let i=0;i<c.o.length;i++){const d=c.o[i],f=(t*d.v+d.f)%1,gx=x+d.x*.5,gz=z+d.z*.5,top=yc-.2,gnd=yAt(cl(gx,-2.3,2.3),gz);
+c.pa[i*3]=gx;c.pa[i*3+1]=top-f*(top-gnd);c.pa[i*3+2]=gz}
+c.pg.attributes.position.needsUpdate=true;
+bolt(c,x,yc,z,t,md)});
+rbi=md.i===4?sm(0,.2,md.u)*(1-sm(.8,1,md.u)):0;rbPrev=rbi;rb.position.set(rbX,yAt(rbX,rbZ)+.05,rbZ);rbm.forEach(m=>m.opacity=.55*rbi);rb.scale.setScalar(1);rb.rotation.y=-world.rotation.y;
+// 龍捲風階段：雲的流程結束、雲消失後出現，把小精靈一隻隻吸到頂端玩，五秒後消失，小精靈掉回島上
+if(!torn&&t-tc0>=TOT){torn=1;tstate='spawn';tss=t;TX=(Math.random()-.5)*1.2;TZ=(Math.random()-.5);spr.forEach(o=>{if(!o.alive){o.alive=true;o.x=o.cx;o.z=o.cz;o.rs=t}})}
+if(torn){
+if(tstate==='spawn'){tsc=back(cl((t-tss)/2,0,1));if(t-tss>=2){tstate='hunt';tss=t}}
+else if(tstate==='hunt'){let nr=null,nd=1e9,left=0;spr.forEach(o=>{if(o.alive&&o.st==='n'){left++;const d=Math.hypot(o.x-TX,o.z-TZ);if(d<nd){nd=d;nr=o}}});
+if(nr){const dx=nr.x-TX,dz=nr.z-TZ,d=Math.hypot(dx,dz)||1,sp=Math.min(.3,d*.8);TX+=dx/d*sp*dt;TZ+=dz/d*sp*dt}
+const rr=Math.hypot(TX,TZ);if(rr>1.6){TX*=1.6/rr;TZ*=1.6/rr}
+if(t-tss>45)spr.forEach(o=>{if(o.alive&&o.st==='n'){o.st='suck';o.su=t;o.sx0=o.x;o.sz0=o.z}});
+if(!left&&!spr.some(o=>o.alive&&o.st==='suck')){tstate='play';tss=t}}
+else if(tstate==='play'){if(t-tss>5){tstate='release';tss=t;spr.forEach(o=>{if(o.st==='top'){const p=topAt(o.i,t);o.st='fall';o.fx=p.x;o.fz=p.z;o.fy=p.y;o.fv=0}})}}
+else if(tstate==='release'){tsc=1-sm(0,1,(t-tss)/1.5);if(t-tss>1.5&&spr.every(o=>o.st==='n')){torn=0;tc0=t;cycN++;tstate='';tsc=0}}
+tspin+=dt;tor.position.set(TX,gy(TX,TZ),TZ);tor.scale.setScalar(Math.max(.001,tsc));tor.visible=torn&&tsc>.01;
+TL.forEach(L=>{const s=sway(L.t,tspin);L.g.position.set(s[0],hy(L.t),s[1]);L.g.rotation.y=tspin*(2.2-1.3*L.t)+L.t*4});
+{const ft=.66,s=sway(ft,tspin),fr=rad(ft)*.9,th=world.rotation.y;tface.position.set(s[0]-Math.sin(th)*fr,hy(ft),s[1]+Math.cos(th)*fr);tface.rotation.y=-th;
+const c2=sway(1,tspin);tcap.position.set(c2[0],hy(1)+.28+Math.sin(t*1.4)*.03,c2[1]);tcap.scale.setScalar(1.9)}
+tdeb.forEach(d=>{const h=(tspin*d.sp*.9+d.ph)%1,s=sway(h,tspin),r=rad(h)*1.35+.1,a=tspin*(2.6-1.6*h)+d.a0;
+d.m.position.set(s[0]+Math.cos(a)*r,hy(h)+.05,s[1]+Math.sin(a)*r);d.m.rotation.y=a;d.m.scale.setScalar(Math.max(.01,Math.sin(h*Math.PI)))});
+tdust.forEach(d=>{const a=tspin*3+d.a0,s=.5+.5*Math.sin(tspin*2+d.a0);d.m.position.set(Math.cos(a)*.35,.06,Math.sin(a)*.35);d.m.scale.set(.8+.6*s,.5,.8+.6*s);d.m.material.opacity=.7*(1-s*.5)})}
+// 水晶小精靈
+spr.forEach(o=>{
+if(o.st!=='n'){tornSprite(o,t,dt);return}
+setSh(o,true);
+if(!o.alive&&t>o.back){o.alive=true;o.x=o.cx;o.z=o.cz;o.th=Math.random()*6.283;o.v=0;o.rs=t;o.idle=false;o.wx=o.cx;o.wz=o.cz}
+let tx=o.wx,tz=o.wz,sv=.1,om=1.6,hp=.02,jf=4.5,joy=false;
+const rainy=rainOn>.1&&Math.hypot(o.x-cX,o.z-cZ)<.8;
+if(rbi>.3){const an=o.i*.6283,rr=.95+.12*(o.i%3);tx=rbX+Math.cos(an)*rr;tz=rbZ+Math.sin(an)*rr;sv=.14;hp=.1;jf=4.5;joy=true;o.idle=false}
+else if(rainy){const qx=o.x-cX,qz=o.z-cZ,d=Math.hypot(qx,qz)||1;tx=cX+qx/d*1.1;tz=cZ+qz/d*1.1;sv=.15;om=2;o.idle=false}
+else if(panicNow){if(t>o.wt){const an=Math.random()*6.283,rr=Math.random()*1.8;o.wx=Math.cos(an)*rr;o.wz=Math.sin(an)*rr;o.wt=t+.8+Math.random()*.6}tx=o.wx;tz=o.wz;sv=.14;om=2.4;hp=.04;jf=8;o.idle=false}
+else{if(Math.hypot(o.wx-o.x,o.wz-o.z)<.15){if(!o.idle){o.idle=true;o.wt=t+1+Math.random()*1.5}else if(t>o.wt){const an=Math.random()*6.283,rr=.2+Math.random()*.5;o.wx=cl(o.cx+Math.cos(an)*rr,-1.9,1.9);o.wz=cl(o.cz+Math.sin(an)*rr,-1.9,1.9);o.idle=false}}else o.idle=false;tx=o.wx;tz=o.wz}
+if(torn&&tstate==='hunt'&&o.alive){const qx=o.x-TX,qz=o.z-TZ,d=Math.hypot(qx,qz);if(d<.65){o.st='suck';o.su=t;o.sx0=o.x;o.sz0=o.z}else if(d<1.3){tx=TX+qx/(d||1)*1.5;tz=TZ+qz/(d||1)*1.5;sv=.14;om=2;o.idle=false}}
+const dx=tx-o.x,dz=tz-o.z,dist=Math.hypot(dx,dz),stand=(joy&&dist<.15)||o.idle;
+let want=stand?(joy?Math.atan2(rbX-o.x,rbZ-o.z):o.th):Math.atan2(dx,dz);
+const df=Math.atan2(Math.sin(want-o.th),Math.cos(want-o.th));
+o.th+=cl(df,-om*dt,om*dt);
+const vt=stand?0:sv*cl(dist/.4,.3,1)*(1-.6*Math.min(1,Math.abs(df)/1.5));
+o.v+=(vt-o.v)*Math.min(1,dt*3);
+o.x+=Math.sin(o.th)*o.v*dt;o.z+=Math.cos(o.th)*o.v*dt;
+const r2=Math.hypot(o.x,o.z);if(r2>1.95){o.x*=1.95/r2;o.z*=1.95/r2}
+let y=yAt(o.x,o.z)+Math.abs(Math.sin(t*jf+o.ph))*hp*(joy?1:Math.min(1,o.v/.2));
+if(o.hop>=0){o.hop+=dt;y+=Math.sin(Math.min(o.hop/.5,1)*Math.PI)*.3;if(o.hop>.5)o.hop=-1}
+o.g.position.set(o.x,y,o.z);o.g.rotation.y=o.th;
+let s=1;if(!o.alive)s=Math.max(0,1-(t-o.dt)/.25);else if(t-o.rs<.6)s=back((t-o.rs)/.6);
+o.g.scale.setScalar(Math.max(.001,s));o.g.visible=s>.01});
+gemE.rotation.y=t*.9;gemE.position.y=gy(-.3,1.55)+.34+Math.sin(t*1.6)*.05;gemH.material.opacity=.45+.15*Math.sin(t*2.2);
+{const br=1+.03*Math.sin(t*1.6);sbody.scale.set(br,br*.97,br);srays.rotation.z=t*.18;srayM.forEach((m,i)=>{const s=1+.14*Math.sin(t*2+i*.9);m.scale.set(.78,1.55*s,.6)});
+shalo.material.opacity=.5+.08*Math.sin(t*1.3);SUN.position.y=1.8+Math.sin(t*1.1)*.07;
+srings.forEach((m,i)=>{const q=((t+i)/3)%1;m.scale.setScalar(1.3+q*2.2);m.material.opacity=.4*(1-q)*(1-q)});
+sSp.forEach(o=>{const a=t*.3+o.ph*.9,r=1.35+.45*Math.sin(t*.7+o.ph);o.m.position.set(Math.cos(a)*r,Math.sin(a*1.3)*r*.7,Math.sin(a)*.5);o.m.scale.setScalar(.5+.8*(.5+.5*Math.sin(t*3+o.ph*3)))})}
+R.render(sc,cam)});
+}
+</script>
+</body>
+</html>

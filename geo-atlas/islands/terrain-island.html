@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>地形島｜風格測試</title>
+<style>
+:root{color-scheme:light;--ink:#6b4a22;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:#f3dfaa;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+canvas:active{cursor:grabbing}
+p{position:fixed;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom,0px));margin:0;text-align:center;color:var(--ink);opacity:.65;font-size:14px;pointer-events:none}
+#toast{position:fixed;left:50%;top:18%;transform:translateX(-50%);padding:10px 20px;border-radius:16px;background:rgba(255,248,226,.96);border:2px solid rgba(120,75,30,.4);color:var(--ink);font-size:16px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s}
+#toast.on{opacity:1}
+.back{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:20;width:46px;height:46px;border-radius:50%;background:rgba(255,248,226,.88);border:2px solid rgba(120,75,30,.45);box-shadow:0 3px 8px rgba(90,60,20,.25);display:grid;place-items:center;transition:transform .15s}
+.back:hover,.back:focus-visible{transform:scale(1.1)}
+.back svg{width:26px;height:26px}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html" aria-label="回地圖集" title="回地圖集"><svg viewBox="0 0 24 24" fill="none" stroke="#6b4a22" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
+<canvas id="paper" style="pointer-events:none"></canvas>
+<p>拖曳旋轉，點水晶打開地形模型，點其他地方重新生成地形</p>
+<div id="toast">這個入口要放在地圖集資料夾裡，才能打開你的模型</div>
+<script src="../lib/three.min.js"></script>
+<script>
+const MODEL_URL='../teaching/climate/地形觀察系統_050_重播功能修正版_1.html';
+if(!window.THREE){document.body.insertAdjacentHTML('beforeend','<p style="top:45%">3D 函式庫載入失敗，請確認 lib 資料夾是否完整。</p>');}
+else{
+const R=new THREE.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(R.domElement);
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(38,1,.1,50);
+cam.position.set(0,3.8,8.2);cam.lookAt(0,.7,0);
+sc.add(new THREE.HemisphereLight(0xffffff,0xdde2f4,.5));
+const sun=new THREE.DirectionalLight(0xffffff,.62);sun.position.set(3,6,3);sun.castShadow=true;
+sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-4,right:4,top:4,bottom:-4});sc.add(sun);
+const gm=new THREE.DataTexture(new Uint8Array([150,150,150,255,215,215,215,255,255,255,255,255]),3,1,THREE.RGBAFormat);
+gm.minFilter=gm.magFilter=THREE.NearestFilter;gm.generateMipmaps=false;gm.needsUpdate=true;
+const world=new THREE.Group();sc.add(world);
+const M=c=>new THREE.MeshToonMaterial({color:c,gradientMap:gm});
+function S(r,c,x,y,z,sx,sy,sz,p){const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),M(c));
+m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;(p||world).add(m);return m}
+const cl=(x,a,b)=>Math.max(a,Math.min(b,x)),sm=(a,b,x)=>{const t=cl((x-a)/(b-a),0,1);return t*t*(3-2*t)};
+const gy=(x,z)=>.45*Math.sqrt(Math.max(0,1-(x*x+z*z)/5.76));
+// 島底
+const bot=new THREE.Mesh(new THREE.SphereGeometry(1,32,16,0,Math.PI*2,Math.PI/2,Math.PI/2),M('#b57a40'));
+bot.scale.set(2.4,1.72,2.4);bot.position.y=-.02;bot.castShadow=true;world.add(bot);
+S(.3,'#9b6431',.6,-1.6,.3,1,1.4,1);S(.2,'#9b6431',-.7,-1.4,-.4,1,1.4,1);S(.14,'#9b6431',-.1,-1.9,.5,1,1.3,1);
+// 地形：三組圓潤的地形，高山、丘陵、盆地、河谷輪流重新生成
+// 每個特徵：[中心x, 中心z, 寬x, 寬z, 高度]
+const PRE=[
+[[-.9,-.7,.6,.6,.95],[1.1,-.9,.5,.45,.5],[1.3,.2,.4,.4,.3],[-.7,.9,.55,.5,-.32],[.3,.2,.28,1,-.26],[0,-1.6,.4,.4,0]],
+[[.9,.6,.65,.6,1],[-1.1,.8,.5,.5,.5],[-.4,-1.1,.45,.4,.35],[1,-.8,.6,.55,-.34],[-.3,-.1,1,.26,-.26],[0,1.7,.4,.4,0]],
+[[-1,.4,.5,.5,.8],[.4,-.9,.55,.5,.85],[1.2,.7,.45,.45,.4],[0,.9,.6,.5,-.3],[.6,.2,.25,.9,-.25],[-.3,-1.3,.4,.4,.3]]];
+const F=PRE[0].map(f=>f.slice());
+const NR=40,NS=96,NV=(NR+1)*(NS+1),px=new Float32Array(NV),pz=new Float32Array(NV),idx=[];
+for(let i=0;i<=NR;i++)for(let j=0;j<=NS;j++){const r=i/NR*2.4,a=j/NS*Math.PI*2,k=i*(NS+1)+j;px[k]=r*Math.cos(a);pz[k]=r*Math.sin(a)}
+for(let i=0;i<NR;i++)for(let j=0;j<NS;j++){const a=i*(NS+1)+j,b=a+NS+1;idx.push(a,a+1,b,a+1,b+1,b)}
+function grid(){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(NV*3),3));g.setAttribute('uv',new THREE.BufferAttribute(new Float32Array(NV*2),2));g.setIndex(idx);
+const p=g.attributes.position.array;for(let k=0;k<NV;k++){p[k*3]=px[k];p[k*3+2]=pz[k]}return g}
+const tg=grid(),wg=grid();
+const hAt=(x,z)=>{let h=0;for(const f of F)h+=f[4]*Math.exp(-((x-f[0])**2/(2*f[2]*f[2])+(z-f[1])**2/(2*f[3]*f[3])));return h*sm(2.35,1.8,Math.hypot(x,z))};
+const yAt=(x,z)=>gy(x,z)+hAt(x,z);
+// 等高色帶：每一階是一個純色，邊界留一條細線，像地圖的等高線
+const tex=(()=>{const H=128,c=document.createElement('canvas');c.width=2;c.height=H;const x=c.getContext('2d'),
+cols=['#3fc7a3','#67d95a','#b9e24c','#e9b94f','#ffffff'],ed=[.213,.347,.533,.767];
+for(let r=0;r<H;r++){const v=1-(r+.5)/H;let k=0;while(k<4&&v>ed[k])k++;let col=cols[k];for(const e of ed)if(Math.abs(v-e)<1.2/H)col='#3d8f52';x.fillStyle=col;x.fillRect(0,r,2,1)}
+const t=new THREE.CanvasTexture(c);t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;return t})();
+const terrain=new THREE.Mesh(tg,new THREE.MeshToonMaterial({map:tex,gradientMap:gm,side:THREE.DoubleSide}));terrain.castShadow=true;terrain.receiveShadow=true;world.add(terrain);
+const water=new THREE.Mesh(wg,new THREE.MeshToonMaterial({color:'#4db5ff',gradientMap:gm,emissive:'#0b3a66',side:THREE.DoubleSide}));world.add(water);
+function update(t){const tp=tg.attributes.position.array,tu=tg.attributes.uv.array,wp=wg.attributes.position.array;
+for(let k=0;k<NV;k++){const x=px[k],z=pz[k],r=Math.hypot(x,z);let h=0;for(const f of F)h+=f[4]*Math.exp(-((x-f[0])**2/(2*f[2]*f[2])+(z-f[1])**2/(2*f[3]*f[3])));
+h*=sm(2.35,1.8,r);const b=gy(x,z);tp[k*3+1]=b+h;tu[k*2]=.5;tu[k*2+1]=cl((h+.4)/1.5,0,1);wp[k*3+1]=b-.12+.01*Math.sin(r*8-t*2)}
+tg.attributes.position.needsUpdate=true;tg.attributes.uv.needsUpdate=true;wg.attributes.position.needsUpdate=true;tg.computeVertexNormals();wg.computeVertexNormals()}
+// 立在山頂的大水晶、會變形的岩石
+const RB=['#ff3b4a','#ff8a1f','#ffd93a','#2ee66b','#2f9bff','#4a46e8','#b04dff'].map(h=>new THREE.Color(h)),rc=new THREE.Color(),white=new THREE.Color('#ffffff');
+const cmat=new THREE.MeshPhongMaterial({color:'#ff3b4a',flatShading:true,shininess:150,specular:0xffffff,transparent:true,opacity:.78,emissive:'#ff3b4a',emissiveIntensity:.35});
+const crys=new THREE.Mesh(new THREE.IcosahedronGeometry(.2,0),cmat);
+crys.scale.set(1,1.7,1);crys.castShadow=true;world.add(crys);crys.add(new THREE.Mesh(new THREE.SphereGeometry(.55,12,8),new THREE.MeshBasicMaterial({visible:false})));
+const core=new THREE.Mesh(new THREE.IcosahedronGeometry(.11,0),new THREE.MeshBasicMaterial({color:'#ffffff',transparent:true,opacity:.55}));crys.add(core);
+const gcv=document.createElement('canvas');gcv.width=gcv.height=64;const gx=gcv.getContext('2d'),gr=gx.createRadialGradient(32,32,0,32,32,32);
+gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.4,'rgba(255,255,255,.35)');gr.addColorStop(1,'rgba(255,255,255,0)');gx.fillStyle=gr;gx.fillRect(0,0,64,64);
+const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gcv),color:'#ff3b4a',transparent:true,opacity:.5,depthWrite:false}));glow.scale.set(1.6,1.6,1);world.add(glow);
+const spk=new THREE.Group();world.add(spk);for(let i=0;i<6;i++)spk.add(new THREE.Mesh(new THREE.SphereGeometry(.03,8,6),new THREE.MeshBasicMaterial({color:'#ffffff'})));
+
+
+// 水晶小精靈
+const COLS=['#ff6fb0','#4cc9ff','#b58bff','#ffb340','#5df0b0'],spr=[];
+function crystal(col){const g=new THREE.Group();world.add(g);
+const mt=new THREE.MeshPhongMaterial({color:col,flatShading:true,shininess:90,specular:0xffffff,transparent:true,opacity:.93,emissive:col,emissiveIntensity:.3});
+const b=new THREE.Mesh(new THREE.IcosahedronGeometry(.11,0),mt);b.scale.set(1,1.3,1);b.position.y=.2;b.castShadow=true;g.add(b);
+[-1,1].forEach(s=>{const c=new THREE.Mesh(new THREE.ConeGeometry(.03,.1,4),mt);c.position.set(.04*s,.37,0);c.rotation.z=-.3*s;g.add(c);
+S(.017,'#10131c',.04*s,.22,.1,1,1,1,g);S(.04,col,.05*s,.03,.02,1,.7,1.2,g)});return g}
+COLS.forEach((c,i)=>{const g=crystal(c),o={g,cx:.2+Math.cos(i*1.3)*.5,cz:1.1+Math.sin(i*1.7)*.35,ph:i*1.3,sp:.4+i*.07,hop:-1};g.userData.o=o;spr.push(o)});
+// 互動：拖曳旋轉；點一下立刻重新生成地形，點小精靈則跳一下
+const el=R.domElement,ray=new THREE.Raycaster();let drag=0,pxx=0,moved=0,k=0,t0=0,cn=0;
+el.addEventListener('pointerdown',e=>{drag=1;pxx=e.clientX;moved=0;el.setPointerCapture(e.pointerId)});
+const toastEl=document.getElementById('toast');let toastT=0;function openModel(){if(MODEL_URL){window.open(encodeURI(MODEL_URL),'_blank')}else{toastEl.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>toastEl.classList.remove('on'),2800)}}
+el.addEventListener('pointermove',e=>{if(drag){const d=e.clientX-pxx;pxx=e.clientX;moved+=Math.abs(d);world.rotation.y+=d*.01;return}ray.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1),cam);el.style.cursor=ray.intersectObject(crys,true).length?'pointer':'grab'});
+el.addEventListener('pointerup',e=>{drag=0;if(moved<5){
+ray.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1),cam);
+if(ray.intersectObject(crys,true).length){openModel();return}
+const h=ray.intersectObjects(spr.map(o=>o.g),true);
+if(h.length){let ob=h[0].object;while(ob&&!ob.userData.o)ob=ob.parent;if(ob)ob.userData.o.hop=0}
+else if(clk.elapsedTime-t0<6.5)t0=clk.elapsedTime-6.5}});
+function fit(){R.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.position.z=Math.max(8.2,8.2*(1.15/cam.aspect));cam.updateProjectionMatrix()}
+function paper(){const c=document.getElementById('paper'),d=Math.min(devicePixelRatio,2),w=innerWidth,h=innerHeight;
+c.width=w*d;c.height=h*d;const g=c.getContext('2d');g.scale(d,d);
+const b=g.createRadialGradient(w/2,h*.42,Math.min(w,h)*.2,w/2,h/2,Math.max(w,h)*.75);
+b.addColorStop(0,'#fff8e2');b.addColorStop(.65,'#f6e5b8');b.addColorStop(1,'#dcb872');g.fillStyle=b;g.fillRect(0,0,w,h);
+for(let i=0;i<Math.floor(w*h/120);i++){g.fillStyle=Math.random()<.5?'rgba(140,100,40,.05)':'rgba(255,255,255,.08)';g.fillRect(Math.random()*w,Math.random()*h,1+Math.random()*2,1+Math.random()*2)}
+g.lineJoin='round';const cx=w/2,cy=h*.6,u=Math.max(w,h)*.045;
+for(let q=1;q<=11;q++){g.beginPath();for(let s=0;s<=120;s++){const t=s/120*Math.PI*2,
+r=u*q*(1+.16*Math.sin(2*t+q*.7)+.1*Math.sin(3*t+1.7*q)+.06*Math.sin(5*t+q));
+const x=cx+r*1.5*Math.cos(t),y=cy+r*.75*Math.sin(t);s?g.lineTo(x,y):g.moveTo(x,y)}
+g.closePath();g.strokeStyle=q%4==0?'rgba(120,75,30,.36)':'rgba(120,75,30,.22)';g.lineWidth=q%4==0?2.2:1.3;g.stroke()}}
+addEventListener('resize',()=>{fit();paper()});fit();paper();
+const clk=new THREE.Clock();
+R.setAnimationLoop(()=>{
+const dt=Math.min(clk.getDelta(),.05),t=clk.elapsedTime;
+if(!drag)world.rotation.y+=dt*.1;
+world.position.y=Math.sin(t*.9)*.07;
+// 地形輪流重新生成：停留一陣子，再用兩秒半慢慢變形成下一組
+let el0=t-t0;if(el0>11.5){t0=t;k=(k+1)%3;cn++;el0=0}
+const b=sm(0,1,cl((el0-6.5)/5,0,1)),A=PRE[k],B=PRE[(k+1)%3];
+for(let i=0;i<6;i++)for(let j=0;j<5;j++)F[i][j]=A[i][j]+(B[i][j]-A[i][j])*b;
+update(t);
+// 水晶站在最高的山頂上，岩石在平原上扭動變形
+const m=F[0];crys.position.set(m[0],yAt(m[0],m[1])+.3,m[1]);crys.rotation.y=t*.8;
+rc.copy(RB[cn%7]).lerp(RB[(cn+1)%7],b);cmat.color.copy(rc);cmat.emissive.copy(rc);cmat.emissiveIntensity=.3+.12*Math.sin(t*2.5);
+core.material.color.copy(rc).lerp(white,.55);glow.position.copy(crys.position);glow.material.color.copy(rc);glow.material.opacity=.45+.1*Math.sin(t*2.5);
+spk.position.copy(crys.position);spk.children.forEach((s,i)=>{const a=t*.9+i*1.047,q=.5+.5*Math.sin(t*4+i*2);s.position.set(Math.cos(a)*.4,Math.sin(t*1.3+i)*.28,Math.sin(a)*.4);s.scale.setScalar(.3+q*.9)});
+
+
+spr.forEach(o=>{const a=t*o.sp+o.ph,x=o.cx+Math.sin(a)*.3,z=o.cz+Math.cos(a*1.3)*.25;
+let y=yAt(x,z)+Math.abs(Math.sin(t*6+o.ph))*.025;
+if(o.hop>=0){o.hop+=dt;y+=Math.sin(Math.min(o.hop/.5,1)*Math.PI)*.3;if(o.hop>.5)o.hop=-1}
+o.g.position.set(x,y,z);o.g.rotation.y=Math.atan2(Math.cos(a)*.3,-Math.sin(a*1.3)*.25*1.3)});
+R.render(sc,cam)});
+}
+</script>
+</body>
+</html>

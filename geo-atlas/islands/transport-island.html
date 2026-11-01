@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>交通聚落島｜風格測試</title>
+<style>
+:root{color-scheme:light;--ink:#6b4a22;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:#f3dfaa;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+canvas:active{cursor:grabbing}
+p{position:fixed;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom,0px));margin:0;text-align:center;color:var(--ink);opacity:.65;font-size:14px;pointer-events:none}
+.back{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:20;width:46px;height:46px;border-radius:50%;background:rgba(255,248,226,.88);border:2px solid rgba(120,75,30,.45);box-shadow:0 3px 8px rgba(90,60,20,.25);display:grid;place-items:center;transition:transform .15s}
+.back:hover,.back:focus-visible{transform:scale(1.1)}
+.back svg{width:26px;height:26px}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html" aria-label="回地圖集" title="回地圖集"><svg viewBox="0 0 24 24" fill="none" stroke="#6b4a22" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
+<canvas id="paper" style="pointer-events:none"></canvas>
+<p>拖曳旋轉，點點水晶小精靈</p>
+<script src="../lib/three.min.js"></script>
+<script>
+if(!window.THREE){document.body.insertAdjacentHTML('beforeend','<p style="top:45%">3D 函式庫載入失敗，請確認 lib 資料夾是否完整。</p>');}
+else{
+const R=new THREE.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(R.domElement);
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(38,1,.1,50);
+cam.position.set(0,3.6,8);cam.lookAt(0,.6,0);
+sc.add(new THREE.HemisphereLight(0xffffff,0xdde2f4,.5));
+const sun=new THREE.DirectionalLight(0xffffff,.62);sun.position.set(3,6,3);sun.castShadow=true;
+sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-4,right:4,top:4,bottom:-4});sc.add(sun);
+const gm=new THREE.DataTexture(new Uint8Array([150,150,150,255,215,215,215,255,255,255,255,255]),3,1,THREE.RGBAFormat);
+gm.minFilter=gm.magFilter=THREE.NearestFilter;gm.generateMipmaps=false;gm.needsUpdate=true;
+const world=new THREE.Group();sc.add(world);
+const M=c=>new THREE.MeshToonMaterial({color:c,gradientMap:gm});
+function S(r,c,x,y,z,sx,sy,sz,p){const m=new THREE.Mesh(new THREE.SphereGeometry(r,28,18),M(c));
+m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;(p||world).add(m);return m}
+function C(rt,rb,h,c,x,y,z,p){const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,16),M(c));
+m.position.set(x,y,z);m.castShadow=true;(p||world).add(m);return m}
+const gy=(x,z)=>.45*Math.sqrt(Math.max(0,1-(x*x+z*z)/5.76));
+const V=a=>a.map(p=>new THREE.Vector3(p[0],0,p[1]));
+// 島
+S(1,'#5fd65c',0,0,0,2.4,.45,2.4).receiveShadow=true;
+const bot=new THREE.Mesh(new THREE.SphereGeometry(1,32,16,0,Math.PI*2,Math.PI/2,Math.PI/2),M('#b57a40'));
+bot.scale.set(2.3,1.7,2.3);bot.position.y=-.02;bot.castShadow=true;world.add(bot);
+S(.3,'#9b6431',.6,-1.6,.3,1,1.4,1);S(.2,'#9b6431',-.7,-1.4,-.4,1,1.4,1);S(.14,'#9b6431',-.1,-1.9,.5,1,1.3,1);
+// 河
+const river=new THREE.CatmullRomCurve3(V([[-.9,-2],[-.65,-1],[-.8,0],[-.6,1],[-.9,2]]));
+const rv=river.getPoints(60),rg=new THREE.SphereGeometry(.13,12,8),wm=new THREE.MeshToonMaterial({color:'#4db5ff',gradientMap:gm,emissive:'#0b3a66'});
+rv.forEach(p=>{const m=new THREE.Mesh(rg,wm);m.position.set(p.x,gy(p.x,p.z)+.02,p.z);m.scale.set(1,.22,1);world.add(m)});
+// 三條路，在島中央交會
+const roads=[[[0,0],[.6,.15],[1.1,.3],[1.55,.45]],[[0,0],[.1,-.6],[.2,-1],[.3,-1.55]],[[0,0],[-.4,.1],[-.8,.1],[-1.2,.15],[-1.65,.2]]].map(a=>new THREE.CatmullRomCurve3(V(a)));
+const dg=new THREE.SphereGeometry(.1,10,8),dm=M('#e8c98a');
+roads.forEach(c=>c.getPoints(44).forEach(p=>{if(rv.some(q=>Math.hypot(q.x-p.x,q.z-p.z)<.3))return;
+const m=new THREE.Mesh(dg,dm);m.position.set(p.x,gy(p.x,p.z)+.02,p.z);m.scale.set(1,.2,1);m.receiveShadow=true;world.add(m)}));
+S(.34,'#e8c98a',0,gy(0,0)+.02,0,1,.12,1);
+// 木橋
+const bz=gy(-.78,.1)+.07,br=new THREE.Group();br.position.set(-.78,bz,.1);world.add(br);
+const dk=new THREE.Mesh(new THREE.BoxGeometry(.9,.06,.3),M('#b07a3f'));dk.castShadow=true;br.add(dk);
+[-1,1].forEach(s=>{const r=new THREE.Mesh(new THREE.BoxGeometry(.9,.04,.03),M('#8a5a33'));r.position.set(0,.09,.14*s);br.add(r);
+[-1,0,1].forEach(k=>C(.02,.02,.1,'#8a5a33',.4*k,.05,.14*s,br))});
+// 小屋
+const roofC=['#e9a43d','#e0714f','#d98c3f'];
+function hut(x,z,s,i){const g=new THREE.Group();g.position.set(x,gy(x,z),z);g.scale.setScalar(s);world.add(g);
+S(.13,'#f6e3bd',0,.11,0,1,.9,1,g);
+const r=new THREE.Mesh(new THREE.ConeGeometry(.19,.17,16),M(roofC[i%3]));r.position.y=.27;r.castShadow=true;g.add(r);
+S(.035,'#8a5a33',0,.07,.125,1,1.4,.5,g);return g}
+[[1.7,.75],[1.85,.2],[.5,-1.7],[0,-1.65],[-1.7,.55],[-1.85,-.1],[-1.4,-.5]].forEach((p,i)=>hut(p[0],p[1],.9,i));
+[[.45,.45],[.1,.7],[.85,.75]].forEach((p,i)=>hut(p[0],p[1],1,i));
+const grow=[[-.3,.5],[.55,-.5],[-.3,-.5],[.95,-.45],[.2,1.15]].map((p,i)=>hut(p[0],p[1],1,i+1));
+function tree(x,z,s){const g=new THREE.Group();g.position.set(x,gy(x,z),z);g.scale.setScalar(s);world.add(g);
+C(.09,.13,.5,'#8a5a33',0,.25,0,g);S(.45,'#3fbf58',0,.72,0,1,1,1,g);S(.34,'#58d068',0,1.02,0,1,1,1,g);S(.22,'#7be37c',0,1.25,0,1,1,1,g);return g}
+const trees=[tree(1.2,-1.2,.75),tree(-1.3,1.3,.7),tree(1.5,1.2,.65)];
+// 水晶小精靈與貨車
+const COL=['#ff6fb0','#4cc9ff','#b58bff','#ffb340','#5df0b0','#ff7a6a'],ents=[];
+function crystal(i){const g=new THREE.Group();world.add(g);const col=COL[i%COL.length];
+const mt=new THREE.MeshPhongMaterial({color:col,flatShading:true,shininess:90,specular:0xffffff,transparent:true,opacity:.93,emissive:col,emissiveIntensity:.3});
+const b=new THREE.Mesh(new THREE.IcosahedronGeometry(.11,0),mt);b.scale.set(1,1.3,1);b.position.y=.2;b.castShadow=true;g.add(b);
+[-1,1].forEach(s=>{const c=new THREE.Mesh(new THREE.ConeGeometry(.03,.1,4),mt);c.position.set(.04*s,.37,0);c.rotation.z=-.3*s;g.add(c);
+S(.017,'#10131c',.04*s,.22,.1,1,1,1,g);S(.04,col,.05*s,.03,.02,1,.7,1.2,g)});return g}
+function cart(){const g=new THREE.Group();world.add(g);const b=new THREE.Mesh(new THREE.BoxGeometry(.16,.09,.26),M('#c98a4b'));b.position.y=.1;b.castShadow=true;g.add(b);
+[-1,1].forEach(s=>{const w=new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,.03,14),M('#7a4e2a'));w.rotation.z=Math.PI/2;w.position.set(.1*s,.06,0);g.add(w)});
+['#ff6fb0','#4cc9ff','#ffb340'].forEach((c,i)=>S(.045,c,0,.19,-.08+i*.08,1,1.2,1,g));return g}
+function add(g,fn,ct){const o={g,fn,ct,ph:Math.random()*6.28,hop:-1};g.userData.o=o;ents.push(o);return o}
+function walker(ri,sp,i,withCart){const c=roads[ri],len=c.getLength(),ph=Math.random()*6.28;
+add(crystal(i),t=>{const w=t*sp+ph,u=.5+.5*Math.sin(w),s=Math.cos(w)>=0?1:-1,p=c.getPointAt(u),tn=c.getTangentAt(u);
+const r={x:p.x,z:p.z,h:Math.atan2(tn.x*s,tn.z*s)};
+if(withCart){const q=c.getPointAt(Math.min(1,Math.max(0,u-s*.32/len)));r.cx=q.x;r.cz=q.z}return r},withCart?cart():null)}
+walker(0,.42,0,true);walker(0,.3,3,false);walker(1,.38,1,true);walker(2,.4,2,true);walker(2,.28,4,false);
+// 村口閒逛的小精靈
+[[1.7,.45],[.25,-1.4],[-1.5,.3]].forEach((p,i)=>{const ph=Math.random()*6.28;
+add(crystal(i+1),t=>{const a=t*.5+ph;return{x:p[0]+Math.sin(a)*.12,z:p[1]+Math.cos(a*1.3)*.12,h:Math.atan2(Math.cos(a),-Math.sin(a*1.3))}})});
+// 互動
+const el=R.domElement,ray=new THREE.Raycaster();let drag=0,px=0,moved=0;
+el.addEventListener('pointerdown',e=>{drag=1;px=e.clientX;moved=0;el.setPointerCapture(e.pointerId)});
+el.addEventListener('pointermove',e=>{if(drag){const d=e.clientX-px;px=e.clientX;moved+=Math.abs(d);world.rotation.y+=d*.01}});
+el.addEventListener('pointerup',e=>{drag=0;if(moved<5){
+ray.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1),cam);
+const h=ray.intersectObjects(ents.map(o=>o.g),true);
+if(h.length){let ob=h[0].object;while(ob&&!ob.userData.o)ob=ob.parent;if(ob)ob.userData.o.hop=0}}});
+function fit(){R.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.position.z=Math.max(8,8*(1.15/cam.aspect));cam.updateProjectionMatrix()}
+function paper(){const c=document.getElementById('paper'),d=Math.min(devicePixelRatio,2),w=innerWidth,h=innerHeight;
+c.width=w*d;c.height=h*d;const g=c.getContext('2d');g.scale(d,d);
+const b=g.createRadialGradient(w/2,h*.42,Math.min(w,h)*.2,w/2,h/2,Math.max(w,h)*.75);
+b.addColorStop(0,'#fff8e2');b.addColorStop(.65,'#f6e5b8');b.addColorStop(1,'#dcb872');g.fillStyle=b;g.fillRect(0,0,w,h);
+for(let i=0;i<Math.floor(w*h/120);i++){g.fillStyle=Math.random()<.5?'rgba(140,100,40,.05)':'rgba(255,255,255,.08)';g.fillRect(Math.random()*w,Math.random()*h,1+Math.random()*2,1+Math.random()*2)}
+g.lineJoin='round';const cx=w/2,cy=h*.6,u=Math.max(w,h)*.045;
+for(let k=1;k<=11;k++){g.beginPath();for(let s=0;s<=120;s++){const t=s/120*Math.PI*2,
+r=u*k*(1+.16*Math.sin(2*t+k*.7)+.1*Math.sin(3*t+1.7*k)+.06*Math.sin(5*t+k));
+const x=cx+r*1.5*Math.cos(t),y=cy+r*.75*Math.sin(t);s?g.lineTo(x,y):g.moveTo(x,y)}
+g.closePath();g.strokeStyle=k%4==0?'rgba(120,75,30,.36)':'rgba(120,75,30,.22)';g.lineWidth=k%4==0?2.2:1.3;g.stroke()}}
+addEventListener('resize',()=>{fit();paper()});fit();paper();
+const clk=new THREE.Clock(),back=x=>1+2.7*Math.pow(x-1,3)+1.7*Math.pow(x-1,2);
+R.setAnimationLoop(()=>{
+const dt=Math.min(clk.getDelta(),.05),t=clk.elapsedTime;
+if(!drag)world.rotation.y+=dt*.12;
+world.position.y=Math.sin(t*.9)*.07;
+ents.forEach(o=>{const r=o.fn(t);
+let y=gy(r.x,r.z)+(Math.abs(r.x+.78)<.42&&Math.abs(r.z-.1)<.3?.09:0)+Math.abs(Math.sin(t*6+o.ph))*.025;
+if(o.hop>=0){o.hop+=dt;y+=Math.sin(Math.min(o.hop/.5,1)*Math.PI)*.3;if(o.hop>.5)o.hop=-1}
+o.g.position.set(r.x,y,r.z);o.g.rotation.y=r.h;
+if(o.ct){o.ct.position.set(r.cx,gy(r.cx,r.cz)+(Math.abs(r.cx+.78)<.42&&Math.abs(r.cz-.1)<.3?.09:0),r.cz);o.ct.rotation.y=r.h}});
+// 路口的聚落慢慢長大，一輪後重來
+const q=t%24;
+grow.forEach((g,i)=>{const t0=1+i*2.6;g.scale.setScalar(q<t0?0:q<t0+.6?Math.max(0,.9*back((q-t0)/.6)+.1*((q-t0)/.6)):q<21.5?1:q<22.5?22.5-q:0)});
+trees.forEach((g,i)=>g.rotation.z=Math.sin(t*1.4+i)*.03);
+R.render(sc,cam)});
+}
+</script>
+</body>
+</html>
