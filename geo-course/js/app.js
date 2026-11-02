@@ -290,7 +290,37 @@
       ${im.caption || im.credit ? `<figcaption>${esc(im.caption || '')}${im.credit ? `<small>${esc(im.credit)}</small>` : ''}</figcaption>` : ''}</figure>`;
   const miniGrid = (g, cls = '') => `<div class="mini-grid ${cls} n${g.length}">${g.map((x) => `
       <div class="mini-card"><div class="mini-top"><span class="mini-icon">${x.icon || '•'}</span><b>${esc(x.title)}</b></div>
-      <p>${md(x.text)}</p>${x.tag ? `<span class="mini-tag">📍 ${esc(x.tag)}</span>` : ''}</div>`).join('')}</div>`;
+      <p>${md(x.text)}</p>${x.tag ? (x.chart
+        ? `<button class="mini-tag has-chart" data-chart="${regChart(x.chart)}" title="看氣候圖">📍 ${esc(x.tag)} <b>📊</b></button>`
+        : `<span class="mini-tag">📍 ${esc(x.tag)}</span>`) : ''}</div>`).join('')}</div>`;
+
+  /* ---------- 城市氣候圖：點圖釘 → 彈出老師氣候圖工具的展示模式 ---------- */
+  const CHARTS = [];
+  function regChart(c) { CHARTS.push(c); return CHARTS.length - 1; }
+  function encodeChart(obj) {
+    const bytes = new TextEncoder().encode(JSON.stringify(obj));
+    let bin = ''; bytes.forEach((b) => { bin += String.fromCharCode(b); });
+    return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function openChart(i) {
+    const c = CHARTS[i]; if (!c) return;
+    const data = Object.assign({ tempPeaks: [], precipPeaks: [] }, c);
+    delete data.source;
+    const src = 'tools/climate/index.html#d=' + encodeChart(data);
+    let m = $('#chartModal');
+    if (!m) {
+      m = document.createElement('div'); m.id = 'chartModal'; m.className = 'chart-modal';
+      m.innerHTML = `<div class="chart-box"><button class="chart-x" aria-label="關閉">✕</button><iframe title="氣候圖"></iframe><p class="chart-src"></p></div>`;
+      document.body.appendChild(m);
+      m.addEventListener('click', (e) => { if (e.target === m || e.target.closest('.chart-x')) closeChart(); });
+    }
+    m.querySelector('iframe').src = src;
+    m.querySelector('.chart-src').textContent = c.source ? '資料來源：' + c.source : '';
+    m.classList.add('open');
+  }
+  function closeChart() { const m = $('#chartModal'); if (m) { m.classList.remove('open'); m.querySelector('iframe').src = 'about:blank'; } }
+  document.addEventListener('click', (e) => { const t = e.target.closest('[data-chart]'); if (t) { e.preventDefault(); e.stopPropagation(); openChart(+t.dataset.chart); } }, true);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('#chartModal.open')) { e.stopImmediatePropagation(); closeChart(); } }, true);
   const conceptInner = (k) => `
       <p class="concept-text">${md(k.text)}</p>
       ${k.points?.length ? `<ul class="dot-list">${k.points.map((p) => `<li>${md(p)}</li>`).join('')}</ul>` : ''}
