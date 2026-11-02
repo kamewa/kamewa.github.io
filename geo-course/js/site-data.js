@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110302',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110303',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -46,7 +46,7 @@ window.SITE = {
     { id: 'x7', hidden: true, name: '', en: '', icon: '', color: 'pink', map: 'maps/x7.webp', pos: { x: 4.9, y: 80.1 }, size: 3.2,
       /* 隱藏地圖上的工具按鈕：label 是顯示文字，href 填工具網址或檔案路徑（例如 'tools/xxx.html'），留空＝尚未設定 */
       buttons: [
-        { label: '1', x: 32.1, y: 34.2, href: '' },
+        { label: '地形觀察', x: 32.1, y: 34.2, href: 'tools/terrain/index.html' },
         { label: '2', x: 15.2, y: 22.4, href: '' },
         { label: '3', x: 11.3, y: 49.1, href: '' },
         { label: '4', x: 40.8, y: 68.4, href: '' },
