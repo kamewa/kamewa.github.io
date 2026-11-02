@@ -1,0 +1,9 @@
+這個資料夾要放兩個繪圖套件，放好之後，氣候圖製作在「沒有網路」時也能使用。
+（還沒放之前也能用，只是需要有網路，程式會自動改從網路載入。）
+
+1. chart.umd.min.js
+   下載網址：https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js
+2. html2canvas.min.js
+   下載網址：https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js
+
+作法：用瀏覽器打開上面的網址 → 按右鍵「另存新檔」→ 檔名維持不變，存到這個 lib 資料夾。

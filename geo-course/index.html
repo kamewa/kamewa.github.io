@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>地理課程網站</title>
+<!-- 有網路時載入設計字型；沒有網路會自動改用電腦內建字型 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="toy-header">
+  <div class="header-inner">
+    <a class="brand" href="#/world">
+      <div class="brand-logo" id="brandLogo">地</div>
+      <div>
+        <div class="brand-title" id="brandTitle"></div>
+        <div class="brand-subtitle" id="brandSubtitle"></div>
+      </div>
+    </a>
+    <nav class="crumbs" id="crumbs" aria-label="目前位置"></nav>
+    <div class="mode-toggle" id="modeToggle" hidden>
+      <button class="mode-btn active" data-mode="review">📖 複習模式</button>
+      <button class="mode-btn" data-mode="slides">📺 簡報模式</button>
+    </div>
+  </div>
+</header>
+
+<main class="main" id="app"></main>
+
+<!-- 簡報模式 -->
+<div class="slide-progress"><span id="slideProgress"></span></div>
+<div class="slides-wrap" id="slidesWrap">
+  <div class="slide-scaler" id="slideScaler"></div>
+</div>
+<div class="presenter-dock" id="dock" role="toolbar" aria-label="簡報控制">
+  <button class="dock-btn" data-act="first" title="第一張（Home）">⏮<span class="dock-text">第一張</span></button>
+  <button class="dock-btn" data-act="prev" title="上一張（←）">◀<span class="dock-text">上一張</span></button>
+  <span class="dock-count" id="dockCount">1 / 1</span>
+  <button class="dock-btn dock-btn-primary" data-act="next" title="下一張（→ 或空白鍵）"><span class="dock-text">下一張</span>▶</button>
+  <button class="dock-btn" data-act="last" title="最後一張（End）"><span class="dock-text">最後一張</span>⏭</button>
+  <span class="dock-divider"></span>
+  <button class="dock-btn" data-act="toc" title="目錄（T）">📑<span class="dock-text">目錄</span></button>
+  <button class="dock-btn" data-act="notes" title="講者備忘（N）">📝<span class="dock-text">備忘</span></button>
+  <button class="dock-btn" data-act="fullscreen" title="全螢幕（F）">⛶<span class="dock-text">全螢幕</span></button>
+  <span class="dock-divider"></span>
+  <button class="dock-btn" data-act="exit" title="回到複習模式">✕<span class="dock-text">離開</span></button>
+</div>
+<aside class="notes-drawer" id="notesDrawer" aria-live="polite">
+  <h4>📝 講者備忘 <button class="icon-x" data-act="notes" aria-label="關閉">✕</button></h4>
+  <p id="notesText"></p>
+</aside>
+<div class="overlay" id="tocOverlay">
+  <div class="toc-box" role="dialog" aria-label="投影片目錄">
+    <div class="toc-head"><h3>📑 投影片目錄</h3><button class="icon-x" data-act="toc" aria-label="關閉">✕</button></div>
+    <div class="toc-grid" id="tocGrid"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<footer class="footer" id="footer"></footer>
+
+<script src="js/site-data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

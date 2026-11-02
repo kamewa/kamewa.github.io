@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>氣候圖製作 - 專業教學版</title>
+    <!-- 引入繪圖核心與截圖套件 -->
+    <!-- 鎖定版本：避免套件改版後圖表突然壞掉 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* 基礎版面設定 */
+        body {
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1250px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        /* ================= 修改亮點 1：左側嚴格佔 2/3 ================= */
+        .input-section {
+            flex: 2; 
+            min-width: 480px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #1a252f;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .split-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-size: 15px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdde1;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        .month-row {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .data-inputs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 13px;
+            color: #7f8c8d;
+            pointer-events: none;
+            font-weight: bold;
+        }
+
+        .data-inputs input {
+            width: 100%;
+            padding: 10px 8px 10px 48px;
+            border: 1px solid #dcdde1;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn {
+            padding: 0;
+            height: 38px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #bdc3c7; 
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .toggle-btn:active { transform: scale(0.95); }
+
+        /* ================= 修改亮點 2：右側嚴格佔 1/3，並鎖定 9:16 比例 ================= */
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 350px;
+            max-width: 400px; /* 鎖死最大寬度，避免按鈕被無限拉長 */
+            margin: 0 auto;   /* 確保在小螢幕時置中 */
+        }
+
+        .mobile-frame {
+            width: 100%;
+            height: 640px; /* 寬 360px ~ 400px 搭配高 640px，完美逼近 9:16 瘦長比例 */
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .mobile-frame canvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #fff;
+        }
+
+        /* 圖表下方的 2x3 按鈕網格 */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 兩欄 */
+            gap: 10px;
+        }
+
+        button.main-btn {
+            padding: 14px 10px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s, filter 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        button.main-btn:active { transform: scale(0.98); }
+        button.main-btn:hover { filter: brightness(1.1); }
+
+        /* 依要求配置顏色 */
+        .btn-update { background-color: #2c3e50; }
+        .btn-export-color { background-color: #27ae60; }
+        
+        .btn-load { background-color: #f39c12; }
+        .btn-export-bw { background-color: #7f8c8d; }
+        
+        .btn-save { background-color: #d35400; }
+        .btn-embed { background-color: #2980b9; }
+
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(3px);
+        }
+        .modal-content {
+            background-color: #fff; margin: 10% auto; padding: 30px;
+            border-radius: 12px; width: 90%; max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2); position: relative;
+        }
+        .close {
+            position: absolute; right: 20px; top: 20px; font-size: 28px;
+            color: #999; cursor: pointer; font-weight: bold;
+        }
+        .close:hover { color: #333; }
+        #min-temp, #max-precip {
+            width: 100%; padding: 10px; border: 1px solid #dcdde1; border-radius: 8px;
+            font-size: 15px; box-sizing: border-box; background: #fff;
+        }
+        .embed-note { font-size: 13px; color: #c0392b; margin: 10px 0 0; line-height: 1.5; }
+        .embed-preview-link { display: block; text-align: center; margin-top: 12px; font-size: 14px; color: #2980b9; }
+
+        /* ================= 展示模式：網址帶有資料時，只顯示圖表 ================= */
+        body.view-mode { padding: 0; background: #fff; display: block; }
+        body.view-mode .container {
+            max-width: none; padding: 0; border-radius: 0; box-shadow: none; gap: 0; display: block;
+        }
+        body.view-mode .input-section,
+        body.view-mode .action-grid,
+        body.view-mode .right-section > p { display: none; }
+        body.view-mode .right-section { min-width: 0; max-width: none; margin: 0; }
+        body.view-mode .mobile-frame {
+            height: 100vh; padding: 14px 10px; border-radius: 0; box-shadow: none;
+        }
+
+        #embed-code-area {
+            width: 100%; height: 120px; margin-top: 15px; padding: 15px;
+            font-family: monospace; border: 2px solid #eee; border-radius: 8px;
+            resize: none; background: #f8f9fa; box-sizing: border-box; font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 左側：佔畫面 2/3 的資料輸入區 -->
+        <div class="input-section">
+            <h1>🌍 氣候圖製作</h1>
+            
+            <div class="split-row">
+                <div class="form-group">
+                    <label for="continent-name">洲名</label>
+                    <input type="text" id="continent-name" value="亞洲 (Asia)" placeholder="請輸入洲名">
+                </div>
+                <div class="form-group">
+                    <label for="city-name">城市名稱</label>
+                    <input type="text" id="city-name" value="台北 (Taipei)" placeholder="請輸入城市名稱">
+                </div>
+            </div>
+
+            <label>各月氣候數據 (提示：點擊右側開關，可於圖表突顯該月極端峰值)</label>
+            <div class="months-grid" id="months-grid"></div>
+
+            <div class="split-row">
+                <div class="form-group">
+                    <label for="climate-type">氣候類型</label>
+                    <input type="text" id="climate-type" value="副熱帶季風氣候" placeholder="例如：熱帶雨林氣候">
+                </div>
+                <div class="form-group">
+                    <label for="climate-feature">氣候特徵</label>
+                    <input type="text" id="climate-feature" value="夏雨冬少，溫和濕潤" placeholder="例如：全年高溫多雨">
+                </div>
+            </div>
+            
+            <div class="split-row" style="background: #f8f9fa; padding: 15px; border-radius: 10px; border: 1px dashed #ccc; margin-bottom: 0;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="min-temp" style="font-size: 13px; color: #555;">氣溫下限 (預設 -40)</label>
+                    <input type="number" id="min-temp" value="-40" step="1">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="max-precip" style="font-size: 13px; color: #555;">降水上限 (預設 400)</label>
+                    <input type="number" id="max-precip" value="400" step="10">
+                </div>
+            </div>
+
+            <input type="file" id="json-upload" accept=".json" style="display: none;" onchange="handleJSONUpload(event)">
+        </div>
+
+        <!-- 右側：佔畫面 1/3 的圖表與操作按鈕區 (嚴格鎖死 9:16 比例) -->
+        <div class="right-section">
+            
+            <div class="mobile-frame" id="chart-capture-area">
+                <canvas id="climateChart"></canvas>
+            </div>
+
+            <div class="action-grid">
+                <button class="main-btn btn-update" onclick="generateChart('color')">⚡ 更新圖表</button>
+                <button class="main-btn btn-export-color" onclick="downloadImage('color')">🖼️ 彩色圖檔</button>
+                
+                <button class="main-btn btn-load" onclick="triggerLoadJSON()">📂 讀取 JSON</button>
+                <button class="main-btn btn-export-bw" onclick="downloadImage('bw')">🖨️ 黑白講義版</button>
+                
+                <button class="main-btn btn-save" onclick="saveJSON()">💾 儲存 JSON</button>
+                <button class="main-btn btn-embed" onclick="showEmbedCode()">🔗 網頁嵌入碼</button>
+            </div>
+            <p style="font-size: 12px; color: #7f8c8d; text-align: center; margin-top: 5px; line-height: 1.4;">
+                💡 <b>彩色圖檔</b>適合簡報展示；<b>黑白講義版</b>會轉為網點，專為影印設計。
+            </p>
+            
+        </div>
+    </div>
+    
+    <div id="embedModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeEmbedModal()">&times;</span>
+        <h2 style="margin-top:0; color:#2c3e50;">取得網頁嵌入碼</h2>
+        <p style="color:#666;">這段嵌入碼已包含目前的城市與全部數據，貼進課程網頁即可直接顯示這張氣候圖：</p>
+        <textarea id="embed-code-area" readonly></textarea>
+        <p class="embed-note" id="embed-note" style="display:none;"></p>
+        <button class="main-btn btn-update" style="width: 100%; margin-top: 15px;" onclick="copyEmbedCode()">📋 一鍵複製</button>
+        <a class="embed-preview-link" id="embed-preview-link" href="#" target="_blank" rel="noopener">在新分頁預覽展示效果</a>
+      </div>
+    </div>
+
+    <script>
+        const defaultTemps = [16.6, 17.0, 19.0, 22.5, 25.8, 28.3, 30.1, 29.7, 27.8, 24.7, 21.7, 18.2];
+        const defaultPrecip = [91, 139, 174, 164, 245, 344, 242, 281, 255, 122, 94, 78];
+        const chartMonths = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+
+        function createInputGrid() {
+            const grid = document.getElementById('months-grid');
+            for (let i = 0; i < 12; i++) {
+                const row = document.createElement('div');
+                row.className = 'month-row';
+                row.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="margin: 0; font-weight: 900; color: #34495e;">${chartMonths[i]}月</span>
+                        <span style="margin: 0; color: #7f8c8d; font-size: 13px; font-weight: bold;">峰值</span>
+                    </div>
+                    <div class="data-inputs">
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                            <div class="input-wrapper" data-label="氣溫">
+                                <input type="number" id="temp-${i}" value="${defaultTemps[i]}" step="0.1">
+                            </div>
+                            <div class="input-wrapper" data-label="降水">
+                                <input type="number" id="precip-${i}" value="${defaultPrecip[i]}" step="1">
+                            </div>
+                        </div>
+                        <div style="width: 40px; display: flex; flex-direction: column; gap: 8px;">
+                            <button class="toggle-btn" id="toggle-temp-${i}" onclick="togglePeak('temp', ${i})">關</button>
+                            <button class="toggle-btn" id="toggle-precip-${i}" onclick="togglePeak('precip', ${i})">關</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(row);
+            }
+        }
+
+        function togglePeak(type, index, forceState = null, noUpdate = false) {
+            const btn = document.getElementById(`toggle-${type}-${index}`);
+            let targetState = (forceState !== null) ? forceState : !btn.classList.contains('active');
+
+            if (targetState) {
+                btn.classList.add('active');
+                btn.style.backgroundColor = (type === 'temp') ? '#EE6C4D' : 'rgba(92, 164, 219, 1)';
+                btn.innerText = '開';
+            } else {
+                btn.classList.remove('active');
+                btn.style.backgroundColor = '#bdc3c7'; 
+                btn.innerText = '關';
+            }
+            if (!noUpdate) generateChart(); 
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type === 'number') {
+                e.preventDefault(); 
+                const parts = e.target.id.split('-');
+                if (parts.length === 2) {
+                    const type = parts[0]; 
+                    const nextIndex = parseInt(parts[1]) + 1;
+                    let nextInput;
+                    if (nextIndex < 12) nextInput = document.getElementById(`${type}-${nextIndex}`);
+                    else if (type === 'temp') nextInput = document.getElementById('precip-0');
+                    else if (type === 'precip') nextInput = document.getElementById('climate-type');
+                    if (nextInput) { nextInput.focus(); nextInput.select(); }
+                } else if (e.target.id === 'min-temp' || e.target.id === 'max-precip') {
+                    generateChart();
+                }
+            }
+        });
+        
+        // 收集目前畫面上的所有資料（儲存 JSON 與嵌入碼共用同一種格式）
+        function collectData() {
+            const data = {
+                continent: document.getElementById('continent-name').value,
+                city: document.getElementById('city-name').value,
+                type: document.getElementById('climate-type').value,
+                feature: document.getElementById('climate-feature').value,
+                minTemp: document.getElementById('min-temp').value,
+                maxPrecip: document.getElementById('max-precip').value,
+                temps: [], precips: [],
+                tempPeaks: [], precipPeaks: []
+            };
+            for (let i = 0; i < 12; i++) {
+                data.temps.push(parseFloat(document.getElementById(`temp-${i}`).value) || 0);
+                data.precips.push(parseFloat(document.getElementById(`precip-${i}`).value) || 0);
+                data.tempPeaks.push(document.getElementById(`toggle-temp-${i}`).classList.contains('active'));
+                data.precipPeaks.push(document.getElementById(`toggle-precip-${i}`).classList.contains('active'));
+            }
+            return data;
+        }
+
+        // 把資料填回畫面；格式不完整時回傳 false
+        function applyData(data) {
+            if (!data || !data.temps || data.temps.length !== 12 || !data.precips || data.precips.length !== 12) return false;
+            if (data.continent !== undefined) document.getElementById('continent-name').value = data.continent;
+            if (data.city !== undefined) document.getElementById('city-name').value = data.city;
+            if (data.type !== undefined) document.getElementById('climate-type').value = data.type;
+            if (data.feature !== undefined) document.getElementById('climate-feature').value = data.feature;
+            if (data.minTemp !== undefined) document.getElementById('min-temp').value = data.minTemp;
+            if (data.maxPrecip !== undefined) document.getElementById('max-precip').value = data.maxPrecip;
+            for (let i = 0; i < 12; i++) {
+                document.getElementById(`temp-${i}`).value = data.temps[i];
+                document.getElementById(`precip-${i}`).value = data.precips[i];
+            }
+            if (data.tempPeaks) data.tempPeaks.forEach((on, i) => togglePeak('temp', i, !!on, true));
+            if (data.precipPeaks) data.precipPeaks.forEach((on, i) => togglePeak('precip', i, !!on, true));
+            return true;
+        }
+
+        function saveJSON() {
+            const data = collectData();
+            const dataStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = (data.city || '未命名城市') + "_氣候資料.json";
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function triggerLoadJSON() { document.getElementById('json-upload').click(); }
+
+        function handleJSONUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (applyData(data)) generateChart('color');
+                    else alert("讀取失敗：檔案格式不完整。");
+                } catch (err) { alert("讀取失敗：請確認檔案為有效的 JSON 格式。"); }
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        function createHatchPattern() {
+            const patternCanvas = document.createElement('canvas');
+            const patternContext = patternCanvas.getContext('2d');
+            patternCanvas.width = 10; patternCanvas.height = 10;
+            patternContext.fillStyle = '#ffffff'; patternContext.fillRect(0, 0, 10, 10);
+            patternContext.strokeStyle = '#555555'; patternContext.lineWidth = 1;
+            patternContext.beginPath(); patternContext.moveTo(0, 0); patternContext.lineTo(10, 10); patternContext.stroke();
+            return patternContext.createPattern(patternCanvas, 'repeat');
+        }
+
+        const topAxisLabelsPlugin = {
+            id: 'topAxisLabelsPlugin',
+            afterDraw(chart) {
+                const { ctx, scales, data } = chart;
+                const yTemp = scales['y-temp'];
+                const yPrecip = scales['y-precip'];
+                if (!yTemp || !yPrecip) return;
+
+                let sumTemp = 0;
+                let sumPrecip = 0;
+                data.datasets[0].data.forEach(val => sumTemp += val);
+                data.datasets[1].data.forEach(val => sumPrecip += val);
+                
+                const avgTemp = (sumTemp / 12).toFixed(1);
+                const totalPrecip = Math.round(sumPrecip).toLocaleString();
+
+                ctx.save();
+                ctx.fillStyle = chart.options.plugins.title.color || '#444';
+                ctx.textBaseline = 'bottom';
+                ctx.font = 'bold 13px "Noto Sans TC", sans-serif';
+                
+                ctx.textAlign = 'left';
+                const leftX = yTemp.right - 35; 
+                ctx.fillText('氣溫(°C)', leftX, yTemp.top - 10);
+                ctx.fillText(`年均溫 ${avgTemp}°C`, leftX, yTemp.top - 28);
+                
+                ctx.textAlign = 'right';
+                const rightX = yPrecip.left + 35; 
+                ctx.fillText('降水量(mm)', rightX, yPrecip.top - 10);
+                ctx.fillText(`年降水量 ${totalPrecip}mm`, rightX, yPrecip.top - 28);
+                
+                ctx.restore();
+            }
+        };
+
+        const peakValuesPlugin = {
+            id: 'peakValuesPlugin',
+            afterDatasetsDraw(chart) {
+                const { ctx, data } = chart;
+                ctx.save();
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.font = 'bold 13px "Noto Sans TC", sans-serif';
+
+                const isBW = data.datasets[0].pointStyle === 'rectRot';
+
+                const tempMeta = chart.getDatasetMeta(0);
+                tempMeta.data.forEach((element, index) => {
+                    const btn = document.getElementById(`toggle-temp-${index}`);
+                    if (btn && btn.classList.contains('active')) {
+                        const value = data.datasets[0].data[index];
+                        ctx.fillStyle = isBW ? '#000' : '#EE6C4D';
+                        ctx.fillText(`${value}`, element.x, element.y - 12);
+                    }
+                });
+
+                const precipMeta = chart.getDatasetMeta(1);
+                precipMeta.data.forEach((element, index) => {
+                    const btn = document.getElementById(`toggle-precip-${index}`);
+                    if (btn && btn.classList.contains('active')) {
+                        const value = data.datasets[1].data[index];
+                        ctx.fillStyle = isBW ? '#000' : 'rgba(92, 164, 219, 1)';
+                        ctx.fillText(`${value}`, element.x, element.y - 5);
+                    }
+                });
+                
+                ctx.restore();
+            }
+        };
+
+        let climateChart;
+        let isExporting = false;
+
+        // 正式網址：在自己電腦（file://）開啟時，嵌入碼改用這個網址
+        const PUBLISHED_URL = 'https://kamewa.github.io/climate/';
+
+        function generateChart(mode = 'color') {
+            const isBW = (mode === 'bw');
+            const continentName = document.getElementById('continent-name').value;
+            const cityName = document.getElementById('city-name').value;
+            const climateType = document.getElementById('climate-type').value;
+            const climateFeature = document.getElementById('climate-feature').value;
+            
+            const minTempRaw = parseFloat(document.getElementById('min-temp').value);
+            const customMinTemp = isNaN(minTempRaw) ? -40 : minTempRaw;
+            const maxPrecipRaw = parseFloat(document.getElementById('max-precip').value);
+            const customMaxPrecip = isNaN(maxPrecipRaw) ? 400 : maxPrecipRaw;
+
+            // 讓左右兩軸格線永遠對齊：降水刻度間距 = 降水上限 ÷ 氣溫格數
+            const tempSteps = Math.max(1, Math.round((40 - customMinTemp) / 10));
+            const precipStep = customMaxPrecip / tempSteps;
+
+            const temps = [], precips = [];
+
+            for (let i = 0; i < 12; i++) {
+                temps.push(parseFloat(document.getElementById(`temp-${i}`).value) || 0);
+                precips.push(parseFloat(document.getElementById(`precip-${i}`).value) || 0);
+            }
+
+            if (climateChart) climateChart.destroy();
+
+            const subtitleLines = [];
+            if (climateType) subtitleLines.push(`類型：${climateType}`);
+            if (climateFeature) subtitleLines.push(`特徵：${climateFeature}`);
+            
+            const style = {
+                tempColor: isBW ? '#000' : '#EE6C4D',
+                tempWidth: isBW ? 4 : 3,
+                tempRadius: isBW ? 5 : 3,
+                precipBg: isBW ? createHatchPattern() : 'rgba(92, 164, 219, 0.7)',
+                precipBorder: isBW ? '#333' : 'transparent',
+                precipBorderWidth: isBW ? 1 : 0,
+                text: isBW ? '#000' : '#444'
+            };
+
+            const ctx = document.getElementById('climateChart').getContext('2d');
+            climateChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartMonths,
+                    datasets: [
+                        {
+                            type: 'line', label: '氣溫 (°C)', data: temps,
+                            borderColor: style.tempColor, backgroundColor: style.tempColor,
+                            borderWidth: style.tempWidth, pointRadius: style.tempRadius,
+                            pointStyle: isBW ? 'rectRot' : 'circle', 
+                            pointBackgroundColor: '#fff', pointBorderWidth: 2,
+                            tension: 0.3, yAxisID: 'y-temp'
+                        },
+                        {
+                            type: 'bar', label: '降水量 (mm)', data: precips,
+                            backgroundColor: style.precipBg, borderColor: style.precipBorder,
+                            borderWidth: style.precipBorderWidth, borderRadius: 4,
+                            yAxisID: 'y-precip'
+                        }
+                    ]
+                },
+                plugins: [topAxisLabelsPlugin, peakValuesPlugin], 
+                options: {
+                    maintainAspectRatio: false, responsive: true,
+                    animation: isExporting ? false : undefined,
+                    layout: {
+                        padding: { left: 15, right: 15 } 
+                    },
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        title: {
+                            display: true, 
+                            text: continentName ? `${continentName} - ${cityName}` : cityName,
+                            font: { size: 24, weight: 'bold' }, 
+                            color: style.text, 
+                            padding: { bottom: 50 } 
+                        },
+                        subtitle: {
+                            display: subtitleLines.length > 0, 
+                            position: 'bottom', 
+                            text: subtitleLines,
+                            font: { size: 18, weight: 'bold' }, 
+                            color: style.text, 
+                            padding: { top: 15, bottom: 5 }
+                        },
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 13 }, color: style.text } }
+                    },
+                    scales: {
+                        x: { 
+                            grid: { display: false }, 
+                            ticks: { 
+                                font: { size: 13 }, 
+                                color: style.text,
+                                autoSkip: false,
+                                maxRotation: 0, 
+                                minRotation: 0  
+                            } 
+                        },
+                        'y-temp': {
+                            type: 'linear', position: 'left',
+                            grid: { color: isBW ? '#ccc' : '#eee' },
+                            min: customMinTemp, max: 40, 
+                            ticks: { stepSize: 10, font: { size: 12 }, color: style.text }
+                        },
+                        'y-precip': {
+                            type: 'linear', position: 'right',
+                            grid: { drawOnChartArea: false },
+                            min: 0, max: customMaxPrecip, 
+                            ticks: { stepSize: precipStep, font: { size: 12 }, color: style.text }
+                        }
+                    }
+                }
+            });
+        }
+
+        function downloadImage(mode) {
+            isExporting = true;
+            generateChart(mode); 
+            isExporting = false;
+            setTimeout(() => {
+                const targetElement = document.getElementById('chart-capture-area');
+                const cityName = document.getElementById('city-name').value || '未命名';
+                const fileSuffix = mode === 'bw' ? '黑白講義版' : '彩色簡報版';
+                const fileName = `${cityName}_氣候圖_${fileSuffix}.png`;
+
+                html2canvas(targetElement, { backgroundColor: '#ffffff', scale: 2 }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = fileName; link.href = canvas.toDataURL('image/png'); link.click();
+                    if(mode === 'bw') setTimeout(() => generateChart('color'), 100); 
+                });
+            }, 100); 
+        }
+
+        // 中文也能安全放進網址的編碼（UTF-8 → base64url）
+        function encodeData(obj) {
+            const bytes = new TextEncoder().encode(JSON.stringify(obj));
+            let bin = '';
+            bytes.forEach(b => bin += String.fromCharCode(b));
+            return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        }
+        function decodeData(str) {
+            let b64 = str.replace(/-/g, '+').replace(/_/g, '/');
+            while (b64.length % 4) b64 += '=';
+            const bin = atob(b64);
+            const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+            return JSON.parse(new TextDecoder().decode(bytes));
+        }
+
+        function showEmbedCode() {
+            const data = collectData();
+            const isLocal = !/^https?:$/.test(location.protocol);
+            const base = isLocal ? PUBLISHED_URL : location.origin + location.pathname;
+            const viewUrl = `${base}#d=${encodeData(data)}`;
+            const title = `${data.city || '城市'} 氣候圖`.replace(/"/g, '&quot;');
+
+            document.getElementById('embed-code-area').value =
+                `<iframe src="${viewUrl}" title="${title}" loading="lazy" style="width:100%; max-width:420px; aspect-ratio:9/16; border:1px solid #ddd; border-radius:12px; display:block;"></iframe>`;
+            document.getElementById('embed-preview-link').href = viewUrl;
+
+            const note = document.getElementById('embed-note');
+            if (isLocal) {
+                note.style.display = 'block';
+                note.textContent = `目前是在自己電腦開啟，嵌入碼指向 ${PUBLISHED_URL}，請先把本檔案以 index.html 上傳到網站的 climate 資料夾，嵌入碼與預覽才會生效。`;
+            } else {
+                note.style.display = 'none';
+            }
+            document.getElementById('embedModal').style.display = 'block';
+        }
+        function closeEmbedModal() { document.getElementById('embedModal').style.display = 'none'; }
+        function copyEmbedCode() {
+            const textarea = document.getElementById('embed-code-area');
+            const done = () => { alert('嵌入碼已複製！請直接貼至課程網頁。'); closeEmbedModal(); };
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textarea.value).then(done, () => { textarea.select(); document.execCommand('copy'); done(); });
+            } else {
+                textarea.select(); document.execCommand('copy'); done();
+            }
+        }
+        window.onclick = function(e) { if (e.target == document.getElementById('embedModal')) closeEmbedModal(); }
+
+        window.onload = function() {
+            createInputGrid();
+            // 網址帶有 #d=... 時進入展示模式：只顯示圖表
+            const encoded = new URLSearchParams(location.hash.slice(1)).get('d');
+            if (encoded) {
+                try {
+                    const data = decodeData(encoded);
+                    if (applyData(data)) {
+                        document.body.classList.add('view-mode');
+                        document.title = `${data.city || '城市'} 氣候圖`;
+                    }
+                } catch (err) { console.warn('嵌入資料無法讀取，改以製作模式開啟', err); }
+            }
+            generateChart('color');
+        };
+    </script>
+</body>
+</html>
