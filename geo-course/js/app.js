@@ -278,7 +278,7 @@
     return new Promise((resolve, reject) => {
       if (LESSON_CONTENT[l.id]) return resolve(LESSON_CONTENT[l.id]);
       const s = document.createElement('script');
-      s.src = l.file;
+      s.src = l.file + '?v=' + (SITE.version || '');   // 加版本號，避免瀏覽器讀到舊的暫存
       s.onload = () => LESSON_CONTENT[l.id] ? resolve(LESSON_CONTENT[l.id]) : reject(new Error('內容檔沒有呼叫 registerLesson'));
       s.onerror = () => reject(new Error('找不到內容檔：' + l.file));
       document.body.appendChild(s);
@@ -291,7 +291,7 @@
   const miniGrid = (g, cls = '') => `<div class="mini-grid ${cls} n${g.length}">${g.map((x) => `
       <div class="mini-card"><div class="mini-top"><span class="mini-icon">${x.icon || '•'}</span><b>${esc(x.title)}</b></div>
       <p>${md(x.text)}</p>${x.tag ? (x.chart
-        ? `<button class="mini-tag has-chart" data-chart="${regChart(x.chart)}" title="看氣候圖">📍 ${esc(x.tag)} <b>📊</b></button>`
+        ? `<button type="button" class="chart-btn" data-chart="${regChart(x.chart)}" onclick="window.GEO_openChart(+this.dataset.chart)" title="點我看氣候圖"><span class="chart-btn-icon">📊</span><span><small>看氣候圖</small>${esc(x.tag)}</span></button>`
         : `<span class="mini-tag">📍 ${esc(x.tag)}</span>`) : ''}</div>`).join('')}</div>`;
 
   /* ---------- 城市氣候圖：點圖釘 → 彈出老師氣候圖工具的展示模式 ---------- */
@@ -319,7 +319,7 @@
     m.classList.add('open');
   }
   function closeChart() { const m = $('#chartModal'); if (m) { m.classList.remove('open'); m.querySelector('iframe').src = 'about:blank'; } }
-  document.addEventListener('click', (e) => { const t = e.target.closest('[data-chart]'); if (t) { e.preventDefault(); e.stopPropagation(); openChart(+t.dataset.chart); } }, true);
+  window.GEO_openChart = openChart;   // 按鈕直接呼叫
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('#chartModal.open')) { e.stopImmediatePropagation(); closeChart(); } }, true);
   const conceptInner = (k) => `
       <p class="concept-text">${md(k.text)}</p>

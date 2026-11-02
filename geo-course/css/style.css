@@ -643,3 +643,14 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 .chart-box iframe { display: block; width: 100%; aspect-ratio: 9 / 16; border: none; border-radius: 14px; background: #fff; }
 .chart-x { position: absolute; top: -14px; right: -14px; width: 38px; height: 38px; border-radius: 50%; border: var(--border-toy-dark); background: var(--toy-red); color: #fff; font-weight: 900; cursor: pointer; box-shadow: 0 3px 0 var(--toy-red-dark); }
 .chart-src { margin: 6px 4px 0; font-size: .72rem; color: var(--ink-tertiary); line-height: 1.4; }
+
+/* 氣候圖按鈕（取代原本的城市標籤） */
+.chart-btn { align-self: flex-start; margin-top: 4px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+  padding: 7px 16px 7px 10px; border-radius: 999px; border: 2.5px solid var(--line-dark);
+  background: var(--toy-yellow); color: #38241D; font-family: var(--font-heading); font-weight: 800; font-size: .95rem; line-height: 1.15; text-align: left;
+  box-shadow: 0 4px 0 var(--toy-yellow-dark), 0 6px 12px rgba(60,45,30,.15); transition: transform .12s, box-shadow .12s, filter .12s; }
+.chart-btn:hover { filter: brightness(1.06); transform: translateY(-2px); box-shadow: 0 6px 0 var(--toy-yellow-dark), 0 8px 14px rgba(60,45,30,.18); }
+.chart-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--toy-yellow-dark); }
+.chart-btn-icon { width: 30px; height: 30px; border-radius: 50%; background: #fff; display: grid; place-items: center; font-size: 1rem; border: 2px solid var(--line-dark); flex-shrink: 0; }
+.chart-btn small { display: block; font-size: .7rem; font-weight: 700; color: #6B3F0E; }
+.slide-mini .chart-btn { font-size: 1rem; padding: 5px 14px 5px 8px; }
