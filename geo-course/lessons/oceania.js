@@ -70,6 +70,7 @@ registerLesson({
       concepts: [
         {
           icon: '⛰️', color: 'red', title: '澳洲地形：以高原為主',
+          models: [{ id: 'au-landform', label: '澳洲地形：由東向西' }],
           text: '澳洲由東向西是**東部沿海平原、大分水嶺、中部平原、西部高原**。',
           image: { src: 'lessons/img/oceania-australia.svg', caption: '澳洲地形剖面示意圖（自繪）' },
           points: [
@@ -79,6 +80,7 @@ registerLesson({
         },
         {
           icon: '🌵', color: 'yellow', title: '澳洲氣候：大部分很乾燥',
+          models: [{ id: 'au-landform', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '大分水嶺與東南信風' }],
           text: '受**緯度、盛行風向、洋流、地形**影響，澳洲大部分地區屬乾燥氣候。',
           grid: [
             { icon: '🏜️', title: '熱帶沙漠', text: '受**副熱帶高壓**籠罩，又位在**東南信風**的背風側（大分水嶺以西），氣候乾燥。', tag: '澳洲 艾利斯泉', chart: {"continent": "大洋洲 (Oceania)", "city": "艾利斯泉 (Alice Springs)", "type": "熱帶沙漠氣候", "feature": "乾燥少雨，夏季炎熱", "minTemp": 0, "maxPrecip": 80, "temps": [29.7, 28.5, 25.7, 21.1, 15.8, 12.4, 12.3, 14.7, 20.0, 23.4, 26.4, 28.2], "precips": [48.9, 40.7, 19.9, 19.9, 17.5, 10.3, 13.0, 3.8, 7.8, 18.7, 33.0, 41.3], "source": "Wikipedia 引用澳洲氣象局資料，艾利斯泉機場 1991–2020 年平均"} },
@@ -99,6 +101,7 @@ registerLesson({
         },
         {
           icon: '🌋', color: 'red', title: '紐西蘭：活的地形教室',
+          models: [{ id: 'nz-south-island', label: '南島：南阿爾卑斯山' }, { id: 'nz-south-island', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '西風與迎風坡' }],
           text: '紐西蘭位在**環太平洋火山地震帶**，以山地為主，地形景觀豐富。',
           grid: [
             { icon: '🌋', title: '北島', text: '**火山地形**多（如通加里羅火山）；緯度較低、氣候較暖，人口集中，有首都**威靈頓**與大都市**奧克蘭**。' },
@@ -117,6 +120,7 @@ registerLesson({
         },
         {
           icon: '📷', color: 'teal', title: '看一看：南島的峽灣',
+          models: [{ id: 'nz-milford-sound', icon: '🧊', label: '米爾福德峽灣' }],
           text: '南島的**米爾福德峽灣**是冰河侵蝕後海水灌入形成的，景觀壯麗，是熱門觀光地。',
           image: { src: 'lessons/img/oceania-milford.webp', caption: '紐西蘭南島・米爾福德峽灣', credit: '攝影：Oliver Leimig／Wikimedia Commons（創用 CC 授權）' }
         }

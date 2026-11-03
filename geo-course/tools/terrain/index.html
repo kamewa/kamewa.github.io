@@ -7785,5 +7785,139 @@ Check your Browserslist config to be sure that your targets are set up correctly
       }
     };
   </script>
+  <!-- ===== 網站版新增（1/1）：課程網站「開啟地形模型」自動載入 =====
+       用法：index.html#model=au-landform        直接載入 models/au-landform.js
+             index.html#model=au-landform&mode=weather   載入後直接進入地形雨
+       原檔沒有這一段；其餘程式完全未改動。 -->
+  <style>
+    #lessonModelCard{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:60;max-width:min(560px,calc(100vw - 32px));
+      background:#FFFDF8;border:2px solid #3E3B38;border-radius:16px;box-shadow:4px 4px 0 #3E3B38;padding:10px 14px 10px;
+      font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;color:#3E3B38}
+    #lessonModelCard .lm-head{display:flex;align-items:center;gap:8px}
+    #lessonModelCard .lm-title{font-weight:900;font-size:15px;flex:1}
+    #lessonModelCard .lm-tag{font-size:11px;font-weight:700;background:#F6D776;border:1.5px solid #3E3B38;border-radius:999px;padding:1px 8px;white-space:nowrap}
+    #lessonModelCard button{font:inherit;font-size:12px;font-weight:700;border:1.5px solid #3E3B38;border-radius:999px;background:#fff;padding:2px 9px;cursor:pointer;white-space:nowrap}
+    #lessonModelCard button:hover{background:#F3EEE4}
+    #lessonModelCard ul{margin:6px 0 2px;padding-left:18px;font-size:13px;line-height:1.55}
+    #lessonModelCard .lm-scale{font-size:11px;color:#7A746C;margin-top:2px}
+    #lessonModelCard.lm-min ul,#lessonModelCard.lm-min .lm-scale{display:none}
+  </style>
+  <script>
+  (function () {
+    var params = new URLSearchParams(location.hash.replace(/^#/, ''));
+    var id = params.get('model');
+    if (!id || !/^[\w-]+$/.test(id)) return;
+    var mode = params.get('mode');
+    var labelGroup = null, card = null, active = true;
+
+    function makeLabel(L) {
+      var kind = L.kind || 'region';
+      var text = (kind === 'peak' ? '▲ ' : kind === 'city' ? '● ' : kind === 'point' ? '◆ ' : '') + L.text;
+      var fs = kind === 'small' || kind === 'city' || kind === 'point' ? 44 : 54;
+      var c = document.createElement('canvas'), g = c.getContext('2d');
+      var font = '900 ' + fs + 'px "Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif';
+      g.font = font;
+      var w = Math.ceil(g.measureText(text).width) + 44, h = fs + 34;
+      c.width = w + 8; c.height = h + 8;
+      g = c.getContext('2d'); g.font = font; g.textBaseline = 'middle'; g.textAlign = 'center';
+      var colors = { region: ['#FFFDF8', '#3E3B38'], ridge: ['#F2A65A', '#3E3B38'], sea: [null, '#1F5F8B'],
+                     peak: ['#FFFDF8', '#8A3B2E'], city: ['#FFFDF8', '#3E3B38'], point: ['#FFFDF8', '#3E3B38'],
+                     small: ['#FFFDF8', '#3E3B38'] }[kind] || ['#FFFDF8', '#3E3B38'];
+      if (colors[0]) {
+        var r = h / 2;
+        g.fillStyle = '#3E3B38'; roundRect(g, 8, 8, w, h, r); g.fill();
+        g.fillStyle = colors[0]; g.strokeStyle = '#3E3B38'; g.lineWidth = 5;
+        roundRect(g, 3, 3, w, h, r); g.fill(); g.stroke();
+        g.fillStyle = colors[1]; g.fillText(text, 3 + w / 2, 3 + h / 2 + 2);
+      } else {
+        g.lineWidth = 10; g.strokeStyle = 'rgba(255,255,255,.9)'; g.strokeText(text, c.width / 2, c.height / 2);
+        g.fillStyle = colors[1]; g.fillText(text, c.width / 2, c.height / 2);
+      }
+      var tex = new THREE.CanvasTexture(c);
+      tex.minFilter = THREE.LinearFilter;
+      var mat = new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true });
+      var s = new THREE.Sprite(mat);
+      var worldH = fs === 54 ? 3.4 : 2.8;
+      s.scale.set(worldH * c.width / c.height, worldH, 1);
+      s.renderOrder = 999;
+      var gy = kind === 'sea' ? Math.max(state.seaLevel, getTerrainHeight(L.x / HALF_SIZE, L.z / HALF_SIZE))
+                              : getTerrainHeight(L.x / HALF_SIZE, L.z / HALF_SIZE);
+      s.position.set(L.x, BASE_Y + gy + (L.dy || 2) + worldH / 2, L.z);
+      s.userData = { x: L.x, z: L.z };
+      return s;
+    }
+    function roundRect(g, x, y, w, h, r) {
+      g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r);
+      g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath();
+    }
+    function esc(t) { return String(t).replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); }
+
+    function buildCard(m) {
+      card = document.createElement('div');
+      card.id = 'lessonModelCard';
+      card.innerHTML = '<div class="lm-head"><span class="lm-tag">' + esc(m.lesson || '課程模型') + '</span>'
+        + '<span class="lm-title">' + esc(m.title) + '</span>'
+        + '<button type="button" data-lm="labels">隱藏標籤</button>'
+        + '<button type="button" data-lm="reload">↺ 重新載入</button>'
+        + '<button type="button" data-lm="min">－</button></div>'
+        + '<ul>' + (m.tips || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'
+        + '<div class="lm-scale">' + esc(m.scale || '') + '</div>';
+      card.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        var k = b.getAttribute('data-lm');
+        if (k === 'labels' && labelGroup) { labelGroup.visible = !labelGroup.visible; b.textContent = labelGroup.visible ? '隱藏標籤' : '顯示標籤'; }
+        if (k === 'reload') { location.reload(); }
+        if (k === 'min') { card.classList.toggle('lm-min'); b.textContent = card.classList.contains('lm-min') ? '＋' : '－'; }
+      });
+      document.body.appendChild(card);
+    }
+
+    function leaveModel() {
+      if (!active) return;
+      active = false;
+      if (labelGroup) { scene.remove(labelGroup); labelGroup = null; }
+      if (card) {
+        card.classList.add('lm-min');
+        card.querySelector('.lm-title').textContent = '已換成其他地形；按「重新載入」回到課程模型';
+        var lb = card.querySelector('[data-lm="labels"]'); if (lb) lb.remove();
+      }
+    }
+
+    function apply(m) {
+      loadSandboxProjectData(m.project);
+      labelGroup = new THREE.Group();
+      (m.labels || []).forEach(function (L) { labelGroup.add(makeLabel(L)); });
+      scene.add(labelGroup);
+      buildCard(m);
+      if (m.camera) {
+        camera.position.set(m.camera.pos[0], m.camera.pos[1], m.camera.pos[2]);
+        controls.target.set(m.camera.target[0], m.camera.target[1], m.camera.target[2]);
+        controls.update();
+      }
+      if (mode === 'weather') setWeatherMode(true);
+      document.getElementById('btnRandom').addEventListener('click', leaveModel);
+      document.getElementById('terrainType').addEventListener('change', leaveModel);
+      (function tick() {
+        if (labelGroup) labelGroup.children.forEach(function (s) {
+          s.visible = s.userData.x <= state.clipX + 0.01 && s.userData.z <= state.clipZ + 0.01;
+        });
+        requestAnimationFrame(tick);
+      })();
+    }
+
+    window.addEventListener('load', function () {
+      var s = document.createElement('script');
+      s.src = 'models/' + id + '.js';
+      s.onload = function () {
+        var m = window.TERRAIN_MODELS && window.TERRAIN_MODELS[id];
+        if (!m) return;
+        try { apply(m); } catch (err) { window.alert('無法載入課程地形模型：' + err.message); }
+      };
+      s.onerror = function () { window.alert('找不到課程地形模型：' + id); };
+      document.head.appendChild(s);
+    });
+  })();
+  </script>
+  <!-- ===== 網站版新增結束 ===== -->
 </body>
 </html>

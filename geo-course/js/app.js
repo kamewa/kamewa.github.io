@@ -321,12 +321,16 @@
   function closeChart() { const m = $('#chartModal'); if (m) { m.classList.remove('open'); m.querySelector('iframe').src = 'about:blank'; } }
   window.GEO_openChart = openChart;   // 按鈕直接呼叫
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('#chartModal.open')) { e.stopImmediatePropagation(); closeChart(); } }, true);
+  // 3D 地形模型按鈕：開啟「地形觀察」並自動載入對應模型
+  const terrainBtns = (k, cls = '') => k.models?.length ? `<div class="terrain-row ${cls}">${k.models.map((m) =>
+      `<a class="terrain-btn" href="tools/terrain/index.html#model=${encodeURIComponent(m.id)}${m.mode ? '&mode=' + encodeURIComponent(m.mode) : ''}" target="_blank" rel="noopener" title="在新分頁開啟 3D 地形模型"><span class="terrain-btn-icon">${m.icon || '🏔️'}</span><span><small>${esc(m.small || '開啟 3D 地形')}</small>${esc(m.label)}</span></a>`).join('')}</div>` : '';
   const conceptInner = (k) => `
       <p class="concept-text">${md(k.text)}</p>
       ${k.points?.length ? `<ul class="dot-list">${k.points.map((p) => `<li>${md(p)}</li>`).join('')}</ul>` : ''}
       ${k.grid?.length ? miniGrid(k.grid) : ''}
       ${k.image ? imgFig(k.image) : ''}
-      ${k.images?.length ? `<div class="fig-row">${k.images.map((im) => imgFig(im)).join('')}</div>` : ''}`;
+      ${k.images?.length ? `<div class="fig-row">${k.images.map((im) => imgFig(im)).join('')}</div>` : ''}
+      ${terrainBtns(k)}`;
   const conceptCard = (k) => `
       <article class="toy-card lift top-color concept-card c-${k.color || 'teal'} ${((k.grid?.length || 0) >= 3 || k.image || k.images?.length) ? 'wide' : ''}">
         <div class="concept-top"><span class="concept-icon">${k.icon || '📌'}</span><h3>${esc(k.title)}</h3></div>
@@ -498,7 +502,7 @@
           : `<p>${md(k.text)}</p>${k.points?.length ? `<ul class="dot-list">${k.points.map((p) => `<li>${md(p)}</li>`).join('')}</ul>` : ''}`;
       const wideMedia = k.images?.length;
       return { cat, color: k.color || 'teal', title: k.title, note: k.note || '',
-        html: `<div class="slide-concept-head c-${k.color || 'teal'}"><span class="concept-icon">${k.icon || '📌'}</span><h2 class="slide-title">${esc(k.title)}</h2></div>
+        html: `<div class="slide-concept-head c-${k.color || 'teal'}"><span class="concept-icon">${k.icon || '📌'}</span><h2 class="slide-title">${esc(k.title)}</h2>${terrainBtns(k, 'in-slide')}</div>
           <div class="slide-body c-${k.color || 'teal'} ${wideMedia ? 'media-wide' : ''}">${body}</div>` };
     };
     const thinkSlide = (t, cat, color) => ({ cat, color: color || 'yellow', title: '想一想', note: t.note || '按「下一張」先顯示答案', reveal: true,
