@@ -74,6 +74,7 @@ registerLesson({
       concepts: [
         {
           icon: '⛰️', color: 'red', title: '地形：西高、中低、東緩',
+          models: [{ id: 'na-landform', label: '北美洲地形' }],
           text: '北美洲北鄰寒冷的北極海、南接溫暖的墨西哥灣，東西兩側較高、中間低平，可分為**三大地形區**。',
           image: { src: 'lessons/img/n-america-profile.svg', caption: '北美洲地形剖面示意圖（自繪）' },
           note: '先看剖面圖抓「兩側高、中間低」，再進入三個地形區。'
@@ -89,6 +90,7 @@ registerLesson({
         },
         {
           icon: '📷', color: 'red', title: '比一比：年輕高山 vs 古老山地',
+          models: [{ id: 'young-vs-old', label: '年輕高山 vs 古老山地' }],
           text: '同樣是山，**洛磯山脈**高聳陡峭，**阿帕拉契山脈**低矮圓緩，差別在形成年代與侵蝕時間。',
           images: [
             { src: 'lessons/img/n-america-moraine-lake.webp', caption: '加拿大班夫國家公園・夢蓮湖（洛磯山區）', credit: '攝影：Gorgo／Wikimedia Commons（公眾領域）' },
@@ -103,6 +105,7 @@ registerLesson({
         },
         {
           icon: '🌦️', color: 'blue', title: '北美洲的七種氣候',
+          models: [{ id: 'na-landform', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '西風與洛磯山脈' }],
           text: '依分布位置記憶，配合「為什麼會這樣」一起理解。',
           grid: [
             { icon: '🧊', title: '寒帶', text: '北極圈附近，緯度高，冬季嚴寒、冬夏溫差大。', tag: '加拿大 黃刀鎮', chart: {"continent": "北美洲 (North America)", "city": "黃刀鎮 (Yellowknife)", "type": "寒帶氣候", "feature": "冬季嚴寒漫長，冬夏溫差大", "minTemp": -30, "maxPrecip": 70, "temps": [-25.5, -22.7, -16.6, -5.5, 5.3, 13.8, 17.1, 14.5, 7.6, -1.0, -12.6, -21.8], "precips": [15.0, 11.0, 14.1, 11.6, 16.3, 28.9, 40.4, 44.0, 43.0, 28.8, 25.8, 15.1], "source": "Wikipedia 引用加拿大環境部資料，黃刀鎮機場 1991–2020 年平均"} },

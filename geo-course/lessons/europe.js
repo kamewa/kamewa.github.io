@@ -34,6 +34,7 @@ registerLesson({
       concepts: [
         {
           icon: '🌊', color: 'blue', title: '像巨型半島伸入海洋',
+          models: [{ id: 'eu-landform', label: '歐洲地形' }],
           text: '歐洲位在**歐亞大陸西側**，北臨北極海、西臨大西洋、南臨地中海，就像一個巨型半島伸入海洋。',
           points: [
             '東邊以**烏拉爾山**、東南以**高加索山**與亞洲為界。',
@@ -42,6 +43,7 @@ registerLesson({
         },
         {
           icon: '⛰️', color: 'red', title: '阿爾卑斯山與南歐三大半島',
+          models: [{ id: 'eu-landform', label: '高山與三大半島' }],
           text: '歐洲主要山脈是**阿爾卑斯山**，地勢高聳險峻，山間較平坦的谷地方便通行。',
           points: [
             '山脈以南是南歐三大半島：**伊比利半島、義大利半島、巴爾幹半島**。',
@@ -61,11 +63,13 @@ registerLesson({
         },
         {
           icon: '🧊', color: 'teal', title: '北歐的冰河地形',
+          models: [{ id: 'norway-fjord', icon: '🧊', label: '挪威峽灣' }, { id: 'alps-u-valley', icon: '🧊', label: 'U 型谷與角峰' }],
           text: '緯度較高的北歐（**斯堪地那維亞半島**）冰河地形發達。積雪受重力擠壓成冰層，沿谷地向下移動，就成為冰河。',
           image: { src: 'lessons/img/europe-glacier.svg', caption: '冰河地形示意圖（自繪）' }
         },
         {
           icon: '🗺️', color: 'teal', title: '冰河與海岸，帶來交通便利',
+          models: [{ id: 'alps-u-valley', icon: '🛤️', label: 'U 型谷：天然孔道' }, { id: 'ria-coast', icon: '⚓', label: '谷灣' }],
           text: '地形不只是風景，也影響了交通。',
           grid: [
             { icon: '🛤️', title: '陸路：阿爾卑斯山的 U 型谷', text: '山高、積雪多，冰河侵蝕出許多寬平的谷地，成為穿越山脈的**天然孔道**。' },
@@ -82,6 +86,7 @@ registerLesson({
         },
         {
           icon: '🌤️', color: 'blue', title: '溫暖潮溼、沒有沙漠的一洲',
+          models: [{ id: 'eu-landform', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '西風與迎風坡' }],
           text: '歐洲大部分位在**中緯度**，多屬溫帶氣候；受**西風**與**北大西洋暖流**調節，比同緯度其他地區溫暖潮溼。',
           points: [
             '主要山脈多**東西走向**，不會擋住海洋水氣。',
@@ -230,6 +235,7 @@ registerLesson({
       concepts: [
         {
           icon: '🗻', color: 'purple', title: '橫跨七國的大山脈',
+          models: [{ id: 'alps-u-valley', icon: '🗻', label: '阿爾卑斯冰河地形' }],
           text: '阿爾卑斯山涵蓋義大利北部、法國東南部、瑞士、列支敦斯登、奧地利、德國南部與斯洛維尼亞，東西綿延約 **1,200 公里**，平均海拔約 3,000 公尺，有 82 座超過 4,000 公尺的山峰；也是**萊因河**的發源地，被稱為「歐洲的屋脊」。'
         },
         {

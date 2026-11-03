@@ -41,7 +41,13 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
 課程內容檔的概念卡可加 models，就會出現綠色「開啟 3D 地形」按鈕（複習模式與簡報模式都有）：
   models: [{ id: 'au-landform', label: '澳洲地形：由東向西' },
            { id: 'au-landform', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '大分水嶺與東南信風' }]
-目前模型：au-landform 澳洲地形／nz-south-island 紐西蘭南島／nz-milford-sound 米爾福德峽灣
+目前模型（共 14 個）：
+  歐洲：eu-landform 歐洲地形／alps-u-valley 阿爾卑斯冰河地形／norway-fjord 挪威峽灣／ria-coast 谷灣
+  俄羅斯：ru-landform 俄羅斯地形
+  北美洲：na-landform 北美洲地形／young-vs-old 年輕高山 vs 古老山地
+  中南美洲：sa-landform 南美洲地形
+  大洋洲：au-landform 澳洲地形／nz-south-island 紐西蘭南島／nz-milford-sound 米爾福德峽灣
+  兩極：arctic 北極地區／antarctica 南極洲／coast-sea-rise 海水面上升
 模型是示意模型：依真實位置與海拔繪製，高度有放大；在工具裡按「隨機」或換地形就會離開模型，按「重新載入」可回來。
 j、l、m 三個位置已預留在 site-data.js 的 world.reserved，之後新增區域時直接使用。
 

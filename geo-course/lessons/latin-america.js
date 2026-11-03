@@ -53,6 +53,7 @@ registerLesson({
         },
         {
           icon: '⛰️', color: 'red', title: '南美洲地形：西高東低',
+          models: [{ id: 'sa-landform', label: '南美洲地形' }],
           text: '南美洲東、西兩側的地形差異很大，可分為**兩大地形區**。',
           image: { src: 'lessons/img/latin-america-profile.svg', caption: '南美洲地形剖面示意圖（自繪）' }
         },
@@ -76,6 +77,7 @@ registerLesson({
         },
         {
           icon: '🌦️', color: 'blue', title: '中南美洲的八種氣候',
+          models: [{ id: 'sa-landform', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '西風與巴塔哥尼亞' }],
           text: '依分布位置記憶，並想想造成的原因。',
           grid: [
             { icon: '🌴', title: '熱帶雨林', text: '亞馬孫盆地，全年高溫多雨，樹木高低成層、樹冠茂密。', tag: '巴西 瑪瑙斯', chart: {"continent": "中南美洲 (Latin America)", "city": "瑪瑙斯 (Manaus)", "type": "熱帶雨林氣候", "feature": "全年高溫多雨", "minTemp": 0, "maxPrecip": 400, "temps": [26.6, 26.6, 26.6, 26.7, 27.0, 27.3, 27.5, 28.2, 28.6, 28.5, 28.0, 27.2], "precips": [305.6, 296.8, 320.9, 331.0, 233.3, 117.2, 67.1, 56.1, 79.0, 113.9, 188.0, 253.5], "source": "Wikipedia 引用巴西氣象局資料，1991–2020 年平均"} },

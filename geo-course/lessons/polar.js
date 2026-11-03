@@ -33,6 +33,7 @@ registerLesson({
       concepts: [
         {
           icon: '❄️', color: 'blue', title: '寒冷的寒漠',
+          models: [{ id: 'antarctica', icon: '🧊', label: '南極洲冰原' }],
           text: '兩極地區指**北極**與**南極**地區。因為**緯度高、氣溫低、降水少**，呈現**寒漠**景觀。',
           image: { src: 'lessons/img/polar-domec.webp', caption: '南極高原的冰雪地表（Dome C）', credit: '攝影：Stephen Hudson／Wikimedia Commons（CC BY-SA）' }
         },
@@ -47,6 +48,7 @@ registerLesson({
         },
         {
           icon: '🗺️', color: 'teal', title: '北極與南極，哪裡不一樣？',
+          models: [{ id: 'arctic', icon: '🌊', label: '北極地區' }, { id: 'antarctica', icon: '🧊', label: '南極洲' }],
           text: '兩極雖然都很冷，組成卻完全不同。',
           grid: [
             { icon: '🌊', title: '北極地區', text: '北極圈以內，主體是被**歐、亞、北美三洲**圍繞的**北極海**；海上布滿浮冰，不利航運；只有極少數原住民族居住。' },
@@ -55,6 +57,7 @@ registerLesson({
         },
         {
           icon: '♟️', color: 'red', title: '兩極地區的戰略競合',
+          models: [{ id: 'arctic', icon: '🚢', label: '北極航道' }],
           text: '北極被三大洲環繞，交通與戰略地位重要；暖化讓這裡變得更受關注。',
           grid: [
             { icon: '🚢', title: '北極航道', text: '**西北航道**與**東北航道**過去終年結冰，暖化後**夏季可通航**，縮短**太平洋與大西洋**之間的海運距離。' },
@@ -107,6 +110,7 @@ registerLesson({
         },
         {
           icon: '⚠️', color: 'yellow', title: '氣候異常造成的環境問題',
+          models: [{ id: 'coast-sea-rise', icon: '🌊', label: '海水面上升' }],
           text: '極端天氣出現得更頻繁、更劇烈，氣溫與降水偏離平均值。',
           grid: [
             { icon: '🌊', title: '海水面上升', text: '冰河與兩極冰層融化，加上海水受熱**體積膨脹**；全球約一半人口住在離海 50 公里內，大洋洲島國更面臨**國土被淹沒**的威脅。' },

@@ -52,6 +52,7 @@ registerLesson({
         },
         {
           icon: '🐟', color: 'teal', title: '北歐：資源豐富、高社會福利',
+          models: [{ id: 'norway-fjord', icon: '🐟', label: '挪威峽灣' }],
           text: '北歐包括**挪威、瑞典、芬蘭、冰島**等國，自然資源豐富，可以出口，也是工業發展的基礎。',
           grid: [
             { icon: '🐟', title: '漁業', text: '挪威利用**峽灣**良港與低溫海水養殖**鮭魚**，是鮭魚出口大國。' },
@@ -127,6 +128,7 @@ registerLesson({
         },
         {
           icon: '⛰️', color: 'red', title: '地形：以烏拉爾山為界',
+          models: [{ id: 'ru-landform', label: '俄羅斯地形' }],
           text: '烏拉爾山把俄羅斯分成歐、亞兩部分。',
           grid: [
             { icon: '🌾', title: '歐俄', text: '烏拉爾山以西，地勢平坦的**歐俄平原**，屬歐洲大平原的一部分，有**窩瓦河**。' },
@@ -137,6 +139,7 @@ registerLesson({
         },
         {
           icon: '🥶', color: 'blue', title: '氣候：冷而乾燥',
+          models: [{ id: 'ru-landform', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '西風愈往東愈弱' }],
           text: '俄羅斯緯度高，多屬**溫帶大陸性氣候**，夏季是主要降水季節。',
           grid: [
             { icon: '🌧️', title: '西側', text: '受西風帶來的水氣影響，降水較多。' },
