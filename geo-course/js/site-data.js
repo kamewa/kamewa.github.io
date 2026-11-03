@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110305',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110306',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -32,7 +32,14 @@ window.SITE = {
      color 可用：red / yellow / teal / blue / purple / pink / ice
      pos：這一洲的按鈕在「世界地圖」上的位置（依老師標示的 a～g 位置）                       */
   continents: [
-    { id: 'asia',       name: '亞洲',   en: 'Asia',          icon: '🏯', color: 'red',    map: 'maps/asia.webp',       pos: { x: 29.9, y: 33.3 } },
+    { id: 'asia',       name: '亞洲',   en: 'Asia',          icon: '🏯', color: 'red',    map: 'maps/asia.webp',       pos: { x: 29.9, y: 33.3 },
+      /* 亞洲地圖上的入口按鈕（太陽光暈，不是課程按鈕）：href 填 '#/c/分區代號' 進入下一張地圖；留空＝尚未設定 */
+      spotSize: 5,
+      spots: [
+        { label: '台灣', x: 58.2, y: 60.6, href: '#/c/taiwan' },   // 老師標示的 a
+        { label: '中國', x: 51.8, y: 53.4, href: '' },             // b
+        { label: '中亞', x: 33.5, y: 38.6, href: '' }              // g
+      ] },
     { id: 'europe',     name: '歐洲',   en: 'Europe',        icon: '🏰', color: 'blue',   map: 'maps/europe.webp',     pos: { x: 12.2, y: 22.3 } },
     { id: 'africa',     name: '非洲',   en: 'Africa',        icon: '🦁', color: 'yellow', map: 'maps/africa.webp',     pos: { x: 10.6, y: 53.0 } },
     { id: 'namerica',   name: '北美洲', en: 'North America', icon: '🗽', color: 'teal',   map: 'maps/namerica.webp',   pos: { x: 73.4, y: 27.9 } },
@@ -41,6 +48,17 @@ window.SITE = {
     { id: 'antarctica', name: '南極洲', en: 'Antarctica',    icon: '🐧', color: 'ice',    map: 'maps/antarctica.webp', pos: { x: 46.7, y: 91.5 } },
     { id: 'arctic',     name: '北極地區', en: 'Arctic',      icon: '🐻‍❄️', color: 'blue',   map: 'maps/arctic.svg',      pos: { x: 55.0, y: 8.0 } },   // 北極海（老師標示的 h）；地圖為暫用版
     { id: 'global',     name: '全球議題', en: 'Global Issues', icon: '🌐', color: 'teal',   map: 'maps/global.webp',     pos: { x: 71.6, y: 62.7 } },  // 太平洋東南（老師標示的 i）
+    /* 分區地圖：parent 表示從哪一洲的入口按鈕進來；不會出現在世界地圖上
+       buttons：圓形呼吸發光按鈕；href 填 '#/c/代號' 進入下一層、填網址或檔案路徑會在新分頁開啟、留空＝尚未設定 */
+    { id: 'taiwan', parent: 'asia', name: '台灣', en: 'Taiwan', icon: '🌿', color: 'teal', map: 'maps/taiwan.webp', glow: 'green', pinSize: 6.3,
+      buttons: [
+        { label: '1', x: 29.4, y: 21.1, href: '' },   // 左上
+        { label: '2', x: 22.1, y: 46.3, href: '' },   // 左中
+        { label: '3', x: 28.0, y: 73.4, href: '' },   // 左下
+        { label: '4', x: 70.8, y: 21.1, href: '' },   // 右上
+        { label: '5', x: 77.8, y: 46.3, href: '' },   // 右中
+        { label: '6', x: 70.6, y: 73.4, href: '' }    // 右下
+      ] },
     /* 隱藏區（老師標示的 k）：看不見、不發光、游標不變，點到才會進入；不列入清單與計數，頁面不顯示名稱
        ⚠ 只是「看不出來」不是「鎖起來」，網站公開時請勿放不能讓學生看到的資料 */
     { id: 'x7', hidden: true, name: '', en: '', icon: '', color: 'pink', map: 'maps/x7.webp', pos: { x: 4.9, y: 80.1 }, size: 3.2,

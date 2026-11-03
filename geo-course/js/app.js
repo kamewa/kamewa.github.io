@@ -66,7 +66,7 @@
 
   function mapStage(mapSrc, pins, hint, opts = {}) {
     if (opts.style === 'sun') {
-      return `<div class="map-stage sun-stage">
+      return `<div class="map-stage sun-stage ${opts.glow ? 'glow-' + opts.glow : ''}">
         <div class="map-zoomer">
           <img class="map-img" src="${esc(mapSrc)}" alt="" draggable="false">
           ${pins.map((p, i) => sunPin(p, opts.size || 6, i)).join('')}
@@ -74,9 +74,10 @@
         ${hint ? `<div class="map-hint toy-pill c-yellow">${hint}</div>` : ''}
       </div>`;
     }
-    return `<div class="map-stage">
+    return `<div class="map-stage ${opts.spots?.length ? 'has-spots' : ''}">
       <div class="map-zoomer">
         <img class="map-img" src="${esc(mapSrc)}" alt="" draggable="false">
+        ${(opts.spots || []).map((p, i) => sunPin(p, opts.spotSize || 5, i)).join('')}
         ${pins.map((p) => `
           <button class="map-pin c-${p.color} ${p.open ? 'open' : 'locked'}" style="left:${p.x}%;top:${p.y}%"
                   data-href="${p.href}" data-open="${p.open ? 1 : 0}" data-name="${esc(p.name)}"
@@ -95,7 +96,12 @@
         const open = el.dataset.open === '1';
         const name = el.dataset.name;
         if (!open && lockedMsg === 'block') { toast(`「${name}」尚未開放，敬請期待！`); return; }
-        if (el.classList.contains('map-pin') || el.classList.contains('sun-pin')) zoomTo(el, el.dataset.href);
+        const href = el.dataset.href;
+        if (el.classList.contains('sun-pin')) {
+          if (!href) { toast(`「${name}」還沒有設定連結`); return; }
+          if (!href.startsWith('#')) { window.open(href, '_blank', 'noopener'); return; }   // 工具或外部網頁：新分頁
+        }
+        if (el.classList.contains('map-pin') || el.classList.contains('sun-pin')) zoomTo(el, href);
         else location.hash = el.dataset.href;
       });
     });
@@ -103,9 +109,10 @@
 
   /* 滑鼠越接近按鈕，光越暖（--near 0~1）；進入圓形範圍時完整發光並浮現文字 */
   function bindSunProximity() {
-    const stage = app.querySelector('.sun-stage');
+    const stage = app.querySelector('.map-stage');
     if (!stage) return;
     const pins = [...stage.querySelectorAll('.sun-pin')];
+    if (!pins.length) return;
     let raf = 0, mx = 0, my = 0;
     const update = () => {
       raf = 0;
@@ -154,7 +161,7 @@
   function renderWorld() {
     setCrumbs([{ label: '🌏 世界地圖' }]);
     document.title = SITE.title;
-    const shown = SITE.continents.filter((c) => !c.hidden);
+    const shown = SITE.continents.filter((c) => !c.hidden && !c.parent);
     const pins = shown.map((c) => ({
       name: c.name, color: c.color, x: c.pos.x, y: c.pos.y,
       href: `#/c/${c.id}`, open: lessonsOn(c.id).some(isOpen)
@@ -226,6 +233,7 @@
     const c = continentById(cid);
     if (!c) return renderNotFound();
     if (c.hidden) return renderSecret(c);
+    if (c.parent) return renderSub(c);
     setCrumbs([{ label: '🌏 世界地圖', href: '#/world' }, { label: `${c.icon} ${esc(c.name)}` }]);
     document.title = `${c.name}｜${SITE.title}`;
     const ls = lessonsOn(cid);
@@ -242,7 +250,8 @@
           <p class="page-desc">${ls.length ? `這裡有 ${ls.length} 課，點地圖上的分區進入課程。` : '這裡目前還沒有安排課程。'}</p>
         </div>
       </section>
-      ${mapStage(c.map, pins, ls.length ? '👆 點一個分區' : '')}
+      ${mapStage(c.map, pins, ls.length ? '👆 點一個分區' : '', { spots: spotPins(c), spotSize: c.spotSize })}
+      ${spotCards(c)}
       <div class="list-head"><h2>📚 ${esc(c.name)}的課程</h2><span class="muted">🔒 表示尚未開放</span></div>
       ${ls.length ? `<div class="grid-3">
         ${ls.map((l) => `<a class="toy-card lift pick-card c-${c.color} ${isOpen(l) ? '' : 'locked'}" href="#/l/${l.id}/${cid}" data-href="#/l/${l.id}/${cid}" data-open="${isOpen(l) ? 1 : 0}" data-name="${esc(l.name)}">
@@ -253,6 +262,41 @@
       <div class="lesson-nav"><a class="toy-btn toy-btn-ghost" href="#/world">← 回到世界地圖</a></div>
     </div>`;
     bindPins('block');
+    bindSunProximity();
+  }
+
+  /* 各洲地圖上的入口按鈕（太陽光暈） */
+  const spotPins = (c) => (c.spots || []).map((s) => ({ name: s.label, x: s.x, y: s.y, href: s.href || '', open: true }));
+  const spotCards = (c) => (c.spots || []).some((s) => s.href) ? `
+      <div class="list-head"><h2>✨ 特別入口</h2></div>
+      <div class="grid-4">${c.spots.filter((s) => s.href).map((s) => `<a class="toy-card lift pick-card c-${c.color}" href="${esc(s.href)}" data-href="${esc(s.href)}" data-open="1" data-name="${esc(s.label)}">
+          <span class="pick-icon">🌟</span><span><h3>${esc(s.label)}</h3></span><span class="pick-go">›</span></a>`).join('')}</div>` : '';
+
+  /* 分區地圖（例如亞洲 → 台灣）：圓形呼吸發光按鈕＋這一區的課程 */
+  function renderSub(c) {
+    const par = continentById(c.parent);
+    setCrumbs([{ label: '🌏 世界地圖', href: '#/world' }, { label: `${par.icon} ${esc(par.name)}`, href: `#/c/${par.id}` }, { label: `${c.icon} ${esc(c.name)}` }]);
+    document.title = `${c.name}｜${SITE.title}`;
+    const btns = (c.buttons || []).map((b) => ({ name: b.label, x: b.x, y: b.y, href: b.href || '', open: true }));
+    const ls = lessonsOn(c.id);
+    const pins = ls.map((l) => ({ name: l.name, x: l.on[c.id].x, y: l.on[c.id].y, href: `#/l/${l.id}/${c.id}`, open: isOpen(l) }));
+    app.innerHTML = `<div class="view c-${c.color}">
+      <section class="page-header-box c-${c.color}">
+        <div class="ph-icon">${c.icon}</div>
+        <div>
+          <div class="ph-badges"><span class="toy-pill c-${c.color}">${esc(par.name)}｜分區地圖</span><span class="toy-pill c-yellow">${esc(c.en || '')}</span></div>
+          <h1 class="page-title">${esc(c.name)}</h1>
+          <p class="page-desc">點地圖上發光的圓點進入。</p>
+        </div>
+      </section>
+      ${mapStage(c.map, btns, '', { style: 'sun', size: c.pinSize || SITE.world.pinSize, glow: c.glow })}
+      ${ls.length ? `<div class="list-head"><h2>📚 ${esc(c.name)}的課程</h2></div><div class="grid-3">
+        ${ls.map((l) => `<a class="toy-card lift pick-card c-${c.color} ${isOpen(l) ? '' : 'locked'}" href="#/l/${l.id}/${c.id}" data-href="#/l/${l.id}/${c.id}" data-open="${isOpen(l) ? 1 : 0}" data-name="${esc(l.name)}">
+            <span class="pick-icon">${isOpen(l) ? '📖' : '🔒'}</span><span><h3>${esc(l.name)}</h3></span><span class="pick-go">›</span></a>`).join('')}</div>` : ''}
+      <div class="lesson-nav"><a class="toy-btn toy-btn-ghost" href="#/c/${par.id}">← 回到${esc(par.name)}</a></div>
+    </div>`;
+    bindPins('block');
+    bindSunProximity();
   }
 
   /* 隱藏區：不顯示名稱，只有地圖（之後可在 lessons 的 on 裡加入 x7 放課程按鈕） */

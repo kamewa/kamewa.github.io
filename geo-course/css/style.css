@@ -667,3 +667,44 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 .terrain-btn small { display: block; font-size: .7rem; font-weight: 700; opacity: .9; }
 .terrain-row.in-slide { margin: 0 0 0 auto; flex-wrap: nowrap; }
 .terrain-row.in-slide .terrain-btn { font-size: 1.05rem; }
+
+/* 綠色光（台灣分區地圖）：配合綠色科技感底圖，呼吸的淡綠白光 */
+.sun-stage.glow-green { background: #0B3B2A; }
+.glow-green .sun-glow {
+  background: radial-gradient(circle,
+    rgba(240, 255, 236, .95) 0%,
+    rgba(170, 255, 170, .8) 16%,
+    rgba(90, 230, 130, .42) 36%,
+    rgba(60, 210, 110, .14) 54%,
+    transparent 70%);
+}
+.glow-green .sun-fly {
+  width: 92%;
+  background: radial-gradient(circle,
+    rgba(236, 255, 226, 1) 0%,
+    rgba(180, 255, 170, .85) 14%,
+    rgba(110, 240, 140, .45) 32%,
+    rgba(80, 220, 120, .16) 50%,
+    rgba(80, 220, 120, 0) 70%);
+}
+.glow-green .sun-label { color: #0F5132; text-shadow: 0 0 6px #F2FFF0, 0 0 14px rgba(226, 255, 222, .95), 0 0 2px #fff; }
+.glow-green .sun-label b { font-size: clamp(1.2rem, 2.4vw, 2.2rem); }
+@keyframes sunWarmGreen { 0%, 100% { filter: hue-rotate(0deg); } }
+
+/* 各洲地圖上的入口按鈕：在黃色陸地上也看得到的星光（白芯＋暖橘光暈） */
+.has-spots .sun-fly {
+  width: 70%;
+  background: radial-gradient(circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 252, 235, .95) 9%,
+    rgba(255, 160, 50, .6) 24%,
+    rgba(255, 130, 30, .22) 42%,
+    rgba(255, 120, 20, 0) 64%);
+  filter: blur(1px);
+}
+.has-spots .sun-fly::before, .has-spots .sun-fly::after {
+  content: ''; position: absolute; left: 50%; top: 50%; border-radius: 50%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.95), transparent);
+  width: 120%; height: 6%; transform: translate(-50%, -50%);
+}
+.has-spots .sun-fly::after { transform: translate(-50%, -50%) rotate(90deg); }
