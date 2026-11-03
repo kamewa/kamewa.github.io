@@ -397,7 +397,9 @@
     if (!l) return renderNotFound();
     const cid = (fromCid && l.on[fromCid]) ? fromCid : Object.keys(l.on)[0];
     const c = continentById(cid);
-    setCrumbs([{ label: '🌏 世界地圖', href: '#/world' }, { label: `${c.icon} ${esc(c.name)}`, href: `#/c/${cid}` }, { label: `📖 ${esc(l.name)}` }]);
+    const par = c.parent ? continentById(c.parent) : null;   // 分區地圖（如台灣）多顯示上一層
+    setCrumbs([{ label: '🌏 世界地圖', href: '#/world' }, ...(par ? [{ label: `${par.icon} ${esc(par.name)}`, href: `#/c/${par.id}` }] : []),
+      { label: `${c.icon} ${esc(c.name)}`, href: `#/c/${cid}` }, { label: `📖 ${esc(l.name)}` }]);
     document.title = `${l.name}｜${SITE.title}`;
 
     if (!isOpen(l)) {
@@ -569,7 +571,14 @@
       S.push({ cat: '章節', color: sc, title: tag, note: sec.note || '',
         html: `<div class="slide-body slide-section c-${sc}"><div class="sec-big-code">${esc(sec.code)}</div><h1 class="slide-title">${sec.icon || ''} ${esc(sec.title)}</h1>
           ${sec.can ? `<p class="slide-sub">🙋 ${md(sec.can)}</p>` : ''}</div>` });
-      (sec.concepts || []).forEach((k) => S.push(conceptSlide(k, tag)));
+      (sec.concepts || []).forEach((k) => {
+        // 小卡＋圖片、或條列很多又有圖片的概念：圖片另外放一張投影片，避免擠在一起
+        const splitImg = k.image && (k.grid?.length || (k.points?.length || 0) >= 3);
+        S.push(conceptSlide(splitImg ? { ...k, image: null } : k, tag));
+        if (splitImg) S.push({ cat: tag, color: k.color || 'teal', title: k.title + '（圖）', note: k.note || '',
+          html: `<div class="slide-concept-head c-${k.color || 'teal'}"><span class="concept-icon">${k.icon || '📌'}</span><h2 class="slide-title">${esc(k.title)}</h2></div>
+            <div class="slide-body c-${k.color || 'teal'} slide-imgonly">${imgFig(k.image, 'slide-fig')}</div>` });
+      });
       (sec.think || []).forEach((t) => S.push(thinkSlide(t, tag, sc)));
       (sec.quiz || []).forEach((q) => S.push(quizSlide(q, tag)));
     });
