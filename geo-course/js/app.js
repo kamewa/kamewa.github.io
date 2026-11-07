@@ -574,7 +574,11 @@
       (sec.concepts || []).forEach((k) => {
         // 小卡＋圖片、或條列很多又有圖片的概念：圖片另外放一張投影片，避免擠在一起
         const splitImg = k.image && (k.grid?.length || (k.points?.length || 0) >= 3);
-        S.push(conceptSlide(splitImg ? { ...k, image: null } : k, tag));
+        const splitImgs = (k.images?.length || 0) >= 3 && (k.points?.length || 0) >= 1;
+        S.push(conceptSlide(splitImg ? { ...k, image: null } : splitImgs ? { ...k, images: null } : k, tag));
+        if (splitImgs) S.push({ cat: tag, color: k.color || 'teal', title: k.title + '（照片）', note: k.note || '',
+          html: `<div class="slide-concept-head c-${k.color || 'teal'}"><span class="concept-icon">${k.icon || '📌'}</span><h2 class="slide-title">${esc(k.title)}</h2></div>
+            <div class="slide-body c-${k.color || 'teal'} slide-photos"><div class="fig-row n${k.images.length}">${k.images.map((im) => imgFig(im, 'slide-fig')).join('')}</div></div>` });
         if (splitImg) S.push({ cat: tag, color: k.color || 'teal', title: k.title + '（圖）', note: k.note || '',
           html: `<div class="slide-concept-head c-${k.color || 'teal'}"><span class="concept-icon">${k.icon || '📌'}</span><h2 class="slide-title">${esc(k.title)}</h2></div>
             <div class="slide-body c-${k.color || 'teal'} slide-imgonly">${imgFig(k.image, 'slide-fig')}</div>` });

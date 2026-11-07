@@ -715,3 +715,10 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 /* 6 張小卡：3 × 2 */
 .slide-mini.n6 { grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .slide-mini.n6 .mini-card p { font-size: 1.05rem; }
+
+/* 只有照片的投影片 */
+.slide-body.slide-photos .fig-row { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+.slide-body.slide-photos .fig-row.n4 { grid-template-columns: repeat(4, 1fr); }
+.slide-body.slide-photos .fig-row.n2 { grid-template-columns: repeat(2, 1fr); }
+.slide-body.slide-photos .lesson-fig img { height: 330px; max-height: none; width: 100%; object-fit: cover; aspect-ratio: auto; }
+.slide-body.slide-photos .fig-row.n4 .lesson-fig img { height: 300px; }
