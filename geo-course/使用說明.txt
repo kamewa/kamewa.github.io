@@ -29,9 +29,12 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
 【亞洲的入口按鈕與台灣分區地圖】
 亞洲地圖上有三顆星光入口按鈕（台灣、中國、中亞），設定在 site-data.js 亞洲的 spots：
   href 填 '#/c/分區代號' 會進入下一張地圖；留空＝尚未設定（點了會提示）。
-台灣分區地圖（id: 'taiwan'，地圖 maps/taiwan.webp）有 6 顆綠色呼吸光按鈕，設定在 buttons：
-  label 改顯示文字；href 填 '#/c/代號' 進入下一層、填網址或檔案路徑會在新分頁開啟、留空＝尚未設定。
-之後要讓課程出現在台灣地圖上，在課程的 on 裡加 taiwan: { x: .., y: .. } 即可。
+台灣有兩張分區地圖，在島中央用「人文／自然」切換按鈕互相切換：
+  台灣（自然）id: 'taiwan'，地圖 maps/taiwan-nature.webp，6 顆綠色呼吸光課程按鈕（自然地理課程）
+  台灣（人文）id: 'taiwan-human'，地圖 maps/taiwan-human.webp，6 顆琥珀色呼吸光按鈕（人文課程，目前顯示 1～6、尚未設定）
+  按鈕設定在各自的 buttons：label 改顯示文字；href 填 '#/c/代號' 進入下一層、'#/l/課程代號/taiwan' 進入課程、留空＝尚未設定。
+  kind: 'switch' 的按鈕是切換按鈕（文字一直顯示、外圈旋轉）。舊的綠色台灣地圖 maps/taiwan.webp 保留未刪除，已不使用。
+之後要讓課程出現在台灣地圖上，在課程的 on 裡加 taiwan: { x: .., y: .. }（人文地圖用 'taiwan-human'）即可。
 
 【隱藏區與預留按鈕】
 世界地圖左下（k 的位置）有一顆隱藏按鈕：看不見、不發光、游標不變，點到才會出現粉紅閃光並進入粉色隱藏地圖。
@@ -50,7 +53,7 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
 課程內容檔的概念卡可加 models，就會出現綠色「開啟 3D 地形」按鈕（複習模式與簡報模式都有）：
   models: [{ id: 'au-landform', label: '澳洲地形：由東向西' },
            { id: 'au-landform', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '大分水嶺與東南信風' }]
-目前模型（共 22 個）：
+目前模型（共 24 個）：
   歐洲：eu-landform 歐洲地形／alps-u-valley 阿爾卑斯冰河地形／norway-fjord 挪威峽灣／ria-coast 谷灣
   俄羅斯：ru-landform 俄羅斯地形
   北美洲：na-landform 北美洲地形／young-vs-old 年輕高山 vs 古老山地
@@ -60,6 +63,7 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
   臺灣：taiwan-strait 冰河時期的臺灣海峽／taiwan-landform 臺灣地形／five-landforms 六種地形比一比／ridge-valley 等高線山脊與河谷
          coast-sand-rock 沙岸與岩岸／continental-island 大陸島成因／taiwan-coasts 臺灣的四段海岸
          taiwan-rain 臺灣的三種降雨（地形雨・對流雨・鋒面雨）
+         taiwan-rivers 臺灣的河川：東西分流／watershed 水系、流域與分水嶺（示意）
 從課程按鈕開啟的模型是「觀察模式」：學生只能旋轉、縮放、自動展示、切換設色，以及該模型需要的觀察工具
   （剖面切割／海平面／地形雨・對流雨・鋒面雨的播放、暫停、重播）；改地形、沙盒、拍照列印、存檔匯出都會隱藏。
   老師要完整控制：在上方說明卡的「標題」上按住 3 秒即可解鎖；重新整理就恢復觀察模式。

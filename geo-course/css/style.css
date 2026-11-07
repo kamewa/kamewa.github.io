@@ -727,3 +727,48 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 .slide-concept-head:has(> .terrain-row.in-slide > :nth-child(3)) { flex-wrap: wrap; }
 .terrain-row.in-slide:has(> :nth-child(3)) { flex-basis: 100%; margin: 4px 0 0; flex-wrap: wrap; }
 .terrain-row.in-slide:has(> :nth-child(3)) .terrain-btn { font-size: .95rem; }
+
+/* 琥珀色光（台灣人文地圖）：配合復古紙張色調的暖金光 */
+.sun-stage.glow-amber { background: #E8D6B0; }
+.glow-amber .sun-glow {
+  background: radial-gradient(circle,
+    rgba(255, 250, 230, .95) 0%,
+    rgba(255, 214, 140, .85) 16%,
+    rgba(232, 160, 70, .45) 36%,
+    rgba(214, 130, 50, .16) 54%,
+    transparent 70%);
+}
+.glow-amber .sun-fly {
+  width: 92%;
+  background: radial-gradient(circle,
+    rgba(255, 250, 225, 1) 0%,
+    rgba(255, 210, 120, .9) 14%,
+    rgba(236, 160, 60, .5) 32%,
+    rgba(220, 130, 40, .18) 50%,
+    rgba(220, 130, 40, 0) 70%);
+}
+.glow-amber .sun-label { color: #6B3410; text-shadow: 0 0 6px #FFF8E8, 0 0 14px rgba(255, 240, 210, .95), 0 0 2px #fff; }
+.glow-amber .sun-label b { font-size: clamp(1.2rem, 2.4vw, 2.2rem); }
+
+/* 自然／人文切換按鈕（島中央）：文字一直顯示，外圈慢慢旋轉，和課程按鈕區分 */
+.sun-pin.switch-pin { width: 8.5% !important; z-index: 3; }
+.switch-pin .switch-ring {
+  position: absolute; inset: -6%; border-radius: 50%; pointer-events: none;
+  border: 3px dashed rgba(255, 255, 255, .9);
+  box-shadow: 0 0 18px rgba(255, 255, 255, .55), inset 0 0 14px rgba(255, 255, 255, .35);
+  animation: switchSpin 14s linear infinite;
+}
+.glow-green .switch-pin .switch-ring { border-color: rgba(236, 255, 226, .95); box-shadow: 0 0 20px rgba(120, 240, 150, .6), inset 0 0 14px rgba(180, 255, 170, .4); }
+.glow-amber .switch-pin .switch-ring { border-color: rgba(255, 246, 220, .95); box-shadow: 0 0 20px rgba(236, 160, 60, .6), inset 0 0 14px rgba(255, 210, 120, .45); }
+.switch-pin::before {
+  content: ''; position: absolute; inset: 4%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .18) 55%, transparent 72%);
+  animation: switchBreath 3.2s ease-in-out infinite;
+}
+.switch-pin .sun-label { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.switch-pin .sun-label i { font-style: normal; font-size: clamp(1.1rem, 2.2vw, 2rem); line-height: 1; margin-bottom: 2px; }
+.switch-pin .sun-label b { font-size: clamp(1.1rem, 2.1vw, 2rem); }
+.switch-pin:hover .switch-ring, .switch-pin.active .switch-ring { animation-duration: 4s; }
+@keyframes switchSpin { to { transform: rotate(360deg); } }
+@keyframes switchBreath { 0%, 100% { transform: scale(.92); opacity: .7; } 50% { transform: scale(1.05); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .switch-pin .switch-ring, .switch-pin::before { animation: none; } }

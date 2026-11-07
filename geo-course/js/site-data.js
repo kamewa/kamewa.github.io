@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110312',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110314',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -50,14 +50,26 @@ window.SITE = {
     { id: 'global',     name: '全球議題', en: 'Global Issues', icon: '🌐', color: 'teal',   map: 'maps/global.webp',     pos: { x: 71.6, y: 62.7 } },  // 太平洋東南（老師標示的 i）
     /* 分區地圖：parent 表示從哪一洲的入口按鈕進來；不會出現在世界地圖上
        buttons：圓形呼吸發光按鈕；href 填 '#/c/代號' 進入下一層、填網址或檔案路徑會在新分頁開啟、留空＝尚未設定 */
-    { id: 'taiwan', parent: 'asia', name: '台灣', en: 'Taiwan', icon: '🌿', color: 'teal', map: 'maps/taiwan.webp', glow: 'green', pinSize: 6.3,
+    { id: 'taiwan', parent: 'asia', name: '台灣（自然）', en: 'Taiwan · Nature', icon: '🌿', color: 'teal', map: 'maps/taiwan-nature.webp', glow: 'green', pinSize: 6.3,
       buttons: [
-        { label: '位置與地圖判讀', x: 29.4, y: 21.1, href: '#/l/location-map/taiwan' },   // 1 左上
-        { label: '世界中的台灣', x: 22.1, y: 46.3, href: '#/l/taiwan-world/taiwan' },   // 2 左中
-        { label: '台灣的地形', x: 28.0, y: 73.4, href: '#/l/taiwan-landform/taiwan' },   // 3 左下
-        { label: '4', x: 70.8, y: 21.1, href: '' },   // 右上
-        { label: '天氣與氣候', x: 77.8, y: 46.3, href: '#/l/weather-climate/taiwan' },   // 5 右中
-        { label: '海岸與島嶼', x: 70.6, y: 73.4, href: '#/l/coast-island/taiwan' }    // 6 右下
+        { label: '位置與地圖判讀', x: 30.1, y: 23.5, href: '#/l/location-map/taiwan' },   // 1 左上（雲海）
+        { label: '世界中的台灣', x: 16.1, y: 52.8, href: '#/l/taiwan-world/taiwan' },   // 2 左中（湖泊）
+        { label: '台灣的地形', x: 25.0, y: 84.8, href: '#/l/taiwan-landform/taiwan' },   // 3 左下（環礁）
+        { label: '水文', x: 79.2, y: 22.2, href: '#/l/hydrology/taiwan' },               // 4 右上（峽谷）
+        { label: '天氣與氣候', x: 77.2, y: 58.9, href: '#/l/weather-climate/taiwan' },   // 5 右中（稻田）
+        { label: '海岸與島嶼', x: 72.9, y: 84.6, href: '#/l/coast-island/taiwan' },     // 6 右下（海岸）
+        { label: '人文', icon: '🏮', x: 48.4, y: 45.1, href: '#/c/taiwan-human', kind: 'switch' }   // 7 島中央：切換到人文地圖
+      ] },
+    /* 台灣人文地圖：從「台灣（自然）」的「人文」按鈕進入；1～6 之後放人文課程 */
+    { id: 'taiwan-human', parent: 'asia', name: '台灣（人文）', en: 'Taiwan · Human', icon: '🏮', color: 'yellow', map: 'maps/taiwan-human.webp', glow: 'amber', pinSize: 6.3,
+      buttons: [
+        { label: '1', x: 27.5, y: 20.1, href: '' },   // 左上（糖廠、稻田）
+        { label: '2', x: 22.5, y: 50.2, href: '' },   // 左中（茶園）
+        { label: '3', x: 25.0, y: 82.9, href: '' },   // 左下（製茶）
+        { label: '4', x: 78.4, y: 22.9, href: '' },   // 右上（果園）
+        { label: '5', x: 83.1, y: 54.0, href: '' },   // 右中（溫室花卉）
+        { label: '6', x: 68.7, y: 81.5, href: '' },   // 右下（農產品）
+        { label: '自然', icon: '🌿', x: 47.8, y: 44.4, href: '#/c/taiwan', kind: 'switch' }   // 7 島中央：切換回自然地圖
       ] },
     /* 隱藏區（老師標示的 k）：看不見、不發光、游標不變，點到才會進入；不列入清單與計數，頁面不顯示名稱
        ⚠ 只是「看不出來」不是「鎖起來」，網站公開時請勿放不能讓學生看到的資料 */
@@ -100,15 +112,17 @@ window.SITE = {
     { id: 'sub-saharan',     name: '漠南非洲',   book: '', status: 'soon', file: 'lessons/sub-saharan.js',
       on: { africa: { x: 54.0, y: 60.0 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
-      on: { taiwan: { x: 29.4, y: 21.1 } } },
+      on: { taiwan: { x: 30.1, y: 23.5 } } },
     { id: 'taiwan-world',    name: '世界中的臺灣', book: '一上 第2章', status: 'open', file: 'lessons/taiwan-world.js',
-      on: { taiwan: { x: 22.1, y: 46.3 } } },
+      on: { taiwan: { x: 16.1, y: 52.8 } } },
     { id: 'taiwan-landform', name: '臺灣的地形', book: '一上 第3章', status: 'open', file: 'lessons/taiwan-landform.js',
-      on: { taiwan: { x: 28.0, y: 73.4 } } },
+      on: { taiwan: { x: 25.0, y: 84.8 } } },
     { id: 'coast-island',    name: '海岸與島嶼', book: '一上 第4章', status: 'open', file: 'lessons/coast-island.js',
-      on: { taiwan: { x: 70.6, y: 73.4 } } },
+      on: { taiwan: { x: 72.9, y: 84.6 } } },
     { id: 'weather-climate', name: '天氣與氣候', book: '一上 第5章', status: 'open', file: 'lessons/weather-climate.js',
-      on: { taiwan: { x: 77.8, y: 46.3 } } },
+      on: { taiwan: { x: 77.2, y: 58.9 } } },
+    { id: 'hydrology',       name: '水文',       book: '一上 第6章', status: 'open', file: 'lessons/hydrology.js',
+      on: { taiwan: { x: 79.2, y: 22.2 } } },
     { id: 'europe',          name: '歐洲概述',   book: '三上 第1章', status: 'open', file: 'lessons/europe.js',
       on: { europe: { x: 37.0, y: 59.5 } } },
     { id: 'russia',          name: '歐洲區域特色與俄羅斯', book: '三上 第2章', status: 'open', file: 'lessons/russia.js',

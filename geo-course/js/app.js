@@ -55,12 +55,13 @@
   /* ---------- 地圖與按鈕 ---------- */
   /* 太陽光暈式按鈕：透明圓形＋呼吸金光點，滑鼠接近時發光、慢慢浮現文字 */
   function sunPin(p, size, i) {
-    return `<button class="sun-pin ${p.open ? 'open' : 'locked'}" style="left:${p.x}%;top:${p.y}%;width:${size}%"
+    return `<button class="sun-pin ${p.open ? 'open' : 'locked'} ${p.kind === 'switch' ? 'switch-pin' : ''}" style="left:${p.x}%;top:${p.y}%;width:${size}%"
               data-href="${p.href}" data-open="1" data-name="${esc(p.name)}"
               aria-label="${esc(p.name)}${p.open ? '' : '（尚未開放）'}">
         <span class="sun-glow"></span>
         <span class="sun-dot"><span class="sun-fly"></span></span>
-        <span class="sun-label"><b>${esc(p.name)}</b>${p.open ? '' : '<small>尚未開放</small>'}</span>
+        ${p.kind === 'switch' ? '<span class="switch-ring"></span>' : ''}
+        <span class="sun-label">${p.icon ? `<i>${p.icon}</i>` : ''}<b>${esc(p.name)}</b>${p.open ? '' : '<small>尚未開放</small>'}</span>
       </button>`;
   }
 
@@ -277,7 +278,7 @@
     const par = continentById(c.parent);
     setCrumbs([{ label: '🌏 世界地圖', href: '#/world' }, { label: `${par.icon} ${esc(par.name)}`, href: `#/c/${par.id}` }, { label: `${c.icon} ${esc(c.name)}` }]);
     document.title = `${c.name}｜${SITE.title}`;
-    const btns = (c.buttons || []).map((b) => ({ name: b.label, x: b.x, y: b.y, href: b.href || '', open: true }));
+    const btns = (c.buttons || []).map((b) => ({ name: b.label, x: b.x, y: b.y, href: b.href || '', open: true, kind: b.kind, icon: b.icon }));
     const ls = lessonsOn(c.id);
     const pins = ls.map((l) => ({ name: l.name, x: l.on[c.id].x, y: l.on[c.id].y, href: `#/l/${l.id}/${c.id}`, open: isOpen(l) }));
     app.innerHTML = `<div class="view c-${c.color}">
@@ -574,7 +575,7 @@
       (sec.concepts || []).forEach((k) => {
         // 小卡＋圖片、或條列很多又有圖片的概念：圖片另外放一張投影片，避免擠在一起
         const splitImg = k.image && (k.grid?.length || (k.points?.length || 0) >= 3);
-        const splitImgs = (k.images?.length || 0) >= 3 && (k.points?.length || 0) >= 1;
+        const splitImgs = (k.images?.length || 0) >= 1 && (((k.images.length >= 3) && (k.points?.length || 0) >= 1) || (k.grid?.length || 0) >= 1);
         S.push(conceptSlide(splitImg ? { ...k, image: null } : splitImgs ? { ...k, images: null } : k, tag));
         if (splitImgs) S.push({ cat: tag, color: k.color || 'teal', title: k.title + '（照片）', note: k.note || '',
           html: `<div class="slide-concept-head c-${k.color || 'teal'}"><span class="concept-icon">${k.icon || '📌'}</span><h2 class="slide-title">${esc(k.title)}</h2></div>
