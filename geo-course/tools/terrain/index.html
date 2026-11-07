@@ -7788,6 +7788,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
   <!-- ===== 網站版新增（1/1）：課程網站「開啟地形模型」自動載入 =====
        用法：index.html#model=au-landform        直接載入 models/au-landform.js
              index.html#model=au-landform&mode=weather   載入後直接進入地形雨
+       課程模型預設為「觀察模式」：只能旋轉、縮放、切換設色，以及這個模型需要的觀察工具
+       （剖面切割／海平面／地形雨播放）；改地形、沙盒、存檔匯出等功能都會隱藏。
+       老師要完整控制：在上方說明卡的「標題」上按住 3 秒，即可解鎖（重新整理後恢復觀察模式）。
        原檔沒有這一段；其餘程式完全未改動。 -->
   <style>
     #lessonModelCard{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:60;max-width:min(560px,calc(100vw - 32px));
@@ -7801,6 +7804,22 @@ Check your Browserslist config to be sure that your targets are set up correctly
     #lessonModelCard ul{margin:6px 0 2px;padding-left:18px;font-size:13px;line-height:1.55}
     #lessonModelCard .lm-scale{font-size:11px;color:#7A746C;margin-top:2px}
     #lessonModelCard.lm-min ul,#lessonModelCard.lm-min .lm-scale{display:none}
+    #lessonModelCard .lm-title{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+    #lessonModelCard .lm-unlocked{font-size:11px;font-weight:800;background:#3E3B38;color:#fff;border-radius:999px;padding:1px 8px;white-space:nowrap}
+
+    /* ---- 觀察模式：隱藏開發／編輯用的控制項 ---- */
+    body.lm-view #terrainType, body.lm-view #btnRandom, body.lm-view #btnPhoto, body.lm-view #btnPrintPNG,
+    body.lm-view #btnSandbox, body.lm-view #btnConvectionRain, body.lm-view #btnFrontalRain,
+    body.lm-view .lm-row-out, body.lm-view #sandboxPanel, body.lm-view #convectionPanel, body.lm-view #frontalPanel,
+    body.lm-view #btnWeatherReset, body.lm-view .weather-compass, body.lm-view .lm-weather-settings { display:none !important; }
+    body.lm-view .lm-select-wrap { display:none !important; }
+    body.lm-view .lm-row { display:flex !important; gap:.5rem; }
+    body.lm-view .lm-row > * { flex:1 1 0; }
+    body.lm-view:not(.lm-allow-weather) #btnWeather, body.lm-view:not(.lm-allow-weather) .lm-row-weather { display:none !important; }
+    body.lm-view:not(.lm-allow-clip) .lm-tool-clip { display:none !important; }
+    body.lm-view:not(.lm-allow-sea) .lm-tool-sea { display:none !important; }
+    body.lm-view .lm-bottom { display:flex !important; justify-content:center; }
+    body.lm-view .lm-bottom > * { flex:1 1 0; max-width:280px; }
   </style>
   <script>
   (function () {
@@ -7883,12 +7902,62 @@ Check your Browserslist config to be sure that your targets are set up correctly
       }
     }
 
+    /* 每個模型需要的觀察工具：clip 剖面切割、sea 海平面、weather 地形雨（模型檔可用 tools 覆寫） */
+    var TOOLS = {
+      'au-landform': ['clip', 'weather'], 'nz-south-island': ['clip', 'weather'], 'nz-milford-sound': ['sea'],
+      'eu-landform': ['clip', 'weather'], 'alps-u-valley': ['clip'], 'norway-fjord': ['sea', 'clip'], 'ria-coast': ['sea'],
+      'ru-landform': ['clip', 'weather'], 'na-landform': ['clip', 'weather'], 'young-vs-old': ['clip'],
+      'sa-landform': ['clip', 'weather'], 'antarctica': ['clip'], 'arctic': [], 'coast-sea-rise': ['sea']
+    };
+    function tag(el, cls) { if (el) el.classList.add(cls); }
+    function setupViewMode(m) {
+      var tools = (m.tools || TOOLS[id] || ['clip', 'sea']).slice();
+      if (mode === 'weather' && tools.indexOf('weather') < 0) tools.push('weather');
+      var sel = document.getElementById('terrainType');
+      tag(sel && sel.parentElement, 'lm-select-wrap');
+      ['btnRandom', 'btnPhoto', 'btnWeather'].forEach(function (bid) {
+        var row = document.getElementById(bid) && document.getElementById(bid).parentElement;
+        tag(row, 'lm-row');
+        if (bid === 'btnPhoto') tag(row, 'lm-row-out');
+        if (bid === 'btnWeather') tag(row, 'lm-row-weather');
+      });
+      tag(document.getElementById('clipSliderX').closest('.glass-panel'), 'lm-tool-clip');
+      tag(document.getElementById('clipSliderZ').closest('.glass-panel'), 'lm-tool-clip');
+      tag(document.getElementById('seaLevelSlider').closest('.glass-panel'), 'lm-tool-sea');
+      tag(document.getElementById('clipSliderX').closest('.glass-panel').parentElement, 'lm-bottom');
+      var ws = document.querySelector('[data-weather-setting]');
+      tag(ws && ws.closest('.space-y-2'), 'lm-weather-settings');
+      tools.forEach(function (t) { document.body.classList.add('lm-allow-' + t); });
+      document.body.classList.add('lm-view');
+    }
+    function unlock() {
+      if (!document.body.classList.contains('lm-view')) return;
+      document.body.classList.remove('lm-view');
+      var head = card && card.querySelector('.lm-head');
+      if (head && !head.querySelector('.lm-unlocked')) {
+        var t = document.createElement('span'); t.className = 'lm-unlocked'; t.textContent = '🔓 完整控制';
+        head.insertBefore(t, head.children[1]);
+      }
+    }
+    function bindUnlock() {
+      var title = card && card.querySelector('.lm-title');
+      if (!title) return;
+      var timer = 0, t0 = 0;
+      var stop = function () { clearTimeout(timer); timer = 0; t0 = 0; };
+      title.addEventListener('pointerdown', function () { stop(); t0 = Date.now(); timer = setTimeout(unlock, 3000); });
+      title.addEventListener('pointerup', function () { if (t0 && Date.now() - t0 >= 3000) unlock(); stop(); });
+      ['pointerleave', 'pointercancel'].forEach(function (ev) { title.addEventListener(ev, stop); });
+      title.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    }
+
     function apply(m) {
+      setupViewMode(m);
       loadSandboxProjectData(m.project);
       labelGroup = new THREE.Group();
       (m.labels || []).forEach(function (L) { labelGroup.add(makeLabel(L)); });
       scene.add(labelGroup);
       buildCard(m);
+      bindUnlock();
       if (m.camera) {
         camera.position.set(m.camera.pos[0], m.camera.pos[1], m.camera.pos[2]);
         controls.target.set(m.camera.target[0], m.camera.target[1], m.camera.target[2]);
