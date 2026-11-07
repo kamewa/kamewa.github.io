@@ -708,3 +708,10 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
   width: 120%; height: 6%; transform: translate(-50%, -50%);
 }
 .has-spots .sun-fly::after { transform: translate(-50%, -50%) rotate(90deg); }
+
+/* 只有圖片的投影片 */
+.slide-body.slide-imgonly .lesson-fig img { max-height: 420px; width: auto; max-width: 100%; margin: 0 auto; }
+.slide-body.slide-imgonly .lesson-fig figcaption { text-align: center; }
+/* 6 張小卡：3 × 2 */
+.slide-mini.n6 { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.slide-mini.n6 .mini-card p { font-size: 1.05rem; }
