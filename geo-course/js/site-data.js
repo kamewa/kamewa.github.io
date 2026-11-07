@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110307',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110308',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -53,7 +53,7 @@ window.SITE = {
     { id: 'taiwan', parent: 'asia', name: '台灣', en: 'Taiwan', icon: '🌿', color: 'teal', map: 'maps/taiwan.webp', glow: 'green', pinSize: 6.3,
       buttons: [
         { label: '位置與地圖判讀', x: 29.4, y: 21.1, href: '#/l/location-map/taiwan' },   // 1 左上
-        { label: '2', x: 22.1, y: 46.3, href: '' },   // 左中
+        { label: '世界中的台灣', x: 22.1, y: 46.3, href: '#/l/taiwan-world/taiwan' },   // 2 左中
         { label: '3', x: 28.0, y: 73.4, href: '' },   // 左下
         { label: '4', x: 70.8, y: 21.1, href: '' },   // 右上
         { label: '5', x: 77.8, y: 46.3, href: '' },   // 右中
@@ -101,6 +101,8 @@ window.SITE = {
       on: { africa: { x: 54.0, y: 60.0 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
       on: { taiwan: { x: 29.4, y: 21.1 } } },
+    { id: 'taiwan-world',    name: '世界中的臺灣', book: '一上 第2章', status: 'open', file: 'lessons/taiwan-world.js',
+      on: { taiwan: { x: 22.1, y: 46.3 } } },
     { id: 'europe',          name: '歐洲概述',   book: '三上 第1章', status: 'open', file: 'lessons/europe.js',
       on: { europe: { x: 37.0, y: 59.5 } } },
     { id: 'russia',          name: '歐洲區域特色與俄羅斯', book: '三上 第2章', status: 'open', file: 'lessons/russia.js',
