@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110311',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110312',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -56,7 +56,7 @@ window.SITE = {
         { label: '世界中的台灣', x: 22.1, y: 46.3, href: '#/l/taiwan-world/taiwan' },   // 2 左中
         { label: '台灣的地形', x: 28.0, y: 73.4, href: '#/l/taiwan-landform/taiwan' },   // 3 左下
         { label: '4', x: 70.8, y: 21.1, href: '' },   // 右上
-        { label: '5', x: 77.8, y: 46.3, href: '' },   // 右中
+        { label: '天氣與氣候', x: 77.8, y: 46.3, href: '#/l/weather-climate/taiwan' },   // 5 右中
         { label: '海岸與島嶼', x: 70.6, y: 73.4, href: '#/l/coast-island/taiwan' }    // 6 右下
       ] },
     /* 隱藏區（老師標示的 k）：看不見、不發光、游標不變，點到才會進入；不列入清單與計數，頁面不顯示名稱
@@ -107,6 +107,8 @@ window.SITE = {
       on: { taiwan: { x: 28.0, y: 73.4 } } },
     { id: 'coast-island',    name: '海岸與島嶼', book: '一上 第4章', status: 'open', file: 'lessons/coast-island.js',
       on: { taiwan: { x: 70.6, y: 73.4 } } },
+    { id: 'weather-climate', name: '天氣與氣候', book: '一上 第5章', status: 'open', file: 'lessons/weather-climate.js',
+      on: { taiwan: { x: 77.8, y: 46.3 } } },
     { id: 'europe',          name: '歐洲概述',   book: '三上 第1章', status: 'open', file: 'lessons/europe.js',
       on: { europe: { x: 37.0, y: 59.5 } } },
     { id: 'russia',          name: '歐洲區域特色與俄羅斯', book: '三上 第2章', status: 'open', file: 'lessons/russia.js',

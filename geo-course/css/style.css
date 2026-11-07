@@ -722,3 +722,8 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 .slide-body.slide-photos .fig-row.n2 { grid-template-columns: repeat(2, 1fr); }
 .slide-body.slide-photos .lesson-fig img { height: 330px; max-height: none; width: 100%; object-fit: cover; aspect-ratio: auto; }
 .slide-body.slide-photos .fig-row.n4 .lesson-fig img { height: 300px; }
+
+/* 簡報：3 顆以上的 3D 模型按鈕時，按鈕改排在標題下一列，避免擠壓標題 */
+.slide-concept-head:has(> .terrain-row.in-slide > :nth-child(3)) { flex-wrap: wrap; }
+.terrain-row.in-slide:has(> :nth-child(3)) { flex-basis: 100%; margin: 4px 0 0; flex-wrap: wrap; }
+.terrain-row.in-slide:has(> :nth-child(3)) .terrain-btn { font-size: .95rem; }

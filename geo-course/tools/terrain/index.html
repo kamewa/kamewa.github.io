@@ -7787,9 +7787,10 @@ Check your Browserslist config to be sure that your targets are set up correctly
   </script>
   <!-- ===== 網站版新增（1/1）：課程網站「開啟地形模型」自動載入 =====
        用法：index.html#model=au-landform        直接載入 models/au-landform.js
-             index.html#model=au-landform&mode=weather   載入後直接進入地形雨
+             index.html#model=au-landform&mode=weather   載入後直接進入地形雨（可加 &wind=SW 指定風向）
+             index.html#model=taiwan-rain&mode=convection／mode=frontal   直接進入對流雨／鋒面雨
        課程模型預設為「觀察模式」：只能旋轉、縮放、切換設色，以及這個模型需要的觀察工具
-       （剖面切割／海平面／地形雨播放）；改地形、沙盒、存檔匯出等功能都會隱藏。
+       （剖面切割／海平面／地形雨・對流雨・鋒面雨播放）；改地形、沙盒、存檔匯出等功能都會隱藏。
        老師要完整控制：在上方說明卡的「標題」上按住 3 秒，即可解鎖（重新整理後恢復觀察模式）。
        原檔沒有這一段；其餘程式完全未改動。 -->
   <style>
@@ -7809,13 +7810,16 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
     /* ---- 觀察模式：隱藏開發／編輯用的控制項 ---- */
     body.lm-view #terrainType, body.lm-view #btnRandom, body.lm-view #btnPhoto, body.lm-view #btnPrintPNG,
-    body.lm-view #btnSandbox, body.lm-view #btnConvectionRain, body.lm-view #btnFrontalRain,
-    body.lm-view .lm-row-out, body.lm-view #sandboxPanel, body.lm-view #convectionPanel, body.lm-view #frontalPanel,
-    body.lm-view #btnWeatherReset, body.lm-view .weather-compass, body.lm-view .lm-weather-settings { display:none !important; }
+    body.lm-view #btnSandbox, body.lm-view .lm-row-out, body.lm-view #sandboxPanel,
+    body.lm-view #btnWeatherReset, body.lm-view .weather-compass, body.lm-view .lm-weather-settings,
+    body.lm-view #btnConvectionReset, body.lm-view #btnFrontalReset, body.lm-view .lm-hide { display:none !important; }
+    body.lm-view:not(.lm-allow-convection) #btnConvectionRain, body.lm-view:not(.lm-allow-convection) #convectionPanel,
+    body.lm-view:not(.lm-allow-frontal) #btnFrontalRain, body.lm-view:not(.lm-allow-frontal) #frontalPanel { display:none !important; }
     body.lm-view .lm-select-wrap { display:none !important; }
     body.lm-view .lm-row { display:flex !important; gap:.5rem; }
     body.lm-view .lm-row > * { flex:1 1 0; }
-    body.lm-view:not(.lm-allow-weather) #btnWeather, body.lm-view:not(.lm-allow-weather) .lm-row-weather { display:none !important; }
+    body.lm-view:not(.lm-allow-weather) #btnWeather { display:none !important; }
+    body.lm-view:not(.lm-allow-weather):not(.lm-allow-convection):not(.lm-allow-frontal) .lm-row-weather { display:none !important; }
     body.lm-view:not(.lm-allow-clip) .lm-tool-clip { display:none !important; }
     body.lm-view:not(.lm-allow-sea) .lm-tool-sea { display:none !important; }
     body.lm-view .lm-bottom { display:flex !important; justify-content:center; }
@@ -7827,6 +7831,8 @@ Check your Browserslist config to be sure that your targets are set up correctly
     var id = params.get('model');
     if (!id || !/^[\w-]+$/.test(id)) return;
     var mode = params.get('mode');
+    var wind = params.get('wind');
+    if (wind && !/^(N|NE|E|SE|S|SW|W|NW)$/.test(wind)) wind = null;
     var labelGroup = null, card = null, active = true;
 
     function makeLabel(L) {
@@ -7871,6 +7877,10 @@ Check your Browserslist config to be sure that your targets are set up correctly
     }
     function esc(t) { return String(t).replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); }
 
+    function pickTips(m) {
+      var mt = m.modeTips || {};
+      return (mode && ((wind && mt[mode + '-' + wind]) || mt[mode])) || m.tips || [];
+    }
     function buildCard(m) {
       card = document.createElement('div');
       card.id = 'lessonModelCard';
@@ -7879,7 +7889,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         + '<button type="button" data-lm="labels">隱藏標籤</button>'
         + '<button type="button" data-lm="reload">↺ 重新載入</button>'
         + '<button type="button" data-lm="min">－</button></div>'
-        + '<ul>' + (m.tips || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'
+        + '<ul>' + pickTips(m).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'
         + '<div class="lm-scale">' + esc(m.scale || '') + '</div>';
       card.addEventListener('click', function (e) {
         var b = e.target.closest('button'); if (!b) return;
@@ -7902,7 +7912,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
       }
     }
 
-    /* 每個模型需要的觀察工具：clip 剖面切割、sea 海平面、weather 地形雨（模型檔可用 tools 覆寫） */
+    /* 每個模型需要的觀察工具：clip 剖面切割、sea 海平面、weather 地形雨、convection 對流雨、frontal 鋒面雨（模型檔可用 tools 覆寫） */
     var TOOLS = {
       'au-landform': ['clip', 'weather'], 'nz-south-island': ['clip', 'weather'], 'nz-milford-sound': ['sea'],
       'eu-landform': ['clip', 'weather'], 'alps-u-valley': ['clip'], 'norway-fjord': ['sea', 'clip'], 'ria-coast': ['sea'],
@@ -7912,7 +7922,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
     function tag(el, cls) { if (el) el.classList.add(cls); }
     function setupViewMode(m) {
       var tools = (m.tools || TOOLS[id] || ['clip', 'sea']).slice();
-      if (mode === 'weather' && tools.indexOf('weather') < 0) tools.push('weather');
+      if (/^(weather|convection|frontal)$/.test(mode || '') && tools.indexOf(mode) < 0) tools.push(mode);
       var sel = document.getElementById('terrainType');
       tag(sel && sel.parentElement, 'lm-select-wrap');
       ['btnRandom', 'btnPhoto', 'btnWeather'].forEach(function (bid) {
@@ -7927,6 +7937,10 @@ Check your Browserslist config to be sure that your targets are set up correctly
       tag(document.getElementById('clipSliderX').closest('.glass-panel').parentElement, 'lm-bottom');
       var ws = document.querySelector('[data-weather-setting]');
       tag(ws && ws.closest('.space-y-2'), 'lm-weather-settings');
+      ['[data-convection-setting]', '[data-frontal-setting]'].forEach(function (q) {
+        var el = document.querySelector(q); tag(el && el.closest('.space-y-2'), 'lm-weather-settings');
+      });
+      document.querySelectorAll('.weather-compass').forEach(function (c) { tag(c.previousElementSibling, 'lm-hide'); });
       tools.forEach(function (t) { document.body.classList.add('lm-allow-' + t); });
       document.body.classList.add('lm-view');
     }
@@ -7995,7 +8009,12 @@ Check your Browserslist config to be sure that your targets are set up correctly
         controls.target.set(m.camera.target[0], m.camera.target[1], m.camera.target[2]);
         controls.update();
       }
-      if (mode === 'weather') setWeatherMode(true);
+      if (mode === 'weather') {
+        if (wind) state.weatherWindDirection = wind;
+        setWeatherMode(true);
+      }
+      if (mode === 'convection') setConvectionMode(true);
+      if (mode === 'frontal') setFrontalMode(true);
       document.getElementById('btnRandom').addEventListener('click', leaveModel);
       document.getElementById('terrainType').addEventListener('change', leaveModel);
       (function tick() {

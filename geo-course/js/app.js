@@ -367,7 +367,7 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('#chartModal.open')) { e.stopImmediatePropagation(); closeChart(); } }, true);
   // 3D 地形模型按鈕：開啟「地形觀察」並自動載入對應模型
   const terrainBtns = (k, cls = '') => k.models?.length ? `<div class="terrain-row ${cls}">${k.models.map((m) =>
-      `<a class="terrain-btn" href="tools/terrain/index.html#model=${encodeURIComponent(m.id)}${m.mode ? '&mode=' + encodeURIComponent(m.mode) : ''}" target="_blank" rel="noopener" title="在新分頁開啟 3D 地形模型"><span class="terrain-btn-icon">${m.icon || '🏔️'}</span><span><small>${esc(m.small || '開啟 3D 地形')}</small>${esc(m.label)}</span></a>`).join('')}</div>` : '';
+      `<a class="terrain-btn" href="tools/terrain/index.html#model=${encodeURIComponent(m.id)}${m.mode ? '&mode=' + encodeURIComponent(m.mode) : ''}${m.wind ? '&wind=' + encodeURIComponent(m.wind) : ''}" target="_blank" rel="noopener" title="在新分頁開啟 3D 地形模型"><span class="terrain-btn-icon">${m.icon || '🏔️'}</span><span><small>${esc(m.small || '開啟 3D 地形')}</small>${esc(m.label)}</span></a>`).join('')}</div>` : '';
   const conceptInner = (k) => `
       <p class="concept-text">${md(k.text)}</p>
       ${k.points?.length ? `<ul class="dot-list">${k.points.map((p) => `<li>${md(p)}</li>`).join('')}</ul>` : ''}

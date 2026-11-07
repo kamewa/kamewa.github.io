@@ -45,10 +45,12 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
 【3D 地形模型（配合課程）】
 模型檔放在 tools/terrain/models/，一個模型一個 .js 檔（內含高度資料、標籤、說明）。
 網址 tools/terrain/index.html#model=au-landform 會直接開啟該模型；加上 &mode=weather 會直接進入「地形雨」。
+  其他模式：&mode=convection 對流雨、&mode=frontal 鋒面雨；地形雨可再加 &wind=SW 指定風向（N、NE、E、SE、S、SW、W、NW）。
+  課程概念卡的 models 可寫 { id: 'taiwan-rain', mode: 'weather', wind: 'SW', label: '夏季西南季風' }。
 課程內容檔的概念卡可加 models，就會出現綠色「開啟 3D 地形」按鈕（複習模式與簡報模式都有）：
   models: [{ id: 'au-landform', label: '澳洲地形：由東向西' },
            { id: 'au-landform', mode: 'weather', icon: '🌧️', small: '3D 地形雨', label: '大分水嶺與東南信風' }]
-目前模型（共 21 個）：
+目前模型（共 22 個）：
   歐洲：eu-landform 歐洲地形／alps-u-valley 阿爾卑斯冰河地形／norway-fjord 挪威峽灣／ria-coast 谷灣
   俄羅斯：ru-landform 俄羅斯地形
   北美洲：na-landform 北美洲地形／young-vs-old 年輕高山 vs 古老山地
@@ -57,8 +59,9 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
   兩極：arctic 北極地區／antarctica 南極洲／coast-sea-rise 海水面上升
   臺灣：taiwan-strait 冰河時期的臺灣海峽／taiwan-landform 臺灣地形／five-landforms 六種地形比一比／ridge-valley 等高線山脊與河谷
          coast-sand-rock 沙岸與岩岸／continental-island 大陸島成因／taiwan-coasts 臺灣的四段海岸
+         taiwan-rain 臺灣的三種降雨（地形雨・對流雨・鋒面雨）
 從課程按鈕開啟的模型是「觀察模式」：學生只能旋轉、縮放、自動展示、切換設色，以及該模型需要的觀察工具
-  （剖面切割／海平面／地形雨的播放、暫停、重播）；改地形、沙盒、拍照列印、存檔匯出都會隱藏。
+  （剖面切割／海平面／地形雨・對流雨・鋒面雨的播放、暫停、重播）；改地形、沙盒、拍照列印、存檔匯出都會隱藏。
   老師要完整控制：在上方說明卡的「標題」上按住 3 秒即可解鎖；重新整理就恢復觀察模式。
   每個模型顯示哪些觀察工具，設定在 tools/terrain/index.html 最後一段的 TOOLS。
   隱藏地圖的「地形觀察」按鈕（不帶模型）仍是完整原版功能。
