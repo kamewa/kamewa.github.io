@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110315',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110316',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -37,7 +37,7 @@ window.SITE = {
       spotSize: 5,
       spots: [
         { label: '台灣', x: 58.2, y: 60.6, href: '#/c/taiwan' },   // 老師標示的 a
-        { label: '中國', x: 51.8, y: 53.4, href: '' },             // b
+        { label: '中國', x: 51.8, y: 53.4, href: '#/c/china' },     // b
         { label: '中亞', x: 33.5, y: 38.6, href: '' }              // g
       ] },
     { id: 'europe',     name: '歐洲',   en: 'Europe',        icon: '🏰', color: 'blue',   map: 'maps/europe.webp',     pos: { x: 12.2, y: 22.3 } },
@@ -72,6 +72,15 @@ window.SITE = {
         { label: '6', x: 68.7, y: 81.5, href: '' },   // 右下（農產品）
         { label: '自然', icon: '🌿', x: 47.8, y: 44.4, href: '#/c/taiwan', kind: 'switch' },   // 7 島中央：切換回自然地圖
         { label: '地名與議題', icon: '🌃', x: 55.5, y: 13.6, href: '#/c/taiwan-issues', kind: 'switch' }   // 8 島北端：切換到地名與議題地圖
+      ] },
+    /* 中國分區地圖（二上課程）：從亞洲地圖的「中國」入口進入 */
+    { id: 'china', parent: 'asia', name: '中國', en: 'China', icon: '🐉', color: 'red', map: 'maps/china.webp', glow: 'ember', pinSize: 6.3,
+      buttons: [
+        { label: '地形', x: 53.7, y: 52.2, href: '' },          // 1 中國中央
+        { label: '氣候', x: 86.1, y: 23.6, href: '' },          // 2 右上（冰雪）
+        { label: '人口', x: 76.7, y: 67.4, href: '' },          // 3 右下（颱風、洪水）
+        { label: '經濟與議題', x: 29.0, y: 39.5, href: '' },    // 4 左上（新疆）
+        { label: '亞洲', icon: '🏯', x: 12.1, y: 74.9, href: '#/c/asia', kind: 'switch' }   // 5 左下：回到亞洲地圖
       ] },
     /* 台灣地名與議題地圖（三下課程）：從自然或人文地圖的「地名與議題」按鈕進入 */
     { id: 'taiwan-issues', parent: 'asia', name: '台灣（地名與議題）', en: 'Taiwan · Places & Issues', icon: '🌃', color: 'purple', map: 'maps/taiwan-issues.webp', glow: 'neon', pinSize: 6.3,
