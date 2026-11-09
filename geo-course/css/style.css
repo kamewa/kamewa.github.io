@@ -772,3 +772,40 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 @keyframes switchSpin { to { transform: rotate(360deg); } }
 @keyframes switchBreath { 0%, 100% { transform: scale(.92); opacity: .7; } 50% { transform: scale(1.05); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .switch-pin .switch-ring, .switch-pin::before { animation: none; } }
+
+/* 台灣自然／人文地圖：課程按鈕的文字一直顯示（呼吸光效果不變；滑鼠靠近時文字放大一點） */
+.sun-stage.glow-green .sun-pin .sun-label,
+.sun-stage.glow-amber .sun-pin .sun-label {
+  opacity: 1; transform: translate(-50%, -50%) scale(.82);
+  transition: transform .5s cubic-bezier(.22,.8,.3,1);
+}
+.sun-stage.glow-green .sun-pin.active .sun-label,
+.sun-stage.glow-amber .sun-pin.active .sun-label { transform: translate(-50%, -50%) scale(1); }
+.sun-stage.glow-green .sun-pin.switch-pin .sun-label,
+.sun-stage.glow-amber .sun-pin.switch-pin .sun-label { transform: translate(-50%, -50%) scale(1); }
+
+/* 霓虹光（台灣地名與議題地圖）：配合夜市夜景的桃紅＋金色光 */
+.sun-stage.glow-neon { background: #0E1530; }
+.glow-neon .sun-glow {
+  background: radial-gradient(circle,
+    rgba(255, 245, 252, .95) 0%,
+    rgba(255, 150, 220, .8) 16%,
+    rgba(230, 80, 190, .42) 36%,
+    rgba(200, 60, 170, .14) 54%,
+    transparent 70%);
+}
+.glow-neon .sun-fly {
+  width: 92%;
+  background: radial-gradient(circle,
+    rgba(255, 250, 235, 1) 0%,
+    rgba(255, 210, 120, .9) 14%,
+    rgba(255, 120, 200, .5) 32%,
+    rgba(230, 80, 190, .18) 50%,
+    rgba(230, 80, 190, 0) 70%);
+}
+.glow-neon .sun-label { color: #FFFFFF; text-shadow: 0 0 4px #FF4FB8, 0 0 12px rgba(255, 90, 200, .95), 0 0 22px rgba(255, 200, 90, .7), 0 0 2px #7A1458; }
+.glow-neon .sun-label b { font-size: clamp(1.2rem, 2.4vw, 2.2rem); }
+.glow-neon .switch-pin .switch-ring { border-color: rgba(255, 236, 250, .95); box-shadow: 0 0 20px rgba(255, 90, 200, .65), inset 0 0 14px rgba(255, 210, 120, .45); }
+.sun-stage.glow-neon .sun-pin .sun-label { opacity: 1; transform: translate(-50%, -50%) scale(.82); transition: transform .5s cubic-bezier(.22,.8,.3,1); }
+.sun-stage.glow-neon .sun-pin.active .sun-label,
+.sun-stage.glow-neon .sun-pin.switch-pin .sun-label { transform: translate(-50%, -50%) scale(1); }

@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110314',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110315',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -58,7 +58,8 @@ window.SITE = {
         { label: '水文', x: 79.2, y: 22.2, href: '#/l/hydrology/taiwan' },               // 4 右上（峽谷）
         { label: '天氣與氣候', x: 77.2, y: 58.9, href: '#/l/weather-climate/taiwan' },   // 5 右中（稻田）
         { label: '海岸與島嶼', x: 72.9, y: 84.6, href: '#/l/coast-island/taiwan' },     // 6 右下（海岸）
-        { label: '人文', icon: '🏮', x: 48.4, y: 45.1, href: '#/c/taiwan-human', kind: 'switch' }   // 7 島中央：切換到人文地圖
+        { label: '人文', icon: '🏮', x: 48.4, y: 45.1, href: '#/c/taiwan-human', kind: 'switch' },   // 7 島中央：切換到人文地圖
+        { label: '地名與議題', icon: '🌃', x: 54.2, y: 14.5, href: '#/c/taiwan-issues', kind: 'switch' }   // 8 島北端：切換到地名與議題地圖
       ] },
     /* 台灣人文地圖：從「台灣（自然）」的「人文」按鈕進入；1～6 之後放人文課程 */
     { id: 'taiwan-human', parent: 'asia', name: '台灣（人文）', en: 'Taiwan · Human', icon: '🏮', color: 'yellow', map: 'maps/taiwan-human.webp', glow: 'amber', pinSize: 6.3,
@@ -69,7 +70,18 @@ window.SITE = {
         { label: '4', x: 78.4, y: 22.9, href: '' },   // 右上（果園）
         { label: '5', x: 83.1, y: 54.0, href: '' },   // 右中（溫室花卉）
         { label: '6', x: 68.7, y: 81.5, href: '' },   // 右下（農產品）
-        { label: '自然', icon: '🌿', x: 47.8, y: 44.4, href: '#/c/taiwan', kind: 'switch' }   // 7 島中央：切換回自然地圖
+        { label: '自然', icon: '🌿', x: 47.8, y: 44.4, href: '#/c/taiwan', kind: 'switch' },   // 7 島中央：切換回自然地圖
+        { label: '地名與議題', icon: '🌃', x: 55.5, y: 13.6, href: '#/c/taiwan-issues', kind: 'switch' }   // 8 島北端：切換到地名與議題地圖
+      ] },
+    /* 台灣地名與議題地圖（三下課程）：從自然或人文地圖的「地名與議題」按鈕進入 */
+    { id: 'taiwan-issues', parent: 'asia', name: '台灣（地名與議題）', en: 'Taiwan · Places & Issues', icon: '🌃', color: 'purple', map: 'maps/taiwan-issues.webp', glow: 'neon', pinSize: 6.3,
+      buttons: [
+        { label: '人文', icon: '🏮', x: 50.2, y: 42.8, href: '#/c/taiwan-human', kind: 'switch' },   // 1 島中央：切換到人文地圖
+        { label: '行政區域', x: 24.7, y: 26.0, href: '' },   // 2 左上（夜市人潮）
+        { label: '聚落地名', x: 27.3, y: 75.7, href: '' },   // 3 左下（小吃）
+        { label: '食品議題', x: 83.9, y: 23.6, href: '' },   // 4 右上（廟口夜市）
+        { label: '會考', x: 81.1, y: 73.2, href: '' },       // 5 右下（港邊夜市）
+        { label: '自然', icon: '🌿', x: 58.1, y: 17.1, href: '#/c/taiwan', kind: 'switch' }   // 6 島北端：切換到自然地圖
       ] },
     /* 隱藏區（老師標示的 k）：看不見、不發光、游標不變，點到才會進入；不列入清單與計數，頁面不顯示名稱
        ⚠ 只是「看不出來」不是「鎖起來」，網站公開時請勿放不能讓學生看到的資料 */
