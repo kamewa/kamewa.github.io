@@ -882,3 +882,5 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
   .map-pin.entry-pin .pin-label { padding: 3px 9px 3px 3px; font-size: .72rem; gap: 5px; }
 }
 .map-pin.entry-pin.locked .pin-label { border-style: dashed; border-color: var(--c); color: var(--c-ink); background: #FFF8F2; box-shadow: 0 4px 0 #C9BBAA; }
+/* 分區入口：不要底下的暖光暈，只保留膠囊按鈕本身的效果 */
+.map-pin.entry-pin::before { display: none; }
