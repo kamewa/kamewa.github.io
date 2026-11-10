@@ -77,7 +77,7 @@
         ${hint ? `<div class="map-hint toy-pill c-yellow">${hint}</div>` : ''}
       </div>`;
     }
-    return `<div class="map-stage">
+    return `<div class="map-stage ${opts.cls || ''}">
       <div class="map-zoomer">
         <img class="map-img" src="${esc(mapSrc)}" alt="" draggable="false">
         ${(opts.spots || []).map((p) => `
@@ -258,7 +258,7 @@
           <p class="page-desc">${ls.length ? `這裡有 ${ls.length} 課，點地圖上的分區進入課程。` : '這裡目前還沒有安排課程。'}</p>
         </div>
       </section>
-      ${mapStage(c.map, pins, ls.length ? '👆 點一個分區' : '', { spots: spotPins(c), spotSize: c.spotSize })}
+      ${mapStage(c.map, pins, ls.length ? '👆 點一個分區' : '', { spots: spotPins(c), spotSize: c.spotSize, cls: 'map-' + cid })}
       ${spotCards(c)}
       <div class="list-head"><h2>📚 ${esc(c.name)}的課程</h2><span class="muted">🔒 表示尚未開放</span></div>
       ${ls.length ? `<div class="grid-3">

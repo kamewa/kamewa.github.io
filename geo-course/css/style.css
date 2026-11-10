@@ -884,3 +884,7 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 .map-pin.entry-pin.locked .pin-label { border-style: dashed; border-color: var(--c); color: var(--c-ink); background: #FFF8F2; box-shadow: 0 4px 0 #C9BBAA; }
 /* 分區入口：不要底下的暖光暈，只保留膠囊按鈕本身的效果 */
 .map-pin.entry-pin::before { display: none; }
+
+/* 亞洲地圖上的課程按鈕（例：歐洲區域特色與俄羅斯）：拿掉上下浮動與黃橘色光暈，只保留膠囊按鈕本身的效果 */
+.map-stage.map-asia .map-pin::before { display: none; }
+.map-stage.map-asia .map-pin.open .pin-label { animation: none; }
