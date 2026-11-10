@@ -731,7 +731,9 @@
   /* ---------- 啟動 ---------- */
   $('#brandTitle').textContent = SITE.title;
   $('#brandSubtitle').textContent = SITE.subtitle;
-  $('#brandLogo').textContent = SITE.logo || '地';
+  // 網站主視覺：有設定 logoImage 就顯示圖片印章，否則顯示文字
+  if (SITE.logoImage) $('#brandLogo').innerHTML = `<img src="${esc(SITE.logoImage)}" alt="${esc(SITE.logo || '')}" width="46" height="46">`;
+  else { $('#brandLogo').classList.remove('has-img'); $('#brandLogo').textContent = SITE.logo || '地'; }
   $('#footer').textContent = `${SITE.title}・${new Date().getFullYear()}`;
   window.addEventListener('hashchange', route);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', route);

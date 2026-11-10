@@ -888,3 +888,8 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 /* 亞洲地圖上的課程按鈕（例：歐洲區域特色與俄羅斯）：拿掉上下浮動與黃橘色光暈，只保留膠囊按鈕本身的效果 */
 .map-stage.map-asia .map-pin::before { display: none; }
 .map-stage.map-asia .map-pin.open .pin-label { animation: none; }
+
+/* 左上角主視覺：圖片印章（老師自製「和」字印），不加底色與外框，讓印章本身的形狀呈現 */
+.brand-logo.has-img { background: none; border: none; box-shadow: none; border-radius: 0; padding: 0; }
+.brand-logo.has-img img { width: 46px; height: 46px; display: block; filter: drop-shadow(0 3px 0 rgba(90, 20, 15, .35)); transition: transform .2s; }
+.brand:hover .brand-logo.has-img img { transform: rotate(-4deg) scale(1.05); }

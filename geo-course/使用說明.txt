@@ -5,6 +5,10 @@
 直接點兩下 index.html 就能用，不需要網路，也可以整個資料夾放進隨身碟。
 （有網路時字型會比較漂亮；沒網路時會自動改用電腦內建的微軟正黑體。）
 
+【網站主視覺】
+左上角是老師自製的「和」字印：images/logo-he.png（瀏覽器分頁小圖示是 images/favicon.png）。
+換圖：把新圖放進 images 資料夾，改 js/site-data.js 的 logoImage 那一行。原圖備份在 maps/original/和字印_原圖.png。
+
 【資料夾裡有什麼】
 index.html          網站入口（不用改）
 css/style.css       全站外觀（積木風樣式）
