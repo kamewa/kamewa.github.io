@@ -27,7 +27,7 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
 4. 世界地圖的圓形按鈕大小：改 site-data.js 裡 world 的 pinSize（地圖寬度的百分比，目前 6）
 
 【亞洲的入口按鈕與台灣分區地圖】
-亞洲地圖上有三顆星光入口按鈕（台灣、中國、中亞），設定在 site-data.js 亞洲的 spots：
+亞洲地圖上有四顆星光入口按鈕（台灣、中國、中亞、東北亞），設定在 site-data.js 亞洲的 spots：
   href 填 '#/c/分區代號' 會進入下一張地圖；留空＝尚未設定（點了會提示）。
 台灣有三張分區地圖，用切換按鈕（kind: 'switch'）互相切換：
   台灣（自然）id: 'taiwan'，地圖 maps/taiwan-nature.webp，6 顆綠色呼吸光課程按鈕（自然地理課程）
@@ -36,6 +36,8 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
   所有台灣地圖的按鈕文字都固定顯示，呼吸光效果不變。
   按鈕設定在各自的 buttons：label 改顯示文字；href 填 '#/c/代號' 進入下一層、'#/l/課程代號/taiwan' 進入課程、留空＝尚未設定。
   kind: 'switch' 的按鈕是切換按鈕（文字一直顯示、外圈旋轉）。舊的綠色台灣地圖 maps/taiwan.webp 保留未刪除，已不使用。
+東北亞分區地圖（id: 'northeast-asia'，地圖 maps/northeast-asia.webp）：從亞洲地圖的「東北亞」入口進入，
+  按鈕：日本、南韓、北韓（尚未設定），右下「亞洲」按鈕回到亞洲地圖。
 中國分區地圖（id: 'china'，地圖 maps/china.webp，二上課程）：從亞洲地圖的「中國」入口進入，
   按鈕：地形、氣候、人口、經濟與議題（尚未設定），左下「亞洲」按鈕回到亞洲地圖。
 之後要讓課程出現在台灣地圖上，在課程的 on 裡加 taiwan: { x: .., y: .. }（人文地圖用 'taiwan-human'）即可。
@@ -77,7 +79,7 @@ tools/              工具程式（隱藏地圖的按鈕連到這裡）
 j、l、m 三個位置已預留在 site-data.js 的 world.reserved，之後新增區域時直接使用。
 
 【開放一課】
-1. 複製 lessons/ne-asia.js，改成新檔名（例如 lessons/se-asia.js）並改寫內容
+1. 複製一個現有的課程檔（例如 lessons/coast-island.js），改成新檔名（例如 lessons/se-asia.js）並改寫內容
 2. 在 js/site-data.js 找到那一課，把 status: 'soon' 改成 status: 'open'
 
 【課程內容檔可以用的段落】（參考 lessons/n-america.js）

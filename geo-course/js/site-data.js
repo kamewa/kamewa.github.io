@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110316',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110318',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -38,7 +38,8 @@ window.SITE = {
       spots: [
         { label: '台灣', x: 58.2, y: 60.6, href: '#/c/taiwan' },   // 老師標示的 a
         { label: '中國', x: 51.8, y: 53.4, href: '#/c/china' },     // b
-        { label: '中亞', x: 33.5, y: 38.6, href: '' }              // g
+        { label: '中亞', x: 33.5, y: 38.6, href: '' },             // g
+        { label: '東北亞', x: 63.0, y: 50.0, href: '#/c/northeast-asia' }   // 韓國與日本之間
       ] },
     { id: 'europe',     name: '歐洲',   en: 'Europe',        icon: '🏰', color: 'blue',   map: 'maps/europe.webp',     pos: { x: 12.2, y: 22.3 } },
     { id: 'africa',     name: '非洲',   en: 'Africa',        icon: '🦁', color: 'yellow', map: 'maps/africa.webp',     pos: { x: 10.6, y: 53.0 } },
@@ -72,6 +73,14 @@ window.SITE = {
         { label: '6', x: 68.7, y: 81.5, href: '' },   // 右下（農產品）
         { label: '自然', icon: '🌿', x: 47.8, y: 44.4, href: '#/c/taiwan', kind: 'switch' },   // 7 島中央：切換回自然地圖
         { label: '地名與議題', icon: '🌃', x: 55.5, y: 13.6, href: '#/c/taiwan-issues', kind: 'switch' }   // 8 島北端：切換到地名與議題地圖
+      ] },
+    /* 東北亞分區地圖：從亞洲地圖的「東北亞」入口進入 */
+    { id: 'northeast-asia', parent: 'asia', name: '東北亞', en: 'Northeast Asia', icon: '🗾', color: 'blue', map: 'maps/northeast-asia.webp', glow: 'sky', pinSize: 6.3,
+      buttons: [
+        { label: '日本', x: 65.5, y: 56.3, href: '' },   // 1 本州中部
+        { label: '南韓', x: 32.0, y: 54.5, href: '' },   // 2 朝鮮半島南部
+        { label: '北韓', x: 32.3, y: 23.1, href: '' },   // 3 朝鮮半島北部
+        { label: '亞洲', icon: '🏯', x: 90.4, y: 86.5, href: '#/c/asia', kind: 'switch' }   // 4 右下：回到亞洲地圖
       ] },
     /* 中國分區地圖（二上課程）：從亞洲地圖的「中國」入口進入 */
     { id: 'china', parent: 'asia', name: '中國', en: 'China', icon: '🐉', color: 'red', map: 'maps/china.webp', glow: 'ember', pinSize: 6.3,
@@ -122,8 +131,6 @@ window.SITE = {
   lessons: [
     { id: 'east-asia',       name: '東亞',       book: '', status: 'soon', file: 'lessons/east-asia.js',
       on: { asia: { x: 49.0, y: 44.6 } } },
-    { id: 'ne-asia',         name: '東北亞',     book: '範例課程', status: 'open', file: 'lessons/ne-asia.js',
-      on: { asia: { x: 63.0, y: 50.0 } } },
     { id: 'se-asia',         name: '東南亞',     book: '', status: 'soon', file: 'lessons/se-asia.js',
       on: { asia: { x: 56.8, y: 77.0 } } },
     { id: 's-asia',          name: '南亞',       book: '', status: 'soon', file: 'lessons/s-asia.js',

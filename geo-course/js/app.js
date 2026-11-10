@@ -25,6 +25,8 @@
   const continentById = (id) => SITE.continents.find((c) => c.id === id);
   const lessonById = (id) => SITE.lessons.find((l) => l.id === id);
   const lessonsOn = (cid) => SITE.lessons.filter((l) => l.on && l.on[cid]);
+  // 世界地圖計數用：也算進這一洲底下分區地圖（例如亞洲 → 台灣、中國）的課程
+  const lessonsOnTree = (cid) => { const ids = [cid, ...SITE.continents.filter((c) => c.parent === cid).map((c) => c.id)]; return SITE.lessons.filter((l) => l.on && ids.some((k) => l.on[k])); };
   const isOpen = (l) => l.status === 'open';
   const openLessons = () => SITE.lessons.filter(isOpen);
 
@@ -165,7 +167,7 @@
     const shown = SITE.continents.filter((c) => !c.hidden && !c.parent);
     const pins = shown.map((c) => ({
       name: c.name, color: c.color, x: c.pos.x, y: c.pos.y,
-      href: `#/c/${c.id}`, open: lessonsOn(c.id).some(isOpen)
+      href: `#/c/${c.id}`, open: lessonsOnTree(c.id).some(isOpen)
     }));
     app.innerHTML = `<div class="view">
       <section class="page-header-box c-teal">
@@ -180,7 +182,7 @@
       <div class="list-head"><h2>🗂️ 各洲與地區清單</h2><span class="muted">🔒 表示該區課程尚未開放，仍可進入看地圖</span></div>
       <div class="grid-4">
         ${shown.map((c) => {
-          const ls = lessonsOn(c.id); const n = ls.filter(isOpen).length; const open = n > 0;
+          const ls = lessonsOnTree(c.id); const n = ls.filter(isOpen).length; const open = n > 0;
           return `<a class="toy-card lift pick-card c-${c.color} ${open ? '' : 'locked'}" href="#/c/${c.id}" data-href="#/c/${c.id}" data-open="1" data-name="${esc(c.name)}">
             <span class="pick-icon">${c.icon}</span>
             <span><h3>${esc(c.name)}${open ? '' : ' 🔒'}</h3><span class="pick-meta">${esc(c.en)}・${ls.length ? `已開放 ${n} / ${ls.length} 課` : '尚無課程'}</span></span>
