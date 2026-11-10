@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110318',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110319',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -33,7 +33,7 @@ window.SITE = {
      pos：這一洲的按鈕在「世界地圖」上的位置（依老師標示的 a～g 位置）                       */
   continents: [
     { id: 'asia',       name: '亞洲',   en: 'Asia',          icon: '🏯', color: 'red',    map: 'maps/asia.webp',       pos: { x: 29.9, y: 33.3 },
-      /* 亞洲地圖上的入口按鈕（太陽光暈，不是課程按鈕）：href 填 '#/c/分區代號' 進入下一張地圖；留空＝尚未設定 */
+      /* 亞洲地圖上的分區入口（實心膠囊按鈕，和白底的課程按鈕區分）：href 填 '#/c/分區代號' 進入下一張地圖；留空＝尚未開放（顯示 🔒） */
       spotSize: 5,
       spots: [
         { label: '台灣', x: 58.2, y: 60.6, href: '#/c/taiwan' },   // 老師標示的 a

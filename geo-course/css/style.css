@@ -861,3 +861,24 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 .sun-stage.glow-sky .sun-pin .sun-label { opacity: 1; transform: translate(-50%, -50%) scale(.82); transition: transform .5s cubic-bezier(.22,.8,.3,1); }
 .sun-stage.glow-sky .sun-pin.active .sun-label,
 .sun-stage.glow-sky .sun-pin.switch-pin .sun-label { transform: translate(-50%, -50%) scale(1); }
+
+/* 第二層的「分區入口」膠囊按鈕：實心底色＋白色圖示圓＋「›」，固定顯示、不晃動；課程按鈕維持白底小圓點 */
+.map-pin.entry-pin { z-index: 3; }
+.map-pin.entry-pin .pin-label {
+  gap: 8px; padding: 6px 14px 6px 6px; background: var(--c); color: #fff;
+  font-size: clamp(.86rem, 1.4vw, 1.18rem); letter-spacing: .04em;
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+}
+.map-pin.entry-pin.open .pin-label { animation: none; }
+.entry-pin .entry-icon {
+  display: grid; place-items: center; width: 1.9em; height: 1.9em; border-radius: 50%;
+  background: #fff; border: 2px solid var(--line-dark); font-size: .95em; text-shadow: none; line-height: 1;
+}
+.entry-pin .entry-go { font-size: 1.25em; line-height: 1; margin-left: 2px; }
+.map-pin.entry-pin:hover .pin-label, .map-pin.entry-pin:focus-visible .pin-label { background: var(--c-dark); }
+.map-pin.entry-pin.locked .pin-label { background: #F4EFE7; color: var(--ink-tertiary); text-shadow: none; }
+.map-pin.entry-pin.locked .entry-go { font-size: .9em; }
+@media (max-width: 640px) {
+  .map-pin.entry-pin .pin-label { padding: 3px 9px 3px 3px; font-size: .72rem; gap: 5px; }
+}
+.map-pin.entry-pin.locked .pin-label { border-style: dashed; border-color: var(--c); color: var(--c-ink); background: #FFF8F2; box-shadow: 0 4px 0 #C9BBAA; }

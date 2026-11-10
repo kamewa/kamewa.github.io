@@ -77,10 +77,15 @@
         ${hint ? `<div class="map-hint toy-pill c-yellow">${hint}</div>` : ''}
       </div>`;
     }
-    return `<div class="map-stage ${opts.spots?.length ? 'has-spots' : ''}">
+    return `<div class="map-stage">
       <div class="map-zoomer">
         <img class="map-img" src="${esc(mapSrc)}" alt="" draggable="false">
-        ${(opts.spots || []).map((p, i) => sunPin(p, opts.spotSize || 5, i)).join('')}
+        ${(opts.spots || []).map((p) => `
+          <button class="map-pin entry-pin c-${p.color} ${p.open ? 'open' : 'locked'}" style="left:${p.x}%;top:${p.y}%"
+                  data-href="${p.href}" data-open="${p.open ? 1 : 0}" data-name="${esc(p.name)}"
+                  aria-label="進入${esc(p.name)}地圖${p.open ? '' : '（尚未開放）'}">
+            <span class="pin-label"><span class="entry-icon">${p.icon}</span><span class="entry-name">${esc(p.name)}</span><span class="entry-go">${p.open ? '›' : '🔒'}</span></span>
+          </button>`).join('')}
         ${pins.map((p) => `
           <button class="map-pin c-${p.color} ${p.open ? 'open' : 'locked'}" style="left:${p.x}%;top:${p.y}%"
                   data-href="${p.href}" data-open="${p.open ? 1 : 0}" data-name="${esc(p.name)}"
@@ -268,12 +273,13 @@
     bindSunProximity();
   }
 
-  /* 各洲地圖上的入口按鈕（太陽光暈） */
-  const spotPins = (c) => (c.spots || []).map((s) => ({ name: s.label, x: s.x, y: s.y, href: s.href || '', open: true }));
-  const spotCards = (c) => (c.spots || []).some((s) => s.href) ? `
-      <div class="list-head"><h2>✨ 特別入口</h2></div>
-      <div class="grid-4">${c.spots.filter((s) => s.href).map((s) => `<a class="toy-card lift pick-card c-${c.color}" href="${esc(s.href)}" data-href="${esc(s.href)}" data-open="1" data-name="${esc(s.label)}">
-          <span class="pick-icon">🌟</span><span><h3>${esc(s.label)}</h3></span><span class="pick-go">›</span></a>`).join('')}</div>` : '';
+  /* 各洲地圖上的分區入口：膠囊按鈕（左邊是分區圖示、右邊是「›」），和課程按鈕區分；沒設定連結的顯示 🔒 */
+  const spotIcon = (s) => { const m = /^#\/c\/([\w-]+)/.exec(s.href || ''); const t = m && continentById(m[1]); return (t && t.icon) || '🧭'; };
+  const spotPins = (c) => (c.spots || []).map((s) => ({ name: s.label, x: s.x, y: s.y, href: s.href || '', open: !!s.href, icon: spotIcon(s), color: c.color }));
+  const spotCards = (c) => (c.spots || []).length ? `
+      <div class="list-head"><h2>🧭 分區入口</h2><span class="muted">點進去是下一層的分區地圖；🔒 表示尚未開放</span></div>
+      <div class="grid-4">${c.spots.map((s) => `<a class="toy-card lift pick-card entry-card c-${c.color} ${s.href ? '' : 'locked'}" href="${esc(s.href || '#')}" data-href="${esc(s.href || '')}" data-open="${s.href ? 1 : 0}" data-name="${esc(s.label)}">
+          <span class="pick-icon">${spotIcon(s)}</span><span><h3>${esc(s.label)}${s.href ? '' : ' 🔒'}</h3><span class="pick-meta">分區地圖</span></span><span class="pick-go">›</span></a>`).join('')}</div>` : '';
 
   /* 分區地圖（例如亞洲 → 台灣）：圓形呼吸發光按鈕＋這一區的課程 */
   function renderSub(c) {
