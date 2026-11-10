@@ -27,8 +27,8 @@
 
   --radius-pill: 999px; --radius-lg: 24px; --radius-md: 18px; --radius-sm: 12px;
 
-  --font-heading: 'Outfit', 'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
-  --font-body: 'Plus Jakarta Sans', 'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+  --font-heading: 'Huninn', 'Microsoft JhengHei', 'PingFang TC', sans-serif;          /* 標題：jf open 粉圓 */
+  --font-body: 'LXGW WenKai TC', 'Microsoft JhengHei', 'PingFang TC', sans-serif;     /* 內文：霞鶩文楷 */
 
   --header-h: 76px;
   color-scheme: light; /* 教室偏暗：永遠保持明亮，不跟隨深色模式 */
@@ -902,3 +902,9 @@ button.mini-tag { border: none; font: inherit; font-size: .78rem; font-weight: 7
 .brand-title.two-line .bt-brown { color: #4A3426; }
 .brand-title.two-line .bt-red { color: #B22A22; }
 @media (max-width: 640px) { .brand-title.two-line { font-size: 1rem; } }
+
+/* 字型：粉圓只有一種粗細，標題不加粗，保留圓潤可愛的樣子（瀏覽器不模擬粗體） */
+h1, h2, h3, h4, .brand-title, .brand-title.two-line b { font-weight: 400; }
+:root { font-synthesis: none; }
+/* 最上方的膠囊選單（路徑、複習／簡報模式）改用霞鶩文楷 */
+.crumb, .crumb-sep, .mode-btn { font-family: var(--font-body); font-weight: 700; }
