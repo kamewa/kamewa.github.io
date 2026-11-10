@@ -10,7 +10,7 @@ window.SITE = {
   title: '地理課程網站',
   subtitle: '區域地理・複習與簡報',
   logo: '地',
-  version: '2026110320',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110321',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -77,7 +77,7 @@ window.SITE = {
     /* 東北亞分區地圖：從亞洲地圖的「東北亞」入口進入 */
     { id: 'northeast-asia', parent: 'asia', name: '東北亞', en: 'Northeast Asia', icon: '🗾', color: 'blue', map: 'maps/northeast-asia.webp', glow: 'sky', pinSize: 6.3,
       buttons: [
-        { label: '日本', x: 65.5, y: 56.3, href: '' },   // 1 本州中部
+        { label: '日本', x: 65.5, y: 56.3, href: '#/l/ne-asia-nature/northeast-asia' },   // 1 本州中部：東北亞的自然環境與文化
         { label: '南韓', x: 32.0, y: 54.5, href: '' },   // 2 朝鮮半島南部
         { label: '北韓', x: 32.3, y: 23.1, href: '' },   // 3 朝鮮半島北部
         { label: '亞洲', icon: '🏯', x: 90.4, y: 86.5, href: '#/c/asia', kind: 'switch' }   // 4 右下：回到亞洲地圖
@@ -151,6 +151,8 @@ window.SITE = {
       on: { taiwan: { x: 77.2, y: 58.9 } } },
     { id: 'hydrology',       name: '水文',       book: '一上 第6章', status: 'open', file: 'lessons/hydrology.js',
       on: { taiwan: { x: 79.2, y: 22.2 } } },
+    { id: 'ne-asia-nature',  name: '東北亞的自然環境與文化', book: '二上 第1章', status: 'open', file: 'lessons/ne-asia-nature.js',
+      on: { 'northeast-asia': { x: 65.5, y: 56.3 } } },
     { id: 'europe',          name: '歐洲概述',   book: '三上 第1章', status: 'open', file: 'lessons/europe.js',
       on: { europe: { x: 37.0, y: 59.5 } } },
     { id: 'russia',          name: '歐洲區域特色與俄羅斯', book: '三上 第2章', status: 'open', file: 'lessons/russia.js',

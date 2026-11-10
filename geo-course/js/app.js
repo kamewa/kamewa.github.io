@@ -452,7 +452,7 @@
 
       ${d.intro ? `<section class="section"><div class="toy-card intro-card">
         <div class="concept-top"><span class="concept-icon">${d.intro.icon || '💭'}</span><h2>${esc(d.intro.title)}</h2></div>
-        <p class="concept-text">${md(d.intro.text)}</p>${d.intro.think ? thinkCard(d.intro.think) : ''}</div></section>` : ''}
+        <p class="concept-text">${md(d.intro.text)}</p>${d.intro.image ? `<div class="fig-row">${imgFig(d.intro.image)}</div>` : ''}${d.intro.think ? thinkCard(d.intro.think) : ''}</div></section>` : ''}
 
       ${d.goals?.length ? `<section class="section"><div class="section-head"><span class="section-icon">🎯</span><h2>${d.sections?.length ? '學習課題' : '學習目標'}</h2></div>
         <div class="goal-list">${d.goals.map((g, i) => `<div class="toy-card goal-item"><span class="goal-num">${i + 1}</span><p>${md(g)}</p></div>`).join('')}</div></section>` : ''}
@@ -570,7 +570,7 @@
 
     if (d.intro) {
       S.push({ cat: '課程開場', color: 'yellow', title: d.intro.title, note: d.intro.note || '',
-        html: `<div class="slide-concept-head"><span class="concept-icon">${d.intro.icon || '💭'}</span><h2 class="slide-title">${esc(d.intro.title)}</h2></div><div class="slide-body"><p>${md(d.intro.text)}</p></div>` });
+        html: `<div class="slide-concept-head"><span class="concept-icon">${d.intro.icon || '💭'}</span><h2 class="slide-title">${esc(d.intro.title)}</h2></div><div class="slide-body">${d.intro.image ? `<div class="slide-split"><div><p>${md(d.intro.text)}</p></div>${imgFig(d.intro.image, 'slide-fig')}</div>` : `<p>${md(d.intro.text)}</p>`}</div>` });
       if (d.intro.think) S.push(thinkSlide(d.intro.think, '課程開場', 'yellow'));
     }
     if (d.goals?.length) S.push({ cat: d.sections?.length ? '學習課題' : '學習目標', color: 'teal', title: '今天要學會', note: d.goalsNote || '',
