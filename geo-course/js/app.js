@@ -729,8 +729,14 @@
   }
 
   /* ---------- 啟動 ---------- */
-  $('#brandTitle').textContent = SITE.title;
-  $('#brandSubtitle').textContent = SITE.subtitle;
+  if (SITE.brandLines) {   // 網站名稱分兩行顯示，高度對齊左邊的印章
+    $('#brandTitle').innerHTML = SITE.brandLines.map((line) => `<span>${(Array.isArray(line) ? line : [[line]]).map(([t, c]) => `<b class="bt-${c || 'brown'}">${esc(t)}</b>`).join('')}</span>`).join('');
+    $('#brandTitle').classList.add('two-line');
+    $('#brandSubtitle').hidden = true;
+  } else {
+    $('#brandTitle').textContent = SITE.title;
+    $('#brandSubtitle').textContent = SITE.subtitle;
+  }
   // 網站主視覺：有設定 logoImage 就顯示圖片印章，否則顯示文字
   if (SITE.logoImage) $('#brandLogo').innerHTML = `<img src="${esc(SITE.logoImage)}" alt="${esc(SITE.logo || '')}" width="46" height="46">`;
   else { $('#brandLogo').classList.remove('has-img'); $('#brandLogo').textContent = SITE.logo || '地'; }
