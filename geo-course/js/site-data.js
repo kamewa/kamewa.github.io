@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110333',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110334',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -53,9 +53,12 @@ window.SITE = {
       glow: 'amber', pinSize: 6.3,
       buttons: [
         { label: '漠北非洲', x: 42.2, y: 20.2, href: '#/l/nafrica/africa' },                                     // 1 撒哈拉沙漠
-        { label: '漠南非洲', x: 51.1, y: 63.8, href: '' },                                     // 2 非洲中南部
-        { label: '世界地圖', icon: '🌏', x: 8.4, y: 85.0, href: '#/world', kind: 'switch' },   // 3 回首頁世界地圖
-        { label: '亞洲', icon: '🏯', x: 84.3, y: 11.7, href: '#/c/asia', kind: 'switch' }      // 4 回亞洲地圖
+        { label: '漠南非洲自然環境', x: 49.0, y: 49.4, href: '' },                             // 2 剛果盆地（課程待加入）
+        { label: '漠南非洲人文經濟', x: 50.8, y: 83.4, href: '' },                             // 3 非洲南部（課程待加入）
+        { label: '世界地圖', icon: '🌏', x: 8.4, y: 85.0, href: '#/world', kind: 'switch' },   // 左下：回首頁世界地圖
+        { label: '亞洲', icon: '🏯', x: 88.5, y: 63.8, href: '#/c/asia', kind: 'switch' },     // 4 回亞洲地圖
+        { label: '西亞', icon: '🕌', x: 68.2, y: 13.3, href: '#/c/west-asia', kind: 'switch' },  // 5 到西亞地圖（自然／人文兩課）
+        { label: '南亞', icon: '🛕', x: 94.5, y: 11.7, href: '#/c/south-asia', kind: 'switch' }  // 6 到南亞地圖
       ] },
     { id: 'namerica',   name: '北美洲', en: 'North America', icon: '🗽', color: 'teal',   map: 'maps/namerica.webp',   pos: { x: 73.4, y: 27.9 } },
     { id: 'samerica',   name: '南美洲', en: 'South America', icon: '🦜', color: 'purple', map: 'maps/samerica.webp',   pos: { x: 84.9, y: 61.4 } },
