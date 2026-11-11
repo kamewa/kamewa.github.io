@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110335',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110336',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -54,7 +54,7 @@ window.SITE = {
       buttons: [
         { label: '漠北非洲', x: 42.2, y: 20.2, href: '#/l/nafrica/africa' },                                     // 1 撒哈拉沙漠
         { label: '漠南非洲自然環境', x: 49.0, y: 49.4, href: '#/l/ssa-nature/africa' },        // 2 剛果盆地
-        { label: '漠南非洲人文經濟', x: 50.8, y: 83.4, href: '' },                             // 3 非洲南部（課程待加入）
+        { label: '漠南非洲人文經濟', x: 50.8, y: 83.4, href: '#/l/sub-saharan/africa' },       // 3 非洲南部
         { label: '世界地圖', icon: '🌏', x: 8.4, y: 85.0, href: '#/world', kind: 'switch' },   // 左下：回首頁世界地圖
         { label: '亞洲', icon: '🏯', x: 88.5, y: 63.8, href: '#/c/asia', kind: 'switch' },     // 4 回亞洲地圖
         { label: '西亞', icon: '🕌', x: 68.2, y: 13.3, href: '#/c/west-asia', kind: 'switch' },  // 5 到西亞地圖（自然／人文兩課）
@@ -174,7 +174,7 @@ window.SITE = {
       on: { asia: { x: 33.5, y: 38.6, hidden: true } } },   // hidden：地圖上不另放課程按鈕（由「中亞」入口進入）
     { id: 'ssa-nature',      name: '漠南非洲的自然環境與文化', book: '二下 第5章', status: 'open', file: 'lessons/ssa-nature.js',
       on: { africa: { x: 49.0, y: 49.4 } } },
-    { id: 'sub-saharan',     name: '漠南非洲的人文經濟', book: '', status: 'soon', file: 'lessons/sub-saharan.js',
+    { id: 'sub-saharan',     name: '漠南非洲的產業與經濟發展', book: '二下 第6章', status: 'open', file: 'lessons/sub-saharan.js',
       on: { africa: { x: 50.8, y: 83.4 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
       on: { taiwan: { x: 30.1, y: 23.5 } } },
