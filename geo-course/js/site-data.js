@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110328',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110329',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -82,7 +82,7 @@ window.SITE = {
     /* 南亞分區地圖：從亞洲地圖的「南亞」入口進入 */
     { id: 'south-asia', parent: 'asia', name: '南亞', en: 'South Asia', icon: '🛕', color: 'yellow', map: 'maps/south-asia.webp', glow: 'sky', pinSize: 6.3,
       buttons: [
-        { label: '自然環境', x: 45.9, y: 61.8, href: '' },   // 1 德干高原
+        { label: '自然環境', x: 45.9, y: 61.8, href: '#/l/s-asia/south-asia' },   // 1 德干高原
         { label: '人文經濟', x: 38.8, y: 31.8, href: '' },   // 2 印度河平原
         { label: '亞洲', icon: '🏯', x: 87.5, y: 83.3, href: '#/c/asia', kind: 'switch' }   // 3 右下：回到亞洲地圖
       ] },
@@ -165,6 +165,8 @@ window.SITE = {
       on: { 'northeast-asia': { x: 65.5, y: 56.3 } } },
     { id: 'ne-asia-economy', name: '東北亞的經濟發展與挑戰', book: '二上 第2章', status: 'open', file: 'lessons/ne-asia-economy.js',
       on: { 'northeast-asia': { x: 32.0, y: 54.5 } } },
+    { id: 's-asia',          name: '南亞',       book: '二下 第2章', status: 'open', file: 'lessons/s-asia.js',
+      on: { 'south-asia': { x: 45.9, y: 61.8 } } },
     { id: 'europe',          name: '歐洲概述',   book: '三上 第1章', status: 'open', file: 'lessons/europe.js',
       on: { europe: { x: 37.0, y: 59.5 } } },
     { id: 'russia',          name: '歐洲區域特色與俄羅斯', book: '三上 第2章', status: 'open', file: 'lessons/russia.js',
