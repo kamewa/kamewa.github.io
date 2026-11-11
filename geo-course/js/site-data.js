@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110327',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110328',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -43,7 +43,8 @@ window.SITE = {
         { label: '台灣', x: 58.2, y: 60.6, href: '#/c/taiwan' },   // 老師標示的 a
         { label: '中國', x: 51.8, y: 53.4, href: '#/c/china' },     // b
         { label: '中亞', x: 33.5, y: 38.6, href: '' },             // g
-        { label: '東北亞', x: 63.0, y: 50.0, href: '#/c/northeast-asia' }   // 韓國與日本之間
+        { label: '東北亞', x: 63.0, y: 50.0, href: '#/c/northeast-asia' },  // 韓國與日本之間
+        { label: '南亞', x: 38.3, y: 64.0, href: '#/c/south-asia' }          // 印度半島（原本「南亞」課程按鈕的位置）
       ] },
     { id: 'europe',     name: '歐洲',   en: 'Europe',        icon: '🏰', color: 'blue',   map: 'maps/europe.webp',     pos: { x: 12.2, y: 22.3 } },
     { id: 'africa',     name: '非洲',   en: 'Africa',        icon: '🦁', color: 'yellow', map: 'maps/africa.webp',     pos: { x: 10.6, y: 53.0 } },
@@ -77,6 +78,13 @@ window.SITE = {
         { label: '6', x: 68.7, y: 81.5, href: '' },   // 右下（農產品）
         { label: '自然', icon: '🌿', x: 47.8, y: 44.4, href: '#/c/taiwan', kind: 'switch' },   // 7 島中央：切換回自然地圖
         { label: '地名與議題', icon: '🌃', x: 55.5, y: 13.6, href: '#/c/taiwan-issues', kind: 'switch' }   // 8 島北端：切換到地名與議題地圖
+      ] },
+    /* 南亞分區地圖：從亞洲地圖的「南亞」入口進入 */
+    { id: 'south-asia', parent: 'asia', name: '南亞', en: 'South Asia', icon: '🛕', color: 'yellow', map: 'maps/south-asia.webp', glow: 'sky', pinSize: 6.3,
+      buttons: [
+        { label: '自然環境', x: 45.9, y: 61.8, href: '' },   // 1 德干高原
+        { label: '人文經濟', x: 38.8, y: 31.8, href: '' },   // 2 印度河平原
+        { label: '亞洲', icon: '🏯', x: 87.5, y: 83.3, href: '#/c/asia', kind: 'switch' }   // 3 右下：回到亞洲地圖
       ] },
     /* 東北亞分區地圖：從亞洲地圖的「東北亞」入口進入 */
     { id: 'northeast-asia', parent: 'asia', name: '東北亞', en: 'Northeast Asia', icon: '🗾', color: 'blue', map: 'maps/northeast-asia.webp', glow: 'sky', pinSize: 6.3,
@@ -137,8 +145,6 @@ window.SITE = {
       on: { asia: { x: 49.0, y: 44.6 } } },
     { id: 'se-asia',         name: '東南亞',     book: '', status: 'soon', file: 'lessons/se-asia.js',
       on: { asia: { x: 56.8, y: 77.0 } } },
-    { id: 's-asia',          name: '南亞',       book: '', status: 'soon', file: 'lessons/s-asia.js',
-      on: { asia: { x: 38.3, y: 64.0 } } },
     { id: 'w-asia-n-africa', name: '西亞與北非', book: '', status: 'soon', file: 'lessons/w-asia-n-africa.js',
       on: { asia: { x: 23.0, y: 53.5 }, africa: { x: 43.0, y: 20.0 } } },
     { id: 'sub-saharan',     name: '漠南非洲',   book: '', status: 'soon', file: 'lessons/sub-saharan.js',
