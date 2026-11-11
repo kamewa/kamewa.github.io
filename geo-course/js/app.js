@@ -241,7 +241,7 @@
     const c = continentById(cid);
     if (!c) return renderNotFound();
     if (c.hidden) return renderSecret(c);
-    if (c.parent) return renderSub(c);
+    if (c.parent || c.buttons) return renderSub(c);   // 有 buttons 的洲（如非洲）也用圓形按鈕地圖
     setCrumbs([{ label: '🌏 世界地圖', href: '#/world' }, { label: `${c.icon} ${esc(c.name)}` }]);
     document.title = `${c.name}｜${SITE.title}`;
     const ls = lessonsOn(cid);
@@ -283,8 +283,9 @@
 
   /* 分區地圖（例如亞洲 → 台灣）：圓形呼吸發光按鈕＋這一區的課程 */
   function renderSub(c) {
-    const par = continentById(c.parent);
-    setCrumbs([{ label: '🌏 世界地圖', href: '#/world' }, { label: `${par.icon} ${esc(par.name)}`, href: `#/c/${par.id}` }, { label: `${c.icon} ${esc(c.name)}` }]);
+    const par = c.parent ? continentById(c.parent) : null;
+    setCrumbs(par ? [{ label: '🌏 世界地圖', href: '#/world' }, { label: `${par.icon} ${esc(par.name)}`, href: `#/c/${par.id}` }, { label: `${c.icon} ${esc(c.name)}` }]
+                  : [{ label: '🌏 世界地圖', href: '#/world' }, { label: `${c.icon} ${esc(c.name)}` }]);
     document.title = `${c.name}｜${SITE.title}`;
     const btns = (c.buttons || []).map((b) => ({ name: b.label, x: b.x, y: b.y, href: b.href || '', open: true, kind: b.kind, icon: b.icon }));
     const ls = lessonsOn(c.id);
@@ -293,7 +294,7 @@
       <section class="page-header-box c-${c.color}">
         <div class="ph-icon">${c.icon}</div>
         <div>
-          <div class="ph-badges"><span class="toy-pill c-${c.color}">${esc(par.name)}｜分區地圖</span><span class="toy-pill c-yellow">${esc(c.en || '')}</span></div>
+          <div class="ph-badges"><span class="toy-pill c-${c.color}">${par ? esc(par.name) + '｜分區地圖' : '第 2 層｜' + esc(c.name)}</span><span class="toy-pill c-yellow">${esc(c.en || '')}</span></div>
           <h1 class="page-title">${esc(c.name)}</h1>
           <p class="page-desc">點地圖上發光的圓點進入。</p>
         </div>
@@ -302,7 +303,7 @@
       ${ls.length ? `<div class="list-head"><h2>📚 ${esc(c.name)}的課程</h2></div><div class="grid-3">
         ${ls.map((l) => `<a class="toy-card lift pick-card c-${c.color} ${isOpen(l) ? '' : 'locked'}" href="#/l/${l.id}/${c.id}" data-href="#/l/${l.id}/${c.id}" data-open="${isOpen(l) ? 1 : 0}" data-name="${esc(l.name)}">
             <span class="pick-icon">${isOpen(l) ? '📖' : '🔒'}</span><span><h3>${esc(l.name)}</h3></span><span class="pick-go">›</span></a>`).join('')}</div>` : ''}
-      <div class="lesson-nav"><a class="toy-btn toy-btn-ghost" href="#/c/${par.id}">← 回到${esc(par.name)}</a></div>
+      <div class="lesson-nav"><a class="toy-btn toy-btn-ghost" href="${par ? `#/c/${par.id}` : '#/world'}">← 回到${par ? esc(par.name) : '世界地圖'}</a></div>
     </div>`;
     bindPins('block');
     bindSunProximity();
