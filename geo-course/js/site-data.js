@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110329',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110330',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -44,7 +44,8 @@ window.SITE = {
         { label: '中國', x: 51.8, y: 53.4, href: '#/c/china' },     // b
         { label: '中亞', x: 33.5, y: 38.6, href: '' },             // g
         { label: '東北亞', x: 63.0, y: 50.0, href: '#/c/northeast-asia' },  // 韓國與日本之間
-        { label: '南亞', x: 38.3, y: 64.0, href: '#/c/south-asia' }          // 印度半島（原本「南亞」課程按鈕的位置）
+        { label: '南亞', x: 38.3, y: 64.0, href: '#/c/south-asia' },         // 印度半島（原本「南亞」課程按鈕的位置）
+        { label: '西亞與北非', x: 23.0, y: 53.5, href: '#/c/west-asia' }      // 阿拉伯半島（原本「西亞與北非」課程按鈕的位置）
       ] },
     { id: 'europe',     name: '歐洲',   en: 'Europe',        icon: '🏰', color: 'blue',   map: 'maps/europe.webp',     pos: { x: 12.2, y: 22.3 } },
     { id: 'africa',     name: '非洲',   en: 'Africa',        icon: '🦁', color: 'yellow', map: 'maps/africa.webp',     pos: { x: 10.6, y: 53.0 } },
@@ -80,6 +81,13 @@ window.SITE = {
         { label: '地名與議題', icon: '🌃', x: 55.5, y: 13.6, href: '#/c/taiwan-issues', kind: 'switch' }   // 8 島北端：切換到地名與議題地圖
       ] },
     /* 南亞分區地圖：從亞洲地圖的「南亞」入口進入 */
+    { id: 'west-asia', parent: 'asia', name: '西亞', en: 'West Asia', icon: '🕌', color: 'yellow', map: 'maps/west-asia.webp', glow: 'amber', pinSize: 6.3,
+      buttons: [
+        { label: '自然', x: 42.8, y: 53.7, href: '' },                                   // 1 阿拉伯半島
+        { label: '人文', x: 25.1, y: 15.9, href: '' },                                   // 2 安納托利亞高原
+        { label: '亞洲', icon: '🏯', x: 92.5, y: 41.4, href: '#/c/asia', kind: 'switch' },   // 3 回到亞洲地圖
+        { label: '北非', icon: '🦁', x: 10.5, y: 54.7, href: '#/c/africa', kind: 'switch' }  // 4 到非洲地圖（北非）
+      ] },
     { id: 'south-asia', parent: 'asia', name: '南亞', en: 'South Asia', icon: '🛕', color: 'yellow', map: 'maps/south-asia.webp', glow: 'sky', pinSize: 6.3,
       buttons: [
         { label: '自然環境', x: 45.9, y: 61.8, href: '#/l/s-asia/south-asia' },   // 1 德干高原
@@ -146,7 +154,7 @@ window.SITE = {
     { id: 'se-asia',         name: '東南亞',     book: '', status: 'soon', file: 'lessons/se-asia.js',
       on: { asia: { x: 56.8, y: 77.0 } } },
     { id: 'w-asia-n-africa', name: '西亞與北非', book: '', status: 'soon', file: 'lessons/w-asia-n-africa.js',
-      on: { asia: { x: 23.0, y: 53.5 }, africa: { x: 43.0, y: 20.0 } } },
+      on: { africa: { x: 43.0, y: 20.0 } } },   // 亞洲地圖上改為「西亞與北非」分區入口
     { id: 'sub-saharan',     name: '漠南非洲',   book: '', status: 'soon', file: 'lessons/sub-saharan.js',
       on: { africa: { x: 54.0, y: 60.0 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
