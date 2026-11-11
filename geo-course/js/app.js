@@ -245,7 +245,7 @@
     setCrumbs([{ label: '🌏 世界地圖', href: '#/world' }, { label: `${c.icon} ${esc(c.name)}` }]);
     document.title = `${c.name}｜${SITE.title}`;
     const ls = lessonsOn(cid);
-    const pins = ls.map((l) => ({
+    const pins = ls.filter((l) => !l.on[cid].hidden).map((l) => ({   // hidden：只列在下方清單，地圖上不放按鈕
       name: l.name, color: c.color, x: l.on[cid].x, y: l.on[cid].y,
       href: `#/l/${l.id}/${cid}`, open: isOpen(l)
     }));
@@ -279,7 +279,7 @@
   const spotCards = (c) => (c.spots || []).length ? `
       <div class="list-head"><h2>🧭 分區入口</h2><span class="muted">點進去是下一層的分區地圖；🔒 表示尚未開放</span></div>
       <div class="grid-4">${c.spots.map((s) => `<a class="toy-card lift pick-card entry-card c-${c.color} ${s.href ? '' : 'locked'}" href="${esc(s.href || '#')}" data-href="${esc(s.href || '')}" data-open="${s.href ? 1 : 0}" data-name="${esc(s.label)}">
-          <span class="pick-icon">${spotIcon(s)}</span><span><h3>${esc(s.label)}${s.href ? '' : ' 🔒'}</h3><span class="pick-meta">分區地圖</span></span><span class="pick-go">›</span></a>`).join('')}</div>` : '';
+          <span class="pick-icon">${spotIcon(s)}</span><span><h3>${esc(s.label)}${s.href ? '' : ' 🔒'}</h3><span class="pick-meta">${/^#\/l\//.test(s.href || '') ? '課程' : '分區地圖'}</span></span><span class="pick-go">›</span></a>`).join('')}</div>` : '';
 
   /* 分區地圖（例如亞洲 → 台灣）：圓形呼吸發光按鈕＋這一區的課程 */
   function renderSub(c) {

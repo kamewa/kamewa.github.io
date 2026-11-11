@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110332',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110333',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -42,7 +42,7 @@ window.SITE = {
       spots: [
         { label: '台灣', x: 58.2, y: 60.6, href: '#/c/taiwan' },   // 老師標示的 a
         { label: '中國', x: 51.8, y: 53.4, href: '#/c/china' },     // b
-        { label: '中亞', x: 33.5, y: 38.6, href: '' },             // g
+        { label: '中亞', x: 33.5, y: 38.6, href: '#/l/central-asia/asia' },   // g：直接進入課後閱讀「中亞五國」
         { label: '東北亞', x: 63.0, y: 50.0, href: '#/c/northeast-asia' },  // 韓國與日本之間
         { label: '南亞', x: 38.3, y: 64.0, href: '#/c/south-asia' },         // 印度半島（原本「南亞」課程按鈕的位置）
         { label: '西亞與北非', x: 23.0, y: 53.5, href: '#/c/west-asia' }      // 阿拉伯半島（原本「西亞與北非」課程按鈕的位置）
@@ -52,7 +52,7 @@ window.SITE = {
       /* 非洲地圖改用圓形呼吸按鈕（和分區地圖一樣）；href 留空＝尚未設定 */
       glow: 'amber', pinSize: 6.3,
       buttons: [
-        { label: '漠北非洲', x: 42.2, y: 20.2, href: '#/l/wana-conflict/africa' },                                     // 1 撒哈拉沙漠
+        { label: '漠北非洲', x: 42.2, y: 20.2, href: '#/l/nafrica/africa' },                                     // 1 撒哈拉沙漠
         { label: '漠南非洲', x: 51.1, y: 63.8, href: '' },                                     // 2 非洲中南部
         { label: '世界地圖', icon: '🌏', x: 8.4, y: 85.0, href: '#/world', kind: 'switch' },   // 3 回首頁世界地圖
         { label: '亞洲', icon: '🏯', x: 84.3, y: 11.7, href: '#/c/asia', kind: 'switch' }      // 4 回亞洲地圖
@@ -91,8 +91,8 @@ window.SITE = {
     /* 南亞分區地圖：從亞洲地圖的「南亞」入口進入 */
     { id: 'west-asia', parent: 'asia', name: '西亞', en: 'West Asia', icon: '🕌', color: 'yellow', map: 'maps/west-asia.webp', glow: 'amber', pinSize: 6.3,
       buttons: [
-        { label: '自然', x: 42.8, y: 53.7, href: '' },                                   // 1 阿拉伯半島
-        { label: '人文', x: 25.1, y: 15.9, href: '' },                                   // 2 安納托利亞高原
+        { label: '自然', x: 42.8, y: 53.7, href: '#/l/wasia-nature/west-asia' },                                   // 1 阿拉伯半島
+        { label: '人文', x: 25.1, y: 15.9, href: '#/l/wana-conflict/west-asia' },                                   // 2 安納托利亞高原
         { label: '亞洲', icon: '🏯', x: 92.5, y: 41.4, href: '#/c/asia', kind: 'switch' },   // 3 回到亞洲地圖
         { label: '北非', icon: '🦁', x: 10.5, y: 54.7, href: '#/c/africa', kind: 'switch' }  // 4 到非洲地圖（北非）
       ] },
@@ -161,10 +161,14 @@ window.SITE = {
       on: { asia: { x: 49.0, y: 44.6 } } },
     { id: 'se-asia',         name: '東南亞',     book: '', status: 'soon', file: 'lessons/se-asia.js',
       on: { asia: { x: 56.8, y: 77.0 } } },
-    { id: 'wana-conflict',   name: '西亞與北非的衝突與經濟發展', book: '二下 第4章', status: 'open', file: 'lessons/wana-conflict.js',
+    { id: 'wasia-nature',    name: '西亞的自然環境', book: '二下 第3～4章', status: 'open', file: 'lessons/wasia-nature.js',
+      on: { 'west-asia': { x: 42.8, y: 53.7 } } },
+    { id: 'wana-conflict',   name: '西亞的人文經濟', book: '二下 第3～4章', status: 'open', file: 'lessons/wana-conflict.js',
+      on: { 'west-asia': { x: 25.1, y: 15.9 } } },
+    { id: 'nafrica',         name: '漠北非洲',       book: '二下 第3～4章', status: 'open', file: 'lessons/nafrica.js',
       on: { africa: { x: 42.2, y: 20.2 } } },
-    { id: 'w-asia-n-africa', name: '西亞與北非', book: '', status: 'soon', file: 'lessons/w-asia-n-africa.js',
-      on: { africa: { x: 43.0, y: 20.0 } } },   // 亞洲地圖上改為「西亞與北非」分區入口
+    { id: 'central-asia',    name: '中亞五國',       book: '二下 第3章 課後閱讀', status: 'open', file: 'lessons/central-asia.js',
+      on: { asia: { x: 33.5, y: 38.6, hidden: true } } },   // hidden：地圖上不另放課程按鈕（由「中亞」入口進入）
     { id: 'sub-saharan',     name: '漠南非洲',   book: '', status: 'soon', file: 'lessons/sub-saharan.js',
       on: { africa: { x: 54.0, y: 60.0 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
