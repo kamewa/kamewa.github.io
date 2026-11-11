@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110331',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110332',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -52,7 +52,7 @@ window.SITE = {
       /* 非洲地圖改用圓形呼吸按鈕（和分區地圖一樣）；href 留空＝尚未設定 */
       glow: 'amber', pinSize: 6.3,
       buttons: [
-        { label: '漠北非洲', x: 42.2, y: 20.2, href: '' },                                     // 1 撒哈拉沙漠
+        { label: '漠北非洲', x: 42.2, y: 20.2, href: '#/l/wana-conflict/africa' },                                     // 1 撒哈拉沙漠
         { label: '漠南非洲', x: 51.1, y: 63.8, href: '' },                                     // 2 非洲中南部
         { label: '世界地圖', icon: '🌏', x: 8.4, y: 85.0, href: '#/world', kind: 'switch' },   // 3 回首頁世界地圖
         { label: '亞洲', icon: '🏯', x: 84.3, y: 11.7, href: '#/c/asia', kind: 'switch' }      // 4 回亞洲地圖
@@ -161,6 +161,8 @@ window.SITE = {
       on: { asia: { x: 49.0, y: 44.6 } } },
     { id: 'se-asia',         name: '東南亞',     book: '', status: 'soon', file: 'lessons/se-asia.js',
       on: { asia: { x: 56.8, y: 77.0 } } },
+    { id: 'wana-conflict',   name: '西亞與北非的衝突與經濟發展', book: '二下 第4章', status: 'open', file: 'lessons/wana-conflict.js',
+      on: { africa: { x: 42.2, y: 20.2 } } },
     { id: 'w-asia-n-africa', name: '西亞與北非', book: '', status: 'soon', file: 'lessons/w-asia-n-africa.js',
       on: { africa: { x: 43.0, y: 20.0 } } },   // 亞洲地圖上改為「西亞與北非」分區入口
     { id: 'sub-saharan',     name: '漠南非洲',   book: '', status: 'soon', file: 'lessons/sub-saharan.js',
