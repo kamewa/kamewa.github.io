@@ -232,7 +232,7 @@
         .embed-preview-link { display: block; text-align: center; margin-top: 12px; font-size: 14px; color: #2980b9; }
 
         /* ================= 展示模式：網址帶有資料時，只顯示圖表 ================= */
-        body.view-mode { padding: 0; background: #fff; display: block; }
+        body.view-mode { padding: 0; background: #fff; display: block; overflow: hidden; }
         body.view-mode .container {
             max-width: none; padding: 0; border-radius: 0; box-shadow: none; gap: 0; display: block;
         }
@@ -791,6 +791,20 @@
         }
         window.onclick = function(e) { if (e.target == document.getElementById('embedModal')) closeEmbedModal(); }
 
+        // 展示模式：圖表固定用 380px 寬來畫，再整張等比例縮放到視窗大小
+        // （像一張圖片：手機上不會因為太窄而擠壓文字、壓扁圖表）
+        const VIEW_W = 380;
+        function fitViewFrame() {
+            if (!document.body.classList.contains('view-mode')) return;
+            const f = document.getElementById('chart-capture-area');
+            const s = window.innerWidth / VIEW_W;
+            f.style.width = VIEW_W + 'px';
+            f.style.height = (window.innerHeight / s) + 'px';
+            f.style.transformOrigin = '0 0';
+            f.style.transform = `scale(${s})`;
+            Chart.defaults.devicePixelRatio = (window.devicePixelRatio || 1) * Math.max(1, s);
+        }
+
         window.onload = function() {
             createInputGrid();
             // 網址帶有 #d=... 時進入展示模式：只顯示圖表
@@ -805,9 +819,10 @@
                     }
                 } catch (err) { console.warn('嵌入資料無法讀取，改以製作模式開啟', err); }
             }
+            fitViewFrame();
             generateChart('color');
-            // 英文模式的類型／特徵會依寬度換行 → 視窗大小改變時重畫
-            let rsz; window.addEventListener('resize', () => { if (!CHART_EN) return; clearTimeout(rsz); rsz = setTimeout(() => generateChart('color'), 200); });
+            // 視窗大小改變時重新縮放並重畫（英文的類型／特徵會依寬度換行）
+            let rsz; window.addEventListener('resize', () => { clearTimeout(rsz); rsz = setTimeout(() => { fitViewFrame(); generateChart('color'); }, 200); });
         };
     </script>
 </body>
