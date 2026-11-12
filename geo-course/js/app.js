@@ -513,8 +513,8 @@
         </div></section>` : ''}
 
       <nav class="lesson-nav">
-        ${prev ? `<a class="toy-btn toy-btn-ghost" href="#/l/${prev.id}">${L('← 上一課：', '← Previous: ')}${esc(prev.name)}</a>` : `<a class="toy-btn toy-btn-ghost" href="#/c/${cid}">${L(`← 回到${esc(c.name)}地圖`, `← Back to the ${esc(c.name)} map`)}</a>`}
-        ${next ? `<a class="toy-btn c-red" href="#/l/${next.id}">${L('下一課：', 'Next: ')}${esc(next.name)} →</a>` : `<a class="toy-btn c-teal" href="#/world">${L('🌏 回到世界地圖', '🌏 Back to World Map')}</a>`}
+        <a class="toy-btn toy-btn-ghost" href="#/world">${L('🌏 回世界地圖', '🌏 Back to World Map')}</a>
+        <button type="button" class="toy-btn c-red" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">${L('↑ 回本課程標題', '↑ Back to Top')}</button>
       </nav>
     </div>`;
 
