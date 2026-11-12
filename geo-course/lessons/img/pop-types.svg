@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="400" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >人口遷移的類型</text>
+<rect x="260" y="70" width="380" height="56" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/><text x="450.0" y="106" text-anchor="middle" font-size="19" font-weight="900" fill="#9C6A1E" >暫時性遷移</text>
+<rect x="640" y="70" width="220" height="56" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/><text x="750.0" y="106" text-anchor="middle" font-size="19" font-weight="900" fill="#9C6A1E" >永久性遷移</text>
+<rect x="120" y="126" width="140" height="110" fill="#E1EFF9" stroke="#45392F" stroke-width="1.8"/><text x="190" y="188.0" text-anchor="middle" font-size="19" font-weight="900" fill="#1F5F8B" >國內遷移</text>
+<rect x="260" y="126" width="380" height="110" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<rect x="640" y="126" width="220" height="110" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<text x="450.0" y="170" text-anchor="middle" font-size="16" font-weight="800" fill="#332B25" >到外縣市讀大學、工作</text>
+<text x="450.0" y="200" text-anchor="middle" font-size="16" font-weight="800" fill="#332B25" >春節返鄉</text>
+<text x="750.0" y="170" text-anchor="middle" font-size="16" font-weight="800" fill="#332B25" >舉家從鄉村搬到都市</text>
+<rect x="120" y="236" width="140" height="110" fill="#E1EFF9" stroke="#45392F" stroke-width="1.8"/><text x="190" y="298.0" text-anchor="middle" font-size="19" font-weight="900" fill="#1F5F8B" >國際遷移</text>
+<rect x="260" y="236" width="380" height="110" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<rect x="640" y="236" width="220" height="110" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<text x="450.0" y="280" text-anchor="middle" font-size="16" font-weight="800" fill="#332B25" >外籍學生、國際移工</text>
+<text x="450.0" y="310" text-anchor="middle" font-size="16" font-weight="800" fill="#332B25" >出國留學、工作</text>
+<text x="750.0" y="280" text-anchor="middle" font-size="16" font-weight="800" fill="#332B25" >因婚姻移居臺灣的新住民</text>
+<text x="750.0" y="310" text-anchor="middle" font-size="16" font-weight="800" fill="#332B25" >移民國外</text>
+<text x="480" y="380" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >依「地點」分：國內遷移、國際遷移；依「時間」分：暫時性遷移、永久性遷移（例子為自編）</text>
+</svg>

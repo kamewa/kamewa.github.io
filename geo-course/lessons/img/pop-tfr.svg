@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 505" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="505" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣婦女平均生育孩子數愈來愈少（約略值）</text>
+<line x1="90" x2="900" y1="400.0" y2="400.0" stroke="#E5DED3"/><text x="80" y="405.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >0</text>
+<line x1="90" x2="900" y1="360.0" y2="360.0" stroke="#E5DED3"/><text x="80" y="365.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >1</text>
+<line x1="90" x2="900" y1="320.0" y2="320.0" stroke="#E5DED3"/><text x="80" y="325.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >2</text>
+<line x1="90" x2="900" y1="280.0" y2="280.0" stroke="#E5DED3"/><text x="80" y="285.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >3</text>
+<line x1="90" x2="900" y1="240.0" y2="240.0" stroke="#E5DED3"/><text x="80" y="245.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >4</text>
+<line x1="90" x2="900" y1="200.0" y2="200.0" stroke="#E5DED3"/><text x="80" y="205.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >5</text>
+<line x1="90" x2="900" y1="160.0" y2="160.0" stroke="#E5DED3"/><text x="80" y="165.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >6</text>
+<line x1="90" x2="900" y1="120.0" y2="120.0" stroke="#E5DED3"/><text x="80" y="125.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >7</text>
+<rect x="120" y="120.0" width="58" height="280.0" rx="6" fill="#2E9A86" stroke="#45392F" stroke-width="1.5"/>
+<text x="149.0" y="112.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">7</text><text x="149.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >1951</text>
+<rect x="200" y="170.0" width="58" height="230.0" rx="6" fill="#2E9A86" stroke="#45392F" stroke-width="1.5"/>
+<text x="229.0" y="161.99999999999997" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">5.75</text><text x="229.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >1960</text>
+<rect x="280" y="240.0" width="58" height="160.0" rx="6" fill="#2E9A86" stroke="#45392F" stroke-width="1.5"/>
+<text x="309.0" y="232.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">4</text><text x="309.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >1970</text>
+<rect x="360" y="300.0" width="58" height="100.0" rx="6" fill="#2E9A86" stroke="#45392F" stroke-width="1.5"/>
+<text x="389.0" y="292.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">2.5</text><text x="389.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >1980</text>
+<rect x="440" y="327.6" width="58" height="72.4" rx="6" fill="#E0A43A" stroke="#45392F" stroke-width="1.5"/>
+<text x="469.0" y="319.6" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">1.81</text><text x="469.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >1990</text>
+<rect x="520" y="332.8" width="58" height="67.2" rx="6" fill="#E0A43A" stroke="#45392F" stroke-width="1.5"/>
+<text x="549.0" y="324.8" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">1.68</text><text x="549.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >2000</text>
+<rect x="600" y="364.0" width="58" height="36.0" rx="6" fill="#E0694F" stroke="#45392F" stroke-width="1.5"/>
+<text x="629.0" y="356.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">0.9</text><text x="629.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >2010</text>
+<rect x="680" y="352.8" width="58" height="47.2" rx="6" fill="#E0A43A" stroke="#45392F" stroke-width="1.5"/>
+<text x="709.0" y="344.8" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">1.18</text><text x="709.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >2015</text>
+<rect x="760" y="360.4" width="58" height="39.6" rx="6" fill="#E0694F" stroke="#45392F" stroke-width="1.5"/>
+<text x="789.0" y="352.4" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">0.99</text><text x="789.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >2020</text>
+<rect x="840" y="364.4" width="58" height="35.6" rx="6" fill="#E0694F" stroke="#45392F" stroke-width="1.5"/>
+<text x="869.0" y="356.4" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" paint-order="stroke" stroke="#fff" stroke-width="4">0.89</text><text x="869.0" y="422" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >2024</text>
+<line x1="90" x2="900" y1="316.0" y2="316.0" stroke="#4A90C2" stroke-width="3" stroke-dasharray="10 6"/>
+<text x="900" y="306.0" text-anchor="end" font-size="15" font-weight="900" fill="#4A90C2" >人口替代水準 2.1 人</text>
+<text x="84" y="92" text-anchor="end" font-size="14" font-weight="900" fill="#6B5E52" >人</text>
+<text x="480" y="460" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >經濟發展、教育水準提高，晚婚、不婚愈來愈普遍；2024 年全球約 2.25 人，臺灣約 0.89 人</text>
+<text x="480" y="486" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >（依內政部統計整理的約略值，自繪）</text>
+</svg>

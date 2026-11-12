@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="500" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >人口遷移的「推力」與「拉力」</text>
+<rect x="40" y="80" width="400" height="300" rx="14" fill="#E3F4E5" stroke="#45392F" stroke-width="1.8"/>
+<text x="240.0" y="114" text-anchor="middle" font-size="19" font-weight="900" fill="#3E8E5A" >🏡 鄉村</text>
+<rect x="520" y="80" width="400" height="300" rx="14" fill="#E1EFF9" stroke="#45392F" stroke-width="1.8"/>
+<text x="720.0" y="114" text-anchor="middle" font-size="19" font-weight="900" fill="#4A90C2" >🏙️ 都市</text>
+<text x="145" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#E0694F" >推力（想離開）</text>
+<rect x="70" y="172" width="150" height="38" rx="19" fill="#fff" stroke="#E0694F" stroke-width="2"/><text x="145" y="197" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >交通不便</text>
+<rect x="70" y="224" width="150" height="38" rx="19" fill="#fff" stroke="#E0694F" stroke-width="2"/><text x="145" y="249" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >工作機會少</text>
+<text x="335" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#3E8E5A" >拉力（想留下、移入）</text>
+<rect x="260" y="172" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="335" y="197" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >環境品質佳</text>
+<rect x="260" y="224" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="335" y="249" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >生活步調慢</text>
+<text x="625" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#E0694F" >推力（想離開）</text>
+<rect x="550" y="172" width="150" height="38" rx="19" fill="#fff" stroke="#E0694F" stroke-width="2"/><text x="625" y="197" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >環境品質差</text>
+<rect x="550" y="224" width="150" height="38" rx="19" fill="#fff" stroke="#E0694F" stroke-width="2"/><text x="625" y="249" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >房價、生活費高</text>
+<text x="815" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#3E8E5A" >拉力（想移入）</text>
+<rect x="740" y="172" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="815" y="197" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >就業機會多</text>
+<rect x="740" y="224" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="815" y="249" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >交通便利</text>
+<rect x="740" y="276" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="815" y="301" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >生活機能強</text>
+<line x1="445.0" y1="230.0" x2="504.2" y2="230.0" stroke="#E0A43A" stroke-width="7" stroke-linecap="round"/><path d="M515.0,230.0 L498.8,237.8 L498.8,222.2 Z" fill="#E0A43A"/><text x="480" y="214" text-anchor="middle" font-size="13" font-weight="900" fill="#E0A43A" >多數</text>
+<text x="480" y="420" text-anchor="middle" font-size="15" font-weight="800" fill="#E0694F" >推力：讓人想移出的原因（生活環境差、工作少、治安不好、戰爭）</text>
+<text x="480" y="448" text-anchor="middle" font-size="15" font-weight="800" fill="#3E8E5A" >拉力：吸引人移入的原因（生活機能強、工作多、治安與教育條件佳）</text>
+<text x="480" y="476" text-anchor="middle" font-size="15" font-weight="900" fill="#6B4E2E" >臺灣國內遷移多為求學、工作或婚姻，以「鄉村 → 都市」居多</text>
+</svg>

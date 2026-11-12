@@ -1,0 +1,61 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="520" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Taiwan’s birth rate, death rate, and population (approx.)</text>
+<rect x="90" y="80" width="740" height="340" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<line x1="90" x2="830" y1="420.0" y2="420.0" stroke="#E5DED3"/><text x="80" y="425.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >0</text>
+<text x="840" y="425.0" text-anchor="start" font-size="13" font-weight="700" fill="#8A6A3A" >0</text>
+<line x1="90" x2="830" y1="358.2" y2="358.2" stroke="#E5DED3"/><text x="80" y="363.1818181818182" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >10</text>
+<text x="840" y="363.1818181818182" text-anchor="start" font-size="13" font-weight="700" fill="#8A6A3A" >5</text>
+<line x1="90" x2="830" y1="296.4" y2="296.4" stroke="#E5DED3"/><text x="80" y="301.3636363636364" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >20</text>
+<text x="840" y="301.3636363636364" text-anchor="start" font-size="13" font-weight="700" fill="#8A6A3A" >10</text>
+<line x1="90" x2="830" y1="234.5" y2="234.5" stroke="#E5DED3"/><text x="80" y="239.54545454545456" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >30</text>
+<text x="840" y="239.54545454545456" text-anchor="start" font-size="13" font-weight="700" fill="#8A6A3A" >15</text>
+<line x1="90" x2="830" y1="172.7" y2="172.7" stroke="#E5DED3"/><text x="80" y="177.72727272727272" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >40</text>
+<text x="840" y="177.72727272727272" text-anchor="start" font-size="13" font-weight="700" fill="#8A6A3A" >20</text>
+<line x1="90" x2="830" y1="110.9" y2="110.9" stroke="#E5DED3"/><text x="80" y="115.90909090909093" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >50</text>
+<text x="840" y="115.90909090909093" text-anchor="start" font-size="13" font-weight="700" fill="#8A6A3A" >25</text>
+<text x="90.0" y="442" text-anchor="middle" font-size="13" font-weight="700" fill="#6B5E52" >1900</text>
+<text x="208.4" y="442" text-anchor="middle" font-size="13" font-weight="700" fill="#6B5E52" >1920</text>
+<text x="326.8" y="442" text-anchor="middle" font-size="13" font-weight="700" fill="#6B5E52" >1940</text>
+<text x="445.2" y="442" text-anchor="middle" font-size="13" font-weight="700" fill="#6B5E52" >1960</text>
+<text x="563.6" y="442" text-anchor="middle" font-size="13" font-weight="700" fill="#6B5E52" >1980</text>
+<text x="682.0" y="442" text-anchor="middle" font-size="13" font-weight="700" fill="#6B5E52" >2000</text>
+<text x="800.4" y="442" text-anchor="middle" font-size="13" font-weight="700" fill="#6B5E52" >2020</text>
+<text x="84" y="66" text-anchor="end" font-size="14" font-weight="900" fill="#6B5E52" >‰</text><text x="838" y="66" text-anchor="start" font-size="11.7" font-weight="900" fill="#8A6A3A" >Population (millions)</text>
+<rect x="125.5" y="81" width="230.9" height="338" fill="#F3EEE4" opacity=".7"/>
+<text x="240.95999999999998" y="102" text-anchor="middle" font-size="10.6" font-weight="900" fill="#6B5E52" >Japanese rule: better medicine and hygiene</text>
+<rect x="356.4" y="81" width="207.2" height="338" fill="#EAF4EA" opacity=".7"/>
+<text x="460.0" y="102" text-anchor="middle" font-size="13.5" font-weight="900" fill="#6B5E52" >After the war: fast growth</text>
+<rect x="563.6" y="81" width="236.8" height="338" fill="#EEF3FA" opacity=".7"/>
+<text x="682.0" y="102" text-anchor="middle" font-size="13.5" font-weight="900" fill="#6B5E52" >Lower births: stable population</text>
+<rect x="800.4" y="81" width="29.6" height="338" fill="#FBE9E6" opacity=".7"/>
+<rect x="119.5" y="381.7" width="12" height="38.3" fill="#E8C98A" opacity=".85"/>
+<rect x="172.8" y="376.7" width="12" height="43.3" fill="#E8C98A" opacity=".85"/>
+<rect x="232.0" y="369.3" width="12" height="50.7" fill="#E8C98A" opacity=".85"/>
+<rect x="291.2" y="355.7" width="12" height="64.3" fill="#E8C98A" opacity=".85"/>
+<rect x="338.6" y="344.6" width="12" height="75.4" fill="#E8C98A" opacity=".85"/>
+<rect x="385.9" y="322.3" width="12" height="97.7" fill="#E8C98A" opacity=".85"/>
+<rect x="409.6" y="307.5" width="12" height="112.5" fill="#E8C98A" opacity=".85"/>
+<rect x="439.2" y="286.5" width="12" height="133.5" fill="#E8C98A" opacity=".85"/>
+<rect x="468.8" y="264.2" width="12" height="155.8" fill="#E8C98A" opacity=".85"/>
+<rect x="498.4" y="238.3" width="12" height="181.7" fill="#E8C98A" opacity=".85"/>
+<rect x="528.0" y="219.7" width="12" height="200.3" fill="#E8C98A" opacity=".85"/>
+<rect x="557.6" y="199.9" width="12" height="220.1" fill="#E8C98A" opacity=".85"/>
+<rect x="587.2" y="181.4" width="12" height="238.6" fill="#E8C98A" opacity=".85"/>
+<rect x="616.8" y="167.8" width="12" height="252.2" fill="#E8C98A" opacity=".85"/>
+<rect x="646.4" y="155.4" width="12" height="264.6" fill="#E8C98A" opacity=".85"/>
+<rect x="676.0" y="144.3" width="12" height="275.7" fill="#E8C98A" opacity=".85"/>
+<rect x="705.6" y="138.1" width="12" height="281.9" fill="#E8C98A" opacity=".85"/>
+<rect x="735.2" y="133.2" width="12" height="286.8" fill="#E8C98A" opacity=".85"/>
+<rect x="764.8" y="129.5" width="12" height="290.5" fill="#E8C98A" opacity=".85"/>
+<rect x="794.4" y="128.2" width="12" height="291.8" fill="#E8C98A" opacity=".85"/>
+<rect x="818.1" y="130.7" width="12" height="289.3" fill="#E8C98A" opacity=".85"/>
+<path d="M125.5,172.7 L178.8,169.6 L238.0,160.4 L297.2,141.8 L344.6,166.5 L391.9,110.9 L415.6,140.0 L445.2,175.8 L474.8,217.9 L504.4,251.9 L534.0,277.8 L563.6,275.3 L593.2,308.7 L622.8,317.4 L652.4,324.2 L682.0,334.7 L711.6,363.7 L741.2,375.5 L770.8,363.7 L800.4,376.7 L824.1,384.1" fill="none" stroke="#E0694F" stroke-width="4" stroke-linejoin="round"/>
+<path d="M125.5,212.9 L178.8,246.9 L238.0,280.9 L297.2,293.3 L344.6,305.6 L391.9,348.3 L415.6,366.8 L445.2,377.3 L474.8,386.0 L504.4,389.7 L534.0,390.9 L563.6,390.3 L593.2,390.3 L622.8,387.9 L652.4,385.4 L682.0,384.8 L711.6,382.3 L741.2,381.1 L770.8,376.7 L800.4,374.9 L824.1,366.8" fill="none" stroke="#333" stroke-width="4" stroke-dasharray="8 5" stroke-linejoin="round"/>
+<circle cx="800.4" cy="375.5" r="9" fill="none" stroke="#E0694F" stroke-width="3"/>
+<text x="788.4" y="357.4909090909091" text-anchor="end" font-size="13" font-weight="900" fill="#E0694F" >2020: deaths pass births</text>
+<line x1="150" x2="190" y1="470" y2="470" stroke="#E0694F" stroke-width="4"/><text x="198" y="475" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >Birth rate</text>
+<line x1="300" x2="340" y1="470" y2="470" stroke="#333" stroke-width="4" stroke-dasharray="8 5"/><text x="348" y="475" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >Death rate</text>
+<rect x="450" y="461" width="18" height="18" fill="#E8C98A"/><text x="476" y="475" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >Population (right axis)</text>
+<text x="480" y="504" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >The gap between births and deaths = natural increase (approximate government statistics, drawn for this lesson)</text>
+</svg>

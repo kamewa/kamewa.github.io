@@ -1,0 +1,22 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="490" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Growth rate = natural increase + social increase</text>
+<rect x="330" y="70" width="300" height="92" rx="14" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/>
+<text x="480.0" y="104" text-anchor="middle" font-size="19" font-weight="900" fill="#6B4E2E" >Population growth rate</text>
+<text x="480.0" y="136" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >&gt;0 growing; &lt;0 shrinking</text>
+<line x1="420.0" y1="166.0" x2="258.0" y2="217.5" stroke="#6B5E52" stroke-width="4" stroke-linecap="round"/><path d="M250.0,220.0 L260.2,210.4 L263.9,222.0 Z" fill="#6B5E52"/><line x1="540.0" y1="166.0" x2="702.0" y2="217.5" stroke="#6B5E52" stroke-width="4" stroke-linecap="round"/><path d="M710.0,220.0 L696.1,222.0 L699.8,210.4 Z" fill="#6B5E52"/>
+<rect x="60" y="226" width="380" height="150" rx="14" fill="#E3F4E5" stroke="#45392F" stroke-width="1.8"/>
+<text x="250.0" y="260" text-anchor="middle" font-size="19" font-weight="900" fill="#3E8E5A" >Natural increase rate</text>
+<text x="250.0" y="292" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >= birth rate − death rate</text>
+<text x="250.0" y="316" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >(births and deaths in one year</text>
+<text x="250.0" y="340" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >per 1,000 people, ‰)</text>
+<rect x="520" y="226" width="380" height="150" rx="14" fill="#E1EFF9" stroke="#45392F" stroke-width="1.8"/>
+<text x="710.0" y="260" text-anchor="middle" font-size="19" font-weight="900" fill="#4A90C2" >Social increase rate</text>
+<text x="710.0" y="292" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >= move-in rate − move-out rate</text>
+<text x="710.0" y="316" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >(people moving in and out in one year</text>
+<text x="710.0" y="340" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >per 1,000 people, ‰)</text>
+<text x="160" y="430" text-anchor="middle" font-size="34">👶</text><text x="160" y="462" text-anchor="middle" font-size="16" font-weight="900" fill="#3E8E5A" >Births</text>
+<text x="340" y="430" text-anchor="middle" font-size="34">🕯️</text><text x="340" y="462" text-anchor="middle" font-size="16" font-weight="900" fill="#3E8E5A" >Deaths</text>
+<text x="620" y="430" text-anchor="middle" font-size="34">🧳</text><text x="620" y="462" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" >Move in</text>
+<text x="800" y="430" text-anchor="middle" font-size="34">🚚</text><text x="800" y="462" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" >Move out</text>
+</svg>

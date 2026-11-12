@@ -1,0 +1,25 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="500" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Push and pull factors of migration</text>
+<rect x="40" y="80" width="400" height="300" rx="14" fill="#E3F4E5" stroke="#45392F" stroke-width="1.8"/>
+<text x="240.0" y="114" text-anchor="middle" font-size="19" font-weight="900" fill="#3E8E5A" >🏡 Countryside</text>
+<rect x="520" y="80" width="400" height="300" rx="14" fill="#E1EFF9" stroke="#45392F" stroke-width="1.8"/>
+<text x="720.0" y="114" text-anchor="middle" font-size="19" font-weight="900" fill="#4A90C2" >🏙️ City</text>
+<text x="145" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#E0694F" >Push (want to leave)</text>
+<rect x="70" y="172" width="150" height="38" rx="19" fill="#fff" stroke="#E0694F" stroke-width="2"/><text x="145" y="197" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Poor transport</text>
+<rect x="70" y="224" width="150" height="38" rx="19" fill="#fff" stroke="#E0694F" stroke-width="2"/><text x="145" y="249" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Few jobs</text>
+<text x="335" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#3E8E5A" >Pull (want to stay, move in)</text>
+<rect x="260" y="172" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="335" y="197" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Clean environment</text>
+<rect x="260" y="224" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="335" y="249" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Slower pace of life</text>
+<text x="625" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#E0694F" >Push (want to leave)</text>
+<rect x="550" y="172" width="150" height="38" rx="19" fill="#fff" stroke="#E0694F" stroke-width="2"/><text x="625" y="197" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Poor environment</text>
+<rect x="550" y="224" width="150" height="38" rx="19" fill="#fff" stroke="#E0694F" stroke-width="2"/><text x="625" y="249" text-anchor="middle" font-size="14.8" font-weight="900" fill="#332B25" >High housing costs</text>
+<text x="815" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#3E8E5A" >Pull (want to move in)</text>
+<rect x="740" y="172" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="815" y="197" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Many jobs</text>
+<rect x="740" y="224" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="815" y="249" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Easy transport</text>
+<rect x="740" y="276" width="150" height="38" rx="19" fill="#fff" stroke="#3E8E5A" stroke-width="2"/><text x="815" y="301" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Convenient life</text>
+<line x1="445.0" y1="230.0" x2="504.2" y2="230.0" stroke="#E0A43A" stroke-width="7" stroke-linecap="round"/><path d="M515.0,230.0 L498.8,237.8 L498.8,222.2 Z" fill="#E0A43A"/><text x="480" y="214" text-anchor="middle" font-size="13" font-weight="900" fill="#E0A43A" >Mostly</text>
+<text x="480" y="420" text-anchor="middle" font-size="15" font-weight="800" fill="#E0694F" >Push: reasons to leave (poor living conditions, few jobs, little safety, war)</text>
+<text x="480" y="448" text-anchor="middle" font-size="15" font-weight="800" fill="#3E8E5A" >Pull: reasons to move in (convenient life, many jobs, good safety and schools)</text>
+<text x="480" y="476" text-anchor="middle" font-size="15" font-weight="900" fill="#6B4E2E" >Domestic migration in Taiwan: mostly for school, work, marriage; mostly countryside → city</text>
+</svg>
