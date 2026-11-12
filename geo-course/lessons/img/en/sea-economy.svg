@@ -1,0 +1,25 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="480" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Why is Southeast Asia an “emerging market”?</text>
+<rect x="40" y="80" width="270" height="330" rx="18" fill="#E3F4E5" stroke="#45392F" stroke-width="2"/>
+<rect x="85.0" y="98.9" width="180" height="34.199999999999996" rx="17.099999999999998" fill="#2E7D4F" stroke="#45392F" stroke-width="2"/><text x="175" y="122.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">Strengths</text>
+<text x="175" y="186" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Great location</text>
+<text x="175" y="238" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Rich resources</text>
+<text x="175" y="290" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >About 700 million people</text>
+<text x="175" y="342" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Cheap labor</text>
+<line x1="318.0" y1="245.0" x2="333.6" y2="245.0" stroke="#2E7D4F" stroke-width="6" stroke-linecap="round"/><path d="M342.0,245.0 L329.4,251.1 L329.4,238.9 Z" fill="#2E7D4F"/>
+<rect x="350" y="80" width="270" height="330" rx="18" fill="#E1EFF9" stroke="#45392F" stroke-width="2"/>
+<rect x="395.0" y="98.9" width="180" height="34.199999999999996" rx="17.099999999999998" fill="#1F5F8B" stroke="#45392F" stroke-width="2"/><text x="485" y="122.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">Results</text>
+<text x="485" y="186" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Foreign money, technology</text>
+<text x="485" y="238" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >build factories here</text>
+<text x="485" y="290" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Huge consumer market</text>
+<text x="485" y="342" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >More demand for goods</text>
+<line x1="628.0" y1="245.0" x2="643.6" y2="245.0" stroke="#1F5F8B" stroke-width="6" stroke-linecap="round"/><path d="M652.0,245.0 L639.4,251.1 L639.4,238.9 Z" fill="#1F5F8B"/>
+<rect x="660" y="80" width="270" height="330" rx="18" fill="#FDE8E3" stroke="#45392F" stroke-width="2"/>
+<rect x="705.0" y="98.9" width="180" height="34.199999999999996" rx="17.099999999999998" fill="#C0392B" stroke="#45392F" stroke-width="2"/><text x="795" y="122.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">Problems</text>
+<text x="795" y="186" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >People rush into cities</text>
+<text x="795" y="238" text-anchor="middle" font-size="17.7" font-weight="900" fill="#332B25" >Housing, transport, sanitation:</text>
+<text x="795" y="290" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >not enough infrastructure</text>
+<text x="795" y="342" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Traffic jams, pollution</text>
+<text x="480" y="450" text-anchor="middle" font-size="17" font-weight="900" fill="#6B4E2E" >Solutions: build public facilities (e.g. Jakarta’s metro), move the capital</text>
+</svg>

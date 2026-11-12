@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110344',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110345',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -109,7 +109,7 @@ window.SITE = {
     /* 東南亞分區地圖：從亞洲地圖的「東南亞」入口進入 */
     { id: 'southeast-asia', parent: 'asia', name: '東南亞', en: 'Southeast Asia', icon: '🌴', color: 'teal', map: 'maps/southeast-asia.webp', glow: 'sky', pinSize: 6.3,
       buttons: [
-        { label: '東南亞', x: 35.6, y: 53.7, href: '' },                                        // 1 南海（課程之後加入）
+        { label: '東南亞', x: 35.6, y: 53.7, href: '#/l/se-asia/southeast-asia' },              // 1 南海：課程「東南亞」（二下第1章）
         { label: '台灣', icon: '🌿', x: 51.6, y: 12.0, href: '#/c/taiwan', kind: 'switch' },     // 2 到台灣地圖
         { label: '大洋洲', icon: '🦘', x: 94.5, y: 81.8, href: '#/c/oceania', kind: 'switch' },  // 3 右下：到大洋洲地圖
         { label: '亞洲', icon: '🏯', x: 80.7, y: 20.2, href: '#/c/asia', kind: 'switch' },       // 4 右上：回到亞洲地圖
@@ -172,8 +172,8 @@ window.SITE = {
   lessons: [
     { id: 'east-asia',       name: '東亞',       book: '', status: 'soon', file: 'lessons/east-asia.js',
       on: { asia: { x: 49.0, y: 44.6 } } },
-    { id: 'se-asia',         name: '東南亞',     book: '', status: 'soon', file: 'lessons/se-asia.js',
-      on: { 'southeast-asia': { x: 35.6, y: 53.7 } } },   // 東南亞地圖的按鈕 1（課程完成後，按鈕 1 的 href 填 '#/l/se-asia/southeast-asia'）
+    { id: 'se-asia',         name: '東南亞',     book: '二下 第1章', status: 'open', file: 'lessons/se-asia.js',
+      on: { 'southeast-asia': { x: 35.6, y: 53.7 } } },   // 東南亞地圖的按鈕 1
     { id: 'wasia-nature',    name: '西亞的自然環境', book: '二下 第3～4章', status: 'open', file: 'lessons/wasia-nature.js',
       on: { 'west-asia': { x: 42.8, y: 53.7 } } },
     { id: 'wana-conflict',   name: '西亞的人文經濟', book: '二下 第3～4章', status: 'open', file: 'lessons/wana-conflict.js',
