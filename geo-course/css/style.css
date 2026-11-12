@@ -908,3 +908,20 @@ h1, h2, h3, h4, .brand-title, .brand-title.two-line b { font-weight: 400; }
 :root { font-synthesis: none; }
 /* 最上方的膠囊選單（路徑、複習／簡報模式）改用霞鶩文楷 */
 .crumb, .crumb-sep, .mode-btn { font-family: var(--font-body); font-weight: 700; }
+
+/* ---------- 語言切換（繁中 / English） ---------- */
+.lang-toggle { display: flex; background: var(--bg-toy-box); border-radius: var(--radius-pill); padding: 3px; border: 2px solid #DECBB2; flex-shrink: 0; }
+.lang-toggle.in-header { margin-left: auto; }
+.mode-toggle:not([hidden]) + .lang-toggle.in-header { margin-left: 0; }
+.lang-toggle button { border: 0; background: transparent; font-family: var(--font-body); font-weight: 700; font-size: .88rem; color: var(--ink-secondary);
+  padding: 6px 12px; border-radius: var(--radius-pill); cursor: pointer; transition: background .2s, color .2s, box-shadow .2s; }
+.lang-toggle button:hover { color: var(--ink-primary); }
+.lang-toggle button.on { background: #fff; color: var(--toy-teal-ink); box-shadow: 0 2px 0 #DBC8B0; }
+.lang-toggle button:focus-visible { outline: 3px solid var(--toy-teal); outline-offset: 1px; }
+.lang-note { margin: 0 0 18px; padding: 12px 18px; background: var(--toy-yellow-soft); border-color: #F0D9A8; color: var(--toy-yellow-ink); font-weight: 700; }
+/* 英文較長：小卡標題、按鈕允許換行 */
+.lang-en .sun-label b, .lang-en .pin-label { white-space: normal; }
+.lang-en .page-title, .lang-en .slide-title { word-break: normal; overflow-wrap: anywhere; hyphens: auto; }
+@media (max-width: 760px) { .lang-toggle button { padding: 5px 9px; font-size: .8rem; } }
+.zh-gloss { color: var(--ink-tertiary); font-weight: 400; font-size: .92em; }
+strong .zh-gloss, .zh-gloss strong { font-weight: 400; }

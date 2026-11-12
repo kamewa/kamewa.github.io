@@ -7785,6 +7785,8 @@ Check your Browserslist config to be sure that your targets are set up correctly
       }
     };
   </script>
+  <!-- 雙語：網址帶 &lang=en 時載入英文介面（課程網站英文模式用；中文模式不受影響） -->
+  <script src="i18n-en.js"></script>
   <!-- ===== 網站版新增（1/1）：課程網站「開啟地形模型」自動載入 =====
        用法：index.html#model=au-landform        直接載入 models/au-landform.js
              index.html#model=au-landform&mode=weather   載入後直接進入地形雨（可加 &wind=SW 指定風向）
@@ -8031,9 +8033,10 @@ Check your Browserslist config to be sure that your targets are set up correctly
       s.onload = function () {
         var m = window.TERRAIN_MODELS && window.TERRAIN_MODELS[id];
         if (!m) return;
-        try { apply(m); } catch (err) { window.alert('無法載入課程地形模型：' + err.message); }
+        if (window.TERRAIN_EN) m = window.TERRAIN_EN.model(m);   // 英文模式（i18n-en.js）
+        try { apply(m); } catch (err) { window.alert((window.TERRAIN_EN ? 'Could not load the terrain model: ' : '無法載入課程地形模型：') + err.message); }
       };
-      s.onerror = function () { window.alert('找不到課程地形模型：' + id); };
+      s.onerror = function () { window.alert((window.TERRAIN_EN ? 'Terrain model not found: ' : '找不到課程地形模型：') + id); };
       document.head.appendChild(s);
     });
   })();
