@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 445" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="445" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >聚落是怎麼形成的？</text>
+<rect x="30" y="64" width="430" height="330" rx="18" fill="#E3F4E5" stroke="#45392F" stroke-width="2"/>
+<rect x="170.0" y="82.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="245" y="106.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">自然環境</text>
+<rect x="54" y="126" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="86" y="164" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >💧</text><text x="118" y="152" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >水源充足</text><text x="118" y="176" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >生活、灌溉都需要水</text>
+<rect x="54" y="204" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="86" y="242" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌾</text><text x="118" y="230" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >地勢平坦</text><text x="118" y="254" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >方便耕作、蓋房子</text>
+<rect x="54" y="282" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="86" y="320" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌊</text><text x="118" y="308" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >臨海近河</text><text x="118" y="332" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >取水、交通、捕魚方便</text>
+<rect x="500" y="64" width="430" height="330" rx="18" fill="#FDF3DC" stroke="#45392F" stroke-width="2"/>
+<rect x="640.0" y="82.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="715" y="106.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">人為因素</text>
+<rect x="524" y="126" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="556" y="164" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🛡️</text><text x="588" y="152" text-anchor="start" font-size="18" font-weight="900" fill="#E0A43A" >防禦：頭城</text><text x="588" y="176" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >開墾宜蘭平原時築城防禦</text>
+<rect x="524" y="204" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="556" y="242" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌱</text><text x="588" y="230" text-anchor="start" font-size="18" font-weight="900" fill="#E0A43A" >開墾：左營</text><text x="588" y="254" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >鄭氏時期軍隊屯墾留下的聚落</text>
+<rect x="524" y="282" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="556" y="320" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🏙️</text><text x="588" y="308" text-anchor="start" font-size="18" font-weight="900" fill="#E0A43A" >政策：新北林口</text><text x="588" y="332" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >政府規畫新市鎮，紓解都市人口</text>
+<text x="480" y="424" text-anchor="middle" font-size="15" font-weight="800" fill="#6B5E52" >聚落：人們定居、生活和工作的地方，可分成鄉村聚落和都市聚落</text>
+</svg>

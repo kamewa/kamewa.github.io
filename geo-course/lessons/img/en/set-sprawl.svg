@@ -1,0 +1,46 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 450" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="450" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="20.4" font-weight="800" fill="#332B25" >Urban expansion: cities grow and join into metropolitan areas</text>
+<rect x="30" y="64" width="280" height="300" rx="18" fill="#F4F0E6" stroke="#45392F" stroke-width="2"/>
+<text x="170" y="98" text-anchor="middle" font-size="19" font-weight="900" fill="#332B25" >① A city forms</text>
+<line x1="50" y1="130" x2="290" y2="136" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="50" y1="160" x2="290" y2="166" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="50" y1="190" x2="290" y2="196" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="50" y1="220" x2="290" y2="226" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="50" y1="250" x2="290" y2="256" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="50" y1="280" x2="290" y2="286" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="50" y1="310" x2="290" y2="316" stroke="#E2D8C3" stroke-width="2"/>
+<circle cx="170" cy="220" r="28" fill="#E0694F"/>
+<text x="170" y="340" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >People gather downtown</text>
+<line x1="314.0" y1="214.0" x2="328.8" y2="214.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M336.0,214.0 L325.2,219.2 L325.2,208.8 Z" fill="#6B5E52"/>
+<rect x="340" y="64" width="280" height="300" rx="18" fill="#F4F0E6" stroke="#45392F" stroke-width="2"/>
+<text x="480" y="98" text-anchor="middle" font-size="19" font-weight="900" fill="#332B25" >② Spreading to suburbs</text>
+<line x1="360" y1="130" x2="600" y2="136" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="360" y1="160" x2="600" y2="166" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="360" y1="190" x2="600" y2="196" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="360" y1="220" x2="600" y2="226" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="360" y1="250" x2="600" y2="256" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="360" y1="280" x2="600" y2="286" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="360" y1="310" x2="600" y2="316" stroke="#E2D8C3" stroke-width="2"/>
+<circle cx="480" cy="220" r="62" fill="#F2A07B" opacity=".85"/>
+<line x1="510.0" y1="220.0" x2="568.8" y2="220.0" stroke="#E0A43A" stroke-width="4" stroke-linecap="round"/><path d="M576.0,220.0 L565.2,225.2 L565.2,214.8 Z" fill="#E0A43A"/><line x1="450.0" y1="220.0" x2="391.2" y2="220.0" stroke="#E0A43A" stroke-width="4" stroke-linecap="round"/><path d="M384.0,220.0 L394.8,214.8 L394.8,225.2 Z" fill="#E0A43A"/>
+<circle cx="480" cy="220" r="28" fill="#E0694F"/>
+<text x="480" y="340" text-anchor="middle" font-size="11.1" font-weight="800" fill="#332B25" >More people and better transport: people move out</text>
+<line x1="624.0" y1="214.0" x2="638.8" y2="214.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M646.0,214.0 L635.2,219.2 L635.2,208.8 Z" fill="#6B5E52"/>
+<rect x="650" y="64" width="280" height="300" rx="18" fill="#F4F0E6" stroke="#45392F" stroke-width="2"/>
+<text x="790" y="98" text-anchor="middle" font-size="19" font-weight="900" fill="#332B25" >③ A metropolitan area</text>
+<line x1="670" y1="130" x2="910" y2="136" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="670" y1="160" x2="910" y2="166" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="670" y1="190" x2="910" y2="196" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="670" y1="220" x2="910" y2="226" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="670" y1="250" x2="910" y2="256" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="670" y1="280" x2="910" y2="286" stroke="#E2D8C3" stroke-width="2"/>
+<line x1="670" y1="310" x2="910" y2="316" stroke="#E2D8C3" stroke-width="2"/>
+<circle cx="760" cy="220" r="72" fill="#F2A07B" opacity=".85"/><circle cx="860" cy="214" r="46" fill="#F2A07B" opacity=".85"/>
+<circle cx="760" cy="220" r="28" fill="#E0694F"/><circle cx="860" cy="214" r="18" fill="#E0694F"/>
+<line x1="670" y1="240" x2="920" y2="200" stroke="#9C6ADE" stroke-width="5"/><text x="856" y="274" text-anchor="middle" font-size="13" font-weight="900" fill="#9C6ADE" >MRT</text>
+<text x="790" y="340" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >Borders blur and nearby cities join</text>
+<circle cx="320" cy="396" r="8" fill="#BF3B30"/><text x="334" y="401" text-anchor="start" font-size="13.5" font-weight="800" fill="#332B25" >Downtown</text>
+<circle cx="430" cy="396" r="8" fill="#F2A07B"/><text x="444" y="401" text-anchor="start" font-size="13.5" font-weight="800" fill="#332B25" >Growing city and suburbs</text>
+<text x="480" y="430" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >e.g. Taichung’s urban area grew greatly from 1980 to 2021; Taipei residents move to Taoyuan and commute daily</text>
+</svg>

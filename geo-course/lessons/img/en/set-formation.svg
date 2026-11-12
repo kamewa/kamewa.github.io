@@ -1,0 +1,21 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 445" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="445" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >How do settlements form?</text>
+<rect x="30" y="64" width="430" height="330" rx="18" fill="#E3F4E5" stroke="#45392F" stroke-width="2"/>
+<rect x="170.0" y="82.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="245" y="106.3" text-anchor="middle" font-size="14.2" font-weight="800" fill="#fff">Natural environment</text>
+<rect x="54" y="126" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="86" y="164" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >💧</text><text x="118" y="152" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >Plenty of water</text><text x="118" y="176" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >Needed for living and irrigation</text>
+<rect x="54" y="204" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="86" y="242" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌾</text><text x="118" y="230" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >Flat land</text><text x="118" y="254" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >Easy to farm and build on</text>
+<rect x="54" y="282" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="86" y="320" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌊</text><text x="118" y="308" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >Near the sea or a river</text><text x="118" y="332" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >Easy for water, travel, and fishing</text>
+<rect x="500" y="64" width="430" height="330" rx="18" fill="#FDF3DC" stroke="#45392F" stroke-width="2"/>
+<rect x="640.0" y="82.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="715" y="106.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">Human factors</text>
+<rect x="524" y="126" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="556" y="164" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🛡️</text><text x="588" y="152" text-anchor="start" font-size="18" font-weight="900" fill="#E0A43A" >Defense: Toucheng</text><text x="588" y="176" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >Walled for defense when Yilan was settled</text>
+<rect x="524" y="204" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="556" y="242" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌱</text><text x="588" y="230" text-anchor="start" font-size="18" font-weight="900" fill="#E0A43A" >Farming: Zuoying</text><text x="588" y="254" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >Left by Koxinga-era military farms</text>
+<rect x="524" y="282" width="382" height="64" rx="12" fill="#fff" stroke="#45392F"/>
+<text x="556" y="320" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🏙️</text><text x="588" y="308" text-anchor="start" font-size="18" font-weight="900" fill="#E0A43A" >Policy: Linkou, New Taipei</text><text x="588" y="332" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >A planned new town to ease city crowding</text>
+<text x="480" y="424" text-anchor="middle" font-size="15" font-weight="800" fill="#6B5E52" >Settlement: a place where people live and work; can be rural or urban</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 552" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="552" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="17.5" font-weight="800" fill="#332B25" >Transportation in Taiwan: each kind has pros and cons</text>
+<rect x="24" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#E0A43A" stroke-width="2.5"/>
+<text x="110" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >🚗</text><rect x="65.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="110" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Roads</text>
+<text x="110" y="198" text-anchor="middle" font-size="10.2" font-weight="800" fill="#332B25" >Most common, reach everywhere</text>
+<text x="110" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Fit the terrain</text>
+<text x="110" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Small loads, short trips</text>
+<rect x="210" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="296" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >🚆</text><rect x="251.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="296" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Railways</text>
+<text x="296" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Large loads, long trips</text>
+<text x="296" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Less flexible</text>
+<text x="296" y="254" text-anchor="middle" font-size="8.5" font-weight="800" fill="#332B25" >Mostly on plains, not across mountains</text>
+<rect x="396" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#9C6ADE" stroke-width="2.5"/>
+<text x="482" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >🚇</text><rect x="437.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#9C6ADE" stroke="#45392F" stroke-width="2"/><text x="482" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">MRT</text>
+<text x="482" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Special tracks in cities</text>
+<text x="482" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Carry many riders</text>
+<text x="482" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Ease city traffic</text>
+<rect x="582" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<text x="668" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >🚢</text><rect x="623.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="668" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Water</text>
+<text x="668" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Slowest</text>
+<text x="668" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Large loads, low cost</text>
+<text x="668" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Goods go abroad by sea</text>
+<rect x="768" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#2E9A86" stroke-width="2.5"/>
+<text x="854" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >✈️</text><rect x="809.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#2E9A86" stroke="#45392F" stroke-width="2"/><text x="854" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Air</text>
+<text x="854" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Fastest, most expensive</text>
+<text x="854" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Long trips</text>
+<text x="854" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Valuable, urgent goods</text>
+<rect x="24" y="310" width="912" height="200" rx="16" fill="#FFF8E7" stroke="#45392F" stroke-width="1.5"/>
+<text x="480" y="344" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >About how long from Taipei to Kaohsiung?</text>
+<text x="210" y="382" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >✈️ Plane</text>
+<rect x="226" y="366" width="93.3" height="20" rx="6" fill="#2E9A86" opacity=".85"/><text x="329.33333333333337" y="382" text-anchor="start" font-size="14" font-weight="900" fill="#2E9A86" >about 50 minutes</text>
+<text x="210" y="414" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >🚄 High-speed rail</text>
+<rect x="226" y="398" width="168.0" height="20" rx="6" fill="#E0A43A" opacity=".85"/><text x="404.0" y="414" text-anchor="start" font-size="14" font-weight="900" fill="#E0A43A" >about 1.5 hours</text>
+<text x="210" y="446" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >🚗 Car</text>
+<rect x="226" y="430" width="560.0" height="20" rx="6" fill="#6B5E52" opacity=".85"/><text x="796.0" y="446" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >about 5 hours</text>
+<text x="210" y="478" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >🚆 Train (Tze-Chiang)</text>
+<rect x="226" y="462" width="560.0" height="20" rx="6" fill="#E0694F" opacity=".85"/><text x="796.0" y="478" text-anchor="start" font-size="14" font-weight="900" fill="#E0694F" >about 5 hours</text>
+<text x="480" y="534" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >Choose transportation by the goods’ value, size, weight, and urgency (times are approximate)</text>
+</svg>

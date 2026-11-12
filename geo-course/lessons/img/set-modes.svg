@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 552" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="552" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣的運輸方式：各有優缺點</text>
+<rect x="24" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#E0A43A" stroke-width="2.5"/>
+<text x="110" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >🚗</text><rect x="65.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="110" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">公路</text>
+<text x="110" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >最普及、深入各地</text>
+<text x="110" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >能適應地形</text>
+<text x="110" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >適合量少、短程</text>
+<rect x="210" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="296" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >🚆</text><rect x="251.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="296" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">鐵路</text>
+<text x="296" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >運量大、適合長程</text>
+<text x="296" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >靈活度較差</text>
+<text x="296" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >多在平原，無橫貫高山</text>
+<rect x="396" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#9C6ADE" stroke-width="2.5"/>
+<text x="482" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >🚇</text><rect x="437.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#9C6ADE" stroke="#45392F" stroke-width="2"/><text x="482" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">捷運</text>
+<text x="482" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >都會區專用軌道</text>
+<text x="482" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >載客量大</text>
+<text x="482" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >紓解都市交通</text>
+<rect x="582" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<text x="668" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >🚢</text><rect x="623.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="668" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">水運</text>
+<text x="668" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >速度最慢</text>
+<text x="668" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >運量大、運費低</text>
+<text x="668" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >貨物對外運輸靠海運</text>
+<rect x="768" y="60" width="172" height="230" rx="16" fill="#fff" stroke="#2E9A86" stroke-width="2.5"/>
+<text x="854" y="112" text-anchor="middle" font-size="36" font-weight="400" fill="#332B25" >✈️</text><rect x="809.0" y="133.85" width="90" height="32.3" rx="16.15" fill="#2E9A86" stroke="#45392F" stroke-width="2"/><text x="854" y="155.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">空運</text>
+<text x="854" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >速度最快、運費高</text>
+<text x="854" y="226" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >長途旅行</text>
+<text x="854" y="254" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >貴重、有時效的貨物</text>
+<rect x="24" y="310" width="912" height="200" rx="16" fill="#FFF8E7" stroke="#45392F" stroke-width="1.5"/>
+<text x="480" y="344" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >從臺北到高雄大約要多久？</text>
+<text x="210" y="382" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >✈️ 飛機</text>
+<rect x="226" y="366" width="93.3" height="20" rx="6" fill="#2E9A86" opacity=".85"/><text x="329.33333333333337" y="382" text-anchor="start" font-size="14" font-weight="900" fill="#2E9A86" >約 50 分鐘</text>
+<text x="210" y="414" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >🚄 高鐵</text>
+<rect x="226" y="398" width="168.0" height="20" rx="6" fill="#E0A43A" opacity=".85"/><text x="404.0" y="414" text-anchor="start" font-size="14" font-weight="900" fill="#E0A43A" >約 1.5 小時</text>
+<text x="210" y="446" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >🚗 汽車</text>
+<rect x="226" y="430" width="560.0" height="20" rx="6" fill="#6B5E52" opacity=".85"/><text x="796.0" y="446" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >約 5 小時</text>
+<text x="210" y="478" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >🚆 火車（自強號）</text>
+<rect x="226" y="462" width="560.0" height="20" rx="6" fill="#E0694F" opacity=".85"/><text x="796.0" y="478" text-anchor="start" font-size="14" font-weight="900" fill="#E0694F" >約 5 小時</text>
+<text x="480" y="534" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >選擇運輸方式時，要考慮貨物的價值、體積、重量和時效性（時間為約略值）</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 518" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="518" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="21.3" font-weight="800" fill="#332B25" >Urbanization in Taiwan: more and more people live in cities</text>
+<line x1="70" x2="590" y1="420.0" y2="420.0" stroke="#E5DED3"/><text x="62" y="425.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >0%</text>
+<line x1="70" x2="590" y1="354.0" y2="354.0" stroke="#E5DED3"/><text x="62" y="359.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >20%</text>
+<line x1="70" x2="590" y1="288.0" y2="288.0" stroke="#E5DED3"/><text x="62" y="293.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >40%</text>
+<line x1="70" x2="590" y1="222.0" y2="222.0" stroke="#E5DED3"/><text x="62" y="227.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >60%</text>
+<line x1="70" x2="590" y1="156.0" y2="156.0" stroke="#E5DED3"/><text x="62" y="161.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >80%</text>
+<line x1="70" x2="590" y1="90.0" y2="90.0" stroke="#E5DED3"/><text x="62" y="95.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >100%</text>
+<polyline points="70.0,373.8 112.3,367.2 154.6,360.6 196.8,350.7 239.1,335.9 281.4,314.4 323.7,289.6 365.9,241.8 408.2,203.8 450.5,175.8 492.8,165.9 535.0,156.0 590.0,157.6" fill="none" stroke="#E0694F" stroke-width="5" stroke-linejoin="round"/>
+<circle cx="70.0" cy="373.8" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="112.3" cy="367.2" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="154.6" cy="360.6" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="196.8" cy="350.7" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="239.1" cy="335.9" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="281.4" cy="314.4" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="323.7" cy="289.6" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="365.9" cy="241.8" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="408.2" cy="203.8" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="450.5" cy="175.8" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="492.8" cy="165.9" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="535.0" cy="156.0" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="590.0" cy="157.6" r="5" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="70.0" y="442" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1900</text>
+<text x="154.5528455284553" y="442" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1920</text>
+<text x="239.10569105691056" y="442" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1940</text>
+<text x="323.6585365853658" y="442" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1960</text>
+<text x="408.2113821138211" y="442" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1980</text>
+<text x="492.7642276422764" y="442" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2000</text>
+<text x="590.0" y="442" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2023</text>
+<text x="586.0" y="141.64999999999998" text-anchor="end" font-size="18" font-weight="900" fill="#E0694F" >about 80%</text>
+<text x="76.0" y="359.8" text-anchor="start" font-size="15" font-weight="900" fill="#E0694F" >about 14%</text>
+<text x="330" y="466" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Share of Taiwan’s people living in cities (approximate)</text>
+<rect x="630" y="70" width="306" height="360" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<text x="783" y="102" text-anchor="middle" font-size="17" font-weight="900" fill="#332B25" >Urbanization rates</text>
+<text x="650" y="150" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >Singapore</text>
+<rect x="650" y="160" width="200.0" height="22" rx="6" fill="#4A90C2" opacity=".85"/><text x="858.0" y="177" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >100.0%</text>
+<text x="650" y="220" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >New Zealand</text>
+<rect x="650" y="230" width="173.4" height="22" rx="6" fill="#4A90C2" opacity=".85"/><text x="831.4" y="247" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >86.7%</text>
+<text x="650" y="290" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >Taiwan</text>
+<rect x="650" y="300" width="160.0" height="22" rx="6" fill="#E0694F" opacity=".85"/><text x="818.0" y="317" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >80.0%</text>
+<text x="650" y="360" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >South Africa</text>
+<rect x="650" y="370" width="134.8" height="22" rx="6" fill="#4A90C2" opacity=".85"/><text x="792.8" y="387" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >67.4%</text>
+<text x="480" y="500" text-anchor="middle" font-size="12.0" font-weight="800" fill="#6B5E52" >Urbanization: the growing share of people in cities; higher rates usually mean stronger industry and services (approximate, from textbook data, drawn for this lesson)</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 405" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="405" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >看懂公路編號：國道、省道、縣道</text>
+<rect x="30" y="64" width="280" height="290" rx="18" fill="#fff" stroke="#45392F" stroke-width="2"/>
+<path d="M136,94 L204,94 L204,134 Q204,158 170,168 Q136,158 136,134 Z" fill="#2E7D4F" stroke="#fff" stroke-width="3"/><text x="170" y="142" text-anchor="middle" font-size="30" font-weight="900" fill="#fff" >1</text>
+<text x="170" y="212" text-anchor="middle" font-size="21" font-weight="900" fill="#3E8E5A" >國道</text>
+<text x="170" y="252" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >南北向：由西向東編奇數</text>
+<text x="170" y="282" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >東西向：由北向南編雙數</text>
+<text x="170" y="312" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >例：國道 1 號（中山高）</text>
+<rect x="340" y="64" width="280" height="290" rx="18" fill="#fff" stroke="#45392F" stroke-width="2"/>
+<path d="M448,98 L512,98 L512,138 L480,166 L448,138 Z" fill="#fff" stroke="#2F5DA8" stroke-width="4"/><text x="480" y="140" text-anchor="middle" font-size="28" font-weight="900" fill="#2F5DA8" >9</text>
+<text x="480" y="212" text-anchor="middle" font-size="21" font-weight="900" fill="#4A90C2" >省道</text>
+<text x="480" y="252" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >編號 1～99</text>
+<text x="480" y="282" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >同樣南北向奇數、東西向雙數</text>
+<text x="480" y="312" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >例：臺 9 線（蘇花、花東）</text>
+<rect x="650" y="64" width="280" height="290" rx="18" fill="#fff" stroke="#45392F" stroke-width="2"/>
+<rect x="750" y="100" width="80" height="56" rx="8" fill="#fff" stroke="#45392F" stroke-width="3"/><text x="790" y="139" text-anchor="middle" font-size="28" font-weight="900" fill="#332B25" >119</text>
+<text x="790" y="212" text-anchor="middle" font-size="21" font-weight="900" fill="#332B25" >縣、市道</text>
+<text x="790" y="252" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >編號從 101 開始</text>
+<text x="790" y="282" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >連接鄉鎮與主要道路</text>
+<text x="790" y="312" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >例：縣道 119</text>
+<text x="480" y="386" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >資料來源：交通部公路局公路編號原則（標誌為自繪示意）</text>
+</svg>

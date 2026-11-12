@@ -1,0 +1,60 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 512" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="512" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="21.8" font-weight="800" fill="#332B25" >Settlement system: bigger settlements are fewer and serve larger areas</text>
+<rect x="30" y="62" width="430" height="400" rx="16" fill="#fff" stroke="#45392F" stroke-width="2"/>
+<line x1="171.2" y1="169.4" x2="120" y2="140" stroke="#C9B79C" stroke-width="2"/>
+<line x1="85.0" y1="182.9" x2="120" y2="140" stroke="#C9B79C" stroke-width="2"/>
+<line x1="68.8" y1="110.6" x2="120" y2="140" stroke="#C9B79C" stroke-width="2"/>
+<line x1="155.0" y1="97.1" x2="120" y2="140" stroke="#C9B79C" stroke-width="2"/>
+<line x1="431.2" y1="179.4" x2="380" y2="150" stroke="#C9B79C" stroke-width="2"/>
+<line x1="345.0" y1="192.9" x2="380" y2="150" stroke="#C9B79C" stroke-width="2"/>
+<line x1="328.8" y1="120.6" x2="380" y2="150" stroke="#C9B79C" stroke-width="2"/>
+<line x1="415.0" y1="107.1" x2="380" y2="150" stroke="#C9B79C" stroke-width="2"/>
+<line x1="161.2" y1="399.4" x2="110" y2="370" stroke="#C9B79C" stroke-width="2"/>
+<line x1="75.0" y1="412.9" x2="110" y2="370" stroke="#C9B79C" stroke-width="2"/>
+<line x1="58.8" y1="340.6" x2="110" y2="370" stroke="#C9B79C" stroke-width="2"/>
+<line x1="145.0" y1="327.1" x2="110" y2="370" stroke="#C9B79C" stroke-width="2"/>
+<line x1="421.2" y1="409.4" x2="370" y2="380" stroke="#C9B79C" stroke-width="2"/>
+<line x1="335.0" y1="422.9" x2="370" y2="380" stroke="#C9B79C" stroke-width="2"/>
+<line x1="318.8" y1="350.6" x2="370" y2="380" stroke="#C9B79C" stroke-width="2"/>
+<line x1="405.0" y1="337.1" x2="370" y2="380" stroke="#C9B79C" stroke-width="2"/>
+<line x1="120" y1="140" x2="245" y2="250" stroke="#8C7B6A" stroke-width="4"/>
+<line x1="380" y1="150" x2="245" y2="250" stroke="#8C7B6A" stroke-width="4"/>
+<line x1="110" y1="370" x2="245" y2="250" stroke="#8C7B6A" stroke-width="4"/>
+<line x1="370" y1="380" x2="245" y2="250" stroke="#8C7B6A" stroke-width="4"/>
+<circle cx="171.2" cy="169.4" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="85.0" cy="182.9" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="68.8" cy="110.6" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="155.0" cy="97.1" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="431.2" cy="179.4" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="345.0" cy="192.9" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="328.8" cy="120.6" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="415.0" cy="107.1" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="161.2" cy="399.4" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="75.0" cy="412.9" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="58.8" cy="340.6" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="145.0" cy="327.1" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="421.2" cy="409.4" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="335.0" cy="422.9" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="318.8" cy="350.6" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="405.0" cy="337.1" r="8" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<circle cx="120" cy="140" r="17" fill="#E0A43A" stroke="#fff" stroke-width="3"/>
+<circle cx="380" cy="150" r="17" fill="#E0A43A" stroke="#fff" stroke-width="3"/>
+<circle cx="110" cy="370" r="17" fill="#E0A43A" stroke="#fff" stroke-width="3"/>
+<circle cx="370" cy="380" r="17" fill="#E0A43A" stroke="#fff" stroke-width="3"/>
+<circle cx="245" cy="250" r="32" fill="#E0694F" stroke="#fff" stroke-width="3"/><text x="245" y="256" text-anchor="middle" font-size="11.7" font-weight="900" fill="#fff" >Big city</text>
+<text x="245" y="448" text-anchor="middle" font-size="13.5" font-weight="800" fill="#6B5E52" >Transportation links big and small settlements</text>
+<rect x="575" y="80" width="270" height="108" rx="14" fill="#E0694F" opacity=".9"/>
+<text x="710" y="114" text-anchor="middle" font-size="19" font-weight="900" fill="#fff" >Big cities (fewest)</text>
+<text x="710" y="146" text-anchor="middle" font-size="11.2" font-weight="800" fill="#fff" >Department stores, medical centers, universities</text>
+<text x="710" y="172" text-anchor="middle" font-size="13.5" font-weight="800" fill="#fff" >Largest service area</text>
+<rect x="530" y="206" width="360" height="108" rx="14" fill="#E0A43A" opacity=".9"/>
+<text x="710" y="240" text-anchor="middle" font-size="19" font-weight="900" fill="#fff" >Mid-sized cities (more)</text>
+<text x="710" y="272" text-anchor="middle" font-size="15" font-weight="800" fill="#fff" >Malls, regional hospitals, high schools</text>
+<text x="710" y="298" text-anchor="middle" font-size="13.5" font-weight="800" fill="#fff" >Medium service area</text>
+<rect x="485" y="332" width="450" height="108" rx="14" fill="#9CCB86" opacity=".9"/>
+<text x="710" y="366" text-anchor="middle" font-size="19" font-weight="900" fill="#fff" >Small towns, villages (most)</text>
+<text x="710" y="398" text-anchor="middle" font-size="15" font-weight="800" fill="#fff" >Shopping streets, clinics, elementary schools</text>
+<text x="710" y="424" text-anchor="middle" font-size="13.5" font-weight="800" fill="#fff" >Daily necessities only</text>
+<text x="480" y="494" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >e.g. small-town residents go to a nearby big city to buy phones or see big hospitals</text>
+</svg>
