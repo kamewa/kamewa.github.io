@@ -1,0 +1,60 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="520" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="19.8" font-weight="800" fill="#332B25" >How to read a population pyramid</text>
+<rect x="163.1" y="424.0" width="142.9" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="424.0" width="142.9" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="436" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >0–4</text>
+<rect x="166.2" y="407.0" width="139.8" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="407.0" width="139.8" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="183.5" y="390.0" width="122.5" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="390.0" width="122.5" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="402" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >10–14</text>
+<rect x="185.1" y="373.0" width="120.9" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="373.0" width="120.9" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="200.8" y="356.0" width="105.2" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="356.0" width="105.2" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="368" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >20–24</text>
+<rect x="200.8" y="339.0" width="105.2" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="339.0" width="105.2" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="196.1" y="322.0" width="109.9" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="322.0" width="109.9" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="334" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >30–34</text>
+<rect x="202.3" y="305.0" width="103.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="305.0" width="103.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="210.2" y="288.0" width="95.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="288.0" width="95.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="300" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >40–44</text>
+<rect x="216.5" y="271.0" width="89.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="271.0" width="89.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="227.5" y="254.0" width="78.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="254.0" width="78.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="266" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >50–54</text>
+<rect x="236.9" y="237.0" width="69.1" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="237.0" width="69.1" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="246.3" y="220.0" width="59.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="220.0" width="59.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="232" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >60–64</text>
+<rect x="252.6" y="203.0" width="53.4" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="203.0" width="53.4" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="265.2" y="186.0" width="40.8" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="186.0" width="40.8" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="198" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >70–74</text>
+<rect x="277.7" y="169.0" width="28.3" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="169.0" width="28.3" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="271.4" y="152.0" width="34.6" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="354.0" y="152.0" width="34.6" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<text x="330" y="164" text-anchor="middle" font-size="9.5" font-weight="800" fill="#6B5E52" >80+</text>
+<text x="230" y="470" text-anchor="middle" font-size="18" font-weight="900" fill="#4A90C2" >Male</text><text x="430" y="470" text-anchor="middle" font-size="18" font-weight="900" fill="#E0694F" >Female</text>
+<line x1="120" x2="540" y1="440" y2="440" stroke="#45392F" stroke-width="1.5"/>
+<text x="330" y="500" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >(Made-up data)</text>
+<rect x="600" y="90" width="330" height="76" rx="14" fill="#fff" stroke="#45392F" stroke-width="1.6"/>
+<rect x="616" y="108" width="26" height="26" rx="5" fill="#F2A65A" stroke="#45392F"/><text x="654" y="128" text-anchor="start" font-size="17" font-weight="900" fill="#332B25" >Older people: 65+</text><text x="654" y="152" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >Need to be supported</text>
+<rect x="600" y="182" width="330" height="76" rx="14" fill="#fff" stroke="#45392F" stroke-width="1.6"/>
+<rect x="616" y="200" width="26" height="26" rx="5" fill="#8DB9E0" stroke="#45392F"/><text x="654" y="220" text-anchor="start" font-size="17" font-weight="900" fill="#332B25" >Working-age: 15–64</text><text x="654" y="244" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >The main workforce</text>
+<rect x="600" y="274" width="330" height="76" rx="14" fill="#fff" stroke="#45392F" stroke-width="1.6"/>
+<rect x="616" y="292" width="26" height="26" rx="5" fill="#7FC8A9" stroke="#45392F"/><text x="654" y="312" text-anchor="start" font-size="17" font-weight="900" fill="#332B25" >Children: 0–14</text><text x="654" y="336" text-anchor="start" font-size="14" font-weight="800" fill="#6B5E52" >Need to be supported</text>
+<rect x="600" y="372" width="330" height="96" rx="14" fill="#FDF3DC" stroke="#45392F" stroke-width="1.6"/>
+<text x="616" y="400" text-anchor="start" font-size="14.5" font-weight="800" fill="#332B25" >・Males left, females right, 5-year groups</text>
+<text x="616" y="426" text-anchor="start" font-size="14.5" font-weight="800" fill="#332B25" >・Length = share of total population</text>
+<text x="616" y="452" text-anchor="start" font-size="12.0" font-weight="800" fill="#332B25" >・Dependency ratio = (children + older) ÷ working-age</text>
+</svg>

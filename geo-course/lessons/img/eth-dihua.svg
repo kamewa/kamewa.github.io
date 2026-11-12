@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 395" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="395" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >迪化街：一條老街的 170 年</text>
+<line x1="70" x2="890" y1="150" y2="150" stroke="#45392F" stroke-width="4"/>
+<circle cx="90" cy="150" r="14" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/>
+<text x="90" y="116" text-anchor="middle" font-size="16" font-weight="900" fill="#3E8E5A" >1850 年代</text>
+<text x="90" y="196" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >泉州人來到大稻埕</text><text x="90" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >沿淡水河形成商街</text>
+<circle cx="285" cy="150" r="14" fill="#E0A43A" stroke="#45392F" stroke-width="2"/>
+<text x="285" y="116" text-anchor="middle" font-size="16" font-weight="900" fill="#E0A43A" >日治時期</text>
+<text x="285" y="196" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >南北雜貨、中藥、</text><text x="285" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >茶行紛紛開張</text>
+<circle cx="480" cy="150" r="14" fill="#4A90C2" stroke="#45392F" stroke-width="2"/>
+<text x="480" y="116" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" >戰後</text>
+<text x="480" y="196" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >配合工商業發展</text><text x="480" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >出現布商</text>
+<circle cx="675" cy="150" r="14" fill="#6B5E52" stroke="#45392F" stroke-width="2"/>
+<text x="675" y="116" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >1970～80 年代</text>
+<text x="675" y="196" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >臺北往東區發展</text><text x="675" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >迪化街一度停滯</text>
+<circle cx="870" cy="150" r="14" fill="#E0694F" stroke="#45392F" stroke-width="2"/>
+<text x="870" y="116" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >近年</text>
+<text x="870" y="196" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >都市更新、新創小店</text><text x="870" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >吸引國外觀光客</text>
+<rect x="60" y="256" width="840" height="116" rx="16" fill="#FDF3DC" stroke="#45392F" stroke-width="1.6"/>
+<text x="480" y="292" text-anchor="middle" font-size="18" font-weight="900" fill="#9C6A1E" >老街景觀</text>
+<text x="480" y="324" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >亭仔腳（騎樓）：一整排長廊，下雨也能避雨</text>
+<text x="480" y="352" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >長條形連棟店鋪：門面窄、屋身深，前面做生意、後面住人（閩南建築）；還有西式洋樓</text>
+</svg>

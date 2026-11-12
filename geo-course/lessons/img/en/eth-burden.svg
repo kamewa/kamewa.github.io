@@ -1,0 +1,74 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="510" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="19.3" font-weight="800" fill="#332B25" >How many people do every 10 working-age people support?</text>
+<rect x="40" y="62" width="285" height="390" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<rect x="117.0" y="79.85" width="130" height="32.3" rx="16.15" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="182" y="101.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Past</text>
+<text x="182" y="140" text-anchor="middle" font-size="14" font-weight="900" fill="#6B5E52" >10 working-age people</text>
+<text x="70" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="95" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="120" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="145" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="170" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="195" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="220" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="245" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="270" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="295" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="182" y="214" text-anchor="middle" font-size="15" font-weight="900" fill="#2E7D4F" >4.9 children</text>
+<text x="70" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="95" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="120" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="145" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="170" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="182" y="290" text-anchor="middle" font-size="15" font-weight="900" fill="#C0572B" >0.7 older people</text>
+<text x="70" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="182" y="420" text-anchor="middle" font-size="18" font-weight="900" fill="#3E8E5A" >Total 5.6 people</text>
+<rect x="347" y="62" width="285" height="390" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<rect x="424.0" y="79.85" width="130" height="32.3" rx="16.15" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="489" y="101.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Now</text>
+<text x="489" y="140" text-anchor="middle" font-size="14" font-weight="900" fill="#6B5E52" >10 working-age people</text>
+<text x="377" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="402" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="427" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="452" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="477" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="502" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="527" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="552" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="577" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="602" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="489" y="214" text-anchor="middle" font-size="15" font-weight="900" fill="#2E7D4F" >1.7 children</text>
+<text x="377" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="402" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="489" y="290" text-anchor="middle" font-size="15" font-weight="900" fill="#C0572B" >2.4 older people</text>
+<text x="377" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="405" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="489" y="420" text-anchor="middle" font-size="18" font-weight="900" fill="#4A90C2" >Total 4.1 people</text>
+<rect x="654" y="62" width="285" height="390" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<rect x="731.0" y="79.85" width="130" height="32.3" rx="16.15" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="796" y="101.95" text-anchor="middle" font-size="13.3" font-weight="800" fill="#fff">Future (projection)</text>
+<text x="796" y="140" text-anchor="middle" font-size="14" font-weight="900" fill="#6B5E52" >10 working-age people</text>
+<text x="684" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="709" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="734" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="759" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="784" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="809" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="834" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="859" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="884" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="909" y="174" text-anchor="middle" font-size="20">🧑</text>
+<text x="796" y="214" text-anchor="middle" font-size="15" font-weight="900" fill="#2E7D4F" >1.5 children</text>
+<text x="684" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="709" y="246" text-anchor="middle" font-size="18">🧒</text>
+<text x="796" y="290" text-anchor="middle" font-size="15" font-weight="900" fill="#C0572B" >8.9 older people</text>
+<text x="684" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="712" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="740" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="768" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="796" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="824" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="852" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="880" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="908" y="324" text-anchor="middle" font-size="18">🧓</text>
+<text x="796" y="420" text-anchor="middle" font-size="18" font-weight="900" fill="#E0694F" >Total 10.4 people</text>
+<text x="480" y="486" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Fewer children and more older people: working-age people will carry a heavier and heavier load</text>
+</svg>

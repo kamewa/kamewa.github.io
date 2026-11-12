@@ -1,0 +1,18 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="480" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Aging society → aged society → super-aged society</text>
+<rect x="90" y="170" width="780" height="34" rx="17" fill="#F4EFE6" stroke="#45392F" stroke-width="1.8"/>
+<rect x="90" y="170" width="592.8" height="34" rx="17" fill="#F2A65A"/>
+<line x1="308.4" x2="308.4" y1="150" y2="224" stroke="#3E8E5A" stroke-width="4"/>
+<text x="308.40000000000003" y="138" text-anchor="middle" font-size="20" font-weight="900" fill="#3E8E5A" >7%</text><text x="308.40000000000003" y="252" text-anchor="middle" font-size="17" font-weight="900" fill="#3E8E5A" >Aging society</text>
+<line x1="526.8" x2="526.8" y1="150" y2="224" stroke="#E0A43A" stroke-width="4"/>
+<text x="526.8000000000001" y="138" text-anchor="middle" font-size="20" font-weight="900" fill="#E0A43A" >14%</text><text x="526.8000000000001" y="252" text-anchor="middle" font-size="17" font-weight="900" fill="#E0A43A" >Aged society</text>
+<line x1="714.0" x2="714.0" y1="150" y2="224" stroke="#E0694F" stroke-width="4"/>
+<text x="714.0" y="138" text-anchor="middle" font-size="20" font-weight="900" fill="#E0694F" >20%</text><text x="714.0" y="252" text-anchor="middle" font-size="17" font-weight="900" fill="#E0694F" >Super-aged society</text>
+<text x="682.8" y="196" text-anchor="end" font-size="14" font-weight="900" fill="#fff" >Taiwan 2024: about 19%</text>
+<text x="480" y="100" text-anchor="middle" font-size="15" font-weight="800" fill="#6B5E52" >Share of people aged 65+ in the total population (UN definition)</text>
+<circle cx="150" cy="294" r="8" fill="#3E8E5A"/><text x="172" y="300" text-anchor="start" font-size="17" font-weight="900" fill="#332B25" >1993</text><text x="300" y="300" text-anchor="start" font-size="16" font-weight="800" fill="#332B25" >Older people passed 7%: an aging society</text>
+<circle cx="150" cy="344" r="8" fill="#E0A43A"/><text x="172" y="350" text-anchor="start" font-size="17" font-weight="900" fill="#332B25" >2018</text><text x="300" y="350" text-anchor="start" font-size="16" font-weight="800" fill="#332B25" >Passed 14%: an aged society</text>
+<circle cx="150" cy="394" r="8" fill="#E0694F"/><text x="172" y="400" text-anchor="start" font-size="17" font-weight="900" fill="#332B25" >About 2025</text><text x="300" y="400" text-anchor="start" font-size="16" font-weight="800" fill="#332B25" >Passed 20%: a super-aged society</text>
+<text x="480" y="460" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >Longer lives + fewer births → the share of older people rises fast (years are approximate)</text>
+</svg>

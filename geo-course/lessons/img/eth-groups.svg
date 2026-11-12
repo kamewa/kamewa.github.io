@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="430" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣的多元族群</text>
+<rect x="30" y="66" width="290" height="300" rx="18" fill="#E3F4E5" stroke="#45392F" stroke-width="2"/>
+<text x="175" y="122" text-anchor="middle" font-size="44">🏔️</text><text x="175" y="162" text-anchor="middle" font-size="20" font-weight="900" fill="#3E8E5A" >原住民族</text>
+<text x="175" y="204" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >屬於南島語族</text>
+<text x="175" y="240" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >政府認定 16 族</text>
+<text x="175" y="276" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >過去多在山區與東部</text>
+<text x="175" y="312" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >近年移居都市的人增加</text>
+<rect x="340" y="66" width="290" height="300" rx="18" fill="#FDE8E3" stroke="#45392F" stroke-width="2"/>
+<text x="485" y="122" text-anchor="middle" font-size="44">🏮</text><text x="485" y="162" text-anchor="middle" font-size="20" font-weight="900" fill="#E0694F" >漢人</text>
+<text x="485" y="204" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >人數最多的族群</text>
+<text x="485" y="240" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >閩南人、客家人</text>
+<text x="485" y="276" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >從中國東南沿海渡海來臺</text>
+<text x="485" y="312" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >1949 年約 120 多萬戰後移民</text>
+<rect x="650" y="66" width="290" height="300" rx="18" fill="#E1EFF9" stroke="#45392F" stroke-width="2"/>
+<text x="795" y="122" text-anchor="middle" font-size="44">🌏</text><text x="795" y="162" text-anchor="middle" font-size="20" font-weight="900" fill="#4A90C2" >新住民與國際移工</text>
+<text x="795" y="204" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >因工作或婚姻來臺的新住民</text>
+<text x="795" y="240" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >主要來自中國與東南亞</text>
+<text x="795" y="276" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >數十萬東南亞國際移工</text>
+<text x="795" y="312" text-anchor="middle" font-size="15.5" font-weight="800" fill="#332B25" >在臺灣短期工作</text>
+<text x="480" y="404" text-anchor="middle" font-size="15" font-weight="800" fill="#6B4E2E" >不同時期來到臺灣的族群，和原本就住在這裡的原住民族，一起形成臺灣的多元文化</text>
+</svg>

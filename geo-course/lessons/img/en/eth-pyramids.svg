@@ -1,0 +1,125 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="580" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="21.4" font-weight="800" fill="#332B25" >Taiwan’s population pyramids over time (approximate shapes)</text>
+<rect x="15" y="62" width="300" height="470" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<text x="165" y="92" text-anchor="middle" font-size="17" font-weight="900" fill="#332B25" >1966</text>
+<rect x="28.9" y="394.0" width="132.1" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="394.0" width="132.1" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="37.7" y="377.0" width="123.3" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="377.0" width="123.3" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="50.9" y="360.0" width="110.1" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="360.0" width="110.1" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="77.3" y="343.0" width="83.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="343.0" width="83.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="103.7" y="326.0" width="57.3" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="326.0" width="57.3" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="105.5" y="309.0" width="55.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="309.0" width="55.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="104.6" y="292.0" width="56.4" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="292.0" width="56.4" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="108.2" y="275.0" width="52.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="275.0" width="52.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="113.4" y="258.0" width="47.6" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="258.0" width="47.6" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="122.2" y="241.0" width="38.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="241.0" width="38.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="130.2" y="224.0" width="30.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="224.0" width="30.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="138.1" y="207.0" width="22.9" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="207.0" width="22.9" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="144.3" y="190.0" width="16.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="190.0" width="16.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="150.4" y="173.0" width="10.6" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="173.0" width="10.6" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="154.8" y="156.0" width="6.2" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="156.0" width="6.2" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="157.5" y="139.0" width="3.5" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="139.0" width="3.5" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="159.2" y="122.0" width="1.8" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="169.0" y="122.0" width="1.8" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<line x1="30" x2="300" y1="410" y2="410" stroke="#45392F" stroke-width="1.2"/>
+<text x="105" y="430" text-anchor="middle" font-size="14" font-weight="900" fill="#4A90C2" >Male</text><text x="225" y="430" text-anchor="middle" font-size="14" font-weight="900" fill="#E0694F" >Female</text>
+<rect x="105.0" y="445.85" width="120" height="32.3" rx="16.15" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="165" y="467.95" text-anchor="middle" font-size="15.2" font-weight="800" fill="#fff">Pyramid shape</text>
+<text x="165" y="498" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >High birth and death rates</text><text x="165" y="520" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Common in least developed countries</text>
+<rect x="330" y="62" width="300" height="470" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<text x="480" y="92" text-anchor="middle" font-size="17" font-weight="900" fill="#332B25" >1996</text>
+<rect x="418.2" y="394.0" width="57.8" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="394.0" width="57.8" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="413.9" y="377.0" width="62.0" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="377.0" width="62.0" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="402.9" y="360.0" width="73.1" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="360.0" width="73.1" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="399.5" y="343.0" width="76.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="343.0" width="76.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="402.9" y="326.0" width="73.1" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="326.0" width="73.1" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="404.6" y="309.0" width="71.4" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="309.0" width="71.4" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="399.5" y="292.0" width="76.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="292.0" width="76.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="399.5" y="275.0" width="76.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="275.0" width="76.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="411.4" y="258.0" width="64.6" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="258.0" width="64.6" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="429.2" y="241.0" width="46.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="241.0" width="46.8" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="440.3" y="224.0" width="35.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="224.0" width="35.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="442.0" y="207.0" width="34.0" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="207.0" width="34.0" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="442.0" y="190.0" width="34.0" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="190.0" width="34.0" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="448.8" y="173.0" width="27.2" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="173.0" width="27.2" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="455.6" y="156.0" width="20.4" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="156.0" width="20.4" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="464.1" y="139.0" width="11.9" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="139.0" width="11.9" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="467.5" y="122.0" width="8.5" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="484.0" y="122.0" width="8.5" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<line x1="345" x2="615" y1="410" y2="410" stroke="#45392F" stroke-width="1.2"/>
+<text x="420" y="430" text-anchor="middle" font-size="14" font-weight="900" fill="#4A90C2" >Male</text><text x="540" y="430" text-anchor="middle" font-size="14" font-weight="900" fill="#E0694F" >Female</text>
+<rect x="420.0" y="445.85" width="120" height="32.3" rx="16.15" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="480" y="467.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Bell shape</text>
+<text x="480" y="498" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >Birth and death rates falling</text><text x="480" y="520" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Common in developing countries</text>
+<rect x="645" y="62" width="300" height="470" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<text x="795" y="92" text-anchor="middle" font-size="17" font-weight="900" fill="#332B25" >2024</text>
+<rect x="764.7" y="394.0" width="26.3" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="394.0" width="26.3" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="757.7" y="377.0" width="33.3" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="377.0" width="33.3" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="752.4" y="360.0" width="38.6" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="360.0" width="38.6" height="15" fill="#7FC8A9" stroke="#45392F" stroke-width=".8"/>
+<rect x="750.7" y="343.0" width="40.3" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="343.0" width="40.3" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="743.7" y="326.0" width="47.3" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="326.0" width="47.3" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="738.4" y="309.0" width="52.6" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="309.0" width="52.6" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="737.5" y="292.0" width="53.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="292.0" width="53.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="730.5" y="275.0" width="60.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="275.0" width="60.5" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="718.3" y="258.0" width="72.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="258.0" width="72.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="722.6" y="241.0" width="68.4" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="241.0" width="68.4" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="725.3" y="224.0" width="65.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="224.0" width="65.7" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="727.9" y="207.0" width="63.1" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="207.0" width="63.1" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="729.7" y="190.0" width="61.3" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="190.0" width="61.3" height="15" fill="#8DB9E0" stroke="#45392F" stroke-width=".8"/>
+<rect x="733.2" y="173.0" width="57.8" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="173.0" width="57.8" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="745.4" y="156.0" width="45.6" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="156.0" width="45.6" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="763.0" y="139.0" width="28.0" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="139.0" width="28.0" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="755.9" y="122.0" width="35.1" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<rect x="799.0" y="122.0" width="35.1" height="15" fill="#F2A65A" stroke="#45392F" stroke-width=".8"/>
+<line x1="660" x2="930" y1="410" y2="410" stroke="#45392F" stroke-width="1.2"/>
+<text x="735" y="430" text-anchor="middle" font-size="14" font-weight="900" fill="#4A90C2" >Male</text><text x="855" y="430" text-anchor="middle" font-size="14" font-weight="900" fill="#E0694F" >Female</text>
+<rect x="735.0" y="445.85" width="120" height="32.3" rx="16.15" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="795" y="467.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Urn shape</text>
+<text x="795" y="498" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >Few children, many older people</text><text x="795" y="520" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Common in developed countries</text>
+<text x="480" y="560" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Last 60 years: fewer children, more older people, about equal males and females (approximate shapes from government statistics, drawn for this lesson)</text>
+</svg>

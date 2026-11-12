@@ -1,0 +1,27 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 425" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="425" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Food in Taiwan: different groups, different flavors</text>
+<rect x="40" y="70" width="200" height="220" rx="18" fill="#fff" stroke="#3E8E5A" stroke-width="3"/>
+<text x="140" y="132" text-anchor="middle" font-size="46">🍚</text><text x="140" y="176" text-anchor="middle" font-size="19" font-weight="900" fill="#3E8E5A" >Long ago</text>
+<text x="140" y="214" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >Mostly rice</text>
+<line x1="244.0" y1="180.0" x2="260.0" y2="180.0" stroke="#6B5E52" stroke-width="4" stroke-linecap="round"/><path d="M266.0,180.0 L257.0,184.3 L257.0,175.7 Z" fill="#6B5E52"/>
+<rect x="270" y="70" width="200" height="220" rx="18" fill="#fff" stroke="#E0A43A" stroke-width="3"/>
+<text x="370" y="132" text-anchor="middle" font-size="46">🍜</text><text x="370" y="176" text-anchor="middle" font-size="19" font-weight="900" fill="#E0A43A" >After WWII</text>
+<text x="370" y="214" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >Immigrants brought</text>
+<text x="370" y="240" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >northern noodles, soy milk</text>
+<line x1="474.0" y1="180.0" x2="490.0" y2="180.0" stroke="#6B5E52" stroke-width="4" stroke-linecap="round"/><path d="M496.0,180.0 L487.0,184.3 L487.0,175.7 Z" fill="#6B5E52"/>
+<rect x="500" y="70" width="200" height="220" rx="18" fill="#fff" stroke="#4A90C2" stroke-width="3"/>
+<text x="600" y="132" text-anchor="middle" font-size="46">🍔</text><text x="600" y="176" text-anchor="middle" font-size="19" font-weight="900" fill="#4A90C2" >Western influence</text>
+<text x="600" y="214" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >Sandwiches, burgers</text>
+<line x1="704.0" y1="180.0" x2="720.0" y2="180.0" stroke="#6B5E52" stroke-width="4" stroke-linecap="round"/><path d="M726.0,180.0 L717.0,184.3 L717.0,175.7 Z" fill="#6B5E52"/>
+<rect x="730" y="70" width="200" height="220" rx="18" fill="#fff" stroke="#E0694F" stroke-width="3"/>
+<text x="830" y="132" text-anchor="middle" font-size="46">🍲</text><text x="830" y="176" text-anchor="middle" font-size="19" font-weight="900" fill="#E0694F" >Recent years</text>
+<text x="830" y="214" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >New immigrants and workers</text>
+<text x="830" y="240" text-anchor="middle" font-size="13.1" font-weight="800" fill="#332B25" >brought Southeast Asian food</text>
+<rect x="40" y="318" width="287" height="84" rx="14" fill="#FDF3DC" stroke="#45392F" stroke-width="1.6"/>
+<text x="183" y="350" text-anchor="middle" font-size="18" font-weight="900" fill="#9C6A1E" >Zhajiang noodles</text><text x="183" y="380" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Northern China is dry and grows wheat</text>
+<rect x="347" y="318" width="287" height="84" rx="14" fill="#FDF3DC" stroke="#45392F" stroke-width="1.6"/>
+<text x="490" y="350" text-anchor="middle" font-size="18" font-weight="900" fill="#9C6A1E" >Bamboo-tube rice</text><text x="490" y="380" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Indigenous people roast millet in bamboo</text>
+<rect x="654" y="318" width="287" height="84" rx="14" fill="#FDF3DC" stroke="#45392F" stroke-width="1.6"/>
+<text x="797" y="350" text-anchor="middle" font-size="18" font-weight="900" fill="#9C6A1E" >Tom yum soup</text><text x="797" y="380" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Hot, humid Southeast Asia: sour and spicy</text>
+</svg>
