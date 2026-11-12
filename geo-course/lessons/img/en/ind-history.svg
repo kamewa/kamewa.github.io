@@ -1,0 +1,39 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="460" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="17.7" font-weight="800" fill="#332B25" >How Taiwan’s industry developed</text>
+<line x1="60" y1="150" x2="905" y2="150" stroke="#8C7B6A" stroke-width="6" stroke-linecap="round"/>
+<line x1="880.0" y1="150.0" x2="909.2" y2="150.0" stroke="#8C7B6A" stroke-width="6" stroke-linecap="round"/><path d="M920.0,150.0 L903.8,157.8 L903.8,142.2 Z" fill="#8C7B6A"/>
+<circle cx="130" cy="150" r="14" fill="#E0A43A" stroke="#fff" stroke-width="3"/>
+<text x="130" y="92" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >1950s (ROC 40s)</text><text x="130" y="118" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >1950s</text>
+<rect x="25" y="182" width="210" height="226" rx="16" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/>
+<text x="130" y="232" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🍍</text>
+<rect x="60.0" y="256.8" width="140" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="130" y="277.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Light industry</text>
+<text x="130" y="316" text-anchor="middle" font-size="11.6" font-weight="800" fill="#332B25" >Farm processing: canned pineapple</text>
+<text x="130" y="344" text-anchor="middle" font-size="12.9" font-weight="800" fill="#332B25" >Consumer goods: textiles (yarn)</text>
+<text x="130" y="372" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >Saved money for industry</text>
+<circle cx="360" cy="150" r="14" fill="#E0A43A" stroke="#fff" stroke-width="3"/>
+<text x="360" y="92" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >1960s (ROC 50s)</text><text x="360" y="118" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >1960s</text>
+<rect x="255" y="182" width="210" height="226" rx="16" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/>
+<text x="360" y="232" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >👟</text>
+<rect x="290.0" y="256.8" width="140" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="360" y="277.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Light industry</text>
+<text x="360" y="316" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >Export processing zones</text>
+<text x="360" y="344" text-anchor="middle" font-size="13.8" font-weight="800" fill="#332B25" >Cheap labor + special policies</text>
+<text x="360" y="372" text-anchor="middle" font-size="11.8" font-weight="800" fill="#332B25" >Exported clothes, shoes, umbrellas</text>
+<circle cx="590" cy="150" r="14" fill="#E0694F" stroke="#fff" stroke-width="3"/>
+<text x="590" y="92" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >1970s (ROC 60s)</text><text x="590" y="118" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >1970s</text>
+<rect x="485" y="182" width="210" height="226" rx="16" fill="#FDE8E3" stroke="#45392F" stroke-width="1.8"/>
+<text x="590" y="232" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🛢️</text>
+<rect x="520.0" y="256.8" width="140" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="590" y="277.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Heavy industry</text>
+<text x="590" y="316" text-anchor="middle" font-size="12.9" font-weight="800" fill="#332B25" >Ten Major Construction Projects</text>
+<text x="590" y="344" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >Growth at coastal ports</text>
+<text x="590" y="372" text-anchor="middle" font-size="13.1" font-weight="800" fill="#332B25" >Steel, petrochemicals → takeoff</text>
+<circle cx="820" cy="150" r="14" fill="#4A90C2" stroke="#fff" stroke-width="3"/>
+<text x="820" y="92" text-anchor="middle" font-size="17.8" font-weight="900" fill="#332B25" >1980s to today (ROC 70s–)</text><text x="820" y="118" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >since the 1980s</text>
+<rect x="715" y="182" width="210" height="226" rx="16" fill="#E1EFF9" stroke="#45392F" stroke-width="1.8"/>
+<text x="820" y="232" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >💻</text>
+<rect x="750.0" y="256.8" width="140" height="30.4" rx="15.2" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="820" y="277.6" text-anchor="middle" font-size="14.4" font-weight="800" fill="#fff">High-tech industry</text>
+<text x="820" y="316" text-anchor="middle" font-size="12.2" font-weight="800" fill="#332B25" >Rising wages → industry changes</text>
+<text x="820" y="344" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >Hsinchu Science Park set up</text>
+<text x="820" y="372" text-anchor="middle" font-size="11.2" font-weight="800" fill="#332B25" >Computers, phones, semiconductors</text>
+<text x="480" y="440" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >The government changed its focus as location factors changed in each period</text>
+</svg>

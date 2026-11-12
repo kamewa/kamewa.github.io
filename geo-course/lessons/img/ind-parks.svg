@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 545" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="545" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣主要的科學園區、科技產業園區與工業區（示意）</text>
+<rect x="20" y="56" width="440" height="470" rx="14" fill="#DCEFF8" stroke="#45392F" stroke-width="2"/>
+<path d="M309.2,63.0 L326.8,74.5 L333.8,82.2 L353.8,84.7 L363.2,100.1 L347.9,119.3 L343.2,139.8 L347.9,152.6 L343.2,178.2 L333.8,203.8 L318.6,231.9 L310.4,267.8 L304.5,299.8 L292.8,331.8 L289.3,344.6 L269.3,376.6 L263.5,389.4 L245.9,415.0 L234.1,440.6 L228.3,472.6 L228.3,498.2 L213.0,494.3 L210.7,479.0 L198.9,438.0 L181.4,425.2 L161.4,408.6 L152.0,383.0 L143.8,357.4 L140.3,331.8 L146.2,299.8 L152.0,267.8 L175.5,223.0 L187.2,197.4 L198.9,171.8 L216.5,146.2 L234.1,120.6 L245.9,101.4 L257.6,92.4 L281.1,84.7 L292.8,78.3 Z" fill="#EFE6D2" stroke="#8C7B6A" stroke-width="1.5"/>
+<rect x="238.03766576303826" y="120.51999999999998" width="18" height="18" transform="rotate(45 247.0 129.5)" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="247.03766576303826" y="134.01999999999998" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >1</text>
+<rect x="192.2928383032912" y="201.1600000000003" width="18" height="18" transform="rotate(45 201.3 210.2)" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="201.2928383032912" y="214.6600000000003" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >2</text>
+<rect x="152.41273231274215" y="335.55999999999995" width="18" height="18" transform="rotate(45 161.4 344.6)" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="161.41273231274215" y="349.05999999999995" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >3</text>
+<rect x="148.893899431223" y="363.72000000000025" width="18" height="18" transform="rotate(45 157.9 372.7)" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="157.893899431223" y="377.22000000000025" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >4</text>
+<circle cx="183.7" cy="191.0" r="10" fill="#E0694F" stroke="#fff" stroke-width="1.5"/>
+<text x="183.69867389569552" y="195.46000000000004" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >5</text>
+<circle cx="217.7" cy="191.0" r="10" fill="#E0694F" stroke="#fff" stroke-width="1.5"/>
+<text x="217.7140584170466" y="195.46000000000004" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >6</text>
+<circle cx="164.9" cy="391.9" r="10" fill="#E0694F" stroke="#fff" stroke-width="1.5"/>
+<text x="164.93156519426128" y="396.4200000000001" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >7</text>
+<circle cx="164.9" cy="411.1" r="10" fill="#E0694F" stroke="#fff" stroke-width="1.5"/>
+<text x="164.93156519426128" y="415.62000000000035" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >8</text>
+<circle cx="187.2" cy="400.9" r="10" fill="#E0694F" stroke="#fff" stroke-width="1.5"/>
+<text x="187.21750677721468" y="405.3800000000001" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >9</text>
+<polygon points="323.9,91.1 318.9,99.8 308.9,99.8 303.9,91.1 308.9,82.5 318.9,82.5" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="313.89549051189846" y="95.62000000000035" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >10</text>
+<polygon points="185.5,221.7 180.5,230.3 170.5,230.3 165.5,221.7 170.5,213.0 180.5,213.0" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="175.48806383881868" y="226.1800000000003" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >11</text>
+<polygon points="158.5,257.5 153.5,266.2 143.5,266.2 138.5,257.5 143.5,248.9 153.5,248.9" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="148.51034508050586" y="262.02" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >12</text>
+<polygon points="343.8,191.0 338.8,199.6 328.8,199.6 323.8,191.0 328.8,182.3 338.8,182.3" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="333.835543507173" y="195.46000000000004" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" >13</text>
+<text x="240" y="512" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >（示意圖：位置為大致位置）</text>
+<rect x="480" y="72" width="460" height="118" rx="14" fill="#fff" stroke="#3E8E5A" stroke-width="2.2"/>
+<text x="498" y="100" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >◆ 科學園區</text><text x="498" y="124" text-anchor="start" font-size="13" font-weight="800" fill="#6B5E52" >高科技工業：半導體、電腦、光電、生技</text>
+<text x="498" y="152" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >1. 新竹科學園區</text>
+<text x="718" y="152" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >2. 中部科學園區</text>
+<text x="498" y="178" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >3. 南部科學園區（臺南）</text>
+<text x="718" y="178" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >4. 南部科學園區（高雄）</text>
+<rect x="480" y="202" width="460" height="144" rx="14" fill="#fff" stroke="#E0694F" stroke-width="2.2"/>
+<text x="498" y="230" text-anchor="start" font-size="18" font-weight="900" fill="#E0694F" >● 科技產業園區</text><text x="498" y="254" text-anchor="start" font-size="13" font-weight="800" fill="#6B5E52" >原本的加工出口區，民國 110 年改名</text>
+<text x="498" y="282" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >5. 臺中港科技產業園區</text>
+<text x="718" y="282" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >6. 潭子科技產業園區</text>
+<text x="498" y="308" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >7. 楠梓科技產業園區</text>
+<text x="718" y="308" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >8. 前鎮科技產業園區</text>
+<text x="498" y="334" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >9. 屏東科技產業園區</text>
+<rect x="480" y="358" width="460" height="118" rx="14" fill="#fff" stroke="#4A90C2" stroke-width="2.2"/>
+<text x="498" y="386" text-anchor="start" font-size="18" font-weight="900" fill="#4A90C2" >⬢ 工業區</text><text x="498" y="410" text-anchor="start" font-size="13" font-weight="800" fill="#6B5E52" >鋼鐵、石化、水泥等，多在沿海</text>
+<text x="498" y="438" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >10. 內湖科技園區</text>
+<text x="718" y="438" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >11. 彰濱工業區</text>
+<text x="498" y="464" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >12. 雲林離島式基礎工業區（麥寮）</text>
+<text x="718" y="464" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >13. 和平產業園區</text>
+</svg>

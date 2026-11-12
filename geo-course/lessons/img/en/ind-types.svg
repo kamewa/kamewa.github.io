@@ -1,0 +1,31 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="420" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="20.6" font-weight="800" fill="#332B25" >Types of industry: from handmade goods to high tech</text>
+<rect x="30" y="66" width="280" height="300" rx="18" fill="#FDF3DC" stroke="#45392F" stroke-width="2"/>
+<text x="170" y="122" text-anchor="middle" font-size="42" font-weight="400" fill="#332B25" >🧵</text>
+<rect x="95.0" y="148.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="170" y="172.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">Light industry</text>
+<text x="170" y="220" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Goods for everyday consumers</text>
+<text x="170" y="248" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Factories can be big or small</text>
+<text x="170" y="276" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Often need many workers</text>
+<line x1="54" y1="306" x2="286" y2="306" stroke="#45392F" stroke-dasharray="5 4" opacity=".5"/>
+<text x="170" y="340" text-anchor="middle" font-size="15" font-weight="900" fill="#E0A43A" >e.g. clothes, food, appliances</text>
+<line x1="314.0" y1="216.0" x2="328.8" y2="216.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M336.0,216.0 L325.2,221.2 L325.2,210.8 Z" fill="#6B5E52"/>
+<rect x="340" y="66" width="280" height="300" rx="18" fill="#FDE8E3" stroke="#45392F" stroke-width="2"/>
+<text x="480" y="122" text-anchor="middle" font-size="42" font-weight="400" fill="#332B25" >🏗️</text>
+<rect x="405.0" y="148.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="480" y="172.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">Heavy industry</text>
+<text x="480" y="220" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Basic materials for development</text>
+<text x="480" y="248" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Large factories, lots of money</text>
+<text x="480" y="276" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Need large machines</text>
+<line x1="364" y1="306" x2="596" y2="306" stroke="#45392F" stroke-dasharray="5 4" opacity=".5"/>
+<text x="480" y="340" text-anchor="middle" font-size="15" font-weight="900" fill="#E0694F" >e.g. steel, machinery, petrochemicals</text>
+<line x1="624.0" y1="216.0" x2="638.8" y2="216.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M646.0,216.0 L635.2,221.2 L635.2,210.8 Z" fill="#6B5E52"/>
+<rect x="650" y="66" width="280" height="300" rx="18" fill="#E1EFF9" stroke="#45392F" stroke-width="2"/>
+<text x="790" y="122" text-anchor="middle" font-size="42" font-weight="400" fill="#332B25" >💻</text>
+<rect x="715.0" y="148.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="790" y="172.3" text-anchor="middle" font-size="15.6" font-weight="800" fill="#fff">High-tech industry</text>
+<text x="790" y="220" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Lots of research money</text>
+<text x="790" y="248" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >High technology barrier</text>
+<text x="790" y="276" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >High added value</text>
+<line x1="674" y1="306" x2="906" y2="306" stroke="#45392F" stroke-dasharray="5 4" opacity=".5"/>
+<text x="790" y="340" text-anchor="middle" font-size="15" font-weight="900" fill="#4A90C2" >e.g. IT, semiconductors, biotech</text>
+<text x="480" y="398" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >Traditional societies made goods by hand; modern factories mass-produce goods at lower cost, so life became richer</text>
+</svg>

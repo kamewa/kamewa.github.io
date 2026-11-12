@@ -1,0 +1,28 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 548" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="548" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Output share of Taiwan’s three industry levels (2024)</text>
+<path d="M230.0,115.0 A170,170 0 0 1 246.0,115.8 L236.6,215.3 A70,70 0 0 0 230.0,215.0 Z" fill="#3E8E5A" stroke="#fff" stroke-width="2"/>
+<path d="M246.0,115.8 A170,170 0 0 1 318.4,430.2 L266.4,344.8 A70,70 0 0 0 236.6,215.3 Z" fill="#E0A43A" stroke="#fff" stroke-width="2"/>
+<path d="M318.4,430.2 A170,170 0 1 1 230.0,115.0 L230.0,215.0 A70,70 0 1 0 266.4,344.8 Z" fill="#4A90C2" stroke="#fff" stroke-width="2"/>
+<text x="230" y="281" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >Output</text><text x="230" y="307" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >share</text>
+<text x="346.9432247343893" y="266.0875086860743" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" >39.8%</text>
+<text x="114.45434881296947" y="325.3913953352595" text-anchor="middle" font-size="22" font-weight="900" fill="#fff" >58.7%</text>
+<text x="200" y="92" text-anchor="middle" font-size="14" font-weight="900" fill="#3E8E5A" >Primary 1.5%</text>
+<rect x="60" y="478" width="16" height="16" fill="#3E8E5A"/><text x="82" y="492" text-anchor="start" font-size="13.5" font-weight="900" fill="#332B25" >Primary</text>
+<rect x="190" y="478" width="16" height="16" fill="#E0A43A"/><text x="212" y="492" text-anchor="start" font-size="13.5" font-weight="900" fill="#332B25" >Secondary</text>
+<rect x="320" y="478" width="16" height="16" fill="#4A90C2"/><text x="342" y="492" text-anchor="start" font-size="13.5" font-weight="900" fill="#332B25" >Tertiary</text>
+<rect x="470" y="70" width="460" height="430" rx="16" fill="#fff" stroke="#4A90C2" stroke-width="2.2"/>
+<text x="700" y="104" text-anchor="middle" font-size="18" font-weight="900" fill="#4A90C2" >What does tertiary industry (services) include?</text>
+<text x="500" y="156" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🛒</text><text x="522" y="150" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >Trade (wholesale and retail)</text>
+<rect x="522" y="162" width="149.6" height="20" rx="6" fill="#8DC3E6"/><text x="679.6" y="178" text-anchor="start" font-size="14" font-weight="900" fill="#4A90C2" >13.6%</text>
+<text x="500" y="222" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🏠</text><text x="522" y="216" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >Real estate and housing services</text>
+<rect x="522" y="228" width="83.6" height="20" rx="6" fill="#8DC3E6"/><text x="613.6" y="244" text-anchor="start" font-size="14" font-weight="900" fill="#4A90C2" >7.6%</text>
+<text x="500" y="288" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🏦</text><text x="522" y="282" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >Finance and insurance</text>
+<rect x="522" y="294" width="70.4" height="20" rx="6" fill="#8DC3E6"/><text x="600.4" y="310" text-anchor="start" font-size="14" font-weight="900" fill="#4A90C2" >6.4%</text>
+<text x="500" y="354" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🚚</text><text x="522" y="348" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >Transportation and storage</text>
+<rect x="522" y="360" width="40.7" height="20" rx="6" fill="#8DC3E6"/><text x="570.7" y="376" text-anchor="start" font-size="14" font-weight="900" fill="#4A90C2" >3.7%</text>
+<text x="500" y="420" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🎓</text><text x="522" y="414" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >Others (education, health, tourism, communication…)</text>
+<rect x="522" y="426" width="301.4" height="20" rx="6" fill="#8DC3E6"/><text x="831.4" y="442" text-anchor="start" font-size="14" font-weight="900" fill="#4A90C2" >27.4%</text>
+<text x="700" y="488" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >(share of Taiwan’s total output)</text>
+<text x="480" y="530" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Services have the largest output and the most workers of the three levels (from DGBAS statistics, drawn for this lesson)</text>
+</svg>

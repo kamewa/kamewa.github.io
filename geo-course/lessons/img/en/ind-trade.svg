@@ -1,0 +1,30 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 525" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="525" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Taiwan’s main exports and imports (2024)</text>
+<path d="M118.0,152.0 A98,98 0 1 1 20.6,261.1 L70.3,255.4 A48,48 0 1 0 118.0,202.0 Z" fill="#5B9BD5" stroke="#fff" stroke-width="2"/>
+<path d="M20.6,261.1 A98,98 0 0 1 23.4,224.4 L71.7,237.5 A48,48 0 0 0 70.3,255.4 Z" fill="#F4A261" stroke="#fff" stroke-width="2"/>
+<path d="M23.4,224.4 A98,98 0 0 1 33.0,201.2 L76.4,226.1 A48,48 0 0 0 71.7,237.5 Z" fill="#E76F8A" stroke="#fff" stroke-width="2"/>
+<path d="M33.0,201.2 A98,98 0 0 1 47.0,182.5 L83.2,216.9 A48,48 0 0 0 76.4,226.1 Z" fill="#6CC49A" stroke="#fff" stroke-width="2"/>
+<path d="M47.0,182.5 A98,98 0 0 1 118.0,152.0 L118.0,202.0 A48,48 0 0 0 83.2,216.9 Z" fill="#C9C9C9" stroke="#fff" stroke-width="2"/>
+<text x="118" y="258" text-anchor="middle" font-size="22" font-weight="900" fill="#3E8E5A" >Exports</text>
+<rect x="230" y="136" width="18" height="18" rx="4" fill="#5B9BD5"/><text x="256" y="150" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >Machinery &amp; electronics</text><text x="256" y="170" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >73.2%</text>
+<rect x="230" y="180" width="18" height="18" rx="4" fill="#F4A261"/><text x="256" y="194" text-anchor="start" font-size="13.5" font-weight="800" fill="#332B25" >Metals and metal products</text><text x="256" y="214" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >6.0%</text>
+<rect x="230" y="224" width="18" height="18" rx="4" fill="#E76F8A"/><text x="256" y="238" text-anchor="start" font-size="12.9" font-weight="800" fill="#332B25" >Plastics, rubber, and products</text><text x="256" y="258" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >4.1%</text>
+<rect x="230" y="268" width="18" height="18" rx="4" fill="#6CC49A"/><text x="256" y="282" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >Chemicals</text><text x="256" y="302" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >3.8%</text>
+<rect x="230" y="312" width="18" height="18" rx="4" fill="#C9C9C9"/><text x="256" y="326" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >Others</text><text x="256" y="346" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >12.9%</text>
+<path d="M578.0,152.0 A98,98 0 0 1 590.3,347.2 L584.0,297.6 A48,48 0 0 0 578.0,202.0 Z" fill="#5B9BD5" stroke="#fff" stroke-width="2"/>
+<path d="M590.3,347.2 A98,98 0 0 1 507.4,318.0 L543.4,283.3 A48,48 0 0 0 584.0,297.6 Z" fill="#F2CF4A" stroke="#fff" stroke-width="2"/>
+<path d="M507.4,318.0 A98,98 0 0 1 484.2,278.5 L532.1,264.0 A48,48 0 0 0 543.4,283.3 Z" fill="#6CC49A" stroke="#fff" stroke-width="2"/>
+<path d="M484.2,278.5 A98,98 0 0 1 480.8,237.7 L530.4,244.0 A48,48 0 0 0 532.1,264.0 Z" fill="#F4A261" stroke="#fff" stroke-width="2"/>
+<path d="M480.8,237.7 A98,98 0 0 1 578.0,152.0 L578.0,202.0 A48,48 0 0 0 530.4,244.0 Z" fill="#C9C9C9" stroke="#fff" stroke-width="2"/>
+<text x="578" y="258" text-anchor="middle" font-size="22" font-weight="900" fill="#D94F7A" >Imports</text>
+<rect x="690" y="136" width="18" height="18" rx="4" fill="#5B9BD5"/><text x="716" y="150" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >Machinery &amp; electronics</text><text x="716" y="170" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >48.0%</text>
+<rect x="690" y="180" width="18" height="18" rx="4" fill="#F2CF4A"/><text x="716" y="194" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >Minerals (mainly crude oil)</text><text x="716" y="214" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >14.8%</text>
+<rect x="690" y="224" width="18" height="18" rx="4" fill="#6CC49A"/><text x="716" y="238" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >Chemicals</text><text x="716" y="258" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >7.5%</text>
+<rect x="690" y="268" width="18" height="18" rx="4" fill="#F4A261"/><text x="716" y="282" text-anchor="start" font-size="13.5" font-weight="800" fill="#332B25" >Metals and metal products</text><text x="716" y="302" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >6.7%</text>
+<rect x="690" y="312" width="18" height="18" rx="4" fill="#C9C9C9"/><text x="716" y="326" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >Others</text><text x="716" y="346" text-anchor="start" font-size="14" font-weight="900" fill="#6B5E52" >23.0%</text>
+<rect x="40" y="400" width="880" height="80" rx="14" fill="#FFF8E7" stroke="#45392F" stroke-width="1.5"/>
+<text x="480" y="432" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Exports are mostly high-tech products (wafers, ICs, computer parts);</text>
+<text x="480" y="460" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >Taiwan lacks natural resources, so oil, coal, and industrial materials are imported</text>
+<text x="480" y="508" text-anchor="middle" font-size="10.8" font-weight="800" fill="#6B5E52" >(approximate values from Customs Administration trade statistics, drawn for this lesson)</text>
+</svg>

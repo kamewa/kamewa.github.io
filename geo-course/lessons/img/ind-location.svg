@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 555" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="555" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >工業區位條件：工廠要設在哪裡最划算？</text>
+<circle cx="480" cy="290" r="78" fill="#fff" stroke="#45392F" stroke-width="2.5"/><text x="480" y="288" text-anchor="middle" font-size="46" font-weight="400" fill="#332B25" >🏭</text><text x="480" y="330" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >工廠</text>
+<rect x="20" y="72" width="280" height="116" rx="16" fill="#FDE8E3" stroke="#E0694F" stroke-width="2.5"/>
+<text x="48" y="112" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌾</text><text x="76" y="120" text-anchor="start" font-size="21" font-weight="900" fill="#E0694F" >原料</text>
+<text x="160" y="150" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >原料笨重、易腐壞</text><text x="160" y="174" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >例：糖廠靠近蔗田</text>
+<line x1="304.5" y1="134.0" x2="410.9" y2="228.6" stroke="#C9A27A" stroke-width="5" stroke-linecap="round"/><path d="M417.2,234.2 L403.7,230.4 L411.8,221.3 Z" fill="#C9A27A"/>
+<rect x="660" y="72" width="280" height="116" rx="16" fill="#E1EFF9" stroke="#4A90C2" stroke-width="2.5"/>
+<text x="688" y="112" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🛒</text><text x="716" y="120" text-anchor="start" font-size="21" font-weight="900" fill="#4A90C2" >市場</text>
+<text x="800" y="150" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >產品要新鮮、體積大</text><text x="800" y="174" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >例：麵包廠、飲料廠</text>
+<line x1="655.5" y1="134.0" x2="549.1" y2="228.6" stroke="#C9A27A" stroke-width="5" stroke-linecap="round"/><path d="M542.8,234.2 L548.2,221.3 L556.3,230.4 Z" fill="#C9A27A"/>
+<rect x="20" y="232" width="280" height="116" rx="16" fill="#FDF3DC" stroke="#E0A43A" stroke-width="2.5"/>
+<text x="48" y="272" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >⚡</text><text x="76" y="280" text-anchor="start" font-size="21" font-weight="900" fill="#E0A43A" >動力</text>
+<text x="160" y="310" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >很耗電，找電費便宜處</text><text x="160" y="334" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >例：加拿大基提馬特煉鋁</text>
+<line x1="306.0" y1="290.0" x2="387.6" y2="290.0" stroke="#C9A27A" stroke-width="5" stroke-linecap="round"/><path d="M396.0,290.0 L383.4,296.1 L383.4,283.9 Z" fill="#C9A27A"/>
+<rect x="660" y="232" width="280" height="116" rx="16" fill="#E3F4E5" stroke="#3E8E5A" stroke-width="2.5"/>
+<text x="688" y="272" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >👷</text><text x="716" y="280" text-anchor="start" font-size="21" font-weight="900" fill="#3E8E5A" >勞工</text>
+<text x="800" y="310" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >便宜勞工或技術人才</text><text x="800" y="334" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >例：成衣廠、竹科</text>
+<line x1="654.0" y1="290.0" x2="572.4" y2="290.0" stroke="#C9A27A" stroke-width="5" stroke-linecap="round"/><path d="M564.0,290.0 L576.6,283.9 L576.6,296.1 Z" fill="#C9A27A"/>
+<rect x="20" y="392" width="280" height="116" rx="16" fill="#DDF2EF" stroke="#2E9A86" stroke-width="2.5"/>
+<text x="48" y="432" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🚢</text><text x="76" y="440" text-anchor="start" font-size="21" font-weight="900" fill="#2E9A86" >交通</text>
+<text x="160" y="470" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >原料靠進口，設在港口</text><text x="160" y="494" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >例：高雄港的鋼鐵、石化</text>
+<line x1="304.5" y1="446.0" x2="410.9" y2="351.4" stroke="#C9A27A" stroke-width="5" stroke-linecap="round"/><path d="M417.2,345.8 L411.8,358.7 L403.7,349.6 Z" fill="#C9A27A"/>
+<rect x="660" y="392" width="280" height="116" rx="16" fill="#EDE6F6" stroke="#9C6ADE" stroke-width="2.5"/>
+<text x="688" y="432" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >📜</text><text x="716" y="440" text-anchor="start" font-size="21" font-weight="900" fill="#9C6ADE" >政策</text>
+<text x="800" y="470" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >減稅、提供工業用地</text><text x="800" y="494" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >例：加工出口區</text>
+<line x1="655.5" y1="446.0" x2="549.1" y2="351.4" stroke="#C9A27A" stroke-width="5" stroke-linecap="round"/><path d="M542.8,345.8 L556.3,349.6 L548.2,358.7 Z" fill="#C9A27A"/>
+<text x="480" y="535" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >老闆會考慮各種條件，選擇能降低生產成本、提高利潤的地點</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="510" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣紡織品外銷訂單的海外生產比例</text>
+<line x1="90" x2="870" y1="400.0" y2="400.0" stroke="#E5DED3"/><text x="80" y="405.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >0%</text>
+<line x1="90" x2="870" y1="346.7" y2="346.7" stroke="#E5DED3"/><text x="80" y="351.6666666666667" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >10%</text>
+<line x1="90" x2="870" y1="293.3" y2="293.3" stroke="#E5DED3"/><text x="80" y="298.33333333333337" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >20%</text>
+<line x1="90" x2="870" y1="240.0" y2="240.0" stroke="#E5DED3"/><text x="80" y="245.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >30%</text>
+<line x1="90" x2="870" y1="186.7" y2="186.7" stroke="#E5DED3"/><text x="80" y="191.66666666666669" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >40%</text>
+<line x1="90" x2="870" y1="133.3" y2="133.3" stroke="#E5DED3"/><text x="80" y="138.33333333333331" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >50%</text>
+<line x1="90" x2="870" y1="80.0" y2="80.0" stroke="#E5DED3"/><text x="80" y="85.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >60%</text>
+<polygon points="90.0,400 90.0,360.8 121.2,344.0 152.4,326.9 183.6,325.9 214.8,309.3 246.0,298.7 277.2,292.3 308.4,286.9 339.6,293.9 370.8,293.3 402.0,283.2 433.2,284.8 464.4,287.5 495.6,275.7 526.8,270.9 558.0,266.1 589.2,249.1 620.4,238.9 651.6,230.4 682.8,225.1 714.0,211.7 745.2,192.5 776.4,198.4 807.6,163.7 838.8,145.6 870.0,153.4 870.0,400" fill="#DDEFC0" opacity=".9"/>
+<polyline points="90.0,360.8 121.2,344.0 152.4,326.9 183.6,325.9 214.8,309.3 246.0,298.7 277.2,292.3 308.4,286.9 339.6,293.9 370.8,293.3 402.0,283.2 433.2,284.8 464.4,287.5 495.6,275.7 526.8,270.9 558.0,266.1 589.2,249.1 620.4,238.9 651.6,230.4 682.8,225.1 714.0,211.7 745.2,192.5 776.4,198.4 807.6,163.7 838.8,145.6 870.0,153.4" fill="none" stroke="#2F6FA8" stroke-width="5" stroke-linejoin="round"/>
+<text x="90.0" y="424" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >88</text>
+<text x="152.4" y="424" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >90</text>
+<text x="308.40000000000003" y="424" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >95</text>
+<text x="464.4" y="424" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >100</text>
+<text x="620.4000000000001" y="424" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >105</text>
+<text x="776.4" y="424" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >110</text>
+<text x="870.0" y="424" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >113</text>
+<text x="884" y="424" text-anchor="start" font-size="12" font-weight="800" fill="#6B5E52" >（民國）</text>
+<circle cx="90.0" cy="360.8" r="7" fill="#fff" stroke="#2F6FA8" stroke-width="3"/>
+<circle cx="870.0" cy="153.4" r="7" fill="#fff" stroke="#2F6FA8" stroke-width="3"/>
+<text x="104.0" y="386.8" text-anchor="start" font-size="18" font-weight="900" fill="#2F6FA8" >約 7%</text>
+<text x="864.0" y="135.44" text-anchor="end" font-size="18" font-weight="900" fill="#2F6FA8" >約 46%</text>
+<text x="480" y="460" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >愈來愈多臺灣接到的紡織訂單，是在海外工廠生產的</text>
+<text x="480" y="490" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >（依經濟部統計處外銷訂單統計整理的約略值，自繪）</text>
+</svg>

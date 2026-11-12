@@ -1,0 +1,24 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 375" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="375" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="19.4" font-weight="800" fill="#332B25" >The textile chain: further downstream means more processing and higher prices</text>
+<rect x="30" y="70" width="210" height="250" rx="16" fill="#E3F4E5" stroke="#45392F" stroke-width="1.8"/>
+<rect x="90.0" y="88.8" width="90" height="30.4" rx="15.2" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="135" y="109.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Upstream</text>
+<text x="135" y="170" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >🧶</text><text x="135" y="214" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >Fiber</text><text x="135" y="244" text-anchor="middle" font-size="13.5" font-weight="800" fill="#6B5E52" >Natural and man-made fibers</text>
+<text x="135" y="290" text-anchor="middle" font-size="15" font-weight="900" fill="#3E8E5A" >about US$1.3/kg</text>
+<line x1="242.0" y1="195.0" x2="251.4" y2="195.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M258.0,195.0 L248.1,199.8 L248.1,190.2 Z" fill="#6B5E52"/>
+<rect x="260" y="70" width="210" height="250" rx="16" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/>
+<rect x="320.0" y="88.8" width="90" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="365" y="109.6" text-anchor="middle" font-size="15.6" font-weight="800" fill="#fff">Midstream</text>
+<text x="365" y="170" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >🧵</text><text x="365" y="214" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >Yarn</text><text x="365" y="244" text-anchor="middle" font-size="13.5" font-weight="800" fill="#6B5E52" >Spinning fiber into yarn</text>
+<text x="365" y="290" text-anchor="middle" font-size="15" font-weight="900" fill="#E0A43A" >about US$3.1/kg</text>
+<line x1="472.0" y1="195.0" x2="481.4" y2="195.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M488.0,195.0 L478.1,199.8 L478.1,190.2 Z" fill="#6B5E52"/>
+<rect x="490" y="70" width="210" height="250" rx="16" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/>
+<rect x="550.0" y="88.8" width="90" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="595" y="109.6" text-anchor="middle" font-size="15.6" font-weight="800" fill="#fff">Midstream</text>
+<text x="595" y="170" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >🟦</text><text x="595" y="214" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >Fabric</text><text x="595" y="244" text-anchor="middle" font-size="9.9" font-weight="800" fill="#6B5E52" >Weaving yarn into cloth (functional fabric)</text>
+<text x="595" y="290" text-anchor="middle" font-size="15" font-weight="900" fill="#E0A43A" >about US$9.6/kg</text>
+<line x1="702.0" y1="195.0" x2="711.4" y2="195.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M718.0,195.0 L708.1,199.8 L708.1,190.2 Z" fill="#6B5E52"/>
+<rect x="720" y="70" width="210" height="250" rx="16" fill="#E1EFF9" stroke="#45392F" stroke-width="1.8"/>
+<rect x="780.0" y="88.8" width="90" height="30.4" rx="15.2" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="825" y="109.6" text-anchor="middle" font-size="13.0" font-weight="800" fill="#fff">Downstream</text>
+<text x="825" y="170" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >👕</text><text x="825" y="214" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >Clothing</text><text x="825" y="244" text-anchor="middle" font-size="12.8" font-weight="800" fill="#6B5E52" >Brand-name clothes and fashion</text>
+<text x="825" y="290" text-anchor="middle" font-size="15" font-weight="900" fill="#4A90C2" >about US$25.6/kg</text>
+<text x="480" y="356" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Average export prices of Taiwan’s products in 2024 (approximate, from textbook Table 1-4-1)</text>
+</svg>

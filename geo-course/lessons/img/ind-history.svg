@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="460" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣工業發展歷程</text>
+<line x1="60" y1="150" x2="905" y2="150" stroke="#8C7B6A" stroke-width="6" stroke-linecap="round"/>
+<line x1="880.0" y1="150.0" x2="909.2" y2="150.0" stroke="#8C7B6A" stroke-width="6" stroke-linecap="round"/><path d="M920.0,150.0 L903.8,157.8 L903.8,142.2 Z" fill="#8C7B6A"/>
+<circle cx="130" cy="150" r="14" fill="#E0A43A" stroke="#fff" stroke-width="3"/>
+<text x="130" y="92" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >民國 40 年代</text><text x="130" y="118" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >1950s</text>
+<rect x="25" y="182" width="210" height="226" rx="16" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/>
+<text x="130" y="232" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🍍</text>
+<rect x="60.0" y="256.8" width="140" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="130" y="277.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">輕工業</text>
+<text x="130" y="316" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >農產品加工：鳳梨罐頭</text>
+<text x="130" y="344" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >民生工業：紡織（紗線）</text>
+<text x="130" y="372" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >累積工業發展資金</text>
+<circle cx="360" cy="150" r="14" fill="#E0A43A" stroke="#fff" stroke-width="3"/>
+<text x="360" y="92" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >民國 50 年代</text><text x="360" y="118" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >1960s</text>
+<rect x="255" y="182" width="210" height="226" rx="16" fill="#FDF3DC" stroke="#45392F" stroke-width="1.8"/>
+<text x="360" y="232" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >👟</text>
+<rect x="290.0" y="256.8" width="140" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="360" y="277.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">輕工業</text>
+<text x="360" y="316" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >設立加工出口區</text>
+<text x="360" y="344" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >廉價勞力＋優惠政策</text>
+<text x="360" y="372" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >成衣、製鞋、雨傘出口</text>
+<circle cx="590" cy="150" r="14" fill="#E0694F" stroke="#fff" stroke-width="3"/>
+<text x="590" y="92" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >民國 60 年代</text><text x="590" y="118" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >1970s</text>
+<rect x="485" y="182" width="210" height="226" rx="16" fill="#FDE8E3" stroke="#45392F" stroke-width="1.8"/>
+<text x="590" y="232" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🛢️</text>
+<rect x="520.0" y="256.8" width="140" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="590" y="277.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">重工業</text>
+<text x="590" y="316" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >十大建設</text>
+<text x="590" y="344" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >沿海港口發展</text>
+<text x="590" y="372" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >鋼鐵、石化 → 經濟起飛</text>
+<circle cx="820" cy="150" r="14" fill="#4A90C2" stroke="#fff" stroke-width="3"/>
+<text x="820" y="92" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >民國 70 年代至今</text><text x="820" y="118" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >1980s～</text>
+<rect x="715" y="182" width="210" height="226" rx="16" fill="#E1EFF9" stroke="#45392F" stroke-width="1.8"/>
+<text x="820" y="232" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >💻</text>
+<rect x="750.0" y="256.8" width="140" height="30.4" rx="15.2" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="820" y="277.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">高科技工業</text>
+<text x="820" y="316" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >工資上漲 → 產業轉型</text>
+<text x="820" y="344" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >設立新竹科學園區</text>
+<text x="820" y="372" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >電腦、手機、半導體</text>
+<text x="480" y="440" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >政府依各時期工業區位條件的變化，調整工業發展的重點</text>
+</svg>
