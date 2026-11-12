@@ -23,6 +23,7 @@ window.SITE_EN = {
     'west-asia': { name: 'West Asia', sub: '西亞' },
     'south-asia': { name: 'South Asia', sub: '南亞' },
     'northeast-asia': { name: 'Northeast Asia', sub: '東北亞' },
+    'southeast-asia': { name: 'Southeast Asia', sub: '東南亞' },
     china: { name: 'China', sub: '中國' }
   },
   lessons: {
@@ -51,7 +52,7 @@ window.SITE_EN = {
     polar: 'The Polar Regions and Climate Change'
   },
   labels: {
-    '台灣': 'Taiwan', '中國': 'China', '中亞': 'Central Asia', '東北亞': 'Northeast Asia', '南亞': 'South Asia',
+    '台灣': 'Taiwan', '中國': 'China', '中亞': 'Central Asia', '東北亞': 'Northeast Asia', '東南亞': 'Southeast Asia', '大洋洲': 'Oceania', '南亞': 'South Asia',
     '西亞與北非': 'West Asia & North Africa', '西亞': 'West Asia', '北非': 'North Africa', '亞洲': 'Asia', '世界地圖': 'World Map',
     '漠北非洲': 'North Africa', '漠南非洲自然環境': 'Sub-Saharan: Nature', '漠南非洲人文經濟': 'Sub-Saharan: Economy',
     '位置與地圖判讀': 'Location & Maps', '世界中的台灣': 'Taiwan in the World', '台灣的地形': 'Landforms of Taiwan',
