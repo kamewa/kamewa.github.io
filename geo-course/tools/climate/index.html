@@ -289,7 +289,7 @@
                     <input type="number" id="min-temp" value="-40" step="1">
                 </div>
                 <div class="form-group" style="margin-bottom: 0;">
-                    <label for="max-precip" style="font-size: 13px; color: #555;">降水上限 (預設 400)</label>
+                    <label for="max-precip" style="font-size: 13px; color: #555;">降水上限 (自動；超過 1000 才用手動值)</label>
                     <input type="number" id="max-precip" value="400" step="10">
                 </div>
             </div>
@@ -621,7 +621,16 @@
             const minTempRaw = parseFloat(document.getElementById('min-temp').value);
             const customMinTemp = isNaN(minTempRaw) ? -40 : minTempRaw;
             const maxPrecipRaw = parseFloat(document.getElementById('max-precip').value);
-            const customMaxPrecip = isNaN(maxPrecipRaw) ? 400 : maxPrecipRaw;
+            let customMaxPrecip = isNaN(maxPrecipRaw) ? 400 : maxPrecipRaw;
+            // 【自動雨量刻度】最高月降水量在標準範圍內 → 用標準刻度（氣溫 -40°C 起為 400mm；更冷的城市依格線對齊加高）；
+            // 超過標準範圍 → 每 50mm（一格）往上加，取到剛好容納最高月降水量的刻度（例：450→450、463→500）。
+            // 只有手動設定超過 1000mm 的特殊多雨城市（例：乞拉朋吉）維持手動刻度。
+            if (customMaxPrecip <= 1000) {
+                const rainMax = Math.max(0, ...Array.from({ length: 12 }, (_, i) => parseFloat(document.getElementById(`precip-${i}`).value) || 0));
+                const baseP = (40 - customMinTemp) * 5;
+                customMaxPrecip = Math.max(baseP, Math.ceil(rainMax / 50 - 1e-9) * 50);
+                document.getElementById('max-precip').value = customMaxPrecip;
+            }
 
             // 讓左右兩軸格線永遠對齊：降水刻度間距 = 降水上限 ÷ 氣溫格數
             // 標準比例：氣溫每格 10°C ＝ 降水每格 50mm（-40～40°C 對 0～400mm）

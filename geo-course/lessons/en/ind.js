@@ -127,7 +127,7 @@ registerLesson({
         "type": "Temperate oceanic climate (Cfb)",
         "koppen": "Cfb",
         "feature": "Wet all year, especially in fall and winter; cool summers",
-        "minTemp": -10,
+        "minTemp": -40,
         "maxPrecip": 400,
         "temps": [
          -1.9,

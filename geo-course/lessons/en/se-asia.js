@@ -262,7 +262,7 @@ registerLesson({
         "type": "Tropical monsoon climate (Aw)",
         "feature": "The summer southwest monsoon brings heavy rain; winter and spring are dry",
         "minTemp": -40,
-        "maxPrecip": 600,
+        "maxPrecip": 550,
         "temps": [
          26.9,
          27.5,

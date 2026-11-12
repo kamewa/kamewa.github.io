@@ -339,7 +339,7 @@ registerLesson({
         "type": "Subtropical monsoon climate (Cfa)",
         "feature": "Faces the winter northeast monsoon; rainy in fall and winter",
         "minTemp": -40,
-        "maxPrecip": 500,
+        "maxPrecip": 450,
         "temps": [
          16,
          16,
@@ -425,7 +425,7 @@ registerLesson({
         "type": "Tropical monsoon climate (Aw)",
         "feature": "Warm all year, rainy summers and dry winters",
         "minTemp": -40,
-        "maxPrecip": 600,
+        "maxPrecip": 550,
         "temps": [
          21.1,
          21.7,

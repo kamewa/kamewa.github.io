@@ -120,8 +120,8 @@ registerLesson({
         "city": "Chiayi",
         "type": "Subtropical monsoon climate (Cwa)",
         "feature": "Hot, rainy summers; mild, drier winters",
-        "minTemp": -10,
-        "maxPrecip": 600,
+        "minTemp": -40,
+        "maxPrecip": 450,
         "temps": [
          16.9,
          17.8,
@@ -163,8 +163,8 @@ registerLesson({
         "city": "Yushan",
         "type": "Highland climate (ET)",
         "feature": "Nearly 4,000 m high; cold all year, with snow in winter",
-        "minTemp": -10,
-        "maxPrecip": 600,
+        "minTemp": -40,
+        "maxPrecip": 550,
         "temps": [
          -1.4,
          -0.6,

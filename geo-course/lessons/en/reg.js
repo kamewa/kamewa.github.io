@@ -168,8 +168,8 @@ registerLesson({
         "city": "Magong",
         "type": "Subtropical monsoon climate (Cfa)",
         "feature": "Rain mostly in summer, little in total; strong northeast monsoon in winter",
-        "minTemp": -10,
-        "maxPrecip": 600,
+        "minTemp": -40,
+        "maxPrecip": 400,
         "temps": [
          17,
          17,
@@ -211,8 +211,8 @@ registerLesson({
         "city": "Yilan",
         "type": "Subtropical monsoon climate (Cfa)",
         "feature": "Rain all year; extra rain in fall and winter from the northeast monsoon",
-        "minTemp": -10,
-        "maxPrecip": 600,
+        "minTemp": -40,
+        "maxPrecip": 450,
         "temps": [
          16.5,
          17,

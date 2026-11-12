@@ -306,7 +306,7 @@ registerLesson({
         "type": "Temperate monsoon climate (Dwa)",
         "feature": "Cold winters, hot summers, rain mostly in summer",
         "minTemp": -40,
-        "maxPrecip": 500,
+        "maxPrecip": 450,
         "temps": [
          -2,
          0.7,
