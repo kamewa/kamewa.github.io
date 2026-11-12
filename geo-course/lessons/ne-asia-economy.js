@@ -34,6 +34,7 @@ registerLesson({
       concepts: [
         {
           icon: '🚢', color: 'blue', title: '一、國際貿易發達',
+          models: [{ id: 'ne-asia-landform', label: '東北亞地形：看日本沿海的平原與港口' }],
           text: '日本的工業產品設計新穎、品質優良，行銷全球。日本靠**國際貿易**發展經濟：',
           grid: [
             { icon: '⛽', title: '原料仰賴進口', text: '日本**能源與原料缺乏**，需要大量進口。' },

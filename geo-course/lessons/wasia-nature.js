@@ -85,7 +85,16 @@ registerLesson({
           text: '**地中海沿岸**屬於**溫帶地中海型氣候**：夏季乾熱、冬季溫和多雨。祕密在於**風帶會隨季節南北移動**：',
           image: { src: 'lessons/img/wa-medclimate.svg', caption: '地中海型氣候：夏、冬兩季風帶移動（自繪示意圖）' },
           models: [{ id: 'w-asia-landform', mode: 'weather', wind: 'W', icon: '🌧️', small: '3D 地形雨', label: '冬季西風帶來地中海的水氣' }]
-        }
+        },
+        {
+          icon: '📊', color: 'red', title: '看看西亞城市的氣候圖',
+          text: '同樣在西亞，沙漠、高原和地中海沿岸的氣候很不一樣：',
+          grid: [
+            { icon: '🏜️', title: '利雅德（沙烏地阿拉伯）', text: '阿拉伯高原，熱帶沙漠氣候，夏季酷熱。', tag: '利雅德', chart: {"continent": "亞洲 (Asia)", "city": "利雅德 (Riyadh)", "type": "熱帶沙漠氣候", "feature": "夏季酷熱，全年乾燥少雨", "minTemp": 0, "maxPrecip": 40, "temps": [14.6, 17.5, 21.5, 27.2, 33.0, 36.0, 36.8, 36.9, 33.7, 28.5, 21.4, 16.4], "precips": [15.4, 6.1, 21.1, 24.3, 5.4, 0, 0, 0.5, 0, 1.0, 11.4, 14.7], "source": "Wikipedia 氣候表（1991–2020 平均）"} },
+            { icon: '⛰️', title: '德黑蘭（伊朗）', text: '伊朗高原，地勢高，乾燥少雨。', tag: '德黑蘭', chart: {"continent": "亞洲 (Asia)", "city": "德黑蘭 (Tehran，海拔 1,191 公尺)", "type": "乾燥氣候（伊朗高原）", "feature": "高原內部乾燥，冬季有少量降水", "minTemp": 0, "maxPrecip": 80, "temps": [4.7, 7.0, 11.8, 17.6, 23.2, 28.8, 31.4, 30.5, 26.3, 19.6, 11.6, 6.5], "precips": [31.7, 32.9, 42.5, 34.8, 14.0, 2.3, 2.3, 1.4, 0.9, 13.6, 30.9, 31.8], "source": "Wikipedia 氣候表（1991–2020 平均）"} },
+            { icon: '🌊', title: '貝魯特（黎巴嫩，課本）', text: '地中海沿岸，夏乾冬雨。', tag: '貝魯特', chart: {"continent": "亞洲 (Asia)", "city": "貝魯特 (Beirut)", "type": "溫帶地中海型氣候", "feature": "夏乾冬雨", "minTemp": 0, "maxPrecip": 200, "temps": [14.0, 14.0, 16.0, 18.7, 21.7, 24.9, 27.1, 27.8, 26.8, 24.1, 19.5, 15.8], "precips": [154, 127, 84, 31, 11, 1, 0.3, 0, 5, 60, 115, 141], "source": "Wikipedia 氣候表（丹麥氣象研究所等資料）"} }
+          ]
+        },
       ],
       think: [
         {
