@@ -78,8 +78,8 @@ registerLesson({
        "tag": "Cairo",
        "chart": {
         "continent": "Africa",
-        "city": "Cairo（開羅）",
-        "type": "Tropical desert climate（熱帶沙漠氣候）",
+        "city": "Cairo",
+        "type": "Tropical desert climate (BWh)",
         "feature": "Dry all year; almost no rain",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -121,8 +121,8 @@ registerLesson({
        "tag": "Rabat",
        "chart": {
         "continent": "Africa",
-        "city": "Rabat（拉巴特）",
-        "type": "Mediterranean climate（溫帶地中海型氣候）",
+        "city": "Rabat",
+        "type": "Mediterranean climate (Csa)",
         "feature": "Dry summers and rainy winters; Northern Hemisphere",
         "minTemp": -40,
         "maxPrecip": 400,

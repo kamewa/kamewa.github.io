@@ -294,8 +294,8 @@ registerLesson({
        "tag": "Moscow",
        "chart": {
         "continent": "Europe",
-        "city": "Moscow（莫斯科）",
-        "type": "Temperate continental climate（溫帶大陸性氣候）",
+        "city": "Moscow",
+        "type": "Temperate continental climate (Dfb)",
         "feature": "Cold winters; summer is the main rainy season",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -342,8 +342,8 @@ registerLesson({
        "tag": "Verkhoyansk",
        "chart": {
         "continent": "Asia",
-        "city": "Verkhoyansk（維科揚斯克）",
-        "type": "Polar / extreme continental climate",
+        "city": "Verkhoyansk",
+        "type": "Polar / extreme continental climate (Dfd)",
         "feature": "Yearly range over 60℃; extremely cold winters",
         "minTemp": -50,
         "maxPrecip": 450,
@@ -385,8 +385,8 @@ registerLesson({
        "tag": "Vladivostok",
        "chart": {
         "continent": "Asia",
-        "city": "Vladivostok（海參崴）",
-        "type": "Temperate monsoon climate（溫帶季風氣候）",
+        "city": "Vladivostok",
+        "type": "Temperate monsoon climate (Dwb)",
         "feature": "Southeast monsoon in summer brings more rain",
         "minTemp": -40,
         "maxPrecip": 400,

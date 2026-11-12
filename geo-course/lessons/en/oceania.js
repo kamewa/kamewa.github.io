@@ -127,8 +127,8 @@ registerLesson({
        "tag": "Alice Springs, Australia",
        "chart": {
         "continent": "Oceania",
-        "city": "Alice Springs（艾利斯泉）",
-        "type": "Tropical desert climate（熱帶沙漠氣候）",
+        "city": "Alice Springs",
+        "type": "Tropical desert climate (BWh)",
         "feature": "Dry with little rain; hot summers",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -170,8 +170,8 @@ registerLesson({
        "tag": "Perth, Australia",
        "chart": {
         "continent": "Oceania",
-        "city": "Perth（伯斯）",
-        "type": "Mediterranean climate（溫帶地中海型氣候）",
+        "city": "Perth",
+        "type": "Mediterranean climate (Csa)",
         "feature": "Dry summers, rainy winters (winter in the Southern Hemisphere is June–August)",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -213,8 +213,8 @@ registerLesson({
        "tag": "Melbourne, Australia",
        "chart": {
         "continent": "Oceania",
-        "city": "Melbourne（墨爾本）",
-        "type": "Temperate maritime climate（溫帶海洋性氣候）",
+        "city": "Melbourne",
+        "type": "Temperate maritime climate (Cfb)",
         "feature": "Rain all year; mild climate",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -256,8 +256,8 @@ registerLesson({
        "tag": "Sydney, Australia",
        "chart": {
         "continent": "Oceania",
-        "city": "Sydney（雪梨）",
-        "type": "Warm temperate climate with summer rain（夏雨型暖溫帶氣候）",
+        "city": "Sydney",
+        "type": "Warm temperate climate with summer rain (Cfa)",
         "feature": "Warm and wet; rain all year",
         "minTemp": -40,
         "maxPrecip": 400,

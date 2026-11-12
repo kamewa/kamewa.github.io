@@ -79,8 +79,8 @@ registerLesson({
        "tag": "Kotelny Island, Arctic",
        "chart": {
         "continent": "The Arctic",
-        "city": "Kotelny Island（科特尼島）",
-        "type": "Polar (tundra) climate（寒帶苔原氣候）",
+        "city": "Kotelny Island",
+        "type": "Polar (tundra) climate (ET)",
         "feature": "Cold all year; even the warmest month is only a few degrees",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -122,8 +122,8 @@ registerLesson({
        "tag": "Vostok Station, Antarctica",
        "chart": {
         "continent": "Antarctica",
-        "city": "Vostok Station（沃斯托克站）",
-        "type": "Polar (ice cap) climate（寒帶冰原氣候）",
+        "city": "Vostok Station",
+        "type": "Polar (ice cap) climate (EF)",
         "feature": "The coldest place on Earth’s surface; frozen all year with very little precipitation",
         "minTemp": -70,
         "maxPrecip": 550,

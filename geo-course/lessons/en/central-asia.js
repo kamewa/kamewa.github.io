@@ -63,8 +63,8 @@ registerLesson({
        "tag": "Tashkent",
        "chart": {
         "continent": "Asia",
-        "city": "Tashkent（塔什干）",
-        "type": "Temperate dry climate（溫帶乾燥氣候）",
+        "city": "Tashkent",
+        "type": "Temperate dry climate (Csa)",
         "feature": "Dry inland. Hot summers with little rain.",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -106,8 +106,8 @@ registerLesson({
        "tag": "Astana",
        "chart": {
         "continent": "Asia",
-        "city": "Astana（阿斯塔納）",
-        "type": "Temperate steppe climate（溫帶草原氣候）",
+        "city": "Astana",
+        "type": "Temperate steppe climate (Dfb)",
         "feature": "Very cold winters, a large yearly temperature range, little rain",
         "minTemp": -40,
         "maxPrecip": 400,

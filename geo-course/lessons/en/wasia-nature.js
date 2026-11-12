@@ -149,8 +149,8 @@ registerLesson({
        "tag": "Riyadh",
        "chart": {
         "continent": "Asia",
-        "city": "Riyadh（利雅德）",
-        "type": "Tropical desert climate（熱帶沙漠氣候）",
+        "city": "Riyadh",
+        "type": "Tropical desert climate (BWh)",
         "feature": "Extremely hot summers; dry with little rain all year",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -192,8 +192,8 @@ registerLesson({
        "tag": "Tehran",
        "chart": {
         "continent": "Asia",
-        "city": "Tehran（德黑蘭）, 1,191 m high",
-        "type": "Dry climate (Iranian Plateau)",
+        "city": "Tehran, 1,191 m high",
+        "type": "Dry climate, Iranian Plateau (BSh)",
         "feature": "Dry inside the plateau, with a little rain in winter",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -235,8 +235,8 @@ registerLesson({
        "tag": "Beirut",
        "chart": {
         "continent": "Asia",
-        "city": "Beirut（貝魯特）",
-        "type": "Mediterranean climate（溫帶地中海型氣候）",
+        "city": "Beirut",
+        "type": "Mediterranean climate (Csa)",
         "feature": "Dry summers, rainy winters",
         "minTemp": -40,
         "maxPrecip": 400,

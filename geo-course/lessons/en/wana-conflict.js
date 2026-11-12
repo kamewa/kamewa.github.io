@@ -413,8 +413,8 @@ registerLesson({
        "tag": "Jerusalem",
        "chart": {
         "continent": "Asia",
-        "city": "Jerusalem（耶路撒冷）",
-        "type": "Mediterranean climate（溫帶地中海型氣候）",
+        "city": "Jerusalem",
+        "type": "Mediterranean climate (Csa)",
         "feature": "Hot, dry summers and mild, rainy winters",
         "minTemp": -40,
         "maxPrecip": 400,

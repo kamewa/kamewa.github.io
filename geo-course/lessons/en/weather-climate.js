@@ -335,8 +335,8 @@ registerLesson({
        "tag": "Keelung",
        "chart": {
         "continent": "Asia",
-        "city": "Keelung（基隆）",
-        "type": "Subtropical monsoon climate（副熱帶季風氣候）",
+        "city": "Keelung",
+        "type": "Subtropical monsoon climate (Cfa)",
         "feature": "Faces the winter northeast monsoon; rainy in fall and winter",
         "minTemp": -40,
         "maxPrecip": 500,
@@ -378,8 +378,8 @@ registerLesson({
        "tag": "Taipei",
        "chart": {
         "continent": "Asia",
-        "city": "Taipei（臺北）",
-        "type": "Subtropical monsoon climate（副熱帶季風氣候）",
+        "city": "Taipei",
+        "type": "Subtropical monsoon climate (Cfa)",
         "feature": "Lots of convection rain and typhoon rain in summer; also rain in winter",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -421,8 +421,8 @@ registerLesson({
        "tag": "Hengchun",
        "chart": {
         "continent": "Asia",
-        "city": "Hengchun（恆春）",
-        "type": "Tropical monsoon climate（熱帶季風氣候）",
+        "city": "Hengchun",
+        "type": "Tropical monsoon climate (Aw)",
         "feature": "Warm all year, rainy summers and dry winters",
         "minTemp": -40,
         "maxPrecip": 600,

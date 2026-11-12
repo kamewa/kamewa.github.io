@@ -394,8 +394,8 @@ registerLesson({
        "tag": "Basankusu, Congo",
        "chart": {
         "continent": "Africa",
-        "city": "Basankusu（巴松庫蘇）",
-        "type": "Tropical rainforest climate",
+        "city": "Basankusu",
+        "type": "Tropical rainforest climate (Af)",
         "feature": "Congo Basin; hot and rainy all year",
         "minTemp": -40,
         "maxPrecip": 400,
@@ -437,8 +437,8 @@ registerLesson({
        "tag": "Ziguinchor, Senegal",
        "chart": {
         "continent": "Africa",
-        "city": "Ziguinchor（濟甘秀赫）",
-        "type": "Tropical savanna climate",
+        "city": "Ziguinchor",
+        "type": "Tropical savanna climate (Aw)",
         "feature": "Northern Hemisphere; rainy summers, dry winters, clear wet and dry seasons",
         "minTemp": -40,
         "maxPrecip": 500,
@@ -480,8 +480,8 @@ registerLesson({
        "tag": "Namib Desert",
        "chart": {
         "continent": "Africa",
-        "city": "Gobabeb（戈巴貝布）(Namib Desert)",
-        "type": "Tropical desert climate",
+        "city": "Gobabeb, Namib Desert",
+        "type": "Tropical desert climate (BWh)",
         "feature": "Cold coastal current + subtropical high pressure; almost no rain all year",
         "minTemp": -40,
         "maxPrecip": 400,
