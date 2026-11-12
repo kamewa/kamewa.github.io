@@ -925,3 +925,7 @@ h1, h2, h3, h4, .brand-title, .brand-title.two-line b { font-weight: 400; }
 @media (max-width: 760px) { .lang-toggle button { padding: 5px 9px; font-size: .8rem; } }
 .zh-gloss { color: var(--ink-tertiary); font-weight: 400; font-size: .92em; }
 strong .zh-gloss, .zh-gloss strong { font-weight: 400; }
+
+/* 課程開場的示意圖：SVG 示意圖完整顯示、不裁切；開場圖片寬度不超過 860px（避免放得過大） */
+.fig-row .lesson-fig img[src$=".svg"] { aspect-ratio: auto; object-fit: contain; }
+.intro-card .fig-row { grid-template-columns: minmax(0, 860px); justify-content: center; }
