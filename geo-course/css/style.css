@@ -926,6 +926,7 @@ h1, h2, h3, h4, .brand-title, .brand-title.two-line b { font-weight: 400; }
 .zh-gloss { color: var(--ink-tertiary); font-weight: 400; font-size: .92em; }
 strong .zh-gloss, .zh-gloss strong { font-weight: 400; }
 
-/* 課程開場的示意圖：SVG 示意圖完整顯示、不裁切；開場圖片寬度不超過 860px（避免放得過大） */
+/* 課程開場的圖：SVG 示意圖完整顯示、不裁切，和下方說明圖一樣滿版；照片寬度不超過 860px（避免放得過大） */
 .fig-row .lesson-fig img[src$=".svg"] { aspect-ratio: auto; object-fit: contain; }
-.intro-card .fig-row { grid-template-columns: minmax(0, 860px); justify-content: center; }
+.intro-card .fig-row { grid-template-columns: 1fr; }
+.intro-card .fig-row .lesson-fig:not(:has(img[src$=".svg"])) { width: 100%; max-width: 860px; justify-self: center; }
