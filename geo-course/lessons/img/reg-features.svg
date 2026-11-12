@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 410" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="410" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣各區域的特色</text>
+<rect x="22" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#E07A8B" stroke-width="3"/>
+<rect x="22" y="62" width="174" height="92" rx="16" fill="#E07A8B" opacity=".25"/>
+<text x="109" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🏙️</text><text x="109" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >北部區域</text>
+<text x="109" y="196" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >政治、經濟中心</text>
+<text x="109" y="236" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >大企業總部（臺北 101）</text>
+<text x="109" y="276" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >桃園國際機場是門戶</text>
+<text x="109" y="316" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >捷運串聯成生活圈</text>
+<rect x="208" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#E8A04A" stroke-width="3"/>
+<rect x="208" y="62" width="174" height="92" rx="16" fill="#E8A04A" opacity=".25"/>
+<text x="295" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🌷</text><text x="295" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >中部區域</text>
+<text x="295" y="196" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >濁水溪流貫、土壤肥沃</text>
+<text x="295" y="236" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >西部交通中樞</text>
+<text x="295" y="276" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >花卉、蔬果供應地</text>
+<text x="295" y="316" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >轉型為精密機械重鎮</text>
+<rect x="394" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#9DBF4F" stroke-width="3"/>
+<rect x="394" y="62" width="174" height="92" rx="16" fill="#9DBF4F" opacity=".25"/>
+<text x="481" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🍍</text><text x="481" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >南部區域</text>
+<text x="481" y="196" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >氣候暖溼、平原廣大</text>
+<text x="481" y="236" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >稻米、熱帶水果產區</text>
+<text x="481" y="276" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >沿海養殖、蚵田</text>
+<text x="481" y="316" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >高雄港：重工業帶</text>
+<rect x="580" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#4FA88A" stroke-width="3"/>
+<rect x="580" y="62" width="174" height="92" rx="16" fill="#4FA88A" opacity=".25"/>
+<text x="667" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🎈</text><text x="667" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >東部區域</text>
+<text x="667" y="196" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >原住民族傳統生活空間</text>
+<text x="667" y="236" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >中央山脈阻隔、人口少</text>
+<text x="667" y="276" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >環境品質好</text>
+<text x="667" y="316" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >發展農業與觀光業</text>
+<rect x="766" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#7F8FC9" stroke-width="3"/>
+<rect x="766" y="62" width="174" height="92" rx="16" fill="#7F8FC9" opacity=".25"/>
+<text x="853" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🦁</text><text x="853" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >金馬離島</text>
+<text x="853" y="196" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >靠近中國福建沿海</text>
+<text x="853" y="236" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >曾是國防前線</text>
+<text x="853" y="276" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >戰地觀光資源</text>
+<text x="853" y="316" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >兩岸貿易往來的窗口</text>
+<text x="480" y="392" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >開發時間早晚和自然環境不同，各區域的發展狀況也不一樣</text>
+</svg>

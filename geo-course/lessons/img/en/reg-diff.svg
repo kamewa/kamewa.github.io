@@ -1,0 +1,25 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 432" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="432" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="21.4" font-weight="800" fill="#332B25" >Differences among regions: income, education, health care</text>
+<rect x="30" y="64" width="280" height="320" rx="18" fill="#FDF3DC" stroke="#45392F" stroke-width="2"/>
+<text x="170" y="118" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >💰</text><rect x="100.0" y="142.9" width="140" height="34.199999999999996" rx="17.099999999999998" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="170" y="166.3" text-anchor="middle" font-size="14.3" font-weight="800" fill="#fff">Household income</text>
+<text x="170" y="210" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Highest in metro areas</text>
+<text x="170" y="242" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Next in nearby towns</text>
+<text x="170" y="274" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Lowest in mountain townships</text>
+<text x="170" y="306" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Hsinchu: strong high-tech industry,</text>
+<text x="170" y="338" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >income close to Taipei</text>
+<rect x="340" y="64" width="280" height="320" rx="18" fill="#E1EFF9" stroke="#45392F" stroke-width="2"/>
+<text x="480" y="118" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >🎓</text><rect x="410.0" y="142.9" width="140" height="34.199999999999996" rx="17.099999999999998" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="480" y="166.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">Education</text>
+<text x="480" y="210" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Shaped by schools and industry</text>
+<text x="480" y="242" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >North has rich school resources</text>
+<text x="480" y="274" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Business attracts graduates</text>
+<text x="480" y="306" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Taipei City and Hsinchu City</text>
+<text x="480" y="338" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >have the highest education levels</text>
+<rect x="650" y="64" width="280" height="320" rx="18" fill="#FDE8E3" stroke="#45392F" stroke-width="2"/>
+<text x="790" y="118" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >🏥</text><rect x="720.0" y="142.9" width="140" height="34.199999999999996" rx="17.099999999999998" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="790" y="166.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">Health care</text>
+<text x="790" y="210" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Hospitals follow population</text>
+<text x="790" y="242" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Cities: more people, more hospitals</text>
+<text x="790" y="274" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Mountains and east: fewer people,</text>
+<text x="790" y="306" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >far fewer hospitals</text>
+<text x="480" y="414" text-anchor="middle" font-size="13.0" font-weight="800" fill="#6B5E52" >Within one region there are also city–village and plain–mountain differences</text>
+</svg>

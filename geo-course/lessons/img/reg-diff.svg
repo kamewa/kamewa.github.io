@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 432" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="432" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >本島各區域的差異：所得、教育、醫療</text>
+<rect x="30" y="64" width="280" height="320" rx="18" fill="#FDF3DC" stroke="#45392F" stroke-width="2"/>
+<text x="170" y="118" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >💰</text><rect x="100.0" y="142.9" width="140" height="34.199999999999996" rx="17.099999999999998" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="170" y="166.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">家戶所得</text>
+<text x="170" y="210" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >都會區最高</text>
+<text x="170" y="242" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >周遭鄉鎮次之</text>
+<text x="170" y="274" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >山地鄉鎮最低</text>
+<text x="170" y="306" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >新竹：高科技產業發達，</text>
+<text x="170" y="338" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >所得直逼臺北</text>
+<rect x="340" y="64" width="280" height="320" rx="18" fill="#E1EFF9" stroke="#45392F" stroke-width="2"/>
+<text x="480" y="118" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >🎓</text><rect x="410.0" y="142.9" width="140" height="34.199999999999996" rx="17.099999999999998" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="480" y="166.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">教育程度</text>
+<text x="480" y="210" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >受教育資源與產業影響</text>
+<text x="480" y="242" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >北部教育資源豐富</text>
+<text x="480" y="274" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >工商業吸引高學歷人口</text>
+<text x="480" y="306" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >臺北市、新竹市</text>
+<text x="480" y="338" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >教育程度居全臺之冠</text>
+<rect x="650" y="64" width="280" height="320" rx="18" fill="#FDE8E3" stroke="#45392F" stroke-width="2"/>
+<text x="790" y="118" text-anchor="middle" font-size="40" font-weight="400" fill="#332B25" >🏥</text><rect x="720.0" y="142.9" width="140" height="34.199999999999996" rx="17.099999999999998" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="790" y="166.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">醫療設施</text>
+<text x="790" y="210" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >醫院數量和人口分布有關</text>
+<text x="790" y="242" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >都市人多、醫院多</text>
+<text x="790" y="274" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >山區、東部人少，</text>
+<text x="790" y="306" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >醫院明顯較少</text>
+<text x="480" y="414" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >同一區域內，也有城鄉差異和平地、山地的差異</text>
+</svg>

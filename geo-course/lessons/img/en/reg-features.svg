@@ -1,0 +1,40 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 410" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="410" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="20.6" font-weight="800" fill="#332B25" >Features of Taiwan’s regions</text>
+<rect x="22" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#E07A8B" stroke-width="3"/>
+<rect x="22" y="62" width="174" height="92" rx="16" fill="#E07A8B" opacity=".25"/>
+<text x="109" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🏙️</text><text x="109" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Northern region</text>
+<text x="109" y="196" text-anchor="middle" font-size="11.4" font-weight="800" fill="#332B25" >Political and economic center</text>
+<text x="109" y="236" text-anchor="middle" font-size="9.6" font-weight="800" fill="#332B25" >Company headquarters (Taipei 101)</text>
+<text x="109" y="276" text-anchor="middle" font-size="11.0" font-weight="800" fill="#332B25" >Taoyuan Airport is the gateway</text>
+<text x="109" y="316" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >MRT links one living area</text>
+<rect x="208" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#E8A04A" stroke-width="3"/>
+<rect x="208" y="62" width="174" height="92" rx="16" fill="#E8A04A" opacity=".25"/>
+<text x="295" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🌷</text><text x="295" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Central region</text>
+<text x="295" y="196" text-anchor="middle" font-size="12.9" font-weight="800" fill="#332B25" >Zhuoshui River, fertile soil</text>
+<text x="295" y="236" text-anchor="middle" font-size="11.1" font-weight="800" fill="#332B25" >Transportation hub of the west</text>
+<text x="295" y="276" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Flowers, vegetables, fruit</text>
+<text x="295" y="316" text-anchor="middle" font-size="9.9" font-weight="800" fill="#332B25" >Now a precision-machinery center</text>
+<rect x="394" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#9DBF4F" stroke-width="3"/>
+<rect x="394" y="62" width="174" height="92" rx="16" fill="#9DBF4F" opacity=".25"/>
+<text x="481" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🍍</text><text x="481" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Southern region</text>
+<text x="481" y="196" text-anchor="middle" font-size="13.3" font-weight="800" fill="#332B25" >Warm, humid, wide plains</text>
+<text x="481" y="236" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Rice and tropical fruit</text>
+<text x="481" y="276" text-anchor="middle" font-size="12.7" font-weight="800" fill="#332B25" >Coastal fish farms, oysters</text>
+<text x="481" y="316" text-anchor="middle" font-size="10.8" font-weight="800" fill="#332B25" >Kaohsiung Port: heavy industry</text>
+<rect x="580" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#4FA88A" stroke-width="3"/>
+<rect x="580" y="62" width="174" height="92" rx="16" fill="#4FA88A" opacity=".25"/>
+<text x="667" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🎈</text><text x="667" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Eastern region</text>
+<text x="667" y="196" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Indigenous homelands</text>
+<text x="667" y="236" text-anchor="middle" font-size="10.3" font-weight="800" fill="#332B25" >Cut off by mountains, few people</text>
+<text x="667" y="276" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Clean environment</text>
+<text x="667" y="316" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Farming and tourism</text>
+<rect x="766" y="62" width="174" height="300" rx="16" fill="#fff" stroke="#7F8FC9" stroke-width="3"/>
+<rect x="766" y="62" width="174" height="92" rx="16" fill="#7F8FC9" opacity=".25"/>
+<text x="853" y="108" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🦁</text><text x="853" y="144" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >Kinmen–Matsu</text>
+<text x="853" y="196" text-anchor="middle" font-size="13.3" font-weight="800" fill="#332B25" >Near China’s Fujian coast</text>
+<text x="853" y="236" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Former defense front line</text>
+<text x="853" y="276" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Wartime heritage tourism</text>
+<text x="853" y="316" text-anchor="middle" font-size="11.7" font-weight="800" fill="#332B25" >Window for cross-strait trade</text>
+<text x="480" y="392" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >Regions differ because of when they were settled and their natural environments</text>
+</svg>

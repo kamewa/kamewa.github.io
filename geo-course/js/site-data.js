@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110353',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110354',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -88,7 +88,7 @@ window.SITE = {
         { label: '第一級產業', x: 25.0, y: 82.9, href: '#/l/agr/taiwan-human' },   // 3 左下（製茶）：一下 第3章
         { label: '第二、三級產業', x: 78.4, y: 22.9, href: '#/l/ind/taiwan-human' },   // 4 右上（果園）：一下 第4章
         { label: '聚落與都市', x: 83.1, y: 54.0, href: '#/l/set/taiwan-human' },   // 5 右中（溫室花卉）：一下 第5章
-        { label: '6', x: 68.7, y: 81.5, href: '' },   // 右下（農產品）
+        { label: '區域發展與差異', x: 68.7, y: 81.5, href: '#/l/reg/taiwan-human' },   // 6 右下（農產品）：一下 第6章
         { label: '自然', icon: '🌿', x: 47.8, y: 44.4, href: '#/c/taiwan', kind: 'switch' },   // 7 島中央：切換回自然地圖
         { label: '地名與議題', icon: '🌃', x: 55.5, y: 13.6, href: '#/c/taiwan-issues', kind: 'switch' }   // 8 島北端：切換到地名與議題地圖
       ] },
@@ -196,6 +196,8 @@ window.SITE = {
       on: { 'taiwan-human': { x: 78.4, y: 22.9 } } },
     { id: 'set',             name: '聚落與都市', book: '一下 第5章', status: 'open', file: 'lessons/set.js',
       on: { 'taiwan-human': { x: 83.1, y: 54.0 } } },
+    { id: 'reg',             name: '區域發展與差異', book: '一下 第6章', status: 'open', file: 'lessons/reg.js',
+      on: { 'taiwan-human': { x: 68.7, y: 81.5 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
       on: { taiwan: { x: 30.1, y: 23.5 } } },
     { id: 'taiwan-world',    name: '世界中的臺灣', book: '一上 第2章', status: 'open', file: 'lessons/taiwan-world.js',

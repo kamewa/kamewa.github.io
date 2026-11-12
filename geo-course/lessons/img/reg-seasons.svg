@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="520" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >順著季節取用資源：原住民族的生活智慧</text>
+<path d="M250.0,100.0 A170,170 0 0 1 335.0,122.8 L285.0,209.4 A70,70 0 0 0 250.0,200.0 Z" fill="#E3A86B" stroke="#fff" stroke-width="2"/>
+<text x="298.6579804792739" y="93.40594465765517" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >1月</text>
+<path d="M335.0,122.8 A170,170 0 0 1 397.2,185.0 L310.6,235.0 A70,70 0 0 0 285.0,209.4 Z" fill="#E3A86B" stroke="#fff" stroke-width="2"/>
+<text x="382.936074863071" y="142.06392513692907" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >2月</text>
+<path d="M397.2,185.0 A170,170 0 0 1 420.0,270.0 L320.0,270.0 A70,70 0 0 0 310.6,235.0 Z" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<text x="431.59405534234486" y="226.3420195207261" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >3月</text>
+<path d="M420.0,270.0 A170,170 0 0 1 397.2,355.0 L310.6,305.0 A70,70 0 0 0 320.0,270.0 Z" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<text x="431.59405534234486" y="323.6579804792739" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >4月</text>
+<path d="M397.2,355.0 A170,170 0 0 1 335.0,417.2 L285.0,330.6 A70,70 0 0 0 310.6,305.0 Z" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<text x="382.936074863071" y="407.9360748630709" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >5月</text>
+<path d="M335.0,417.2 A170,170 0 0 1 250.0,440.0 L250.0,340.0 A70,70 0 0 0 285.0,330.6 Z" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<text x="298.6579804792739" y="456.59405534234486" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >6月</text>
+<path d="M250.0,440.0 A170,170 0 0 1 165.0,417.2 L215.0,330.6 A70,70 0 0 0 250.0,340.0 Z" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<text x="201.34201952072607" y="456.59405534234486" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >7月</text>
+<path d="M165.0,417.2 A170,170 0 0 1 102.8,355.0 L189.4,305.0 A70,70 0 0 0 215.0,330.6 Z" fill="#9CCB86" stroke="#fff" stroke-width="2"/>
+<text x="117.06392513692907" y="407.936074863071" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >8月</text>
+<path d="M102.8,355.0 A170,170 0 0 1 80.0,270.0 L180.0,270.0 A70,70 0 0 0 189.4,305.0 Z" fill="#E3A86B" stroke="#fff" stroke-width="2"/>
+<text x="68.40594465765517" y="323.65798047927393" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >9月</text>
+<path d="M80.0,270.0 A170,170 0 0 1 102.8,185.0 L189.4,235.0 A70,70 0 0 0 180.0,270.0 Z" fill="#E3A86B" stroke="#fff" stroke-width="2"/>
+<text x="68.40594465765517" y="226.3420195207261" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >10月</text>
+<path d="M102.8,185.0 A170,170 0 0 1 165.0,122.8 L215.0,209.4 A70,70 0 0 0 189.4,235.0 Z" fill="#E3A86B" stroke="#fff" stroke-width="2"/>
+<text x="117.06392513692904" y="142.06392513692907" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >11月</text>
+<path d="M165.0,122.8 A170,170 0 0 1 250.0,100.0 L250.0,200.0 A70,70 0 0 0 215.0,209.4 Z" fill="#E3A86B" stroke="#fff" stroke-width="2"/>
+<text x="201.34201952072613" y="93.40594465765517" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >12月</text>
+<text x="310.0" y="369.92304845413264" text-anchor="middle" font-size="16" font-weight="900" fill="#1F4F22" >春、夏</text><text x="310.0" y="389.92304845413264" text-anchor="middle" font-size="14" font-weight="900" fill="#1F4F22" >禁獵、農耕</text>
+<text x="189.99999999999994" y="162.0769515458674" text-anchor="middle" font-size="16" font-weight="900" fill="#6B3A0E" >秋、冬</text><text x="189.99999999999994" y="182.0769515458674" text-anchor="middle" font-size="14" font-weight="900" fill="#6B3A0E" >狩獵</text>
+<circle cx="250" cy="270" r="66" fill="#fff"/><text x="250" y="266" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >狩獵</text><text x="250" y="288" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >季節</text>
+<rect x="470" y="66" width="470" height="126" rx="16" fill="#fff" stroke="#8A4B12" stroke-width="2.5"/>
+<text x="504" y="108" text-anchor="middle" font-size="28" font-weight="400" fill="#332B25" >🏹</text><text x="530" y="106" text-anchor="start" font-size="18" font-weight="900" fill="#8A4B12" >狩獵</text>
+<text x="530" y="134" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >只獵取部落足夠的分量</text>
+<text x="530" y="156" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >以公獸為主，少殺母獸</text>
+<text x="530" y="178" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >動物繁殖季節禁獵</text>
+<rect x="470" y="206" width="470" height="126" rx="16" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<text x="504" y="248" text-anchor="middle" font-size="28" font-weight="400" fill="#332B25" >🐟</text><text x="530" y="246" text-anchor="start" font-size="18" font-weight="900" fill="#4A90C2" >達悟族：飛魚季</text>
+<text x="530" y="274" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >3～9 月只抓飛魚</text>
+<text x="530" y="296" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >魚鉤沒有倒鉤，可以放生</text>
+<text x="530" y="318" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >「終食祭」：吃多少捕多少</text>
+<rect x="470" y="346" width="470" height="126" rx="16" fill="#fff" stroke="#3E8E5A" stroke-width="2.5"/>
+<text x="504" y="388" text-anchor="middle" font-size="28" font-weight="400" fill="#332B25" >🌱</text><text x="530" y="386" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >泰雅族：Gaga</text>
+<text x="530" y="414" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >滿足生活需要就好</text>
+<text x="530" y="436" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >不為賺錢大量取得</text>
+<text x="530" y="458" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >留一些回歸大自然</text>
+<text x="480" y="500" text-anchor="middle" font-size="15" font-weight="900" fill="#6B4E2E" >共同的精神：取用有度、讓生物休養生息，追求永續發展</text>
+</svg>

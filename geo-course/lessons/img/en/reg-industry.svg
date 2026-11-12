@@ -1,0 +1,43 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 495" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="495" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="21" font-weight="800" fill="#332B25" >Employment by industry level in each main-island region (2023)</text>
+<line x1="114" x2="680" y1="420.0" y2="420.0" stroke="#E5DED3"/><text x="108" y="425.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >0%</text>
+<line x1="114" x2="680" y1="356.0" y2="356.0" stroke="#E5DED3"/><text x="108" y="361.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >20%</text>
+<line x1="114" x2="680" y1="292.0" y2="292.0" stroke="#E5DED3"/><text x="108" y="297.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >40%</text>
+<line x1="114" x2="680" y1="228.0" y2="228.0" stroke="#E5DED3"/><text x="108" y="233.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >60%</text>
+<line x1="114" x2="680" y1="164.0" y2="164.0" stroke="#E5DED3"/><text x="108" y="169.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >80%</text>
+<line x1="114" x2="680" y1="100.0" y2="100.0" stroke="#E5DED3"/><text x="108" y="105.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >100%</text>
+<rect x="150" y="417.1" width="90" height="2.9" fill="#8CC37A" stroke="#fff" stroke-width="1.5"/>
+<rect x="150" y="312.2" width="90" height="105.0" fill="#EBA977" stroke="#fff" stroke-width="1.5"/>
+<text x="195" y="370.64" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >32.8</text>
+<rect x="150" y="100.0" width="90" height="212.2" fill="#8DC3E6" stroke="#fff" stroke-width="1.5"/>
+<text x="195" y="212.08000000000004" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >66.3</text>
+<text x="195" y="446" text-anchor="middle" font-size="15" font-weight="900" fill="#E07A8B" >Northern region</text>
+<rect x="290" y="396.6" width="90" height="23.4" fill="#8CC37A" stroke="#fff" stroke-width="1.5"/>
+<text x="335" y="414.32" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >7.3</text>
+<rect x="290" y="273.4" width="90" height="123.2" fill="#EBA977" stroke="#fff" stroke-width="1.5"/>
+<text x="335" y="341.03999999999996" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >38.5</text>
+<rect x="290" y="100.0" width="90" height="173.4" fill="#8DC3E6" stroke="#fff" stroke-width="1.5"/>
+<text x="335" y="192.72" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >54.2</text>
+<text x="335" y="446" text-anchor="middle" font-size="15" font-weight="900" fill="#E8A04A" >Central region</text>
+<rect x="430" y="397.6" width="90" height="22.4" fill="#8CC37A" stroke="#fff" stroke-width="1.5"/>
+<text x="475" y="414.8" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >7.0</text>
+<rect x="430" y="279.5" width="90" height="118.1" fill="#EBA977" stroke="#fff" stroke-width="1.5"/>
+<text x="475" y="344.56" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >36.9</text>
+<rect x="430" y="100.0" width="90" height="179.5" fill="#8DC3E6" stroke="#fff" stroke-width="1.5"/>
+<text x="475" y="195.76000000000005" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >56.1</text>
+<text x="475" y="446" text-anchor="middle" font-size="15" font-weight="900" fill="#9DBF4F" >Southern region</text>
+<rect x="570" y="384.2" width="90" height="35.8" fill="#8CC37A" stroke="#fff" stroke-width="1.5"/>
+<text x="615" y="408.08" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >11.2</text>
+<rect x="570" y="318.6" width="90" height="65.6" fill="#EBA977" stroke="#fff" stroke-width="1.5"/>
+<text x="615" y="357.36" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >20.5</text>
+<rect x="570" y="100.0" width="90" height="218.6" fill="#8DC3E6" stroke="#fff" stroke-width="1.5"/>
+<text x="615" y="215.2800000000001" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >68.3</text>
+<text x="615" y="446" text-anchor="middle" font-size="15" font-weight="900" fill="#4FA88A" >Eastern region</text>
+<rect x="730" y="150" width="18" height="18" fill="#8CC37A"/><text x="756" y="165" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >Primary industry</text>
+<rect x="730" y="186" width="18" height="18" fill="#EBA977"/><text x="756" y="201" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >Secondary industry</text>
+<rect x="730" y="222" width="18" height="18" fill="#8DC3E6"/><text x="756" y="237" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >Tertiary industry</text>
+<text x="820" y="300" text-anchor="middle" font-size="12.2" font-weight="800" fill="#332B25" >North: economic and government center,</text><text x="820" y="322" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >high tertiary share</text>
+<text x="820" y="356" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >East: few people, much tourism,</text><text x="820" y="378" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >also high tertiary share</text>
+<text x="480" y="476" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >(from textbook Figure 1-6-16; original data from DGBAS manpower survey; drawn for this lesson)</text>
+</svg>
