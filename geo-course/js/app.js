@@ -360,7 +360,7 @@
     const c = CHARTS[i]; if (!c) return;
     const data = Object.assign({ tempPeaks: [], precipPeaks: [] }, c);
     delete data.source;
-    const src = 'tools/climate/index.html#d=' + encodeChart(data);
+    const src = 'tools/climate/index.html?v=' + (SITE.version || '') + '#d=' + encodeChart(data);   // 加版本號，避免讀到舊版工具
     let m = $('#chartModal');
     if (!m) {
       m = document.createElement('div'); m.id = 'chartModal'; m.className = 'chart-modal';
