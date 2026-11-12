@@ -570,7 +570,13 @@
             const customMaxPrecip = isNaN(maxPrecipRaw) ? 400 : maxPrecipRaw;
 
             // 讓左右兩軸格線永遠對齊：降水刻度間距 = 降水上限 ÷ 氣溫格數
-            const tempSteps = Math.max(1, Math.round((40 - customMinTemp) / 10));
+            // 標準比例：氣溫每格 10°C ＝ 降水每格 50mm（-40～40°C 對 0～400mm）
+            // 降水上限超過標準範圍（且不超過 1000mm）時，降水仍每格 50mm 往上加格，氣溫軸依比例往上延伸（超過 50°C 不顯示數字）
+            // 降水上限超過 1000mm 的特殊多雨城市，氣溫軸維持到 40°C，降水改用較大的格距
+            const basePrecip = (40 - customMinTemp) * 5;
+            const customMaxTemp = (customMaxPrecip > basePrecip && customMaxPrecip <= 1000)
+                ? customMinTemp + customMaxPrecip / 5 : 40;
+            const tempSteps = Math.max(1, Math.round((customMaxTemp - customMinTemp) / 10));
             const precipStep = customMaxPrecip / tempSteps;
 
             const temps = [], precips = [];
@@ -658,8 +664,9 @@
                         'y-temp': {
                             type: 'linear', position: 'left',
                             grid: { color: isBW ? '#ccc' : '#eee' },
-                            min: customMinTemp, max: 40, 
-                            ticks: { stepSize: 10, font: { size: 12 }, color: style.text }
+                            min: customMinTemp, max: customMaxTemp, 
+                            ticks: { stepSize: 10, font: { size: 12 }, color: style.text,
+                                     callback: v => (v > 50 ? '' : v) }
                         },
                         'y-precip': {
                             type: 'linear', position: 'right',
