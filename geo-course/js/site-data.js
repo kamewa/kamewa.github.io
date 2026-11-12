@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110350',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110351',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -85,7 +85,7 @@ window.SITE = {
       buttons: [
         { label: '人口成長與分布', x: 27.5, y: 20.1, href: '#/l/population/taiwan-human' },   // 1 左上（糖廠、稻田）：一下 第1章
         { label: '人口組成與族群文化', x: 22.5, y: 50.2, href: '#/l/ethnic/taiwan-human' },   // 2 左中（茶園）：一下 第2章
-        { label: '3', x: 25.0, y: 82.9, href: '' },   // 左下（製茶）
+        { label: '第一級產業', x: 25.0, y: 82.9, href: '#/l/agr/taiwan-human' },   // 3 左下（製茶）：一下 第3章
         { label: '4', x: 78.4, y: 22.9, href: '' },   // 右上（果園）
         { label: '5', x: 83.1, y: 54.0, href: '' },   // 右中（溫室花卉）
         { label: '6', x: 68.7, y: 81.5, href: '' },   // 右下（農產品）
@@ -190,6 +190,8 @@ window.SITE = {
       on: { 'taiwan-human': { x: 27.5, y: 20.1 } } },
     { id: 'ethnic',          name: '人口組成與族群文化', book: '一下 第2章', status: 'open', file: 'lessons/ethnic.js',
       on: { 'taiwan-human': { x: 22.5, y: 50.2 } } },
+    { id: 'agr',             name: '第一級產業', book: '一下 第3章', status: 'open', file: 'lessons/agr.js',
+      on: { 'taiwan-human': { x: 25.0, y: 82.9 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
       on: { taiwan: { x: 30.1, y: 23.5 } } },
     { id: 'taiwan-world',    name: '世界中的臺灣', book: '一上 第2章', status: 'open', file: 'lessons/taiwan-world.js',

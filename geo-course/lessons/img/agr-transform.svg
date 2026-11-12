@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 450" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="450" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣第一級產業：特徵 → 挑戰 → 轉型</text>
+<rect x="30" y="66" width="280" height="330" rx="18" fill="#E3F4E5" stroke="#45392F" stroke-width="2"/>
+<rect x="95.0" y="84.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="170" y="108.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">發展特徵</text>
+<text x="50" y="156" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >① 集約農業：土地有限，</text>
+<text x="50" y="192" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >投入大量勞力、資金</text>
+<text x="50" y="228" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >② 技術進步：品種改良、</text>
+<text x="50" y="264" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >監測水質</text>
+<text x="50" y="300" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >③ 農產品商品化：</text>
+<text x="50" y="336" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >依市場需求生產</text>
+<line x1="314.0" y1="230.0" x2="328.8" y2="230.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M336.0,230.0 L325.2,235.2 L325.2,224.8 Z" fill="#6B5E52"/>
+<rect x="340" y="66" width="280" height="330" rx="18" fill="#FDE8E3" stroke="#45392F" stroke-width="2"/>
+<rect x="405.0" y="84.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="480" y="108.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">面臨挑戰</text>
+<text x="360" y="156" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >生產規模小：成本高、利潤低</text>
+<text x="360" y="192" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >飲食習慣改變</text>
+<text x="360" y="228" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >農村人口老化、勞力不足</text>
+<text x="360" y="264" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >2002 年加入 WTO，</text>
+<text x="360" y="300" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >面對廉價進口農產品</text>
+<line x1="624.0" y1="230.0" x2="638.8" y2="230.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M646.0,230.0 L635.2,235.2 L635.2,224.8 Z" fill="#6B5E52"/>
+<rect x="650" y="66" width="280" height="330" rx="18" fill="#E1EFF9" stroke="#45392F" stroke-width="2"/>
+<rect x="715.0" y="84.9" width="150" height="34.199999999999996" rx="17.099999999999998" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="790" y="108.3" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">轉型策略</text>
+<text x="670" y="156" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >精緻農業：有機栽培、</text>
+<text x="670" y="192" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >高附加價值農產品</text>
+<text x="670" y="228" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >休閒農業：結合觀光</text>
+<text x="670" y="264" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >（休閒農場、森林遊樂區）</text>
+<text x="670" y="300" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >創立品牌、開發新產品</text>
+<text x="480" y="430" text-anchor="middle" font-size="15" font-weight="900" fill="#6B4E2E" >例：臺灣鯛的魚皮做皮包、魚鱗做人工眼角膜原料 → 提高附加價值</text>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="520" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣三級產業就業人口比例的變化（約略值）</text>
+<line x1="104" x2="870" y1="420.0" y2="420.0" stroke="#E5DED3"/><text x="98" y="425.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >0%</text>
+<line x1="104" x2="870" y1="356.0" y2="356.0" stroke="#E5DED3"/><text x="98" y="361.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >20%</text>
+<line x1="104" x2="870" y1="292.0" y2="292.0" stroke="#E5DED3"/><text x="98" y="297.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >40%</text>
+<line x1="104" x2="870" y1="228.0" y2="228.0" stroke="#E5DED3"/><text x="98" y="233.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >60%</text>
+<line x1="104" x2="870" y1="164.0" y2="164.0" stroke="#E5DED3"/><text x="98" y="169.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >80%</text>
+<line x1="104" x2="870" y1="100.0" y2="100.0" stroke="#E5DED3"/><text x="98" y="105.0" text-anchor="end" font-size="13" font-weight="700" fill="#6B5E52" >100%</text>
+<rect x="122" y="240.8" width="70" height="179.2" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="157.0" y="335.4" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >56</text>
+<rect x="122" y="186.4" width="70" height="54.4" fill="#E0A43A" stroke="#fff" stroke-width="1.5"/>
+<text x="157.0" y="218.59999999999997" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >17</text>
+<rect x="122" y="100.0" width="70" height="86.4" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="157.0" y="148.2" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >27</text>
+<text x="157.0" y="442" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >1952</text>
+<rect x="217" y="260.0" width="70" height="160.0" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="252.0" y="345.0" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >50</text>
+<rect x="217" y="192.8" width="70" height="67.2" fill="#E0A43A" stroke="#fff" stroke-width="1.5"/>
+<text x="252.0" y="231.4" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >21</text>
+<rect x="217" y="100.0" width="70" height="92.8" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="252.0" y="151.4" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >29</text>
+<text x="252.0" y="442" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >1960</text>
+<rect x="312" y="301.6" width="70" height="118.4" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="347.0" y="365.8" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >37</text>
+<rect x="312" y="212.0" width="70" height="89.6" fill="#E0A43A" stroke="#fff" stroke-width="1.5"/>
+<text x="347.0" y="261.8" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >28</text>
+<rect x="312" y="100.0" width="70" height="112.0" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="347.0" y="161.0" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >35</text>
+<text x="347.0" y="442" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >1970</text>
+<rect x="407" y="356.0" width="70" height="64.0" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="442.0" y="393.0" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >20</text>
+<rect x="407" y="221.6" width="70" height="134.4" fill="#E0A43A" stroke="#fff" stroke-width="1.5"/>
+<text x="442.0" y="293.8" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >42</text>
+<rect x="407" y="100.0" width="70" height="121.6" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="442.0" y="165.8" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >38</text>
+<text x="442.0" y="442" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >1980</text>
+<rect x="502" y="378.4" width="70" height="41.6" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="537.0" y="404.2" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >13</text>
+<rect x="502" y="247.2" width="70" height="131.2" fill="#E0A43A" stroke="#fff" stroke-width="1.5"/>
+<text x="537.0" y="317.79999999999995" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >41</text>
+<rect x="502" y="100.0" width="70" height="147.2" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="537.0" y="178.59999999999997" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >46</text>
+<text x="537.0" y="442" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >1990</text>
+<rect x="597" y="394.4" width="70" height="25.6" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="632.0" y="412.2" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >8</text>
+<rect x="597" y="276.0" width="70" height="118.4" fill="#E0A43A" stroke="#fff" stroke-width="1.5"/>
+<text x="632.0" y="340.2" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >37</text>
+<rect x="597" y="100.0" width="70" height="176.0" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="632.0" y="193.0" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >55</text>
+<text x="632.0" y="442" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >2000</text>
+<rect x="692" y="404.0" width="70" height="16.0" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<rect x="692" y="288.8" width="70" height="115.2" fill="#E0A43A" stroke="#fff" stroke-width="1.5"/>
+<text x="727.0" y="351.4" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >36</text>
+<rect x="692" y="100.0" width="70" height="188.8" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="727.0" y="199.40000000000003" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >59</text>
+<text x="727.0" y="442" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >2010</text>
+<rect x="787" y="404.0" width="70" height="16.0" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<rect x="787" y="292.0" width="70" height="112.0" fill="#E0A43A" stroke="#fff" stroke-width="1.5"/>
+<text x="822.0" y="353.0" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >35</text>
+<rect x="787" y="100.0" width="70" height="192.0" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="822.0" y="201.0" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >60</text>
+<text x="822.0" y="442" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >2024</text>
+<rect x="250" y="452" width="18" height="18" fill="#3E8E5A"/><text x="276" y="467" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >第一級產業</text>
+<rect x="450" y="452" width="18" height="18" fill="#E0A43A"/><text x="476" y="467" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >第二級產業</text>
+<rect x="650" y="452" width="18" height="18" fill="#4A90C2"/><text x="676" y="467" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >第三級產業</text>
+<text x="480" y="500" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >早期以第一級產業為主；隨著經濟發展，第二、三級產業的比例愈來愈高（依主計總處統計整理的約略值，自繪）</text>
+</svg>

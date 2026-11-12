@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="420" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >三級產業：一盒土鳳梨酥從哪裡來？</text>
+<rect x="30" y="66" width="280" height="300" rx="18" fill="#E3F4E5" stroke="#45392F" stroke-width="2"/>
+<text x="170" y="130" text-anchor="middle" font-size="50">🍍</text>
+<rect x="90.0" y="155.85" width="160" height="32.3" rx="16.15" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="170" y="177.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">第一級產業</text>
+<text x="170" y="218" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >農民種鳳梨、收成</text><text x="170" y="244" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >直接利用自然資源</text>
+<line x1="60" x2="280" y1="272" y2="272" stroke="#45392F" stroke-dasharray="4 4"/>
+<text x="170" y="304" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >例如</text><text x="170" y="332" text-anchor="middle" font-size="15" font-weight="900" fill="#3E8E5A" >農、漁、林、牧業</text>
+<line x1="314.0" y1="216.0" x2="328.8" y2="216.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M336.0,216.0 L325.2,221.2 L325.2,210.8 Z" fill="#6B5E52"/>
+<rect x="340" y="66" width="280" height="300" rx="18" fill="#FDF3DC" stroke="#45392F" stroke-width="2"/>
+<text x="480" y="130" text-anchor="middle" font-size="50">🏭</text>
+<rect x="400.0" y="155.85" width="160" height="32.3" rx="16.15" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="480" y="177.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">第二級產業</text>
+<text x="480" y="218" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >工廠把鳳梨、麵粉</text><text x="480" y="244" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >加工做成土鳳梨酥</text>
+<line x1="370" x2="590" y1="272" y2="272" stroke="#45392F" stroke-dasharray="4 4"/>
+<text x="480" y="304" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >例如</text><text x="480" y="332" text-anchor="middle" font-size="15" font-weight="900" fill="#E0A43A" >紡織、食品加工、鋼鐵</text>
+<line x1="624.0" y1="216.0" x2="638.8" y2="216.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M646.0,216.0 L635.2,221.2 L635.2,210.8 Z" fill="#6B5E52"/>
+<rect x="650" y="66" width="280" height="300" rx="18" fill="#E1EFF9" stroke="#45392F" stroke-width="2"/>
+<text x="790" y="130" text-anchor="middle" font-size="50">🚚</text>
+<rect x="710.0" y="155.85" width="160" height="32.3" rx="16.15" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="790" y="177.95" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">第三級產業</text>
+<text x="790" y="218" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >貨車運到商店販售</text><text x="790" y="244" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >提供商品買賣和服務</text>
+<line x1="680" x2="900" y1="272" y2="272" stroke="#45392F" stroke-dasharray="4 4"/>
+<text x="790" y="304" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >例如</text><text x="790" y="332" text-anchor="middle" font-size="15" font-weight="900" fill="#4A90C2" >觀光、交通運輸、商業</text>
+<text x="480" y="400" text-anchor="middle" font-size="15" font-weight="800" fill="#6B5E52" >依照投入的資源和產出的差別，生產活動常分成三級產業</text>
+</svg>

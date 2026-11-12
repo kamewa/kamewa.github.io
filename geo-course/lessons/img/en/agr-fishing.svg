@@ -1,0 +1,29 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 505" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="505" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="18.7" font-weight="800" fill="#332B25" >Fishing in Taiwan: continental shelf, currents, and fishing types</text>
+<rect x="20" y="56" width="440" height="430" rx="14" fill="#CFE7F5" stroke="#45392F" stroke-width="2"/>
+<defs><clipPath id="fb"><rect x="20" y="56" width="440" height="430" rx="14"/></clipPath></defs><g clip-path="url(#fb)">
+<path d="M245.5,56.0 L245.5,56.0 L229.0,72.5 L207.0,105.5 L190.5,138.5 L179.5,171.5 L141.0,199.0 L102.5,226.5 L64.0,270.5 L20.0,303.5 L20.0,380.5 L130.0,391.5 L229.0,364.0 L262.0,331.0 L317.0,193.5 L339.0,149.5 L366.5,56.0 Z" fill="#A9D8EE"/>
+<path d="M20.0,303.5 L64.0,270.5 L102.5,226.5 L141.0,199.0 L179.5,171.5 L190.5,138.5 L207.0,105.5 L229.0,72.5 L245.5,56.0 L9.0,45.0 Z" fill="#E7E1D6" stroke="#8C7B6A" stroke-width="1.2"/>
+<path d="M297.2,177.0 L305.4,181.9 L308.8,185.3 L318.1,186.4 L322.5,192.9 L315.4,201.2 L313.1,210.0 L315.4,215.5 L313.1,226.5 L308.8,237.5 L301.6,249.6 L297.7,265.0 L295.0,278.8 L289.5,292.5 L287.9,298.0 L278.5,311.7 L275.8,317.2 L267.5,328.2 L262.0,339.2 L259.2,353.0 L259.2,364.0 L252.1,362.4 L251.0,355.7 L245.5,338.1 L237.3,332.7 L227.9,325.5 L223.5,314.5 L219.6,303.5 L218.0,292.5 L220.8,278.8 L223.5,265.0 L234.5,245.7 L240.0,234.8 L245.5,223.8 L253.8,212.8 L262.0,201.7 L267.5,193.5 L273.0,189.6 L284.0,186.4 L289.5,183.6 Z" fill="#EFE6D2" stroke="#8C7B6A" stroke-width="1.5"/></g>
+<text x="135.4999999999997" y="336.50000000000006" text-anchor="middle" font-size="13" font-weight="900" fill="#1F5F8B" >Continental shelf (&lt;200 m deep)</text>
+<text x="58.500000000000156" y="77.99999999999991" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >China</text>
+<line x1="317.0" y1="424.5" x2="348.9" y2="116.2" stroke="#E0694F" stroke-width="8" stroke-linecap="round"/><path d="M350.0,105.5 L356.1,122.4 L340.5,120.8 Z" fill="#E0694F"/><text x="399.50000000000034" y="303.5" text-anchor="middle" font-size="15" font-weight="900" fill="#E0694F" >Kuroshio</text><text x="399.50000000000034" y="323.5" text-anchor="middle" font-size="13" font-weight="900" fill="#E0694F" >(warm current)</text>
+<line x1="262.0" y1="89.0" x2="142.1" y2="245.4" stroke="#4A90C2" stroke-width="8" stroke-linecap="round"/><path d="M135.5,254.0 L139.1,236.4 L151.6,245.9 Z" fill="#4A90C2"/><text x="97.00000000000031" y="154.49999999999991" text-anchor="middle" font-size="13.5" font-weight="900" fill="#4A90C2" >China Coastal Current</text><text x="97.00000000000031" y="174.49999999999991" text-anchor="middle" font-size="13" font-weight="900" fill="#4A90C2" >(cold current)</text>
+<text x="267.5" y="270.4999999999999" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Taiwan</text>
+<text x="240" y="470" text-anchor="middle" font-size="11.3" font-weight="800" fill="#332B25" >In winter, cold and warm currents meet near Taiwan: lots of plankton draws fish</text>
+<rect x="480" y="64" width="460" height="92" rx="14" fill="#fff" stroke="#2E9A86" stroke-width="2.5"/>
+<text x="500" y="98" text-anchor="start" font-size="19" font-weight="900" fill="#2E9A86" >Aquaculture</text>
+<text x="500" y="124" text-anchor="start" font-size="13.2" font-weight="800" fill="#332B25" >Flat sandy southwest coast: fish ponds for milkfish and white shrimp</text>
+<text x="500" y="146" text-anchor="start" font-size="13.5" font-weight="800" fill="#332B25" >Oysters on tidal flats; sea-cage farming offshore</text>
+<rect x="480" y="168" width="460" height="92" rx="14" fill="#fff" stroke="#3E8E5A" stroke-width="2.5"/>
+<text x="500" y="202" text-anchor="start" font-size="19" font-weight="900" fill="#3E8E5A" >Coastal fishing</text>
+<text x="500" y="228" text-anchor="start" font-size="13.5" font-weight="800" fill="#332B25" >Within 12 nautical miles, based at coastal harbors</text>
+<rect x="480" y="272" width="460" height="92" rx="14" fill="#fff" stroke="#E0A43A" stroke-width="2.5"/>
+<text x="500" y="306" text-anchor="start" font-size="19" font-weight="900" fill="#E0A43A" >Offshore fishing</text>
+<text x="500" y="332" text-anchor="start" font-size="13.5" font-weight="800" fill="#332B25" >12–200 nautical miles from shore</text>
+<rect x="480" y="376" width="460" height="92" rx="14" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="500" y="410" text-anchor="start" font-size="19" font-weight="900" fill="#E0694F" >Deep-sea fishing</text>
+<text x="500" y="436" text-anchor="start" font-size="13.1" font-weight="800" fill="#332B25" >Beyond 200 nautical miles: South Pacific, Indian, and Atlantic Oceans</text>
+<text x="710" y="486" text-anchor="middle" font-size="9.0" font-weight="800" fill="#6B5E52" >Capture fishing has three types by distance from shore; with fewer wild fish, aquaculture matters more and more</text>
+</svg>

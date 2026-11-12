@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="430" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >漁電共生：養魚為主、發電為輔</text>
+<rect x="40" y="70" width="420" height="300" rx="16" fill="#EAF5FB" stroke="#45392F" stroke-width="2"/>
+<rect x="70" y="240" width="360" height="100" rx="8" fill="#7FB7D8" stroke="#45392F" stroke-width="1.5"/>
+<rect x="56" y="230" width="28" height="112" fill="#B99B6B"/><rect x="416" y="230" width="28" height="112" fill="#B99B6B"/>
+<line x1="70" y1="230" x2="70" y2="190" stroke="#555" stroke-width="3"/>
+<polygon points="42,186 104,170 106,178 44,194" fill="#2C4A7A" stroke="#1C2C4A"/>
+<line x1="420" y1="230" x2="420" y2="190" stroke="#555" stroke-width="3"/>
+<polygon points="392,186 454,170 456,178 394,194" fill="#2C4A7A" stroke="#1C2C4A"/>
+<circle cx="250" cy="110" r="26" fill="#F7C948"/>
+<text x="130" y="300" font-size="22" text-anchor="middle">🐟</text>
+<text x="190" y="322" font-size="22" text-anchor="middle">🐟</text>
+<text x="250" y="300" font-size="22" text-anchor="middle">🐟</text>
+<text x="310" y="322" font-size="22" text-anchor="middle">🐟</text>
+<text x="370" y="300" font-size="22" text-anchor="middle">🐟</text>
+<text x="250" y="362" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >太陽能板裝在魚塭的土堤上（示意）</text>
+<rect x="490" y="70" width="440" height="166" rx="14" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="510" y="102" text-anchor="start" font-size="18" font-weight="900" fill="#E0694F" >規定（保障漁民）</text>
+<text x="510" y="132" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >・太陽能板覆蓋面積 40% 以下</text>
+<text x="510" y="162" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >・不能改變原本的養殖物種</text>
+<text x="510" y="192" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >・要維持 70% 以上的漁獲量</text>
+<text x="510" y="222" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >・開發前要取得地主、養殖戶同意</text>
+<rect x="490" y="250" width="440" height="136" rx="14" fill="#fff" stroke="#3E8E5A" stroke-width="2.5"/>
+<text x="510" y="282" text-anchor="start" font-size="18" font-weight="900" fill="#3E8E5A" >好處</text>
+<text x="510" y="312" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >・增加土地利用、減輕漁民負擔</text>
+<text x="510" y="342" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >・冬季擋寒風、減少寒害</text>
+<text x="510" y="372" text-anchor="start" font-size="15" font-weight="800" fill="#332B25" >・夏季遮陽、減少池水蒸發</text>
+<text x="480" y="410" text-anchor="middle" font-size="14.5" font-weight="800" fill="#6B4E2E" >也有人擔心：魚塭被光電業搶走、反光影響鳥類棲地 → 需要從不同面向討論</text>
+</svg>
