@@ -1,0 +1,40 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 450" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="450" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >China’s newborn sex ratio (approximate)</text>
+<line x1="90" x2="690" y1="380.0" y2="380.0" stroke="#E5DED3"/><text x="82" y="385.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >100</text>
+<line x1="90" x2="690" y1="322.0" y2="322.0" stroke="#E5DED3"/><text x="82" y="327.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >105</text>
+<line x1="90" x2="690" y1="264.0" y2="264.0" stroke="#E5DED3"/><text x="82" y="269.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >110</text>
+<line x1="90" x2="690" y1="206.0" y2="206.0" stroke="#E5DED3"/><text x="82" y="211.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >115</text>
+<line x1="90" x2="690" y1="148.0" y2="148.0" stroke="#E5DED3"/><text x="82" y="153.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >120</text>
+<line x1="90" x2="690" y1="90.0" y2="90.0" stroke="#E5DED3"/><text x="82" y="95.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >125</text>
+<rect x="90" y="298.8" width="600" height="46.4" fill="#DDF2EF"/><text x="98" y="339.2" text-anchor="start" font-size="12" font-weight="900" fill="#2E9A86" >Natural ≈103–107</text>
+<polyline points="140.0,281.4 240.0,248.9 302.5,199.0 365.0,173.5 415.0,134.1 465.0,141.0 490.0,170.0 552.5,223.4 615.0,248.9 665.0,275.6" fill="none" stroke="#4A90C2" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="140.0" cy="281.4" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="240.0" cy="248.9" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="302.5" cy="199.0" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="365.0" cy="173.5" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="415.0" cy="134.1" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="465.0" cy="141.0" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="490.0" cy="170.0" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="552.5" cy="223.4" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="615.0" cy="248.9" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<circle cx="665.0" cy="275.6" r="4.5" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<text x="115.0" y="402" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1980</text>
+<text x="240.0" y="402" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1990</text>
+<text x="365.0" y="402" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2000</text>
+<text x="490.0" y="402" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2010</text>
+<text x="615.0" y="402" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2020</text>
+<line x1="102.5" x2="102.5" y1="90.0" y2="380" stroke="#9C6ADE" stroke-width="2" stroke-dasharray="6 4"/><text x="106.5" y="101.60000000000002" text-anchor="start" font-size="12.5" font-weight="900" fill="#9C6ADE" >One-child</text>
+<line x1="552.5" x2="552.5" y1="90.0" y2="380" stroke="#3E8E5A" stroke-width="2" stroke-dasharray="6 4"/><text x="556.5" y="101.60000000000002" text-anchor="start" font-size="12.5" font-weight="900" fill="#3E8E5A" >Two-child</text>
+<line x1="627.5" x2="627.5" y1="90.0" y2="380" stroke="#E0A43A" stroke-width="2" stroke-dasharray="6 4"/><text x="631.5" y="119.60000000000002" text-anchor="start" font-size="12.5" font-weight="900" fill="#E0A43A" >Three-child</text>
+<text x="671.0" y="297.6" text-anchor="end" font-size="13.5" font-weight="900" fill="#4A90C2" stroke="#fff" stroke-width="3" paint-order="stroke">2024: ≈109</text>
+<rect x="720" y="70" width="220" height="300" rx="14" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="830" y="104" text-anchor="middle" font-size="15" font-weight="900" fill="#E0694F" >Problems</text>
+<text x="830" y="138" text-anchor="middle" font-size="13.5" font-weight="900" fill="#332B25" >Son preference + one child</text>
+<text x="830" y="172" text-anchor="middle" font-size="13.5" font-weight="900" fill="#332B25" >→ very unbalanced ratio</text>
+<text x="830" y="240" text-anchor="middle" font-size="15" font-weight="900" fill="#3E8E5A" >Responses</text>
+<text x="830" y="274" text-anchor="middle" font-size="13.5" font-weight="900" fill="#332B25" >“Boys and girls are equal”</text>
+<text x="830" y="308" text-anchor="middle" font-size="13.5" font-weight="900" fill="#332B25" >Eased in recent years,</text>
+<text x="830" y="342" text-anchor="middle" font-size="13.5" font-weight="900" fill="#332B25" >still above world average</text>
+<text x="400" y="432" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >Sex ratio: boys per 100 girls born (approximate, from China NBS and other public data, original drawing)</text>
+</svg>

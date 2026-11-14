@@ -43,6 +43,7 @@ window.SITE_EN = {
     reg: 'Regional Development and Differences',
     'chn-landform': 'Landforms of China',
     'chn-climate': 'Climate of China',
+    'chn-population': 'Population of China',
     'location-map': 'Location and Maps',
     'taiwan-world': 'Taiwan in the World',
     'taiwan-landform': 'Landforms of Taiwan',

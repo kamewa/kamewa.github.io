@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 458" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="458" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >2024 年世界人口最多的國家（約略值）</text>
+<text x="150" y="92" text-anchor="end" font-size="16" font-weight="900" fill="#332B25" >印度</text>
+<rect x="166" y="66" width="619.1" height="36" rx="8" fill="#E0A43A"/><text x="793.0933333333334" y="91" text-anchor="start" font-size="14.5" font-weight="900" fill="#E0A43A" >約 14.5 億</text>
+<text x="150" y="144" text-anchor="end" font-size="16" font-weight="900" fill="#332B25" >中國</text>
+<rect x="166" y="118" width="605.4" height="36" rx="8" fill="#E0694F"/><text x="779.4399999999999" y="143" text-anchor="start" font-size="14.5" font-weight="900" fill="#E0694F" >約 14.2 億</text>
+<text x="150" y="196" text-anchor="end" font-size="16" font-weight="900" fill="#332B25" >美國</text>
+<rect x="166" y="170" width="147.2" height="36" rx="8" fill="#4A90C2"/><text x="321.20000000000005" y="195" text-anchor="start" font-size="14.5" font-weight="900" fill="#4A90C2" >約 3.5 億</text>
+<text x="150" y="248" text-anchor="end" font-size="16" font-weight="900" fill="#332B25" >印尼</text>
+<rect x="166" y="222" width="120.7" height="36" rx="8" fill="#2E9A86"/><text x="294.74666666666667" y="247" text-anchor="start" font-size="14.5" font-weight="900" fill="#2E9A86" >約 2.8 億</text>
+<text x="150" y="300" text-anchor="end" font-size="16" font-weight="900" fill="#332B25" >巴基斯坦</text>
+<rect x="166" y="274" width="107.1" height="36" rx="8" fill="#3E8E5A"/><text x="281.09333333333336" y="299" text-anchor="start" font-size="14.5" font-weight="900" fill="#3E8E5A" >約 2.5 億</text>
+<text x="150" y="352" text-anchor="end" font-size="16" font-weight="900" fill="#332B25" >奈及利亞</text>
+<rect x="166" y="326" width="99.4" height="36" rx="8" fill="#9C6ADE"/><text x="273.4133333333333" y="351" text-anchor="start" font-size="14.5" font-weight="900" fill="#9C6ADE" >約 2.3 億</text>
+<text x="150" y="404" text-anchor="end" font-size="16" font-weight="900" fill="#332B25" >巴西</text>
+<rect x="166" y="378" width="90.5" height="36" rx="8" fill="#C9A227"/><text x="264.4533333333333" y="403" text-anchor="start" font-size="14.5" font-weight="900" fill="#C9A227" >約 2.1 億</text>
+<text x="480" y="440" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >中國人口約占世界 1/5，2023 年起被印度超越（資料：聯合國《世界人口展望 2024》，約略值，自繪）</text>
+</svg>

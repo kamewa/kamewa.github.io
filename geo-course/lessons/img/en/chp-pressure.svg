@@ -1,0 +1,21 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 458" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="458" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="20.5" font-weight="800" fill="#332B25" >A large population: advantage or pressure?</text>
+<rect x="40" y="64" width="430" height="170" rx="18" fill="#E3F4E5" stroke="#45392F" stroke-width="2"/>
+<text x="255" y="110" text-anchor="middle" font-size="32" font-weight="400" fill="#332B25" >💪</text><rect x="105.0" y="130.8" width="300" height="30.4" rx="15.2" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="255" y="151.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Pro: helps industry</text>
+<text x="255" y="186" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >Plenty of workers</text>
+<text x="255" y="214" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >A huge market</text>
+<rect x="490" y="64" width="430" height="170" rx="18" fill="#FDE8E3" stroke="#45392F" stroke-width="2"/>
+<text x="705" y="110" text-anchor="middle" font-size="32" font-weight="400" fill="#332B25" >⚠️</text><rect x="555.0" y="130.8" width="300" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="705" y="151.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Con: pressure slows growth</text>
+<text x="705" y="186" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >Beyond carrying capacity</text>
+<text x="705" y="214" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >Not enough food or jobs</text>
+<rect x="40" y="254" width="880" height="160" rx="18" fill="#fff" stroke="#45392F" stroke-width="1.8"/>
+<text x="480" y="284" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >Carrying capacity: how many living things the land can feed and how much waste it can break down</text>
+<rect x="110" y="304" width="320" height="90" rx="12" fill="#F4F0E6"/>
+<text x="270" y="326" text-anchor="middle" font-size="14" font-weight="900" fill="#3E8E5A" >High capacity</text>
+<text x="270" y="352" text-anchor="middle" font-size="16" font-weight="400" fill="#332B25" >🌾🌾🌾🌾🌾🌾🌾🌾</text><text x="270" y="382" text-anchor="middle" font-size="16" font-weight="400" fill="#332B25" >🧍🧍🧍🧍🧍</text>
+<rect x="530" y="304" width="320" height="90" rx="12" fill="#F4F0E6"/>
+<text x="690" y="326" text-anchor="middle" font-size="14" font-weight="900" fill="#E0694F" >Low capacity</text>
+<text x="690" y="352" text-anchor="middle" font-size="16" font-weight="400" fill="#332B25" >🌾🌾🌾🌾</text><text x="690" y="382" text-anchor="middle" font-size="16" font-weight="400" fill="#332B25" >🧍🧍🧍🧍🧍</text>
+<text x="480" y="440" text-anchor="middle" font-size="13.5" font-weight="800" fill="#6B5E52" >Going beyond it causes problems; technology (e.g. higher crop yields) can raise it</text>
+</svg>

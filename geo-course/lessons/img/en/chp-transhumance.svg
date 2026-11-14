@@ -1,0 +1,18 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 442" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="442" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Transhumance: up and down with the seasons</text>
+<rect x="40" y="64" width="880" height="330" rx="18" fill="#E6F2FA" stroke="#45392F" stroke-width="2"/>
+<path d="M40,394 L40,360 Q200,350 300,300 Q420,220 480,120 Q540,220 660,300 Q760,350 920,360 L920,394 Z" fill="#B9D29A" stroke="#6B8A4A" stroke-width="2"/>
+<path d="M430,190 Q480,120 530,190 Q500,175 480,180 Q460,175 430,190 Z" fill="#fff" opacity=".9"/>
+<path d="M330,282 Q480,200 630,282" fill="none" stroke="#6B8A4A" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="480" y="236" text-anchor="middle" font-size="15" font-weight="900" fill="#2E6B2F" stroke="#fff" stroke-width="3" paint-order="stroke">Summer pasture (cool, lots of grass)</text>
+<text x="170" y="344" text-anchor="middle" font-size="15" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">Winter pasture (warmer valley)</text>
+<text x="790" y="344" text-anchor="middle" font-size="15" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">Winter pasture</text>
+<line x1="220.0" y1="320.0" x2="371.2" y2="253.8" stroke="#E0694F" stroke-width="6" stroke-linecap="round"/><path d="M380.0,250.0 L369.6,262.2 L364.0,249.4 Z" fill="#E0694F"/><text x="250" y="262" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" stroke="#fff" stroke-width="3" paint-order="stroke">Up in spring</text>
+<line x1="590.0" y1="250.0" x2="731.3" y2="315.9" stroke="#4A90C2" stroke-width="6" stroke-linecap="round"/><path d="M740.0,320.0 L724.0,320.2 L729.9,307.6 Z" fill="#4A90C2"/><text x="712" y="262" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" stroke="#fff" stroke-width="3" paint-order="stroke">Down in autumn</text>
+<text x="300" y="310" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🐂</text>
+<text x="330" y="316" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🐂</text>
+<text x="620" y="300" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🐂</text>
+<text x="650" y="306" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🐂</text>
+<text x="480" y="424" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >Tibetan herders use pastures at different heights as seasons change (illustration)</text>
+</svg>

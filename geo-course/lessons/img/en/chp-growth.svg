@@ -1,0 +1,33 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 468" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="468" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="21.7" font-weight="800" fill="#332B25" >China’s population growth (approximate)</text>
+<line x1="90" x2="650" y1="400.0" y2="400.0" stroke="#E5DED3"/><text x="82" y="405.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >0</text>
+<line x1="90" x2="650" y1="320.0" y2="320.0" stroke="#E5DED3"/><text x="82" y="325.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >400 M</text>
+<line x1="90" x2="650" y1="240.0" y2="240.0" stroke="#E5DED3"/><text x="82" y="245.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >800 M</text>
+<line x1="90" x2="650" y1="160.0" y2="160.0" stroke="#E5DED3"/><text x="82" y="165.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >1.2 B</text>
+<line x1="90" x2="650" y1="80.0" y2="80.0" stroke="#E5DED3"/><text x="82" y="85.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >1.6 B</text>
+<polygon points="90.0,400 90.0,370.0 176.4,356.0 262.8,340.0 349.3,314.0 435.7,320.0 522.1,289.6 539.4,266.6 556.7,234.0 574.0,202.6 591.2,171.4 608.5,146.6 625.8,131.8 643.1,117.6 650.0,118.4 650.0,400" fill="#F6D9C8"/>
+<polyline points="90.0,370.0 176.4,356.0 262.8,340.0 349.3,314.0 435.7,320.0 522.1,289.6 539.4,266.6 556.7,234.0 574.0,202.6 591.2,171.4 608.5,146.6 625.8,131.8 643.1,117.6 650.0,118.4" fill="none" stroke="#E0694F" stroke-width="4" stroke-linejoin="round"/>
+<text x="90.0" y="422" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1700</text>
+<text x="176.41975308641975" y="422" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1750</text>
+<text x="262.8395061728395" y="422" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1800</text>
+<text x="349.25925925925924" y="422" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1850</text>
+<text x="435.679012345679" y="422" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1900</text>
+<text x="522.0987654320987" y="422" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1950</text>
+<text x="608.5185185185185" y="422" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2000</text>
+<text x="650.0" y="422" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2024</text>
+<line x1="572.2" x2="572.2" y1="80.0" y2="400" stroke="#9C6ADE" stroke-width="2" stroke-dasharray="6 4"/><text x="566.2222222222222" y="150.0" text-anchor="end" font-size="13" font-weight="900" fill="#9C6ADE" >1979 one-child</text>
+<text x="245.55555555555557" y="306.0" text-anchor="middle" font-size="13.5" font-weight="900" fill="#8A3B0E" >Fast growth after mid-Qing</text>
+<text x="639.0864197530864" y="103.60000000000002" text-anchor="end" font-size="16" font-weight="900" fill="#E0694F" >≈1.4 B</text>
+<rect x="690" y="66" width="250" height="160" rx="14" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="815" y="94" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >Natural increase rate</text>
+<text x="710" y="136" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >1980</text><rect x="760" y="118" width="108" height="24" rx="5" fill="#E0A43A"/><text x="876" y="136" text-anchor="start" font-size="13.5" font-weight="900" fill="#E0A43A" >≈12‰</text>
+<text x="710" y="186" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >2020</text><rect x="760" y="168" width="9" height="24" rx="5" fill="#E0A43A"/><text x="777" y="186" text-anchor="start" font-size="13.5" font-weight="900" fill="#E0A43A" >≈1‰</text>
+<rect x="690" y="244" width="250" height="150" rx="14" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="815" y="274" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >2020: about 1.4 billion,</text>
+<text x="815" y="300" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >about 1/5 of the world</text>
+<text x="815" y="326" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >From 2022, natural increase</text>
+<text x="815" y="352" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >turned negative</text>
+<text x="815" y="378" text-anchor="middle" font-size="13.5" font-weight="800" fill="#332B25" >Now second after India</text>
+<text x="480" y="450" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >(Approximate historical estimates and official data, original drawing)</text>
+</svg>

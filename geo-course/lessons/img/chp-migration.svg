@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 495" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="495" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >人口遷移與文化擴散：明清時期的移民</text>
+<rect x="40" y="66" width="260" height="170" rx="18" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="170" y="112" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >👥</text><rect x="120.0" y="130.8" width="100" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="170" y="151.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">原因</text>
+<text x="170" y="186" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >人口急速增加</text>
+<text x="170" y="212" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >東南沿海山多平原少</text>
+<line x1="304.0" y1="150.0" x2="328.8" y2="150.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M336.0,150.0 L325.2,155.2 L325.2,144.8 Z" fill="#6B5E52"/>
+<rect x="340" y="66" width="260" height="170" rx="18" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="470" y="112" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🚢</text><rect x="420.0" y="130.8" width="100" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="470" y="151.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">結果</text>
+<text x="470" y="186" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >移居臺灣、東南亞</text>
+<text x="470" y="212" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >尋找耕地、工作機會</text>
+<line x1="604.0" y1="150.0" x2="628.8" y2="150.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M636.0,150.0 L625.2,155.2 L625.2,144.8 Z" fill="#6B5E52"/>
+<rect x="640" y="66" width="260" height="170" rx="18" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="770" y="112" text-anchor="middle" font-size="34" font-weight="400" fill="#332B25" >🏮</text><rect x="720.0" y="130.8" width="100" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="770" y="151.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">影響</text>
+<text x="770" y="186" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >把原鄉文化帶到移居地</text>
+<text x="770" y="212" text-anchor="middle" font-size="14.5" font-weight="800" fill="#332B25" >→ 文化擴散</text>
+<rect x="40" y="262" width="880" height="54" rx="12" fill="#FFF8E7" stroke="#45392F" stroke-width="1.2"/>
+<text x="70" y="298" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🍲</text><text x="96" y="296" text-anchor="start" font-size="16" font-weight="900" fill="#E0A43A" >飲食習慣</text><text x="200" y="296" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >肉骨茶：華人移工帶中藥補身而發展出的料理</text>
+<rect x="40" y="326" width="880" height="54" rx="12" fill="#FFF8E7" stroke="#45392F" stroke-width="1.2"/>
+<text x="70" y="362" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🧧</text><text x="96" y="360" text-anchor="start" font-size="16" font-weight="900" fill="#E0A43A" >生活習俗</text><text x="200" y="360" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >唐人街過春節、漢字招牌（如曼谷唐人街）</text>
+<rect x="40" y="390" width="880" height="54" rx="12" fill="#FFF8E7" stroke="#45392F" stroke-width="1.2"/>
+<text x="70" y="426" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🙏</text><text x="96" y="424" text-anchor="start" font-size="16" font-weight="900" fill="#E0A43A" >宗教信仰</text><text x="200" y="424" text-anchor="start" font-size="14" font-weight="800" fill="#332B25" >媽祖等民間信仰隨移民傳播</text>
+<text x="480" y="476" text-anchor="middle" font-size="14" font-weight="800" fill="#6B5E52" >移民多來自福建（閩南）、廣東（潮汕、廣府）等東南沿海地區</text>
+</svg>
