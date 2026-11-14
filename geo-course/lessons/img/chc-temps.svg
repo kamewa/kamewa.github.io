@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 505" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="505" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >氣溫：夏季普遍高溫，冬季南北溫差大</text>
+<line x1="120" x2="700" y1="380.0" y2="380.0" stroke="#E5DED3" stroke-width="1"/><text x="112" y="385.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >-20℃</text>
+<line x1="120" x2="700" y1="340.0" y2="340.0" stroke="#E5DED3" stroke-width="1"/><text x="112" y="345.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >-10℃</text>
+<line x1="120" x2="700" y1="300.0" y2="300.0" stroke="#8C7B6A" stroke-width="1.6"/><text x="112" y="305.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >0℃</text>
+<line x1="120" x2="700" y1="260.0" y2="260.0" stroke="#E5DED3" stroke-width="1"/><text x="112" y="265.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >10℃</text>
+<line x1="120" x2="700" y1="220.0" y2="220.0" stroke="#E5DED3" stroke-width="1"/><text x="112" y="225.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >20℃</text>
+<line x1="120" x2="700" y1="180.0" y2="180.0" stroke="#E5DED3" stroke-width="1"/><text x="112" y="185.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >30℃</text>
+<rect x="150" y="300.0" width="36" height="70.4" rx="4" fill="#4A90C2" opacity=".85"/>
+<text x="168" y="386.4" text-anchor="middle" font-size="12.5" font-weight="900" fill="#4A90C2" >-17.6</text>
+<rect x="190" y="205.6" width="36" height="94.4" rx="4" fill="#E0694F" opacity=".85"/>
+<text x="208" y="199.6" text-anchor="middle" font-size="12.5" font-weight="900" fill="#E0694F" >23.6</text>
+<text x="188" y="410.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >哈爾濱</text>
+<rect x="265" y="300.0" width="36" height="11.6" rx="4" fill="#4A90C2" opacity=".85"/>
+<text x="283" y="327.6" text-anchor="middle" font-size="12.5" font-weight="900" fill="#4A90C2" >-2.9</text>
+<rect x="305" y="192.0" width="36" height="108.0" rx="4" fill="#E0694F" opacity=".85"/>
+<text x="323" y="186.0" text-anchor="middle" font-size="12.5" font-weight="900" fill="#E0694F" >27.0</text>
+<text x="303" y="410.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >北京</text>
+<rect x="380" y="280.8" width="36" height="19.2" rx="4" fill="#4A90C2" opacity=".85"/>
+<text x="398" y="274.8" text-anchor="middle" font-size="12.5" font-weight="900" fill="#4A90C2" >4.8</text>
+<rect x="420" y="184.4" width="36" height="115.6" rx="4" fill="#E0694F" opacity=".85"/>
+<text x="438" y="178.4" text-anchor="middle" font-size="12.5" font-weight="900" fill="#E0694F" >28.9</text>
+<text x="418" y="410.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >上海</text>
+<rect x="495" y="244.4" width="36" height="55.6" rx="4" fill="#4A90C2" opacity=".85"/>
+<text x="513" y="238.4" text-anchor="middle" font-size="12.5" font-weight="900" fill="#4A90C2" >13.9</text>
+<rect x="535" y="184.0" width="36" height="116.0" rx="4" fill="#E0694F" opacity=".85"/>
+<text x="553" y="178.0" text-anchor="middle" font-size="12.5" font-weight="900" fill="#E0694F" >29.0</text>
+<text x="533" y="410.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >廣州</text>
+<rect x="610" y="227.6" width="36" height="72.4" rx="4" fill="#4A90C2" opacity=".85"/>
+<text x="628" y="221.6" text-anchor="middle" font-size="12.5" font-weight="900" fill="#4A90C2" >18.1</text>
+<rect x="650" y="184.4" width="36" height="115.6" rx="4" fill="#E0694F" opacity=".85"/>
+<text x="668" y="178.4" text-anchor="middle" font-size="12.5" font-weight="900" fill="#E0694F" >28.9</text>
+<text x="648" y="410.0" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >海口</text>
+<line x1="160.0" y1="432.0" x2="654.0" y2="432.0" stroke="#6B5E52" stroke-width="3" stroke-linecap="round"/><path d="M660.0,432.0 L651.0,436.3 L651.0,427.7 Z" fill="#6B5E52"/><text x="410" y="452.0" text-anchor="middle" font-size="12.5" font-weight="900" fill="#6B5E52" >由北往南（緯度降低）</text>
+<rect x="250" y="62" width="16" height="16" fill="#5DA2D6"/><text x="272" y="76" text-anchor="start" font-size="13.5" font-weight="900" fill="#332B25" >一月月均溫</text>
+<rect x="420" y="62" width="16" height="16" fill="#E8735A"/><text x="442" y="76" text-anchor="start" font-size="13.5" font-weight="900" fill="#332B25" >七月月均溫</text>
+<rect x="730" y="66" width="210" height="128" rx="14" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="835" y="94" text-anchor="middle" font-size="15.5" font-weight="900" fill="#E0694F" >夏季（七月）</text>
+<text x="835" y="122" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >多在 20℃ 以上，普遍高溫</text>
+<text x="835" y="146" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >太陽直射北半球，南北溫差小</text>
+<text x="835" y="170" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >山地、高原地勢高，比較涼爽</text>
+<rect x="730" y="206" width="210" height="128" rx="14" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<text x="835" y="234" text-anchor="middle" font-size="15.5" font-weight="900" fill="#4A90C2" >冬季（一月）</text>
+<text x="835" y="262" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >南北溫差大（約 -25℃～20℃）</text>
+<text x="835" y="286" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >東半部：緯度愈高愈冷</text>
+<text x="835" y="310" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >0℃ 等溫線大致沿秦嶺—淮河</text>
+<rect x="730" y="346" width="210" height="128" rx="14" fill="#fff" stroke="#9C6ADE" stroke-width="2.5"/>
+<text x="835" y="374" text-anchor="middle" font-size="15.5" font-weight="900" fill="#9C6ADE" >同緯度比較</text>
+<text x="835" y="402" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >拉薩一月約 -5℃（地勢高）</text>
+<text x="835" y="426" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >上海一月約 5℃（地勢低）</text>
+<text x="835" y="450" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >西半部多高山高原，冬季較冷</text>
+<text x="360" y="488" text-anchor="middle" font-size="12" font-weight="800" fill="#6B5E52" >（各城市月均溫為氣候平均的約略值，自繪）</text>
+</svg>

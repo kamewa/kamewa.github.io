@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 326" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="326" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >中國的氣候特徵整理</text>
+<rect x="24" y="64" width="216" height="210" rx="18" fill="#FDE8E3" stroke="#45392F" stroke-width="2"/>
+<text x="132" y="116" text-anchor="middle" font-size="38" font-weight="400" fill="#332B25" >🌞</text><rect x="57.0" y="142.8" width="150" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="132" y="163.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">氣溫：夏季</text>
+<text x="132" y="208" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >普遍高溫</text>
+<text x="132" y="240" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >南北溫差小</text>
+<rect x="258" y="64" width="216" height="210" rx="18" fill="#E1EFF9" stroke="#45392F" stroke-width="2"/>
+<text x="366" y="116" text-anchor="middle" font-size="38" font-weight="400" fill="#332B25" >❄️</text><rect x="291.0" y="142.8" width="150" height="30.4" rx="15.2" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="366" y="163.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">氣溫：冬季</text>
+<text x="366" y="208" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >氣溫南高北低</text>
+<text x="366" y="240" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >南北溫差大</text>
+<rect x="492" y="64" width="216" height="210" rx="18" fill="#DDF2EF" stroke="#45392F" stroke-width="2"/>
+<text x="600" y="116" text-anchor="middle" font-size="38" font-weight="400" fill="#332B25" >📅</text><rect x="525.0" y="142.8" width="150" height="30.4" rx="15.2" fill="#2E9A86" stroke="#45392F" stroke-width="2"/><text x="600" y="163.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">降水：季節</text>
+<text x="600" y="208" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >受季風影響</text>
+<text x="600" y="240" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >夏雨冬乾</text>
+<rect x="726" y="64" width="216" height="210" rx="18" fill="#FDF3DC" stroke="#45392F" stroke-width="2"/>
+<text x="834" y="116" text-anchor="middle" font-size="38" font-weight="400" fill="#332B25" >🗺️</text><rect x="759.0" y="142.8" width="150" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="834" y="163.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">降水：空間</text>
+<text x="834" y="208" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >距海遠近影響大</text>
+<text x="834" y="240" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >由東南向西北遞減</text>
+<text x="480" y="306" text-anchor="middle" font-size="14" font-weight="900" fill="#6B4E2E" >秦嶺—淮河：一月 0℃ 等溫線＋年降水量 750 毫米等雨量線，是中國重要的地理分界線</text>
+</svg>
