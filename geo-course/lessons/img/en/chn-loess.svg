@@ -1,0 +1,37 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="470" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="18.5" font-weight="800" fill="#332B25" >Loess Plateau: from yellow to green</text>
+<rect x="30" y="64" width="430" height="360" rx="18" fill="#F3E2C2" stroke="#45392F" stroke-width="2"/>
+<rect x="50" y="104" width="390" height="130" rx="12" fill="#F1E3C8"/>
+<path d="M50,234 L50,190 Q110,140 170,178 Q230,150 290,176 Q360,136 440,182 L440,234 Z" fill="#D9B27A"/>
+<path d="M90,234 L98,196 L106,234" fill="#B98A50"/>
+<path d="M150,234 L158,196 L166,234" fill="#B98A50"/>
+<path d="M210,234 L218,196 L226,234" fill="#B98A50"/>
+<path d="M270,234 L278,196 L286,234" fill="#B98A50"/>
+<path d="M330,234 L338,196 L346,234" fill="#B98A50"/>
+<path d="M390,234 L398,196 L406,234" fill="#B98A50"/>
+<rect x="115.0" y="78.8" width="260" height="30.4" rx="15.2" fill="#A8743A" stroke="#45392F" stroke-width="2"/><text x="245" y="99.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Past: overfarming</text>
+<text x="245" y="276" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Long history of heavy farming</text>
+<text x="245" y="310" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Soil erosion, dust storms</text>
+<text x="245" y="344" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Plants lost → desertification</text>
+<text x="245" y="378" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Muddy Yellow River (“half a bowl of mud”)</text>
+<rect x="500" y="64" width="430" height="360" rx="18" fill="#E3F4E5" stroke="#45392F" stroke-width="2"/>
+<rect x="520" y="104" width="390" height="130" rx="12" fill="#DDEFF8"/>
+<path d="M520,234 L520,190 Q580,140 640,178 Q700,150 760,176 Q830,136 910,182 L910,234 Z" fill="#86B86A"/>
+<circle cx="550" cy="176" r="12" fill="#3E8E5A"/><rect x="548" y="184" width="4" height="12" fill="#6B4E2E"/>
+<circle cx="590" cy="184" r="12" fill="#3E8E5A"/><rect x="588" y="192" width="4" height="12" fill="#6B4E2E"/>
+<circle cx="630" cy="192" r="12" fill="#3E8E5A"/><rect x="628" y="200" width="4" height="12" fill="#6B4E2E"/>
+<circle cx="670" cy="176" r="12" fill="#3E8E5A"/><rect x="668" y="184" width="4" height="12" fill="#6B4E2E"/>
+<circle cx="710" cy="184" r="12" fill="#3E8E5A"/><rect x="708" y="192" width="4" height="12" fill="#6B4E2E"/>
+<circle cx="750" cy="192" r="12" fill="#3E8E5A"/><rect x="748" y="200" width="4" height="12" fill="#6B4E2E"/>
+<circle cx="790" cy="176" r="12" fill="#3E8E5A"/><rect x="788" y="184" width="4" height="12" fill="#6B4E2E"/>
+<circle cx="830" cy="184" r="12" fill="#3E8E5A"/><rect x="828" y="192" width="4" height="12" fill="#6B4E2E"/>
+<circle cx="870" cy="192" r="12" fill="#3E8E5A"/><rect x="868" y="200" width="4" height="12" fill="#6B4E2E"/>
+<rect x="585.0" y="78.8" width="260" height="30.4" rx="15.2" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="715" y="99.6" text-anchor="middle" font-size="15.2" font-weight="800" fill="#fff">Now: back to forest and grassland</text>
+<text x="715" y="276" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Since 2000: farmland back to forest and grass</text>
+<text x="715" y="310" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Trees planted, land left to recover</text>
+<text x="715" y="344" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Soil holds water and nutrients → more green</text>
+<text x="715" y="378" text-anchor="middle" font-size="15" font-weight="800" fill="#332B25" >Less sediment, cleaner Yellow River</text>
+<line x1="462.0" y1="244.0" x2="489.6" y2="244.0" stroke="#6B5E52" stroke-width="6" stroke-linecap="round"/><path d="M498.0,244.0 L485.4,250.1 L485.4,237.9 Z" fill="#6B5E52"/>
+<text x="480" y="452" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >Loess washed downstream by the Yellow River settles on the low-step plains (adapted from a 2023 study in Acta Ecologica Sinica, drawn for this lesson)</text>
+</svg>

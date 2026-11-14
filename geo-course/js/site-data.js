@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110356',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110357',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -126,7 +126,7 @@ window.SITE = {
     /* 中國分區地圖（二上課程）：從亞洲地圖的「中國」入口進入 */
     { id: 'china', parent: 'asia', name: '中國', en: 'China', icon: '🐉', color: 'red', map: 'maps/china.webp', glow: 'ember', pinSize: 6.3,
       buttons: [
-        { label: '地形', x: 53.7, y: 52.2, href: '' },          // 1 中國中央
+        { label: '地形', x: 53.7, y: 52.2, href: '#/l/chn-landform/china' },          // 1 中國中央：二上 第1章
         { label: '氣候', x: 86.1, y: 23.6, href: '' },          // 2 右上（冰雪）
         { label: '人口', x: 76.7, y: 67.4, href: '' },          // 3 右下（颱風、洪水）
         { label: '經濟與議題', x: 29.0, y: 39.5, href: '' },    // 4 左上（新疆）
@@ -198,6 +198,8 @@ window.SITE = {
       on: { 'taiwan-human': { x: 83.1, y: 54.0 } } },
     { id: 'reg',             name: '區域發展與差異', book: '一下 第6章', status: 'open', file: 'lessons/reg.js',
       on: { 'taiwan-human': { x: 68.7, y: 81.5 } } },
+    { id: 'chn-landform',    name: '中國的地形', book: '二上 第1章', status: 'open', file: 'lessons/chn-landform.js',
+      on: { china: { x: 53.7, y: 52.2 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
       on: { taiwan: { x: 30.1, y: 23.5 } } },
     { id: 'taiwan-world',    name: '世界中的臺灣', book: '一上 第2章', status: 'open', file: 'lessons/taiwan-world.js',

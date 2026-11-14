@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 485" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="485" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >沿北緯 36 度由西向東：一級一級往下的階梯</text>
+<line x1="80" x2="900" y1="380.0" y2="380.0" stroke="#E5DED3"/><text x="72" y="385.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >0</text>
+<line x1="80" x2="900" y1="335.0" y2="335.0" stroke="#E5DED3"/><text x="72" y="340.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >1,000</text>
+<line x1="80" x2="900" y1="290.0" y2="290.0" stroke="#E5DED3"/><text x="72" y="295.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >2,000</text>
+<line x1="80" x2="900" y1="245.0" y2="245.0" stroke="#E5DED3"/><text x="72" y="250.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >3,000</text>
+<line x1="80" x2="900" y1="200.0" y2="200.0" stroke="#E5DED3"/><text x="72" y="205.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >4,000</text>
+<line x1="80" x2="900" y1="155.0" y2="155.0" stroke="#E5DED3"/><text x="72" y="160.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >5,000</text>
+<line x1="80" x2="900" y1="110.0" y2="110.0" stroke="#E5DED3"/><text x="72" y="115.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >6,000</text>
+<text x="72" y="92" text-anchor="end" font-size="12" font-weight="800" fill="#6B5E52" >公尺</text>
+<polygon points="80.0,380 80.0,177.5 130.2,146.0 180.4,155.0 247.3,159.5 314.3,155.0 364.5,164.0 414.7,218.0 448.2,245.0 498.4,231.5 531.8,231.5 548.6,267.5 548.6,380" fill="#D98C5F"/>
+<polygon points="548.6,380 548.6,267.5 582.0,308.0 615.5,303.5 649.0,321.5 682.4,330.5 707.6,348.5 724.3,321.5 741.0,339.5 746.0,380" fill="#EBC77A"/>
+<polygon points="746.0,380 757.8,375.5 782.9,378.2 816.3,368.8 841.4,378.2 858.2,380.0 866.5,380" fill="#9CCB86"/>
+<polygon points="858.2,380 900.0,380 900.0,389.0 858.2,389.0" fill="#8EC9EA"/>
+<polyline points="80.0,177.5 130.2,146.0 180.4,155.0 247.3,159.5 314.3,155.0 364.5,164.0 414.7,218.0 448.2,245.0 498.4,231.5 531.8,231.5 548.6,267.5 582.0,308.0 615.5,303.5 649.0,321.5 682.4,330.5 707.6,348.5 724.3,321.5 741.0,339.5 757.8,375.5 782.9,378.2 816.3,368.8 841.4,378.2 858.2,380.0 900.0,380.0" fill="none" stroke="#5B4B3C" stroke-width="2.5"/>
+<text x="264.0816326530612" y="136.0" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >青藏高原</text>
+<text x="439.7959183673469" y="221.5" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >柴達木盆地</text>
+<text x="632.2448979591836" y="277.75" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >黃土高原</text>
+<text x="732.6530612244898" y="300.25" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >太行山</text>
+<text x="782.8571428571428" y="349.75" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >華北平原</text>
+<text x="876.5714285714284" y="356.5" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >黃海</text>
+<text x="314.2857142857143" y="410" text-anchor="middle" font-size="17" font-weight="900" fill="#A85C33" >高階梯</text>
+<text x="647.3061224489795" y="410" text-anchor="middle" font-size="17" font-weight="900" fill="#9A7420" >中階梯</text>
+<text x="806.2857142857142" y="410" text-anchor="middle" font-size="17" font-weight="900" fill="#2E6B2F" >低階梯</text>
+<text x="180.40816326530611" y="436" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >80°E</text>
+<text x="347.7551020408163" y="436" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >90°E</text>
+<text x="515.1020408163265" y="436" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >100°E</text>
+<text x="682.4489795918367" y="436" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >110°E</text>
+<text x="849.795918367347" y="436" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >120°E</text>
+<text x="480" y="466" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >東邊地勢低、面向海洋：夏季季風帶來的水氣容易吹入內陸，平原又有水源，適合發展農業（高度放大的示意剖面）</text>
+</svg>

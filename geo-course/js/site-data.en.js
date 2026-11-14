@@ -41,6 +41,7 @@ window.SITE_EN = {
     ind: 'Secondary and Tertiary Industries',
     set: 'Settlements and Cities',
     reg: 'Regional Development and Differences',
+    'chn-landform': 'Landforms of China',
     'location-map': 'Location and Maps',
     'taiwan-world': 'Taiwan in the World',
     'taiwan-landform': 'Landforms of Taiwan',
