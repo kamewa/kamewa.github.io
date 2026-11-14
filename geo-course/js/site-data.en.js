@@ -44,6 +44,7 @@ window.SITE_EN = {
     'chn-landform': 'Landforms of China',
     'chn-climate': 'Climate of China',
     'chn-population': 'Population of China',
+    'chn-economy': 'China’s Economy and Global Links',
     'location-map': 'Location and Maps',
     'taiwan-world': 'Taiwan in the World',
     'taiwan-landform': 'Landforms of Taiwan',

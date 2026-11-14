@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 492" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="492" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >外國對中國投資的行業比例（%）</text>
+<text x="70" y="116" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >2004</text>
+<rect x="110.0" y="80" width="582.2" height="56" fill="#E8735A" stroke="#fff" stroke-width="2"/>
+<text x="401.09999999999997" y="114" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >71</text>
+<rect x="692.2" y="80" width="82.0" height="56" fill="#C9A227" stroke="#fff" stroke-width="2"/>
+<text x="733.1999999999999" y="114" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >10</text>
+<rect x="774.2" y="80" width="41.0" height="56" fill="#8DC3E6" stroke="#fff" stroke-width="2"/>
+<text x="794.6999999999999" y="114" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >5</text>
+<rect x="815.2" y="80" width="8.2" height="56" fill="#9C6ADE" stroke="#fff" stroke-width="2"/>
+<rect x="823.4" y="80" width="8.2" height="56" fill="#F2B56B" stroke="#fff" stroke-width="2"/>
+<rect x="831.6" y="80" width="98.4" height="56" fill="#D8D2C8" stroke="#fff" stroke-width="2"/>
+<text x="880.8000000000001" y="114" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >12</text>
+<text x="70" y="216" text-anchor="middle" font-size="18" font-weight="900" fill="#332B25" >2023</text>
+<rect x="110.0" y="180" width="229.6" height="56" fill="#E8735A" stroke="#fff" stroke-width="2"/>
+<text x="224.79999999999998" y="214" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >28</text>
+<rect x="339.6" y="180" width="147.6" height="56" fill="#7AB87A" stroke="#fff" stroke-width="2"/>
+<text x="413.4" y="214" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >18</text>
+<rect x="487.2" y="180" width="131.2" height="56" fill="#8DC3E6" stroke="#fff" stroke-width="2"/>
+<text x="552.8" y="214" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >16</text>
+<rect x="618.4" y="180" width="82.0" height="56" fill="#9C6ADE" stroke="#fff" stroke-width="2"/>
+<text x="659.3999999999999" y="214" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >10</text>
+<rect x="700.4" y="180" width="49.2" height="56" fill="#F2B56B" stroke="#fff" stroke-width="2"/>
+<text x="724.9999999999999" y="214" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >6</text>
+<rect x="749.6" y="180" width="180.4" height="56" fill="#D8D2C8" stroke="#fff" stroke-width="2"/>
+<text x="839.8" y="214" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >22</text>
+<rect x="40" y="300" width="16" height="16" rx="3" fill="#E8735A"/><text x="64" y="313" text-anchor="start" font-size="12.5" font-weight="900" fill="#332B25" >製造業</text>
+<rect x="265" y="300" width="16" height="16" rx="3" fill="#C9A227"/><text x="289" y="313" text-anchor="start" font-size="12.5" font-weight="900" fill="#332B25" >房地產業</text>
+<rect x="490" y="300" width="16" height="16" rx="3" fill="#8DC3E6"/><text x="514" y="313" text-anchor="start" font-size="12.5" font-weight="900" fill="#332B25" >租賃和商務服務業</text>
+<rect x="715" y="300" width="16" height="16" rx="3" fill="#7AB87A"/><text x="739" y="313" text-anchor="start" font-size="12.5" font-weight="900" fill="#332B25" >科學研究和技術服務業</text>
+<rect x="40" y="330" width="16" height="16" rx="3" fill="#9C6ADE"/><text x="64" y="343" text-anchor="start" font-size="12.5" font-weight="900" fill="#332B25" >資訊技術服務業</text>
+<rect x="265" y="330" width="16" height="16" rx="3" fill="#F2B56B"/><text x="289" y="343" text-anchor="start" font-size="12.5" font-weight="900" fill="#332B25" >批發和零售業</text>
+<rect x="490" y="330" width="16" height="16" rx="3" fill="#D8D2C8"/><text x="514" y="343" text-anchor="start" font-size="12.5" font-weight="900" fill="#332B25" >其他</text>
+<rect x="40" y="370" width="880" height="80" rx="14" fill="#FFF8E7" stroke="#45392F" stroke-width="1.3"/>
+<text x="480" y="400" text-anchor="middle" font-size="15" font-weight="900" fill="#E0694F" >製造業從約 71% 降到約 28%；服務業、科技研發比例提高</text>
+<text x="480" y="428" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >原因：工資上漲、美國提高關稅與技術禁令 → 外國企業轉型或遷移；人民所得增加 → 消費潛力大</text>
+<text x="480" y="474" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >（依課本圖 1-4-32 整理的約略值，自繪）</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 488" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="488" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Map practice: where does winter wind blow the dried waste?</text>
+<rect x="160" y="64" width="440" height="380" rx="16" fill="#E9E3D2" stroke="#45392F" stroke-width="2"/>
+<ellipse cx="380" cy="254" rx="110" ry="80" fill="#4A4A4A" stroke="#2C2C2C" stroke-width="3"/><text x="380" y="260" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" >Tailings dam</text>
+<circle cx="220" cy="110" r="22" fill="#fff" stroke="#332B25" stroke-width="2"/><text x="220" y="117" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >A</text>
+<circle cx="540" cy="110" r="22" fill="#fff" stroke="#332B25" stroke-width="2"/><text x="540" y="117" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >B</text>
+<circle cx="540" cy="400" r="22" fill="#fff" stroke="#332B25" stroke-width="2"/><text x="540" y="407" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >C</text>
+<circle cx="220" cy="400" r="22" fill="#fff" stroke="#332B25" stroke-width="2"/><text x="220" y="407" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >D</text>
+<line x1="110.0" y1="70.0" x2="221.2" y2="171.9" stroke="#4A90C2" stroke-width="8" stroke-linecap="round"/><path d="M230.0,180.0 L210.8,174.2 L222.6,161.4 Z" fill="#4A90C2"/><text x="70" y="60" text-anchor="start" font-size="16" font-weight="900" fill="#4A90C2" >Winter NW wind</text>
+<g transform="translate(560,170)"><circle r="26" fill="#fff" stroke="#7A6450"/><text x="0" y="-8" text-anchor="middle" font-size="14" font-weight="900" fill="#E0694F" >N</text><text x="0" y="20" text-anchor="middle" font-size="12" font-weight="900" fill="#332B25" >S</text><text x="-16" y="6" text-anchor="middle" font-size="12" font-weight="900" fill="#332B25" >W</text><text x="16" y="6" text-anchor="middle" font-size="12" font-weight="900" fill="#332B25" >E</text></g>
+<rect x="630" y="64" width="300" height="380" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="780" y="104" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >Think</text>
+<text x="780" y="144" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Black mud dries into gray-white</text>
+<text x="780" y="184" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >dust and is blown into dunes.</text>
+<text x="780" y="264" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >What wind blows in N. China in winter?</text>
+<text x="780" y="304" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >On which side of the dam do dunes form?</text>
+<text x="780" y="384" text-anchor="middle" font-size="14" font-weight="900" fill="#6B5E52" >(Answer in “Think”)</text>
+<text x="480" y="470" text-anchor="middle" font-size="12.2" font-weight="800" fill="#6B5E52" >(Illustration, not a real satellite image; original drawing)</text>
+</svg>

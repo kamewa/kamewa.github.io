@@ -1,0 +1,51 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="480" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >China: from “world factory” to “world market”</text>
+<rect x="20" y="56" width="455" height="380" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="248" y="86" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >GDP (trillion USD)</text>
+<line x1="64" x2="394" y1="396.0" y2="396.0" stroke="#E5DED3"/><text x="56" y="401.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >0</text>
+<line x1="64" x2="394" y1="351.0" y2="351.0" stroke="#E5DED3"/><text x="56" y="356.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >5</text>
+<line x1="64" x2="394" y1="306.0" y2="306.0" stroke="#E5DED3"/><text x="56" y="311.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >10</text>
+<line x1="64" x2="394" y1="261.0" y2="261.0" stroke="#E5DED3"/><text x="56" y="266.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >15</text>
+<line x1="64" x2="394" y1="216.0" y2="216.0" stroke="#E5DED3"/><text x="56" y="221.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >20</text>
+<line x1="64" x2="394" y1="171.0" y2="171.0" stroke="#E5DED3"/><text x="56" y="176.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >25</text>
+<line x1="64" x2="394" y1="126.0" y2="126.0" stroke="#E5DED3"/><text x="56" y="131.0" text-anchor="end" font-size="12.5" font-weight="700" fill="#6B5E52" >30</text>
+<text x="64.0" y="418" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1960</text>
+<text x="167.125" y="418" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >1980</text>
+<text x="270.25" y="418" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2000</text>
+<text x="394.0" y="418" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >2024</text>
+<polyline points="64.0,391.1 115.6,386.4 167.1,370.3 218.7,342.4 244.5,327.2 270.2,303.8 296.0,278.6 321.8,260.5 347.6,231.3 373.4,203.8 394.0,133.2" fill="none" stroke="#4A90C2" stroke-width="4" stroke-linejoin="round"/>
+<text x="402.0" y="138.2" text-anchor="start" font-size="14" font-weight="900" fill="#4A90C2" >USA</text>
+<polyline points="64.0,395.5 115.6,395.2 167.1,394.3 218.7,392.8 244.5,389.4 270.2,385.1 296.0,375.4 321.8,341.2 347.6,296.5 373.4,263.8 394.0,227.7" fill="none" stroke="#E0569B" stroke-width="4" stroke-linejoin="round"/>
+<text x="402.0" y="232.70000000000002" text-anchor="start" font-size="14" font-weight="900" fill="#E0569B" >China</text>
+<polyline points="64.0,395.6 115.6,394.1 167.1,386.1 218.7,367.8 244.5,346.1 270.2,351.3 296.0,352.5 321.8,344.2 347.6,356.0 373.4,350.6 394.0,359.7" fill="none" stroke="#3E8E5A" stroke-width="4" stroke-linejoin="round"/>
+<text x="402.0" y="364.73" text-anchor="start" font-size="14" font-weight="900" fill="#3E8E5A" >Japan</text>
+<rect x="490" y="56" width="450" height="380" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="715" y="86" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >Share of world consumer spending</text>
+<text x="520" y="150" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >1980</text>
+<rect x="552.0" y="120" width="93.6" height="46" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="598.8" y="149" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >26%</text>
+<rect x="645.6" y="120" width="3.6" height="46" fill="#E0569B" stroke="#fff" stroke-width="1.5"/>
+<rect x="649.2" y="120" width="32.4" height="46" fill="#9C6ADE" stroke="#fff" stroke-width="1.5"/>
+<text x="665.4000000000001" y="149" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >9%</text>
+<rect x="681.6" y="120" width="32.4" height="46" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<text x="697.8000000000001" y="149" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >9%</text>
+<rect x="714.0" y="120" width="198.0" height="46" fill="#D8D2C8" stroke="#fff" stroke-width="1.5"/>
+<text x="813.0" y="149" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >55%</text>
+<text x="520" y="260" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >2023</text>
+<rect x="552.0" y="230" width="104.4" height="46" fill="#4A90C2" stroke="#fff" stroke-width="1.5"/>
+<text x="604.2" y="259" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >29%</text>
+<rect x="656.4" y="230" width="46.8" height="46" fill="#E0569B" stroke="#fff" stroke-width="1.5"/>
+<text x="679.8" y="259" text-anchor="middle" font-size="13" font-weight="900" fill="#fff" >13%</text>
+<rect x="703.2" y="230" width="14.4" height="46" fill="#9C6ADE" stroke="#fff" stroke-width="1.5"/>
+<rect x="717.6" y="230" width="14.4" height="46" fill="#3E8E5A" stroke="#fff" stroke-width="1.5"/>
+<rect x="732.0" y="230" width="180.0" height="46" fill="#D8D2C8" stroke="#fff" stroke-width="1.5"/>
+<text x="821.9999999999999" y="259" text-anchor="middle" font-size="13" font-weight="900" fill="#332B25" >50%</text>
+<rect x="512" y="352" width="16" height="16" rx="3" fill="#4A90C2"/><text x="534" y="365" text-anchor="start" font-size="13" font-weight="900" fill="#332B25" >USA</text>
+<rect x="596" y="352" width="16" height="16" rx="3" fill="#E0569B"/><text x="618" y="365" text-anchor="start" font-size="13" font-weight="900" fill="#332B25" >China</text>
+<rect x="680" y="352" width="16" height="16" rx="3" fill="#9C6ADE"/><text x="702" y="365" text-anchor="start" font-size="13" font-weight="900" fill="#332B25" >Germany</text>
+<rect x="764" y="352" width="16" height="16" rx="3" fill="#3E8E5A"/><text x="786" y="365" text-anchor="start" font-size="13" font-weight="900" fill="#332B25" >Japan</text>
+<rect x="848" y="352" width="16" height="16" rx="3" fill="#D8D2C8"/><text x="870" y="365" text-anchor="start" font-size="13" font-weight="900" fill="#332B25" >Others</text>
+<text x="715" y="410" text-anchor="middle" font-size="13.5" font-weight="900" fill="#9B1F5C" >China about 13% in 2023, second only to the USA</text>
+<text x="480" y="462" text-anchor="middle" font-size="12.3" font-weight="800" fill="#6B5E52" >(Approximate, from World Bank and other public data, original drawing)</text>
+</svg>
