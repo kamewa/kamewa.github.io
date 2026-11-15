@@ -123,6 +123,45 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
   border-radius:999px;border:2.5px solid #fff;background:rgba(255,255,255,.75);
   padding:6px 14px;font-size:.85rem;font-weight:700;color:var(--plum-soft)
 }
+/* ---------- 關卡選單 ---------- */
+.card .lvl-head{font-size:.85rem;font-weight:700;color:var(--plum-soft);line-height:1.4;margin-top:2px}
+.lvls{display:flex;flex-direction:column;gap:8px}
+.lvl{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;text-align:left;padding:9px 14px;border-radius:18px;
+  background:#fff;border:2.5px solid var(--lav-soft);box-shadow:0 4px 0 var(--lav-soft);transition:transform .12s,border-color .12s
+}
+.lvl:hover:not(:disabled){border-color:var(--pink);transform:translateY(-1px)}
+.lvl:disabled{opacity:.55;cursor:default;box-shadow:none}
+.lvl.done{border-color:var(--mint);box-shadow:0 4px 0 var(--mint)}
+.lvl.test{border-color:var(--lemon);box-shadow:0 4px 0 var(--lemon)}
+.lvl-name{font-family:var(--font-display);font-weight:900;font-size:1.1rem}
+.lvl-note{grid-column:1;font-size:.82rem;font-weight:700;color:var(--plum-soft)}
+.lvl-tag{grid-column:2;grid-row:1 / span 2;align-self:center;font-size:.8rem;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--mint-soft);white-space:nowrap}
+.lvl-tag:empty{display:none}
+.card .unlock{align-self:flex-start;font-weight:700;font-size:.95rem;border-radius:999px;padding:4px 14px;background:var(--mint-soft)}
+.qimg{padding:0;border:2.5px solid var(--lav-soft);border-radius:16px;overflow:hidden;background:#fff;cursor:zoom-in}
+.qimg img{display:block;width:100%;max-height:230px;object-fit:contain}
+.zoom{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:rgba(74,34,96,.72);border:0;cursor:zoom-out}
+.zoom[hidden]{display:none}
+.zoom img{max-width:100%;max-height:100%;border-radius:16px;background:#fff}
+/* ---------- 學生管理 ---------- */
+.ad-body{min-height:0;overflow-y:auto;padding:18px 22px 22px;display:flex;flex-direction:column;gap:14px}
+.ad-body>*{flex-shrink:0}
+.ad-pick{display:flex;align-items:center;gap:10px;font-weight:700}
+.ad-pick select{width:auto;min-width:180px}
+.ad-form{display:grid;grid-template-columns:110px 90px minmax(0,1fr) auto;gap:10px;align-items:end;padding:14px;border-radius:18px;background:#fff3f9}
+.ad-form label,.ed-lab{display:block;font-size:.85rem;font-weight:700;color:var(--plum-soft);margin-bottom:3px}
+.ad-form .mini{min-height:44px}
+.ad-code{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:18px;background:#fff6c9;border:2.5px solid var(--lemon);font-weight:700}
+.ad-code[hidden]{display:none}
+.ad-code strong{font-family:var(--font-display);font-weight:900;font-size:2.2rem;letter-spacing:.08em;font-variant-numeric:tabular-nums;color:var(--pink)}
+.ad-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ad-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:6px 12px;border-radius:16px;background:#fff;border:2.5px solid var(--lav-soft)}
+.ad-row.off{background:#f6f1fa;border-style:dashed}
+.ad-row.off .ad-name{color:var(--plum-soft)}
+.ad-name{font-weight:700}
+.ad-note{font-weight:700;color:var(--plum-soft);padding:8px}
+@media (max-width:860px){.ad-form{grid-template-columns:1fr 1fr}.ad-form .ad-wide{grid-column:1 / -1}}
 /* ---------- 登入 ---------- */
 .login{display:flex;flex-direction:column;gap:12px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -271,15 +310,15 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
     <div class="card">
       <div class="progress">
         <ol class="hearts" id="hearts" aria-label="答題進度"></ol>
-        <span class="count" id="count">共 5 題</span>
+        <span class="count" id="count">粉彩地形島</span>
       </div>
       <div id="view" aria-live="polite" style="display:contents">
         <h2>島上藏著五種地形，你認得出來嗎？</h2>
-        <p class="lead">每一題，鏡頭會飛到一顆愛心旁邊。轉動島嶼、看清楚高低起伏，再選出答案。答對 3 題以上，彩虹就會出現。</p>
-        <button class="go" id="start" type="button">開始闖關</button>
+        <p class="lead">每一題，鏡頭會飛到一顆愛心旁邊。轉動島嶼、看清楚高低起伏，再選出答案。</p>
       </div>
     </div>
     <div class="foot">
+      <button class="sound" id="adminBtn" type="button" hidden>學生管理</button>
       <button class="sound" id="teacher" type="button">老師編輯題目</button>
       <button class="sound" id="sound" type="button" aria-pressed="true">音效：開</button>
     </div>
@@ -305,12 +344,18 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
     </header>
     <div class="ed-body">
       <div class="ed-side">
+        <div><label class="ed-lab" for="edLevel">關卡</label><select id="edLevel"></select></div>
+        <div class="ed-moves">
+          <button class="mini add" id="lvAdd" type="button">＋ 新增評量關卡</button>
+          <button class="mini warn" id="lvDel" type="button" hidden>刪除這個關卡</button>
+        </div>
+        <div id="lvNameRow" hidden><label class="ed-lab" for="lvName">評量關卡名稱</label><input id="lvName" type="text" maxlength="30"></div>
+        <label class="ed-pass" for="edPass"><span id="edPassLabel">答對幾題算過關</span>
+          <input id="edPass" type="number" min="1" inputmode="numeric">
+        </label>
         <button class="mini add" id="edAdd" type="button">＋ 新增題目</button>
         <ol class="ed-list" id="edList"></ol>
         <p class="ed-count" id="edCount"></p>
-        <label class="ed-pass" for="edPass">答對幾題出現彩虹
-          <input id="edPass" type="number" min="1" inputmode="numeric">
-        </label>
       </div>
       <p class="ed-empty" id="edEmpty" hidden>還沒有題目。按左邊的「新增題目」開始，或用「匯入 JSON」讀入題庫檔。</p>
       <form class="ed-form" id="edForm">
@@ -333,6 +378,8 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
           <option value="basin">盆地</option>
           <option value="plain">平原</option>
         </select>
+        <label for="fImg">題目圖片（可以不填；填圖檔路徑，例如 images/q1.jpg）</label>
+        <input type="text" id="fImg" placeholder="images/q1.jpg" autocomplete="off">
         <fieldset>
           <legend>選項（點選左邊圓圈標出正確答案，至少填兩個；作答時會自動打亂順序）</legend>
           <div class="ed-opt"><input type="radio" name="fAns" id="fA0" aria-label="選項 1 是正確答案"><input type="text" id="fO0" aria-label="選項 1" placeholder="選項 1"></div>
@@ -346,6 +393,30 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
     </div>
   </div>
 </div>
+
+<div class="editor" id="admin" role="dialog" aria-modal="true" aria-labelledby="adTitle" hidden>
+  <div class="ed-box">
+    <header class="ed-head">
+      <div class="ed-titlerow">
+        <h2 id="adTitle">學生管理</h2>
+        <button class="go ed-done" id="adClose" type="button">完成</button>
+      </div>
+      <p class="ed-msg" id="adMsg" role="status"></p>
+    </header>
+    <div class="ad-body">
+      <div class="ad-code" id="adCode" role="status" hidden></div>
+      <div class="ad-pick"><label for="adCls">班級</label><select id="adCls"></select></div>
+      <form class="ad-form" id="adForm" novalidate>
+        <div><label for="adNewCls">轉入班級</label><input id="adNewCls" type="text" inputmode="numeric" maxlength="3" autocomplete="off"></div>
+        <div><label for="adNewSeat">座號</label><input id="adNewSeat" type="text" inputmode="numeric" maxlength="2" autocomplete="off"></div>
+        <div class="ad-wide"><label for="adNewName">姓名</label><input id="adNewName" type="text" maxlength="20" autocomplete="off"></div>
+        <button class="mini add ad-wide" type="submit">轉入並產生通關碼</button>
+      </form>
+      <ol class="ad-list" id="adList"></ol>
+    </div>
+  </div>
+</div>
+<button class="zoom" id="zoom" type="button" aria-label="關閉放大的圖片" hidden><img id="zoomImg" alt="題目圖片（放大）"></button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -716,12 +787,32 @@ try {
 }
 
 /* ============================================================
-   題庫：載入、檢查、匯出
+   題庫：一座島有多個關卡
+   練習關卡固定四個難度（基礎→進階→思考→統整），過關才開放下一個；
+   評量關卡由老師新增，每關最多作答 3 次，由雲端計次。
    ============================================================ */
-const DRAFT_KEY = "island-quiz-draft:" + ISLAND_ID;
+const DIFFS = ["基礎", "進階", "思考", "統整"];
+const DRAFT_KEY = "island-quiz-draft2:" + ISLAND_ID;
 const clone = (o) => JSON.parse(JSON.stringify(o));
 const esc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const newId = () => "a" + Math.random().toString(36).slice(2, 8);
 
+function normQuestion(q, i) {
+  if (!q || typeof q !== "object") throw new Error("第 " + (i + 1) + " 題的格式不正確。");
+  const options = (Array.isArray(q.options) ? q.options : []).slice(0, 4).map((o) => String(o == null ? "" : o));
+  while (options.length < 4) options.push("");
+  let answer = parseInt(q.answer, 10);
+  if (!(answer >= 0 && answer <= 3)) answer = 0;
+  const img = String(q.img || "").trim();
+  return { spot: SPOT_NAMES[q.spot] ? q.spot : "none", q: String(q.q || ""), options, answer, why: String(q.why || ""),
+           img: /^[\w\-./%]+\.(png|jpe?g|webp|gif)$/i.test(img) && !img.includes("..") ? img : "" };
+}
+function normLevel(l, kind, id, name) {
+  const questions = (Array.isArray(l.questions) ? l.questions : []).map(normQuestion);
+  let pass = parseInt(l.pass, 10);
+  if (!(pass >= 1)) pass = Math.max(1, Math.ceil(questions.length * 0.6));
+  return { id, kind, name, pass, questions };
+}
 function normalizeBank(raw) {
   let src = raw;
   if (src && src.islands) {
@@ -729,31 +820,35 @@ function normalizeBank(raw) {
     if (!src) throw new Error("檔案裡沒有任何島嶼的題目。");
   }
   if (Array.isArray(src)) src = { questions: src };
-  if (!src || !Array.isArray(src.questions)) throw new Error("看不懂這個檔案：找不到 questions 題目清單。");
-  const questions = src.questions.map((q, i) => {
-    if (!q || typeof q !== "object") throw new Error("第 " + (i + 1) + " 題的格式不正確。");
-    const options = (Array.isArray(q.options) ? q.options : []).slice(0, 4).map((o) => String(o == null ? "" : o));
-    while (options.length < 4) options.push("");
-    let answer = parseInt(q.answer, 10);
-    if (!(answer >= 0 && answer <= 3)) answer = 0;
-    return { spot: SPOT_NAMES[q.spot] ? q.spot : "none", q: String(q.q || ""), options, answer, why: String(q.why || "") };
+  if (!src || (!Array.isArray(src.levels) && !Array.isArray(src.questions))) throw new Error("看不懂這個檔案：找不到關卡或題目清單。");
+  // 舊格式（只有一份題目）：放進「基礎」練習關卡
+  const given = Array.isArray(src.levels) ? src.levels : [{ id: "p1", kind: "practice", pass: src.pass, questions: src.questions }];
+  const levels = DIFFS.map((name, i) => {
+    const found = given.find((l) => l && l.id === "p" + (i + 1)) || {};
+    return normLevel(found, "practice", "p" + (i + 1), name);
   });
-  let pass = parseInt(src.pass, 10);
-  if (!(pass >= 1)) pass = Math.max(1, Math.ceil(questions.length * 0.6));
-  return { title: String(src.title || DEFAULT_BANK.title), pass, questions };
+  const seen = {};
+  given.forEach((l) => {
+    if (!l || l.kind !== "assessment") return;
+    let id = /^a[a-z0-9]{1,15}$/.test(l.id) && !seen[l.id] ? l.id : newId();
+    seen[id] = true;
+    levels.push(normLevel(l, "assessment", id, String(l.name || "評量").slice(0, 30)));
+  });
+  return { title: String(src.title || DEFAULT_BANK.title), levels };
 }
 function exportBank() {
   const islands = {}; islands[ISLAND_ID] = bank;
-  return JSON.stringify({ format: "island-quiz", version: 1, islands }, null, 2);
+  return JSON.stringify({ format: "island-quiz", version: 2, islands }, null, 2);
 }
 const isComplete = (q) => q.q.trim() && q.options.filter((o) => o.trim()).length >= 2 && q.options[q.answer].trim();
-const playable = () => bank.questions.filter(isComplete);
+const playable = (level) => level.questions.filter(isComplete);
+const levelLabel = (l) => (l.kind === "practice" ? "練習・" : "評量・") + l.name;
 
-let published = clone(DEFAULT_BANK), bank = clone(DEFAULT_BANK), hasDraft = false;
+let published = normalizeBank(DEFAULT_BANK), bank = clone(published), hasDraft = false;
 try {
   const d = localStorage.getItem(DRAFT_KEY);
   if (d) { bank = normalizeBank(JSON.parse(d)); hasDraft = true; }
-} catch (e) { /* 沒有草稿或無法讀取，就用預設題庫 */ }
+} catch (e) { /* 沒有草稿或無法讀取，就用正式題庫 */ }
 function saveDraft() {
   hasDraft = true;
   try { localStorage.setItem(DRAFT_KEY, JSON.stringify(bank)); } catch (e) {}
@@ -761,92 +856,269 @@ function saveDraft() {
 // 網頁旁邊如果放了 questions.json，就當作正式題庫
 fetch("questions.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
   published = normalizeBank(j);
-  if (!hasDraft) { bank = clone(published); if (!playing && $("editor").hidden) home(); }
+  if (!hasDraft) { bank = clone(published); if (!playing && $("editor").hidden && $("admin").hidden) home(); }
 }).catch(() => {});
 
 /* ============================================================
-   關卡流程
+   登入與雲端
+   API_URL 是老師 Google 試算表上那支程式的網址；留空時不啟用登入（單機模式）。
+   在 Claude 的預覽頁裡連不到雲端，所以預覽頁也是單機模式。
+   ============================================================ */
+const API_URL = "https://script.google.com/macros/s/AKfycbxCc_CpF-nJr1oRM1smz_jxSDGePPvVFwBBs7TdeuBG5Vp3W7rayIoKiGFVtMayN-gjNQ/exec";
+const inPreview = /claude|anthropic/i.test(location.hostname);
+const MAX_TRIES = 3;
+const SESSION_KEY = "island-quiz-session";
+let session = null;
+try { session = JSON.parse(sessionStorage.getItem(SESSION_KEY)); } catch (e) {}
+if (session && session.role !== "guest" && !session.token) session = null; // 舊版留下的登入資料
+const cloudOn = () => !!API_URL && !inPreview;
+const isStudent = () => cloudOn() && session && session.role === "student";
+const isTeacher = () => !cloudOn() || (session && session.role === "teacher");
+function setSession(s) {
+  session = s;
+  try { if (s) sessionStorage.setItem(SESSION_KEY, JSON.stringify(s)); else sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+}
+async function api(payload) {
+  // 用 text/plain 送出，瀏覽器才不會先發一次預檢請求（Apps Script 不支援）
+  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload), redirect: "follow" });
+  if (!r.ok) throw new Error("http " + r.status);
+  return r.json();
+}
+function failText(res) {
+  const map = {
+    locked: "輸錯太多次，請 " + (res.minutes || 10) + " 分鐘後再試，或請老師幫忙。",
+    wrong: "資料不正確，請再檢查一次。" + (res.left > 0 ? "還可以再試 " + res.left + " 次。" : ""),
+    expired: "登入已經過期，請登出後重新登入。",
+    limit: "這個評量已經作答 " + MAX_TRIES + " 次，不能再作答了。",
+    exists: "這個座號已經有學生" + (res.name ? "（" + res.name + "）" : "") + "。請先把原本的學生轉出，或換一個座號。",
+    not_found: "找不到這位學生。",
+    bad_request: "資料格式不正確，請檢查後再試。"
+  };
+  return map[res.error] || "雲端暫時沒有回應，請稍後再試。";
+}
+
+/* ============================================================
+   畫面：登入 → 關卡選單 → 作答 → 結果
    ============================================================ */
 const HEART = '<svg viewBox="0 0 26 24" aria-hidden="true"><path d="M13 22 C4 15.5 1.5 11 1.5 7.2 C1.5 4 4 1.5 7.2 1.5 C9.7 1.5 11.8 2.9 13 5 C14.2 2.9 16.3 1.5 18.8 1.5 C22 1.5 24.5 4 24.5 7.2 C24.5 11 22 15.5 13 22 Z"/></svg>';
 const view = $("view"), heartsEl = $("hearts"), countEl = $("count");
-let quiz = [], step = 0, results = [], playing = false, opts = [];
+let level = null, quiz = [], step = 0, results = [], playing = false, opts = [];
+let attempt = null;   // 評量：{ id, n }；null 代表這次不記錄
+let cloudStatus = {}; // 評量：每關已用次數與分數
 
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-function passMark() { return Math.max(1, Math.min(bank.pass, quiz.length || playable().length)); }
+function resetStage() {
+  playing = false; quiz = []; results = []; step = 0; attempt = null;
+  world.clearMarks(); world.rainbow(false); world.home(); $("confetti").innerHTML = "";
+  heartsEl.innerHTML = "";
+}
 function drawHearts() {
-  const n = playing || results.length ? quiz.length : playable().length;
   let html = "";
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < quiz.length; i++) {
     const r = results[i], cls = r === true ? "ok" : r === false ? "no" : (playing && i === step ? "now" : "");
     const label = r === true ? "答對" : r === false ? "答錯" : "未作答";
     html += '<li class="' + cls + '" aria-label="第 ' + (i + 1) + " 題" + label + '">' + HEART + "</li>";
   }
   heartsEl.innerHTML = html;
 }
-function showIntro() {
-  playing = false; quiz = []; results = []; step = 0;
-  world.clearMarks(); world.rainbow(false); world.home(); $("confetti").innerHTML = "";
-  const n = playable().length;
-  countEl.textContent = "共 " + n + " 題";
-  drawHearts();
-  if (!n) {
-    view.innerHTML = "<h2>這座島還沒有題目</h2><p class=\"lead\">請老師按下方的「老師編輯題目」新增題目，或匯入題庫檔。</p>";
-    return;
-  }
-  view.innerHTML = "<h2>島上藏著 " + n + " 個任務，你能全部完成嗎？</h2>" +
-    '<p class="lead">每一題，鏡頭會飛到一顆愛心旁邊。轉動島嶼、看清楚高低起伏，再選出答案。答對 ' + passMark() + " 題以上，彩虹就會出現。</p>" +
-    '<button class="go" id="start" type="button">開始闖關</button>';
-  $("start").addEventListener("click", startGame);
+function drawWho() {
+  const box = $("who");
+  $("teacher").hidden = !isTeacher();
+  $("adminBtn").hidden = !(cloudOn() && session && session.role === "teacher");
+  if (!cloudOn() || !session) { box.hidden = true; return; }
+  box.hidden = false;
+  const label = session.role === "student" ? session.cls + " 班 " + session.seat + " 號　" + esc(session.name)
+    : session.role === "teacher" ? "老師" : "訪客（不記錄成績）";
+  box.innerHTML = "<span>" + label + '</span><button type="button" id="whoOut">' + (session.role === "guest" ? "登入" : "登出") + "</button>";
+  $("whoOut").addEventListener("click", () => { setSession(null); home(); });
 }
-function startGame() {
-  quiz = clone(playable()); if (!quiz.length) return;
-  step = 0; results = []; playing = true;
+function home() {
+  drawWho();
+  if (cloudOn() && !session) showLogin(); else showLevels();
+}
+
+/* ---------- 練習進度（存在這台電腦的瀏覽器） ---------- */
+const progKey = () => "island-quiz-progress:" + ISLAND_ID + ":" + (isStudent() ? session.cls + "-" + session.seat : "guest");
+function passedSet() { try { return JSON.parse(localStorage.getItem(progKey())) || []; } catch (e) { return []; } }
+function markPassed(id) {
+  const s = passedSet(); if (s.includes(id)) return false;
+  s.push(id); try { localStorage.setItem(progKey(), JSON.stringify(s)); } catch (e) {}
+  return true;
+}
+function unlocked(l) {
+  if (l.kind !== "practice" || isTeacher()) return true;
+  const i = +l.id.slice(1) - 1;
+  return i === 0 || passedSet().includes("p" + i);
+}
+
+/* ---------- 關卡選單 ---------- */
+async function showLevels() {
+  resetStage(); level = null;
+  countEl.textContent = bank.title;
+  const tests = bank.levels.filter((l) => l.kind === "assessment" && playable(l).length);
+  const draw = (loading) => {
+    const passed = passedSet();
+    let html = "<h2>選一個關卡</h2><p class=\"lvl-head\">練習　不限次數，不記錄分數</p><div class=\"lvls\">";
+    bank.levels.filter((l) => l.kind === "practice").forEach((l) => {
+      const n = playable(l).length, open = unlocked(l), done = passed.includes(l.id);
+      const note = !n ? "尚無題目" : !open ? "通過上一個難度後開放" : n + " 題・答對 " + Math.min(l.pass, n) + " 題過關";
+      html += '<button class="lvl' + (done ? " done" : "") + '" type="button" data-id="' + l.id + '"' + (n && open ? "" : " disabled") + ">" +
+        '<span class="lvl-name">' + esc(l.name) + '</span><span class="lvl-note">' + note + '</span><span class="lvl-tag">' + (done ? "已過關" : !open ? "未開放" : "") + "</span></button>";
+    });
+    html += "</div>";
+    if (tests.length) {
+      html += '<p class="lvl-head">評量　每關最多 ' + MAX_TRIES + " 次，計算平均</p><div class=\"lvls\">";
+      tests.forEach((l) => {
+        const n = playable(l).length, st = cloudStatus[l.id] || { used: 0, scores: [], avg: null };
+        let note = n + " 題", tag = "", off = false;
+        if (!cloudOn() || (session && session.role === "teacher")) { note += "・試玩，不記錄"; }
+        else if (!isStudent()) { note = "登入後才能作答"; off = true; }
+        else if (loading) { note = "讀取作答紀錄中…"; off = true; }
+        else {
+          note += "・已作答 " + st.used + "／" + MAX_TRIES + " 次";
+          tag = st.avg === null ? "" : "平均 " + st.avg + " 分";
+          off = st.used >= MAX_TRIES;
+        }
+        html += '<button class="lvl test" type="button" data-id="' + l.id + '"' + (off ? " disabled" : "") + ">" +
+          '<span class="lvl-name">' + esc(l.name) + '</span><span class="lvl-note">' + note + '</span><span class="lvl-tag">' + tag + "</span></button>";
+      });
+      html += "</div>";
+    }
+    html += '<p class="login-msg" id="lvMsg" role="alert"></p>';
+    view.innerHTML = html;
+    view.querySelectorAll(".lvl").forEach((b) => b.addEventListener("click", () => pickLevel(bank.levels.find((l) => l.id === b.dataset.id))));
+  };
+  const needCloud = isStudent() && tests.length;
+  draw(needCloud);
+  if (!needCloud) return;
+  const who = session;
+  try {
+    const res = await api({ action: "status", token: session.token, island: bank.title });
+    if (session !== who || level || playing) return; // 等待期間已經離開這個畫面
+    if (res.ok) { cloudStatus = res.levels || {}; draw(false); }
+    else { draw(false); $("lvMsg").textContent = failText(res); }
+  } catch (e) {
+    if (session !== who || level || playing) return;
+    draw(true); $("lvMsg").textContent = "連不上雲端，暫時無法作答評量。練習可以照常進行。";
+  }
+}
+function pickLevel(l) {
+  if (!l) return;
+  level = l; sfx.tap();
+  if (l.kind === "practice") { startQuiz(); return; }
+  const recorded = isStudent(), st = cloudStatus[l.id] || { used: 0 }, n = playable(l).length;
+  countEl.textContent = "評量";
+  view.innerHTML = "<h2>" + esc(l.name) + '</h2><p class="lead">共 ' + n + " 題。" +
+    (recorded ? "按下「開始作答」就算一次，中途離開也算。你還可以作答 " + (MAX_TRIES - st.used) + " 次。" : "現在是試玩，不計次數，也不記錄分數。") +
+    '作答中只會告訴你對或錯，不會顯示正確答案。</p><p class="login-msg" id="lvMsg" role="alert"></p>' +
+    '<button class="go" id="lvGo" type="button">開始作答</button><button class="ghost" id="lvBack" type="button">回關卡選單</button>';
+  $("lvBack").addEventListener("click", showLevels);
+  $("lvGo").addEventListener("click", async () => {
+    if (!recorded) { startQuiz(); return; }
+    const go = $("lvGo"); go.disabled = true; go.textContent = "準備中…";
+    try {
+      const res = await api({ action: "begin", token: session.token, island: bank.title, levelId: l.id, levelName: l.name, total: n });
+      if (res.ok) { attempt = { id: res.id, n: res.attempt }; startQuiz(); return; }
+      $("lvMsg").textContent = failText(res);
+    } catch (e) { $("lvMsg").textContent = "連不上雲端，請檢查網路後再試一次。這次不算作答。"; }
+    if ($("lvGo")) { go.disabled = false; go.textContent = "開始作答"; }
+  });
+}
+
+/* ---------- 作答 ---------- */
+function startQuiz() {
+  const keep = attempt;
+  quiz = clone(playable(level)); if (!quiz.length) { showLevels(); return; }
+  step = 0; results = []; playing = true; attempt = keep;
   world.clearMarks(); world.rainbow(false); $("confetti").innerHTML = "";
-  sfx.tap(); ask();
+  ask();
 }
 function ask() {
-  const item = quiz[step];
+  const item = quiz[step], strict = level.kind === "assessment";
   world.clearMarks();
   quiz.forEach((q, i) => { if (i < step) world.mark(q.spot, results[i] ? "ok" : "no"); });
   world.mark(item.spot, "now"); world.focus(item.spot);
-  countEl.textContent = "第 " + (step + 1) + " 題／共 " + quiz.length + " 題";
+  countEl.textContent = levelLabel(level) + "　" + (step + 1) + "／" + quiz.length;
   drawHearts();
   opts = shuffle(item.options.map((t, i) => ({ t, right: i === item.answer })).filter((o) => o.t.trim()));
-  view.innerHTML = '<p class="question">' + esc(item.q) + '</p><div class="options">' +
-    opts.map((o, i) => '<button class="opt" type="button" data-i="' + i + '">' + esc(o.t) + "</button>").join("") +
-    '</div><div id="fb"></div>';
+  view.innerHTML = '<p class="question">' + esc(item.q) + "</p>" +
+    (item.img ? '<button class="qimg" id="qimg" type="button" aria-label="放大題目圖片"><img src="' + esc(item.img) + '" alt="題目圖片"></button>' : "") +
+    '<div class="options">' + opts.map((o, i) => '<button class="opt" type="button" data-i="' + i + '">' + esc(o.t) + "</button>").join("") +
+    '</div><div id="fb"></div>' + (strict ? "" : '<button class="textlink" id="quit" type="button">回關卡選單</button>');
   view.querySelectorAll(".opt").forEach((b) => b.addEventListener("click", () => answer(b, item)));
+  if (!strict) $("quit").addEventListener("click", showLevels);
+  if (item.img) {
+    const im = $("qimg").querySelector("img");
+    im.addEventListener("error", () => { $("qimg").outerHTML = '<p class="login-msg">圖片載入失敗：' + esc(item.img) + "</p>"; });
+    $("qimg").addEventListener("click", () => { $("zoomImg").src = item.img; $("zoom").hidden = false; $("zoom").focus(); });
+  }
 }
 function answer(btn, item) {
-  const ok = opts[+btn.dataset.i].right; results[step] = ok;
+  const ok = opts[+btn.dataset.i].right, strict = level.kind === "assessment"; results[step] = ok;
   view.querySelectorAll(".opt").forEach((b) => {
     b.disabled = true;
-    if (opts[+b.dataset.i].right) { b.classList.add("right"); b.insertAdjacentHTML("beforeend", '<span class="mark">正確答案</span>'); }
+    const right = opts[+b.dataset.i].right;
+    if (right && (!strict || b === btn)) { b.classList.add("right"); b.insertAdjacentHTML("beforeend", '<span class="mark">' + (strict ? "答對" : "正確答案") + "</span>"); }
     else if (b === btn) { b.classList.add("wrong"); b.insertAdjacentHTML("beforeend", '<span class="mark">你的答案</span>'); }
   });
   world.mark(item.spot, ok ? "ok" : "no");
   ok ? sfx.good() : sfx.bad();
   drawHearts();
+  if ($("quit")) $("quit").remove();
   const last = step === quiz.length - 1, right = item.options[item.answer];
-  $("fb").outerHTML = '<div class="feedback ' + (ok ? "good" : "bad") + '"><strong>' +
-    (ok ? "答對了！" : "差一點，答案是「" + esc(right) + "」") + "</strong>" + (item.why.trim() ? "<p>" + esc(item.why) + "</p>" : "") + "</div>" +
+  const title = ok ? "答對了！" : strict ? "這一題答錯了。" : "差一點，答案是「" + esc(right) + "」";
+  $("fb").outerHTML = '<div class="feedback ' + (ok ? "good" : "bad") + '"><strong>' + title + "</strong>" +
+    (!strict && item.why.trim() ? "<p>" + esc(item.why) + "</p>" : "") + "</div>" +
     '<button class="go" id="next" type="button">' + (last ? "看結果" : "下一題") + "</button>";
   const next = $("next");
   next.addEventListener("click", () => { sfx.tap(); if (last) finish(); else { step++; ask(); } });
   next.focus({ preventScroll: true });
 }
 function finish() {
-  const score = results.filter(Boolean).length, pass = score >= passMark();
+  const score = results.filter(Boolean).length, strict = level.kind === "assessment";
+  const pass = score >= Math.max(1, Math.min(level.pass, quiz.length));
   playing = false; world.home(); world.rainbow(pass);
-  countEl.textContent = "闖關結束"; drawHearts();
-  const title = score === quiz.length ? "全部答對，彩虹出現了！" : pass ? "過關！彩虹出現了" : "再試一次，把彩虹找出來";
-  view.innerHTML = "<h2>" + title + '</h2><p class="score">' + score + " <small>／ " + quiz.length + ' 題</small></p><ul class="review">' +
-    quiz.map((q, i) => '<li><span class="tag ' + (results[i] ? "ok" : "no") + '">' + (results[i] ? "答對" : "再看看") + "</span><span>第 " + (i + 1) + " 題　<b>" + esc(q.options[q.answer]) + "</b></span></li>").join("") +
-    '</ul><p class="sync" id="sync"></p><button class="go" id="again" type="button">再玩一次</button>';
-  $("again").addEventListener("click", startGame);
-  sendScore({ island: bank.title, score, total: quiz.length, passed: pass,
-              detail: results.map((r, i) => (i + 1) + (r ? "○" : "×")).join(" ") });
+  countEl.textContent = levelLabel(level); drawHearts();
+  let title, extra = "";
+  if (strict) {
+    title = "評量完成";
+  } else {
+    title = score === quiz.length ? "全部答對，彩虹出現了！" : pass ? "過關！彩虹出現了" : "再試一次，把彩虹找出來";
+    if (pass) {
+      const fresh = markPassed(level.id), nextLevel = bank.levels.find((l) => l.id === "p" + (+level.id.slice(1) + 1));
+      if (fresh && nextLevel && playable(nextLevel).length) extra = '<p class="unlock">已開放新的難度：' + esc(nextLevel.name) + "</p>";
+    }
+  }
+  view.innerHTML = "<h2>" + title + '</h2><p class="score">' + (strict ? Math.round(score / quiz.length * 100) + " <small>分（答對 " + score + "／" + quiz.length + " 題）</small>"
+      : score + " <small>／ " + quiz.length + " 題</small>") + "</p>" + extra + '<ul class="review">' +
+    quiz.map((q, i) => '<li><span class="tag ' + (results[i] ? "ok" : "no") + '">' + (results[i] ? "答對" : strict ? "答錯" : "再看看") + "</span><span>第 " + (i + 1) + " 題" +
+      (strict ? "" : "　<b>" + esc(q.options[q.answer]) + "</b>") + "</span></li>").join("") +
+    '</ul><p class="sync" id="sync"></p>' + (strict ? "" : '<button class="go" id="again" type="button">再玩一次</button>') +
+    '<button class="' + (strict ? "go" : "ghost") + '" id="back" type="button">回關卡選單</button>';
+  if (!strict) $("again").addEventListener("click", () => { sfx.tap(); startQuiz(); });
+  $("back").addEventListener("click", showLevels);
   if (pass) { sfx.win(); confetti(); }
+  if (strict) sendScore({ id: attempt && attempt.id, score, detail: results.map((r, i) => (i + 1) + (r ? "○" : "×")).join(" ") });
+}
+// 評量結束：把成績送到老師的試算表
+async function sendScore(data) {
+  const say = (t, retry) => {
+    const el = $("sync"); if (!el) return;
+    el.textContent = t;
+    if (retry) {
+      const b = document.createElement("button"); b.type = "button"; b.className = "textlink"; b.textContent = "重新送出";
+      b.addEventListener("click", () => sendScore(data)); el.appendChild(b);
+    }
+  };
+  if (!data.id) { say("試玩模式，這次沒有記錄。"); return; }
+  say("成績傳送中…");
+  try {
+    const res = await api(Object.assign({ action: "score", token: session.token }, data));
+    if (res.ok) say("第 " + res.used + " 次作答已記錄。目前平均 " + res.avg + " 分，" + (res.left > 0 ? "還可以作答 " + res.left + " 次。" : "作答次數已用完。"));
+    else if (res.error === "done") say("這次成績先前已經記錄。");
+    else if (res.error === "expired") say("登入已經過期，成績沒有送出。請不要關閉這個畫面，告訴老師。");
+    else say("成績沒有送出。", true);
+  } catch (err) { say("連不上雲端，成績沒有送出。", true); }
 }
 function confetti() {
   if (reduceMotion) return;
@@ -860,55 +1132,16 @@ function confetti() {
   box.innerHTML = html;
   setTimeout(() => { box.innerHTML = ""; }, 6000);
 }
-world.onPick(() => { if (!playing && !results.length && $("editor").hidden) startGame(); }); // 還沒開始時，點島上的愛心也能開始
+$("zoom").addEventListener("click", () => { $("zoom").hidden = true; });
+$("zoom").addEventListener("keydown", (e) => { if (e.key === "Escape" || e.key === "Enter") $("zoom").hidden = true; });
 
-/* ============================================================
-   登入：學生（班級＋座號＋通關碼）、訪客、老師
-   API_URL 是老師 Google 試算表上那支程式的網址；留空時不啟用登入（單機模式）。
-   在 Claude 的預覽頁裡連不到雲端，所以預覽頁也是單機模式。
-   ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbxCc_CpF-nJr1oRM1smz_jxSDGePPvVFwBBs7TdeuBG5Vp3W7rayIoKiGFVtMayN-gjNQ/exec";
-const inPreview = /claude|anthropic/i.test(location.hostname); // 預覽頁連不到雲端，也不允許直接下載檔案
-const SESSION_KEY = "island-quiz-session";
-let session = null;
-try { session = JSON.parse(sessionStorage.getItem(SESSION_KEY)); } catch (e) {}
-const cloudOn = () => !!API_URL && !inPreview;
-function setSession(s) {
-  session = s;
-  try { if (s) sessionStorage.setItem(SESSION_KEY, JSON.stringify(s)); else sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
-}
-async function api(payload) {
-  // 用 text/plain 送出，瀏覽器才不會先發一次預檢請求（Apps Script 不支援）
-  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload), redirect: "follow" });
-  if (!r.ok) throw new Error("http " + r.status);
-  return r.json();
-}
-function drawWho() {
-  const box = $("who");
-  $("teacher").hidden = cloudOn() && !(session && session.role === "teacher");
-  if (!cloudOn() || !session) { box.hidden = true; return; }
-  box.hidden = false;
-  const label = session.role === "student" ? session.cls + " 班 " + session.seat + " 號　" + esc(session.name)
-    : session.role === "teacher" ? "老師" : "訪客（不記錄成績）";
-  box.innerHTML = "<span>" + label + '</span><button type="button" id="whoOut">' + (session.role === "guest" ? "登入" : "登出") + "</button>";
-  $("whoOut").addEventListener("click", () => { setSession(null); home(); });
-}
-function home() {
-  drawWho();
-  if (cloudOn() && !session) showLogin(); else showIntro();
-}
-function failText(res) {
-  if (res.error === "locked") return "輸錯太多次，請 " + (res.minutes || 10) + " 分鐘後再試，或請老師幫忙。";
-  if (res.error === "wrong") return "資料不正確，請再檢查一次。" + (res.left > 0 ? "還可以再試 " + res.left + " 次。" : "");
-  return "雲端暫時沒有回應，請稍後再試。";
-}
+/* ---------- 登入 ---------- */
 function showLogin(asTeacher) {
-  playing = false; quiz = []; results = []; step = 0;
-  world.clearMarks(); world.rainbow(false); world.home(); $("confetti").innerHTML = "";
-  countEl.textContent = asTeacher ? "老師登入" : "請先報到"; heartsEl.innerHTML = "";
+  resetStage(); level = null;
+  countEl.textContent = asTeacher ? "老師登入" : "請先報到";
   view.innerHTML = asTeacher
     ? '<h2>老師登入</h2><form class="login" id="lgForm" novalidate>' +
-      '<div class="field"><label for="lgCode">教師碼</label><input id="lgCode" type="password" inputmode="numeric" autocomplete="off" maxlength="12"></div>' +
+      '<div class="field"><label for="lgCode">教師碼</label><input id="lgCode" type="password" autocomplete="off" maxlength="12"></div>' +
       '<p class="login-msg" id="lgMsg" role="alert"></p><button class="go" id="lgGo" type="submit">登入</button></form>' +
       '<button class="ghost" id="lgBack" type="button">回到學生登入</button>'
     : '<h2>先報到，再出發</h2><form class="login" id="lgForm" novalidate><div class="row2">' +
@@ -916,7 +1149,7 @@ function showLogin(asTeacher) {
       '<div class="field"><label for="lgSeat">座號</label><input id="lgSeat" type="text" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="例如 12"></div></div>' +
       '<div class="field"><label for="lgCode">通關碼（老師發的 6 位數字）</label><input id="lgCode" type="password" inputmode="numeric" autocomplete="off" maxlength="6"></div>' +
       '<p class="login-msg" id="lgMsg" role="alert"></p><button class="go" id="lgGo" type="submit">登入</button></form>' +
-      '<button class="ghost" id="lgGuest" type="button">訪客進入（不記錄成績）</button>' +
+      '<button class="ghost" id="lgGuest" type="button">訪客進入（只能練習）</button>' +
       '<button class="textlink" id="lgTeacher" type="button">我是老師</button>';
   const msg = (t) => { $("lgMsg").textContent = t; };
   if (asTeacher) $("lgBack").addEventListener("click", () => showLogin(false));
@@ -942,7 +1175,8 @@ function showLogin(asTeacher) {
     try {
       const res = await api(payload);
       if (res.ok) {
-        setSession(res.role === "teacher" ? { role: "teacher" } : { role: "student", cls: res.cls, seat: res.seat, name: res.name, token: res.token });
+        cloudStatus = {};
+        setSession(res.role === "teacher" ? { role: "teacher", token: res.token } : { role: "student", cls: res.cls, seat: res.seat, name: res.name, token: res.token });
         sfx.good(); home(); return;
       }
       msg(failText(res)); $("lgCode").value = "";
@@ -952,68 +1186,138 @@ function showLogin(asTeacher) {
     if ($("lgGo")) { go.disabled = false; go.textContent = "登入"; }
   });
 }
-// 闖關結束後把成績送到老師的試算表（每次作答記一列）
-async function sendScore(data) {
-  const el = () => $("sync");
-  const say = (t, retry) => {
-    if (!el()) return;
-    el().textContent = t;
-    if (retry) {
-      const b = document.createElement("button"); b.type = "button"; b.className = "textlink"; b.textContent = "重新送出";
-      b.addEventListener("click", () => sendScore(data)); el().appendChild(b);
-    }
-  };
-  if (!cloudOn() || !session) return;
-  if (session.role !== "student") { say(session.role === "teacher" ? "老師模式，不記錄成績。" : "訪客模式，這次成績沒有記錄。"); return; }
-  say("成績傳送中…");
-  try {
-    const res = await api(Object.assign({ action: "score", token: session.token }, data));
-    if (res.ok) say("成績已記錄。");
-    else if (res.error === "expired") say("登入已經過期，這次成績沒有記錄。請登出後重新登入。");
-    else say("成績沒有送出。", true);
-  } catch (err) { say("連不上雲端，成績沒有送出。", true); }
+world.onPick(() => { // 在關卡選單時，點島上的愛心直接開始第一個可玩的練習
+  if (playing || level || !$("editor").hidden || !$("admin").hidden || (cloudOn() && !session)) return;
+  const first = bank.levels.find((l) => l.kind === "practice" && playable(l).length && unlocked(l));
+  if (first) pickLevel(first);
+});
+
+/* ---------- 兩段式按鈕：刪除、轉出這類動作要按兩次才執行 ---------- */
+let armed = null;
+function disarm() { if (armed) { armed.btn.textContent = armed.label; armed.btn.classList.remove("armed"); armed = null; } }
+function twoStep(btn, askText, run) {
+  btn.addEventListener("click", () => {
+    if (armed && armed.btn === btn) { disarm(); run(); return; }
+    disarm(); armed = { btn, label: btn.textContent }; btn.textContent = askText; btn.classList.add("armed");
+  });
 }
 
 /* ============================================================
-   老師的試題編輯器
+   老師：學生管理（轉入、轉出、重設通關碼）
    ============================================================ */
-const ed = { sel: 0, armed: null };
-function edMsg(text, bad) { const m = $("edMsg"); m.textContent = text; m.className = "ed-msg" + (bad ? " bad" : ""); }
-function edList() {
-  $("edList").innerHTML = bank.questions.map((q, i) =>
-    '<li><button type="button" class="ed-item' + (i === ed.sel ? " on" : "") + (isComplete(q) ? "" : " todo") + '" data-i="' + i + '">' +
-    '<span class="ed-no">' + (i + 1) + '</span><span class="ed-stem">' + (q.q.trim() ? esc(q.q) : "（還沒寫題目）") + "</span>" +
-    '<span class="ed-spot">' + SPOT_NAMES[q.spot] + (isComplete(q) ? "" : "・未完成") + "</span></button></li>").join("");
-  $("edList").querySelectorAll(".ed-item").forEach((b) => b.addEventListener("click", () => { ed.sel = +b.dataset.i; edRender(); }));
-  $("edCount").textContent = "共 " + bank.questions.length + " 題，其中 " + playable().length + " 題已完成";
-  $("edPass").value = bank.pass; $("edPass").max = Math.max(1, bank.questions.length);
+const ad = { cls: "" };
+function adMsg(text, bad) { const m = $("adMsg"); m.textContent = text; m.className = "ed-msg" + (bad ? " bad" : ""); }
+function adCode(res, what) {
+  $("adCode").hidden = false;
+  $("adCode").innerHTML = "<span>" + esc(res.cls) + " 班 " + res.seat + " 號　" + esc(res.name) + "　" + what + "</span><strong>" +
+    esc(res.code.slice(0, 3) + " " + res.code.slice(3)) + "</strong><span>請現在抄給學生。關閉後要到試算表才查得到。</span>";
 }
-function edRender() {
-  disarm(); edList();
-  const q = bank.questions[ed.sel], form = $("edForm"), empty = $("edEmpty");
-  form.hidden = !q; empty.hidden = !!q;
-  if (!q) return;
-  $("fNo").textContent = "第 " + (ed.sel + 1) + " 題";
-  $("fQ").value = q.q; $("fSpot").value = q.spot; $("fWhy").value = q.why;
-  q.options.forEach((o, i) => { $("fO" + i).value = o; $("fA" + i).checked = i === q.answer; });
-  $("fUp").disabled = ed.sel === 0; $("fDown").disabled = ed.sel === bank.questions.length - 1;
+async function adCall(payload) {
+  try {
+    const res = await api(Object.assign({ token: session.token }, payload));
+    if (!res.ok) adMsg(failText(res), true);
+    return res.ok ? res : null;
+  } catch (e) { adMsg("連不上雲端，請檢查網路後再試一次。", true); return null; }
 }
-function edChanged() {
-  const q = bank.questions[ed.sel]; if (!q) return;
-  q.q = $("fQ").value; q.spot = $("fSpot").value; q.why = $("fWhy").value;
-  for (let i = 0; i < 4; i++) { q.options[i] = $("fO" + i).value; if ($("fA" + i).checked) q.answer = i; }
-  saveDraft(); edList(); edMsg("已自動存在這台電腦的瀏覽器。要給學生用，請按「儲存 JSON」。");
+async function adLoadClasses(keep) {
+  const res = await adCall({ action: "classes" });
+  if (!res) return;
+  const sel = $("adCls");
+  sel.innerHTML = res.classes.map((c) => '<option value="' + esc(c.cls) + '">' + esc(c.cls) + " 班（" + c.n + " 人）</option>").join("");
+  if (keep && res.classes.some((c) => c.cls === keep)) sel.value = keep;
+  ad.cls = sel.value; $("adNewCls").value = ad.cls;
+  await adLoadRoster();
 }
-// 刪除、還原這類不能反悔的動作：要按兩次才執行
-function disarm() { if (ed.armed) { ed.armed.btn.textContent = ed.armed.label; ed.armed.btn.classList.remove("armed"); ed.armed = null; } }
-function twoStep(btn, askText, run) {
-  btn.addEventListener("click", () => {
-    if (ed.armed && ed.armed.btn === btn) { disarm(); run(); return; }
-    disarm(); ed.armed = { btn, label: btn.textContent }; btn.textContent = askText; btn.classList.add("armed");
+async function adLoadRoster() {
+  disarm();
+  $("adList").innerHTML = '<li class="ad-note">讀取中…</li>';
+  const res = await adCall({ action: "roster", cls: ad.cls });
+  if (!res) { $("adList").innerHTML = ""; return; }
+  $("adList").innerHTML = res.students.map((s) =>
+    '<li class="ad-row' + (s.active ? "" : " off") + '"><span class="ed-no">' + s.seat + '</span><span class="ad-name">' + esc(s.name) +
+    (s.active ? "" : "（已轉出）") + '</span><span class="ed-moves">' +
+    (s.active ? '<button class="mini" type="button" data-act="reset" data-seat="' + s.seat + '">重設通關碼</button><button class="mini warn" type="button" data-act="off" data-seat="' + s.seat + '">轉出</button>'
+              : '<button class="mini" type="button" data-act="on" data-seat="' + s.seat + '">恢復</button>') + "</span></li>").join("") ||
+    '<li class="ad-note">這個班級還沒有學生。</li>';
+  $("adList").querySelectorAll("button").forEach((b) => {
+    const seat = +b.dataset.seat, act = b.dataset.act;
+    if (act === "reset") twoStep(b, "再按一次確定重設", async () => {
+      const r = await adCall({ action: "resetCode", cls: ad.cls, seat });
+      if (r) { adCode(r, "新的通關碼"); adMsg("已重設，舊的通關碼已經失效。"); }
+    });
+    else if (act === "off") twoStep(b, "再按一次確定轉出", async () => {
+      if (await adCall({ action: "removeStudent", cls: ad.cls, seat })) { adMsg(ad.cls + " 班 " + seat + " 號已轉出，不能再登入；過去的成績仍然保留。"); adLoadClasses(ad.cls); }
+    });
+    else b.addEventListener("click", async () => {
+      if (await adCall({ action: "restoreStudent", cls: ad.cls, seat })) { adMsg(ad.cls + " 班 " + seat + " 號已恢復，可以用原本的通關碼登入。"); adLoadClasses(ad.cls); }
+    });
   });
 }
+$("adminBtn").addEventListener("click", () => {
+  showLevels(); $("admin").hidden = false; $("adCode").hidden = true;
+  adMsg("選一個班級，就能轉入、轉出學生或重設通關碼。"); adLoadClasses(ad.cls); $("adClose").focus();
+});
+$("adClose").addEventListener("click", () => { disarm(); $("admin").hidden = true; $("adCode").hidden = true; $("adCode").innerHTML = ""; $("adminBtn").focus(); });
+$("admin").addEventListener("keydown", (e) => { if (e.key === "Escape") $("adClose").click(); });
+$("adCls").addEventListener("change", () => { ad.cls = $("adCls").value; $("adNewCls").value = ad.cls; $("adCode").hidden = true; adLoadRoster(); });
+$("adForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const cls = $("adNewCls").value.trim(), seat = $("adNewSeat").value.trim(), name = $("adNewName").value.trim();
+  if (!/^\d{3}$/.test(cls)) { adMsg("班級請輸入 3 位數字，例如 204。", true); return; }
+  if (!/^\d{1,2}$/.test(seat) || +seat < 1 || +seat > 60) { adMsg("座號請輸入 1 到 60 的數字。", true); return; }
+  if (!name) { adMsg("請輸入學生姓名。", true); return; }
+  const r = await adCall({ action: "addStudent", cls, seat: +seat, name });
+  if (!r) return;
+  adCode(r, "的通關碼"); adMsg("已轉入 " + cls + " 班 " + seat + " 號。");
+  $("adNewSeat").value = ""; $("adNewName").value = "";
+  adLoadClasses(cls);
+});
+
+/* ============================================================
+   老師：試題編輯器
+   ============================================================ */
+const ed = { lv: 0, sel: 0 };
+const cur = () => bank.levels[ed.lv];
+function edMsg(text, bad) { const m = $("edMsg"); m.textContent = text; m.className = "ed-msg" + (bad ? " bad" : ""); }
+function edLevels() {
+  $("edLevel").innerHTML = bank.levels.map((l, i) => '<option value="' + i + '">' + esc(levelLabel(l)) + "（" + l.questions.length + " 題）</option>").join("");
+  $("edLevel").value = ed.lv;
+  const l = cur(), test = l.kind === "assessment";
+  $("lvNameRow").hidden = !test; $("lvDel").hidden = !test;
+  $("lvName").value = l.name;
+  $("edPass").value = l.pass; $("edPass").max = Math.max(1, l.questions.length);
+  $("edPassLabel").textContent = test ? "答對幾題出現彩虹（不影響分數）" : "答對幾題算過關";
+}
+function edList() {
+  const qs = cur().questions;
+  $("edList").innerHTML = qs.map((q, i) =>
+    '<li><button type="button" class="ed-item' + (i === ed.sel ? " on" : "") + (isComplete(q) ? "" : " todo") + '" data-i="' + i + '">' +
+    '<span class="ed-no">' + (i + 1) + '</span><span class="ed-stem">' + (q.q.trim() ? esc(q.q) : "（還沒寫題目）") + "</span>" +
+    '<span class="ed-spot">' + SPOT_NAMES[q.spot] + (q.img ? "・有圖" : "") + (isComplete(q) ? "" : "・未完成") + "</span></button></li>").join("");
+  $("edList").querySelectorAll(".ed-item").forEach((b) => b.addEventListener("click", () => { ed.sel = +b.dataset.i; edRender(); }));
+  $("edCount").textContent = "這一關共 " + qs.length + " 題，其中 " + playable(cur()).length + " 題已完成";
+}
+function edRender() {
+  disarm(); edLevels(); edList();
+  const q = cur().questions[ed.sel], form = $("edForm"), empty = $("edEmpty");
+  form.hidden = !q; empty.hidden = !!q;
+  if (!q) return;
+  $("fNo").textContent = levelLabel(cur()) + "　第 " + (ed.sel + 1) + " 題";
+  $("fQ").value = q.q; $("fSpot").value = q.spot; $("fWhy").value = q.why; $("fImg").value = q.img;
+  q.options.forEach((o, i) => { $("fO" + i).value = o; $("fA" + i).checked = i === q.answer; });
+  $("fUp").disabled = ed.sel === 0; $("fDown").disabled = ed.sel === cur().questions.length - 1;
+}
+function edChanged() {
+  const q = cur().questions[ed.sel]; if (!q) return;
+  q.q = $("fQ").value; q.spot = $("fSpot").value; q.why = $("fWhy").value;
+  const img = $("fImg").value.trim();
+  q.img = /^[\w\-./%]+\.(png|jpe?g|webp|gif)$/i.test(img) && !img.includes("..") ? img : "";
+  for (let i = 0; i < 4; i++) { q.options[i] = $("fO" + i).value; if ($("fA" + i).checked) q.answer = i; }
+  saveDraft(); edList(); edLevels();
+  edMsg(img && !q.img ? "圖片檔名只能用英文、數字、- 和 _，副檔名為 jpg、png 或 webp，例如 images/q1.jpg。" : "已自動存在這台電腦的瀏覽器。要給學生用，請按「儲存 JSON」。", !!(img && !q.img));
+}
 function openEditor() {
-  showIntro(); ed.sel = Math.min(ed.sel, Math.max(0, bank.questions.length - 1));
+  showLevels(); ed.lv = Math.min(ed.lv, bank.levels.length - 1); ed.sel = Math.min(ed.sel, Math.max(0, cur().questions.length - 1));
   $("editor").hidden = false; edRender();
   edMsg(hasDraft ? "目前顯示的是這台電腦上修改過的題庫。" : "修改會自動存在這台電腦的瀏覽器。");
   $("edClose").focus();
@@ -1025,26 +1329,37 @@ $("edClose").addEventListener("click", closeEditor);
 $("editor").addEventListener("keydown", (e) => { if (e.key === "Escape") closeEditor(); });
 $("edForm").addEventListener("input", edChanged);
 $("edForm").addEventListener("submit", (e) => e.preventDefault());
-$("edPass").addEventListener("input", () => {
-  const v = parseInt($("edPass").value, 10); if (v >= 1) { bank.pass = v; saveDraft(); }
+$("edLevel").addEventListener("change", () => { ed.lv = +$("edLevel").value; ed.sel = 0; edRender(); });
+$("lvName").addEventListener("input", () => { cur().name = $("lvName").value.slice(0, 30) || "評量"; saveDraft(); const v = ed.lv; edLevels(); $("edLevel").value = v; });
+$("edPass").addEventListener("input", () => { const v = parseInt($("edPass").value, 10); if (v >= 1) { cur().pass = v; saveDraft(); } });
+$("lvAdd").addEventListener("click", () => {
+  const n = bank.levels.filter((l) => l.kind === "assessment").length + 1;
+  bank.levels.push({ id: newId(), kind: "assessment", name: "評量 " + n, pass: 1, questions: [] });
+  ed.lv = bank.levels.length - 1; ed.sel = 0; saveDraft(); edRender();
+  edMsg("已新增評量關卡。請改名、加入題目；學生每關最多作答 " + MAX_TRIES + " 次。"); $("lvName").focus(); $("lvName").select();
+});
+twoStep($("lvDel"), "再按一次確定刪除關卡", () => {
+  bank.levels.splice(ed.lv, 1); ed.lv = 0; ed.sel = 0; saveDraft(); edRender(); edMsg("已刪除這個評量關卡。試算表裡已經記錄的成績不受影響。");
 });
 $("edAdd").addEventListener("click", () => {
-  bank.questions.push({ spot: "none", q: "", options: ["", "", "", ""], answer: 0, why: "" });
-  ed.sel = bank.questions.length - 1; saveDraft(); edRender(); edMsg("已新增第 " + bank.questions.length + " 題，請填寫內容。"); $("fQ").focus();
+  const qs = cur().questions;
+  qs.push({ spot: "none", q: "", options: ["", "", "", ""], answer: 0, why: "", img: "" });
+  ed.sel = qs.length - 1; saveDraft(); edRender(); edMsg("已新增第 " + qs.length + " 題，請填寫內容。"); $("fQ").focus();
 });
 function edMove(d) {
-  const a = ed.sel, b = a + d; if (b < 0 || b >= bank.questions.length) return;
-  [bank.questions[a], bank.questions[b]] = [bank.questions[b], bank.questions[a]]; ed.sel = b; saveDraft(); edRender();
+  const qs = cur().questions, a = ed.sel, b = a + d; if (b < 0 || b >= qs.length) return;
+  [qs[a], qs[b]] = [qs[b], qs[a]]; ed.sel = b; saveDraft(); edRender();
 }
 $("fUp").addEventListener("click", () => edMove(-1));
 $("fDown").addEventListener("click", () => edMove(1));
 twoStep($("fDel"), "再按一次確定刪除", () => {
-  bank.questions.splice(ed.sel, 1); ed.sel = Math.max(0, Math.min(ed.sel, bank.questions.length - 1));
+  const qs = cur().questions;
+  qs.splice(ed.sel, 1); ed.sel = Math.max(0, Math.min(ed.sel, qs.length - 1));
   saveDraft(); edRender(); edMsg("已刪除。");
 });
 twoStep($("edReset"), "再按一次確定還原", () => {
   try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
-  hasDraft = false; bank = clone(published); ed.sel = 0; edRender(); edMsg("已還原成正式題庫，這台電腦上的修改已清除。");
+  hasDraft = false; bank = clone(published); ed.lv = 0; ed.sel = 0; edRender(); edMsg("已還原成正式題庫，這台電腦上的修改已清除。");
 });
 $("edImport").addEventListener("click", () => $("edFile").click());
 $("edFile").addEventListener("change", () => {
@@ -1053,7 +1368,8 @@ $("edFile").addEventListener("change", () => {
   rd.onload = () => {
     try {
       bank = normalizeBank(JSON.parse(String(rd.result)));
-      ed.sel = 0; saveDraft(); edRender(); edMsg("已匯入「" + f.name + "」，共 " + bank.questions.length + " 題。");
+      ed.lv = 0; ed.sel = 0; saveDraft(); edRender();
+      edMsg("已匯入「" + f.name + "」，共 " + bank.levels.reduce((n, l) => n + l.questions.length, 0) + " 題。");
     } catch (err) {
       edMsg("匯入失敗：" + (err instanceof SyntaxError ? "這不是正確的 JSON 檔。" : err.message), true);
     }
@@ -1081,7 +1397,7 @@ $("edSave").addEventListener("click", async () => {
 });
 $("edCopy").addEventListener("click", () => {
   const text = exportBank();
-  const done = () => edMsg("已複製題庫 JSON，共 " + bank.questions.length + " 題。");
+  const done = () => edMsg("已複製題庫 JSON。");
   const fallback = () => {
     const ta = $("edRaw"); ta.hidden = false; ta.value = text; ta.focus(); ta.select();
     edMsg("瀏覽器不允許自動複製。題庫內容已顯示在下方，請按 Ctrl+C 複製。", true);
