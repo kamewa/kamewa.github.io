@@ -1,0 +1,118 @@
+{
+  "format": "InteractiveAssessmentQuestionBank",
+  "schemaVersion": 1,
+  "questions": [
+    {
+      "abilityIndicator": "",
+      "image": "",
+      "disabled": false,
+      "createdAt": "2026-11-16T12:31:25.940Z",
+      "id": "demo-terrain-1",
+      "category": "通論",
+      "unit": "地形",
+      "cognitiveLevels": [
+        "理解"
+      ],
+      "answer": "A",
+      "stem": "這裡高度高、坡度陡、起伏很大，是哪一種地形？",
+      "options": [
+        "山地",
+        "丘陵",
+        "台地",
+        "盆地"
+      ],
+      "explanation": "山地的特徵是高度高、起伏大。看顏色就知道：短短的距離內，顏色從粉紅換到紫色再到白色，代表高度變化很快。"
+    },
+    {
+      "abilityIndicator": "",
+      "image": "",
+      "disabled": false,
+      "createdAt": "2026-11-16T12:31:25.940Z",
+      "id": "demo-terrain-2",
+      "category": "通論",
+      "unit": "地形",
+      "cognitiveLevels": [
+        "理解"
+      ],
+      "answer": "A",
+      "stem": "靠海的一大片土地，地勢低、幾乎沒有起伏，是哪一種地形？",
+      "options": [
+        "平原",
+        "盆地",
+        "台地",
+        "丘陵"
+      ],
+      "explanation": "平原地勢低平、起伏很小。平坦的土地適合耕作和居住，人口通常比較多。"
+    },
+    {
+      "abilityIndicator": "",
+      "image": "",
+      "disabled": false,
+      "createdAt": "2026-11-16T12:31:25.940Z",
+      "id": "demo-terrain-3",
+      "category": "通論",
+      "unit": "地形",
+      "cognitiveLevels": [
+        "理解"
+      ],
+      "answer": "A",
+      "stem": "外圍一圈比較高，中間低而平，是哪一種地形？",
+      "options": [
+        "盆地",
+        "平原",
+        "山地",
+        "台地"
+      ],
+      "explanation": "盆地四周高、中間低平，形狀像一個臉盆。臺北盆地、臺中盆地都是這種地形。"
+    },
+    {
+      "abilityIndicator": "",
+      "image": "",
+      "disabled": false,
+      "createdAt": "2026-11-16T12:31:25.940Z",
+      "id": "demo-terrain-4",
+      "category": "通論",
+      "unit": "地形",
+      "cognitiveLevels": [
+        "記憶"
+      ],
+      "answer": "A",
+      "stem": "頂部平坦、邊緣陡峭，像一張桌子，是哪一種地形？",
+      "options": [
+        "台地",
+        "山地",
+        "丘陵",
+        "平原"
+      ],
+      "explanation": "台地的頂部平坦、四周是陡坡，可以記成「頂平崖陡」。林口台地、桃園台地都是例子。"
+    },
+    {
+      "abilityIndicator": "",
+      "image": "",
+      "disabled": false,
+      "createdAt": "2026-11-16T12:31:25.940Z",
+      "id": "demo-terrain-5",
+      "category": "通論",
+      "unit": "地形",
+      "cognitiveLevels": [
+        "記憶"
+      ],
+      "answer": "A",
+      "stem": "比山地低、坡度和緩的一群小山包，是哪一種地形？",
+      "options": [
+        "丘陵",
+        "山地",
+        "平原",
+        "盆地"
+      ],
+      "explanation": "丘陵的高度比山地低，起伏也比較和緩，常分布在山地和平原之間。"
+    }
+  ],
+  "exportedAt": "2026-11-16T12:31:25.940Z",
+  "application": {
+    "name": "互動式評量系統",
+    "version": "1.19.0",
+    "databaseVersion": 4
+  },
+  "questionCount": 5
+}
