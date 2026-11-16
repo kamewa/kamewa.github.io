@@ -144,6 +144,29 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
 .zoom{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:rgba(74,34,96,.72);border:0;cursor:zoom-out}
 .zoom[hidden]{display:none}
 .zoom img{max-width:100%;max-height:100%;border-radius:16px;background:#fff}
+/* ---------- 關卡設定（從題庫挑題） ---------- */
+.ed-bank{margin:0;font-size:.88rem;font-weight:700;color:var(--plum);line-height:1.6}
+.ed-note{margin:0;font-size:.82rem;line-height:1.7;color:var(--plum-soft)}
+.ed-list.chosen,.ed-list.pool{flex:none;min-height:0;overflow:visible;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{min-height:34px;padding:4px 12px;border-radius:999px;background:#fff;border:2.5px solid var(--lav-soft);font-weight:700;font-size:.85rem;font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--pink)}
+.chip[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#fff}
+.editor input[type=search]{font:inherit;color:var(--plum);background:#fff;border:2.5px solid var(--lav-soft);border-radius:14px;padding:9px 12px;width:100%}
+.editor select:disabled,.editor input:disabled{opacity:.55}
+.pick-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;border-radius:16px;background:#fff;border:2.5px solid var(--lav-soft)}
+.pick-row.in{border-color:var(--mint);background:#f4fffa}
+.pick-row.bad{border-color:#ffc2d2;background:#fff5f8}
+.pick-main{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pick-stem{font-weight:700;font-size:.93rem;line-height:1.55}
+.pick-opts{font-size:.8rem;line-height:1.5;color:var(--plum)}
+.pick-meta{font-size:.76rem;font-weight:700;color:var(--plum-soft);line-height:1.5}
+.pick-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.editor .pick-tools select{width:auto;padding:5px 8px;font-size:.82rem;border-radius:10px}
+.pick-done{font-size:.8rem;font-weight:700;color:#1f9c72}
+.dtag{display:inline-block;margin-right:6px;padding:0 8px;border-radius:999px;font-size:.74rem;color:#fff}
+.dtag.d0{background:#5fd8aa}.dtag.d1{background:#7cc8ff}.dtag.d2{background:#b08cff}.dtag.d3{background:#ff6fae}
+@media (max-width:860px){.pick-row{grid-template-columns:auto minmax(0,1fr)}.pick-tools{grid-column:1 / -1;justify-content:flex-start}}
 /* ---------- 學生管理 ---------- */
 .ad-body{min-height:0;overflow-y:auto;padding:18px 22px 22px;display:flex;flex-direction:column;gap:14px}
 .ad-body>*{flex-shrink:0}
@@ -319,7 +342,7 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
     </div>
     <div class="foot">
       <button class="sound" id="adminBtn" type="button" hidden>學生管理</button>
-      <button class="sound" id="teacher" type="button">老師編輯題目</button>
+      <button class="sound" id="teacher" type="button">關卡設定</button>
       <button class="sound" id="sound" type="button" aria-pressed="true">音效：開</button>
     </div>
   </aside>
@@ -329,71 +352,47 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
   <div class="ed-box">
     <header class="ed-head">
       <div class="ed-titlerow">
-        <h2 id="edTitle">試題編輯　粉彩地形島</h2>
+        <h2 id="edTitle">關卡設定</h2>
         <button class="go ed-done" id="edClose" type="button">完成</button>
       </div>
       <div class="ed-tools">
-        <button class="mini" id="edImport" type="button">匯入 JSON</button>
+        <button class="mini" id="edBankFile" type="button">讀取題庫檔</button>
+        <input id="edBankInput" type="file" accept=".json,application/json" hidden>
+        <button class="mini" id="edImport" type="button">讀取關卡檔</button>
         <input id="edFile" type="file" accept=".json,application/json" hidden>
-        <button class="mini" id="edSave" type="button">儲存 JSON</button>
+        <button class="mini" id="edSave" type="button">儲存關卡檔</button>
         <button class="mini" id="edCopy" type="button">複製 JSON</button>
-        <button class="mini warn" id="edReset" type="button">還原正式題庫</button>
+        <button class="mini warn" id="edReset" type="button">還原網站設定</button>
       </div>
+      <p class="ed-bank" id="edBank"></p>
       <p class="ed-msg" id="edMsg" role="status"></p>
-      <textarea class="ed-raw" id="edRaw" rows="4" readonly hidden aria-label="題庫 JSON 內容"></textarea>
+      <textarea class="ed-raw" id="edRaw" rows="4" readonly hidden aria-label="關卡設定 JSON 內容"></textarea>
     </header>
     <div class="ed-body">
       <div class="ed-side">
-        <div><label class="ed-lab" for="edLevel">關卡</label><select id="edLevel"></select></div>
+        <label class="ed-pass" for="edCount">練習每次抽幾題
+          <input id="edCount" type="number" min="1" max="30" inputmode="numeric">
+        </label>
+        <p class="ed-note">練習會依本島的單元與難易度自動抽題，不需要挑題。題目、選項與解說請在互動式評量系統修改。下面設定的是評量關卡。</p>
+        <div><label class="ed-lab" for="edLevel">評量關卡</label><select id="edLevel"></select></div>
         <div class="ed-moves">
           <button class="mini add" id="lvAdd" type="button">＋ 新增評量關卡</button>
-          <button class="mini warn" id="lvDel" type="button" hidden>刪除這個關卡</button>
+          <button class="mini warn" id="lvDel" type="button">刪除這個關卡</button>
         </div>
-        <div id="lvNameRow" hidden><label class="ed-lab" for="lvName">評量關卡名稱</label><input id="lvName" type="text" maxlength="30"></div>
-        <label class="ed-pass" for="edPass"><span id="edPassLabel">答對幾題算過關</span>
-          <input id="edPass" type="number" min="1" inputmode="numeric">
-        </label>
-        <button class="mini add" id="edAdd" type="button">＋ 新增題目</button>
-        <ol class="ed-list" id="edList"></ol>
-        <p class="ed-count" id="edCount"></p>
+        <div><label class="ed-lab" for="lvName">關卡名稱</label><input id="lvName" type="text" maxlength="30"></div>
+        <p class="ed-count" id="edChosenCount"></p>
+        <ol class="ed-list chosen" id="edChosen"></ol>
       </div>
-      <p class="ed-empty" id="edEmpty" hidden>還沒有題目。按左邊的「新增題目」開始，或用「匯入 JSON」讀入題庫檔。</p>
-      <form class="ed-form" id="edForm">
-        <div class="ed-formhead">
-          <strong id="fNo">第 1 題</strong>
-          <span class="ed-moves">
-            <button class="mini" id="fUp" type="button">上移</button>
-            <button class="mini" id="fDown" type="button">下移</button>
-            <button class="mini warn" id="fDel" type="button">刪除這一題</button>
-          </span>
-        </div>
-        <label for="fQ">題目</label>
-        <textarea id="fQ" rows="4" placeholder="例如：愛心停在哪一種地形上？"></textarea>
-        <label for="fSpot">鏡頭飛到哪裡</label>
-        <select id="fSpot">
-          <option value="none">整座島（不特寫）</option>
-          <option value="mountain">山地</option>
-          <option value="hills">丘陵</option>
-          <option value="plateau">台地</option>
-          <option value="basin">盆地</option>
-          <option value="plain">平原</option>
-        </select>
-        <label for="fImg">題目圖片（可以不填；填圖檔路徑，例如 images/q1.jpg）</label>
-        <input type="text" id="fImg" placeholder="images/q1.jpg" autocomplete="off">
-        <fieldset>
-          <legend>選項（點選左邊圓圈標出正確答案，至少填兩個；作答時會自動打亂順序）</legend>
-          <div class="ed-opt"><input type="radio" name="fAns" id="fA0" aria-label="選項 1 是正確答案"><input type="text" id="fO0" aria-label="選項 1" placeholder="選項 1"></div>
-          <div class="ed-opt"><input type="radio" name="fAns" id="fA1" aria-label="選項 2 是正確答案"><input type="text" id="fO1" aria-label="選項 2" placeholder="選項 2"></div>
-          <div class="ed-opt"><input type="radio" name="fAns" id="fA2" aria-label="選項 3 是正確答案"><input type="text" id="fO2" aria-label="選項 3" placeholder="選項 3"></div>
-          <div class="ed-opt"><input type="radio" name="fAns" id="fA3" aria-label="選項 4 是正確答案"><input type="text" id="fO3" aria-label="選項 4" placeholder="選項 4"></div>
-        </fieldset>
-        <label for="fWhy">解說（作答後顯示，可以不填）</label>
-        <textarea id="fWhy" rows="4"></textarea>
-      </form>
+      <div class="ed-form">
+        <div class="ed-formhead"><strong>本島題庫</strong><span class="ed-count" id="edUnits"></span></div>
+        <div class="chips" id="edChips" role="group" aria-label="依難易度篩選"></div>
+        <label class="ed-lab" for="edSearch">搜尋題目</label>
+        <input id="edSearch" type="search" placeholder="輸入題目或選項的關鍵字" autocomplete="off">
+        <ol class="ed-list pool" id="edPool"></ol>
+      </div>
     </div>
   </div>
 </div>
-
 <div class="editor" id="admin" role="dialog" aria-modal="true" aria-labelledby="adTitle" hidden>
   <div class="ed-box">
     <header class="ed-head">
@@ -426,25 +425,30 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
    預設題庫：老師可以在頁面上的「老師編輯題目」修改，
    或把匯出的 questions.json 放在網頁旁邊，就會自動取代這份預設題庫。
    ============================================================ */
-const ISLAND_ID = "pastel-terrain";
+const ISLAND_ID = "terrain";
 const SPOT_NAMES = { mountain: "山地", hills: "丘陵", plateau: "台地", basin: "盆地", plain: "平原", none: "整座島" };
-const DEFAULT_BANK = { title: "粉彩地形島", pass: 3, questions: [
-  { spot: "mountain", q: "愛心停在島上最高的地方。這裡高度高、坡度陡、起伏很大，是哪一種地形？",
-    options: ["山地", "丘陵", "台地", "盆地"], answer: 0,
-    why: "山地的特徵是高度高、起伏大。看顏色就知道：短短的距離內，顏色從粉紅換到紫色再到白色，代表高度變化很快。" },
-  { spot: "plain", q: "愛心停在靠海的一大片土地上。這裡地勢低、幾乎沒有起伏，是哪一種地形？",
-    options: ["平原", "盆地", "台地", "丘陵"], answer: 0,
-    why: "平原地勢低平、起伏很小，所以整片幾乎是同一種顏色。平坦的土地適合耕作和居住，人口通常比較多。" },
-  { spot: "basin", q: "轉一轉，看看愛心的四周：外圍一圈比較高，中間低而平。這是哪一種地形？",
-    options: ["盆地", "平原", "山地", "台地"], answer: 0,
-    why: "盆地四周高、中間低平，形狀像一個臉盆。臺北盆地、臺中盆地都是這種地形。" },
-  { spot: "plateau", q: "愛心停在一塊高地上。它的頂部平坦、邊緣陡峭，像一張桌子。這是哪一種地形？",
-    options: ["台地", "山地", "丘陵", "平原"], answer: 0,
-    why: "台地的頂部平坦、四周是陡坡，可以記成「頂平崖陡」。林口台地、桃園台地都是例子。" },
-  { spot: "hills", q: "愛心停在一群矮矮圓圓的小山包上。這裡比山地低，坡度和緩，是哪一種地形？",
-    options: ["丘陵", "山地", "平原", "盆地"], answer: 0,
-    why: "丘陵的高度比山地低，起伏也比較和緩，常分布在山地和平原之間。" }
+// 網站上還沒有放題庫檔時使用的示範題目（格式和「互動式評量系統」的題庫檔相同）
+const DEMO_BANK = { format: "InteractiveAssessmentQuestionBank", schemaVersion: 1, questions: [
+  { id: "demo-terrain-1", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "這裡高度高、坡度陡、起伏很大，是哪一種地形？", options: ["山地", "丘陵", "台地", "盆地"],
+    explanation: "山地的特徵是高度高、起伏大。看顏色就知道：短短的距離內，顏色從粉紅換到紫色再到白色，代表高度變化很快。" },
+  { id: "demo-terrain-2", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "靠海的一大片土地，地勢低、幾乎沒有起伏，是哪一種地形？", options: ["平原", "盆地", "台地", "丘陵"],
+    explanation: "平原地勢低平、起伏很小。平坦的土地適合耕作和居住，人口通常比較多。" },
+  { id: "demo-terrain-3", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "外圍一圈比較高，中間低而平，是哪一種地形？", options: ["盆地", "平原", "山地", "台地"],
+    explanation: "盆地四周高、中間低平，形狀像一個臉盆。臺北盆地、臺中盆地都是這種地形。" },
+  { id: "demo-terrain-4", category: "通論", unit: "地形", cognitiveLevels: ["記憶"], answer: "A",
+    stem: "頂部平坦、邊緣陡峭，像一張桌子，是哪一種地形？", options: ["台地", "山地", "丘陵", "平原"],
+    explanation: "台地的頂部平坦、四周是陡坡，可以記成「頂平崖陡」。林口台地、桃園台地都是例子。" },
+  { id: "demo-terrain-5", category: "通論", unit: "地形", cognitiveLevels: ["記憶"], answer: "A",
+    stem: "比山地低、坡度和緩的一群小山包，是哪一種地形？", options: ["丘陵", "山地", "平原", "盆地"],
+    explanation: "丘陵的高度比山地低，起伏也比較和緩，常分布在山地和平原之間。" }
 ] };
+// 網站上還沒有放關卡設定檔時使用的預設值
+const DEFAULT_CONFIG = { format: "StarWishIslandsConfig", version: 1, islands: {
+  terrain: { name: "粉彩地形島", units: [{ category: "通論", unit: "地形" }, { category: "台灣", unit: "地形" }], practiceCount: 5, assessments: [] }
+} };
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (id) => document.getElementById(id);
@@ -787,76 +791,105 @@ try {
 }
 
 /* ============================================================
-   題庫：一座島有多個關卡
-   練習關卡固定四個難度（基礎→進階→思考→統整），過關才開放下一個；
-   評量關卡由老師新增，每關最多作答 3 次，由雲端計次。
+   共用題庫與關卡設定
+   題目來自「互動式評量系統」儲存的題庫檔（data/questions.json）。
+   關卡設定在 data/islands.json：
+   ・練習：依本島的分類與單元，按難易度（由認知層次推算）自動抽題。
+   ・評量：老師從題庫挑選固定題目，每關最多作答 3 次，由雲端計次。
    ============================================================ */
 const DIFFS = ["基礎", "進階", "思考", "統整"];
-const DRAFT_KEY = "island-quiz-draft2:" + ISLAND_ID;
+const RANK = { 記憶: 0, 理解: 0, 應用: 1, 分析: 2, 評鑑: 2, 創造: 3, 記: 0, 理: 0, 應: 1, 分: 2, 評: 2, 創: 3 };
+const PASS_RATE = 0.6; // 答對六成（無條件進位）算過關
+const CONFIG_KEY = "island-quiz-config-draft:" + ISLAND_ID;
+const LEGACY_CAT = { 世界: "通論", 南美洲: "中南美洲", 極地: "南極洲" };
 const clone = (o) => JSON.parse(JSON.stringify(o));
 const esc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
 const newId = () => "a" + Math.random().toString(36).slice(2, 8);
+const passFor = (n) => Math.max(1, Math.ceil(n * PASS_RATE));
 
-function normQuestion(q, i) {
-  if (!q || typeof q !== "object") throw new Error("第 " + (i + 1) + " 題的格式不正確。");
-  const options = (Array.isArray(q.options) ? q.options : []).slice(0, 4).map((o) => String(o == null ? "" : o));
-  while (options.length < 4) options.push("");
-  let answer = parseInt(q.answer, 10);
-  if (!(answer >= 0 && answer <= 3)) answer = 0;
-  const img = String(q.img || "").trim();
-  return { spot: SPOT_NAMES[q.spot] ? q.spot : "none", q: String(q.q || ""), options, answer, why: String(q.why || ""),
-           img: /^[\w\-./%]+\.(png|jpe?g|webp|gif)$/i.test(img) && !img.includes("..") ? img : "" };
+// 認知層次 → 難易度：取最高的層次；沒有標的算基礎
+function difficultyOf(levels) {
+  const list = Array.isArray(levels) ? levels : String(levels || "").split(/[、,，/\s]+/);
+  return list.reduce((d, v) => Math.max(d, RANK[String(v).trim()] || 0), 0);
 }
-function normLevel(l, kind, id, name) {
-  const questions = (Array.isArray(l.questions) ? l.questions : []).map(normQuestion);
-  let pass = parseInt(l.pass, 10);
-  if (!(pass >= 1)) pass = Math.max(1, Math.ceil(questions.length * 0.6));
-  return { id, kind, name, pass, questions };
+function safeImage(v) {
+  const s = String(v || "").trim();
+  if (/^data:image\//i.test(s) || /^https?:\/\//i.test(s)) return s;
+  return /\.(png|jpe?g|webp|gif|bmp|svg)$/i.test(s) && !s.includes("..") && !/^[a-z]+:/i.test(s) ? s : "";
 }
-function normalizeBank(raw) {
-  let src = raw;
-  if (src && src.islands) {
-    src = src.islands[ISLAND_ID] || Object.values(src.islands)[0];
-    if (!src) throw new Error("檔案裡沒有任何島嶼的題目。");
-  }
-  if (Array.isArray(src)) src = { questions: src };
-  if (!src || (!Array.isArray(src.levels) && !Array.isArray(src.questions))) throw new Error("看不懂這個檔案：找不到關卡或題目清單。");
-  // 舊格式（只有一份題目）：放進「基礎」練習關卡
-  const given = Array.isArray(src.levels) ? src.levels : [{ id: "p1", kind: "practice", pass: src.pass, questions: src.questions }];
-  const levels = DIFFS.map((name, i) => {
-    const found = given.find((l) => l && l.id === "p" + (i + 1)) || {};
-    return normLevel(found, "practice", "p" + (i + 1), name);
-  });
+// 讀一題「互動式評量系統」的題目；不完整的題目略過
+function shapeQuestion(o) {
+  if (!o || typeof o !== "object") return null;
+  const id = String(o.id ?? "").trim(), stem = String(o.stem ?? o.question ?? o.title ?? o.text ?? "").trim();
+  let opts = o.options ?? o.choices ?? o.answers;
+  if (opts && !Array.isArray(opts) && typeof opts === "object") opts = ["A", "B", "C", "D"].map((k) => opts[k] ?? opts[k.toLowerCase()]);
+  if (!id || !stem || !Array.isArray(opts) || opts.length < 4) return null;
+  const options = opts.slice(0, 4).map((x) => String(x ?? "").trim());
+  if (options.some((x) => !x)) return null;
+  const raw = o.answer ?? o.correctAnswer ?? o.correct ?? o.key;
+  const answer = Number.isInteger(raw) ? raw : "ABCD".indexOf(((String(raw || "").match(/[A-D]/i) || [""])[0]).toUpperCase());
+  if (!(answer >= 0 && answer <= 3)) return null;
+  const cat = String(o.category || o.subject || "").trim();
+  const levels = o.cognitiveLevels ?? o.cognitiveLevel ?? o.bloom;
+  return { id, stem, options, answer, category: LEGACY_CAT[cat] || cat, unit: String(o.unit || o.chapter || "").trim(),
+           levels: Array.isArray(levels) ? levels.map(String) : String(levels || "").split(/[、,，/\s]+/).filter(Boolean),
+           diff: difficultyOf(levels), image: safeImage(o.image ?? o.imageUrl), explanation: String(o.explanation ?? o.why ?? "").trim(),
+           disabled: Boolean(o.disabled ?? o.inactive) };
+}
+function readBank(raw) {
+  const rows = Array.isArray(raw) ? raw : raw && Array.isArray(raw.questions) ? raw.questions : raw && raw.data && Array.isArray(raw.data.questions) ? raw.data.questions : null;
+  if (!rows) throw new Error("這不是互動式評量系統的題庫檔，找不到題目清單。");
+  const byId = new Map();
+  rows.map(shapeQuestion).filter(Boolean).forEach((q) => byId.set(q.id, q));
+  return { list: [...byId.values()], skipped: rows.length - byId.size };
+}
+function normIsland(raw, fallback) {
+  const r = raw && typeof raw === "object" ? raw : {}, f = fallback || {};
+  const units = (Array.isArray(r.units) ? r.units : f.units || []).filter((u) => u && u.category && u.unit).map((u) => ({ category: String(u.category), unit: String(u.unit) }));
+  let count = parseInt(r.practiceCount, 10); if (!(count >= 1 && count <= 30)) count = f.practiceCount || 5;
   const seen = {};
-  given.forEach((l) => {
-    if (!l || l.kind !== "assessment") return;
-    let id = /^a[a-z0-9]{1,15}$/.test(l.id) && !seen[l.id] ? l.id : newId();
-    seen[id] = true;
-    levels.push(normLevel(l, "assessment", id, String(l.name || "評量").slice(0, 30)));
+  const assessments = (Array.isArray(r.assessments) ? r.assessments : []).filter((a) => a && typeof a === "object").map((a) => {
+    let id = /^a[a-z0-9]{1,15}$/.test(a.id) && !seen[a.id] ? a.id : newId(); seen[id] = true;
+    const ids = {};
+    const items = (Array.isArray(a.items) ? a.items : []).map((it) => (typeof it === "string" ? { id: it } : it))
+      .filter((it) => it && it.id && !ids[it.id] && (ids[it.id] = true))
+      .map((it) => ({ id: String(it.id), spot: SPOT_NAMES[it.spot] ? it.spot : "none" }));
+    return { id, name: String(a.name || "評量").slice(0, 30), items };
   });
-  return { title: String(src.title || DEFAULT_BANK.title), levels };
+  return { name: String(r.name || f.name || "島嶼"), units, practiceCount: count, assessments };
 }
-function exportBank() {
-  const islands = {}; islands[ISLAND_ID] = bank;
-  return JSON.stringify({ format: "island-quiz", version: 2, islands }, null, 2);
+function normConfig(raw) {
+  if (!raw || typeof raw !== "object" || !raw.islands || typeof raw.islands !== "object") throw new Error("這不是星願群島的關卡設定檔。");
+  const out = { format: "StarWishIslandsConfig", version: 1, islands: {} };
+  Object.keys(raw.islands).forEach((k) => { if (/^[a-z0-9-]{1,30}$/.test(k)) out.islands[k] = normIsland(raw.islands[k], DEFAULT_CONFIG.islands[k]); });
+  if (!out.islands[ISLAND_ID]) out.islands[ISLAND_ID] = normIsland(null, DEFAULT_CONFIG.islands[ISLAND_ID]);
+  return out;
 }
-const isComplete = (q) => q.q.trim() && q.options.filter((o) => o.trim()).length >= 2 && q.options[q.answer].trim();
-const playable = (level) => level.questions.filter(isComplete);
-const levelLabel = (l) => (l.kind === "practice" ? "練習・" : "評量・") + l.name;
+const exportConfig = () => JSON.stringify(config, null, 2);
 
-let published = normalizeBank(DEFAULT_BANK), bank = clone(published), hasDraft = false;
-try {
-  const d = localStorage.getItem(DRAFT_KEY);
-  if (d) { bank = normalizeBank(JSON.parse(d)); hasDraft = true; }
-} catch (e) { /* 沒有草稿或無法讀取，就用正式題庫 */ }
-function saveDraft() {
-  hasDraft = true;
-  try { localStorage.setItem(DRAFT_KEY, JSON.stringify(bank)); } catch (e) {}
-}
-// 網頁旁邊如果放了 questions.json，就當作正式題庫
-fetch("questions.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
-  published = normalizeBank(j);
-  if (!hasDraft) { bank = clone(published); if (!playing && $("editor").hidden && $("admin").hidden) home(); }
+let bankSrc = Object.assign({ label: "示範題目（網站上還沒有題庫檔）", demo: true }, readBank(DEMO_BANK));
+let byId = new Map(bankSrc.list.map((q) => [q.id, q]));
+function useBank(b, label, demo) { bankSrc = Object.assign({ label, demo: !!demo }, b); byId = new Map(b.list.map((q) => [q.id, q])); }
+let published = normConfig(DEFAULT_CONFIG), config = clone(published), hasDraft = false;
+try { const d = localStorage.getItem(CONFIG_KEY); if (d) { config = normConfig(JSON.parse(d)); hasDraft = true; } } catch (e) { /* 沒有草稿 */ }
+function saveDraft() { hasDraft = true; try { localStorage.setItem(CONFIG_KEY, exportConfig()); } catch (e) {} }
+const isl = () => config.islands[ISLAND_ID];
+const inIsland = (q) => !q.disabled && isl().units.some((u) => u.category === q.category && u.unit === q.unit);
+const islandPool = () => bankSrc.list.filter(inIsland);
+const poolOf = (d) => islandPool().filter((q) => q.diff === d);
+const practiceLevels = () => DIFFS.map((name, i) => ({ id: "p" + (i + 1), kind: "practice", name, pool: poolOf(i) }));
+const assessmentLevels = () => isl().assessments.map((a) => ({ id: a.id, kind: "assessment", name: a.name,
+  items: a.items.map((it) => ({ q: byId.get(it.id), spot: it.spot })).filter((x) => x.q && !x.q.disabled) }));
+const levelLabel = (l) => (l.kind === "practice" ? "練習・" : "評量・") + l.name;
+const idle = () => !playing && !level && $("editor").hidden && $("admin").hidden;
+// 網站上的題庫檔與關卡設定檔
+fetch("data/questions.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
+  const b = readBank(j); useBank(b, "網站題庫（data/questions.json）", false);
+  if (idle()) home(); else if (!$("editor").hidden) edRender();
+}).catch(() => {});
+fetch("data/islands.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
+  published = normConfig(j);
+  if (!hasDraft) { config = clone(published); if (idle()) home(); }
 }).catch(() => {});
 
 /* ============================================================
@@ -870,7 +903,7 @@ const MAX_TRIES = 3;
 const SESSION_KEY = "island-quiz-session";
 let session = null;
 try { session = JSON.parse(sessionStorage.getItem(SESSION_KEY)); } catch (e) {}
-if (session && session.role !== "guest" && !session.token) session = null; // 舊版留下的登入資料
+if (session && session.role !== "guest" && !session.token) session = null;
 const cloudOn = () => !!API_URL && !inPreview;
 const isStudent = () => cloudOn() && session && session.role === "student";
 const isTeacher = () => !cloudOn() || (session && session.role === "teacher");
@@ -945,56 +978,55 @@ function markPassed(id) {
   s.push(id); try { localStorage.setItem(progKey(), JSON.stringify(s)); } catch (e) {}
   return true;
 }
-function unlocked(l) {
+// 前一個「有題目」的難度過關後，下一個難度才開放；沒有題目的難度直接跳過
+function unlocked(l, levels) {
   if (l.kind !== "practice" || isTeacher()) return true;
-  const i = +l.id.slice(1) - 1;
-  return i === 0 || passedSet().includes("p" + i);
+  const passed = passedSet();
+  for (let j = levels.indexOf(l) - 1; j >= 0; j--) if (levels[j].pool.length) return passed.includes(levels[j].id);
+  return true;
 }
 
 /* ---------- 關卡選單 ---------- */
 async function showLevels() {
   resetStage(); level = null;
-  countEl.textContent = bank.title;
-  const tests = bank.levels.filter((l) => l.kind === "assessment" && playable(l).length);
+  countEl.textContent = isl().name;
+  const practice = practiceLevels(), tests = assessmentLevels().filter((l) => l.items.length);
   const draw = (loading) => {
     const passed = passedSet();
-    let html = "<h2>選一個關卡</h2><p class=\"lvl-head\">練習　不限次數，不記錄分數</p><div class=\"lvls\">";
-    bank.levels.filter((l) => l.kind === "practice").forEach((l) => {
-      const n = playable(l).length, open = unlocked(l), done = passed.includes(l.id);
-      const note = !n ? "尚無題目" : !open ? "通過上一個難度後開放" : n + " 題・答對 " + Math.min(l.pass, n) + " 題過關";
+    let html = "<h2>選一個關卡</h2><p class=\"lvl-head\">練習　不限次數，不記錄分數，每次隨機出題</p><div class=\"lvls\">";
+    practice.forEach((l) => {
+      const n = Math.min(isl().practiceCount, l.pool.length), open = unlocked(l, practice), done = passed.includes(l.id);
+      const note = !n ? "尚無題目" : !open ? "通過上一個難度後開放" : "每次 " + n + " 題・答對 " + passFor(n) + " 題過關";
       html += '<button class="lvl' + (done ? " done" : "") + '" type="button" data-id="' + l.id + '"' + (n && open ? "" : " disabled") + ">" +
-        '<span class="lvl-name">' + esc(l.name) + '</span><span class="lvl-note">' + note + '</span><span class="lvl-tag">' + (done ? "已過關" : !open ? "未開放" : "") + "</span></button>";
+        '<span class="lvl-name">' + esc(l.name) + '</span><span class="lvl-note">' + note + '</span><span class="lvl-tag">' + (done ? "已過關" : !open && n ? "未開放" : "") + "</span></button>";
     });
     html += "</div>";
     if (tests.length) {
       html += '<p class="lvl-head">評量　每關最多 ' + MAX_TRIES + " 次，計算平均</p><div class=\"lvls\">";
       tests.forEach((l) => {
-        const n = playable(l).length, st = cloudStatus[l.id] || { used: 0, scores: [], avg: null };
+        const n = l.items.length, st = cloudStatus[l.id] || { used: 0, scores: [], avg: null };
         let note = n + " 題", tag = "", off = false;
         if (!cloudOn() || (session && session.role === "teacher")) { note += "・試玩，不記錄"; }
         else if (!isStudent()) { note = "登入後才能作答"; off = true; }
         else if (loading) { note = "讀取作答紀錄中…"; off = true; }
-        else {
-          note += "・已作答 " + st.used + "／" + MAX_TRIES + " 次";
-          tag = st.avg === null ? "" : "平均 " + st.avg + " 分";
-          off = st.used >= MAX_TRIES;
-        }
+        else { note += "・已作答 " + st.used + "／" + MAX_TRIES + " 次"; tag = st.avg === null ? "" : "平均 " + st.avg + " 分"; off = st.used >= MAX_TRIES; }
         html += '<button class="lvl test" type="button" data-id="' + l.id + '"' + (off ? " disabled" : "") + ">" +
           '<span class="lvl-name">' + esc(l.name) + '</span><span class="lvl-note">' + note + '</span><span class="lvl-tag">' + tag + "</span></button>";
       });
       html += "</div>";
     }
+    if (isTeacher() && bankSrc.demo) html += '<p class="lvl-head">目前使用示範題目。把評量系統的題庫檔放上網站後，就會改用你的題目。</p>';
     html += '<p class="login-msg" id="lvMsg" role="alert"></p>';
     view.innerHTML = html;
-    view.querySelectorAll(".lvl").forEach((b) => b.addEventListener("click", () => pickLevel(bank.levels.find((l) => l.id === b.dataset.id))));
+    view.querySelectorAll(".lvl").forEach((b) => b.addEventListener("click", () => pickLevel([...practice, ...tests].find((l) => l.id === b.dataset.id))));
   };
   const needCloud = isStudent() && tests.length;
   draw(needCloud);
   if (!needCloud) return;
   const who = session;
   try {
-    const res = await api({ action: "status", token: session.token, island: bank.title });
-    if (session !== who || level || playing) return; // 等待期間已經離開這個畫面
+    const res = await api({ action: "status", token: session.token, island: isl().name });
+    if (session !== who || level || playing) return;
     if (res.ok) { cloudStatus = res.levels || {}; draw(false); }
     else { draw(false); $("lvMsg").textContent = failText(res); }
   } catch (e) {
@@ -1006,7 +1038,7 @@ function pickLevel(l) {
   if (!l) return;
   level = l; sfx.tap();
   if (l.kind === "practice") { startQuiz(); return; }
-  const recorded = isStudent(), st = cloudStatus[l.id] || { used: 0 }, n = playable(l).length;
+  const recorded = isStudent(), st = cloudStatus[l.id] || { used: 0 }, n = l.items.length;
   countEl.textContent = "評量";
   view.innerHTML = "<h2>" + esc(l.name) + '</h2><p class="lead">共 ' + n + " 題。" +
     (recorded ? "按下「開始作答」就算一次，中途離開也算。你還可以作答 " + (MAX_TRIES - st.used) + " 次。" : "現在是試玩，不計次數，也不記錄分數。") +
@@ -1017,7 +1049,7 @@ function pickLevel(l) {
     if (!recorded) { startQuiz(); return; }
     const go = $("lvGo"); go.disabled = true; go.textContent = "準備中…";
     try {
-      const res = await api({ action: "begin", token: session.token, island: bank.title, levelId: l.id, levelName: l.name, total: n });
+      const res = await api({ action: "begin", token: session.token, island: isl().name, levelId: l.id, levelName: l.name, total: n });
       if (res.ok) { attempt = { id: res.id, n: res.attempt }; startQuiz(); return; }
       $("lvMsg").textContent = failText(res);
     } catch (e) { $("lvMsg").textContent = "連不上雲端，請檢查網路後再試一次。這次不算作答。"; }
@@ -1026,9 +1058,13 @@ function pickLevel(l) {
 }
 
 /* ---------- 作答 ---------- */
+const toItem = (q, spot) => ({ spot: spot || "none", q: q.stem, options: q.options, answer: q.answer, why: q.explanation, img: q.image });
 function startQuiz() {
   const keep = attempt;
-  quiz = clone(playable(level)); if (!quiz.length) { showLevels(); return; }
+  quiz = level.kind === "practice"
+    ? shuffle(level.pool.slice()).slice(0, isl().practiceCount).map((q) => toItem(q, "none"))
+    : shuffle(level.items.slice()).map((x) => toItem(x.q, x.spot));
+  if (!quiz.length) { showLevels(); return; }
   step = 0; results = []; playing = true; attempt = keep;
   world.clearMarks(); world.rainbow(false); $("confetti").innerHTML = "";
   ask();
@@ -1040,7 +1076,7 @@ function ask() {
   world.mark(item.spot, "now"); world.focus(item.spot);
   countEl.textContent = levelLabel(level) + "　" + (step + 1) + "／" + quiz.length;
   drawHearts();
-  opts = shuffle(item.options.map((t, i) => ({ t, right: i === item.answer })).filter((o) => o.t.trim()));
+  opts = shuffle(item.options.map((t, i) => ({ t, right: i === item.answer })));
   view.innerHTML = '<p class="question">' + esc(item.q) + "</p>" +
     (item.img ? '<button class="qimg" id="qimg" type="button" aria-label="放大題目圖片"><img src="' + esc(item.img) + '" alt="題目圖片"></button>' : "") +
     '<div class="options">' + opts.map((o, i) => '<button class="opt" type="button" data-i="' + i + '">' + esc(o.t) + "</button>").join("") +
@@ -1068,7 +1104,7 @@ function answer(btn, item) {
   const last = step === quiz.length - 1, right = item.options[item.answer];
   const title = ok ? "答對了！" : strict ? "這一題答錯了。" : "差一點，答案是「" + esc(right) + "」";
   $("fb").outerHTML = '<div class="feedback ' + (ok ? "good" : "bad") + '"><strong>' + title + "</strong>" +
-    (!strict && item.why.trim() ? "<p>" + esc(item.why) + "</p>" : "") + "</div>" +
+    (!strict && item.why ? "<p>" + esc(item.why) + "</p>" : "") + "</div>" +
     '<button class="go" id="next" type="button">' + (last ? "看結果" : "下一題") + "</button>";
   const next = $("next");
   next.addEventListener("click", () => { sfx.tap(); if (last) finish(); else { step++; ask(); } });
@@ -1076,7 +1112,7 @@ function answer(btn, item) {
 }
 function finish() {
   const score = results.filter(Boolean).length, strict = level.kind === "assessment";
-  const pass = score >= Math.max(1, Math.min(level.pass, quiz.length));
+  const pass = score >= passFor(quiz.length);
   playing = false; world.home(); world.rainbow(pass);
   countEl.textContent = levelLabel(level); drawHearts();
   let title, extra = "";
@@ -1085,8 +1121,8 @@ function finish() {
   } else {
     title = score === quiz.length ? "全部答對，彩虹出現了！" : pass ? "過關！彩虹出現了" : "再試一次，把彩虹找出來";
     if (pass) {
-      const fresh = markPassed(level.id), nextLevel = bank.levels.find((l) => l.id === "p" + (+level.id.slice(1) + 1));
-      if (fresh && nextLevel && playable(nextLevel).length) extra = '<p class="unlock">已開放新的難度：' + esc(nextLevel.name) + "</p>";
+      const fresh = markPassed(level.id), practice = practiceLevels(), nextLevel = practice.slice(practice.findIndex((l) => l.id === level.id) + 1).find((l) => l.pool.length);
+      if (fresh && nextLevel) extra = '<p class="unlock">已開放新的難度：' + esc(nextLevel.name) + "</p>";
     }
   }
   view.innerHTML = "<h2>" + title + '</h2><p class="score">' + (strict ? Math.round(score / quiz.length * 100) + " <small>分（答對 " + score + "／" + quiz.length + " 題）</small>"
@@ -1188,7 +1224,7 @@ function showLogin(asTeacher) {
 }
 world.onPick(() => { // 在關卡選單時，點島上的愛心直接開始第一個可玩的練習
   if (playing || level || !$("editor").hidden || !$("admin").hidden || (cloudOn() && !session)) return;
-  const first = bank.levels.find((l) => l.kind === "practice" && playable(l).length && unlocked(l));
+  const practice = practiceLevels(), first = practice.find((l) => l.pool.length && unlocked(l, practice));
   if (first) pickLevel(first);
 });
 
@@ -1274,52 +1310,64 @@ $("adForm").addEventListener("submit", async (e) => {
 });
 
 /* ============================================================
-   老師：試題編輯器
+   老師：關卡設定（從共用題庫挑題組成評量關卡）
+   題目一律在「互動式評量系統」編修；這裡只決定哪幾題放進哪個評量關卡。
    ============================================================ */
-const ed = { lv: 0, sel: 0 };
-const cur = () => bank.levels[ed.lv];
+const ed = { lv: 0, filter: -1, search: "" };
+const DTAG = ["d0", "d1", "d2", "d3"];
 function edMsg(text, bad) { const m = $("edMsg"); m.textContent = text; m.className = "ed-msg" + (bad ? " bad" : ""); }
-function edLevels() {
-  $("edLevel").innerHTML = bank.levels.map((l, i) => '<option value="' + i + '">' + esc(levelLabel(l)) + "（" + l.questions.length + " 題）</option>").join("");
-  $("edLevel").value = ed.lv;
-  const l = cur(), test = l.kind === "assessment";
-  $("lvNameRow").hidden = !test; $("lvDel").hidden = !test;
-  $("lvName").value = l.name;
-  $("edPass").value = l.pass; $("edPass").max = Math.max(1, l.questions.length);
-  $("edPassLabel").textContent = test ? "答對幾題出現彩虹（不影響分數）" : "答對幾題算過關";
-}
-function edList() {
-  const qs = cur().questions;
-  $("edList").innerHTML = qs.map((q, i) =>
-    '<li><button type="button" class="ed-item' + (i === ed.sel ? " on" : "") + (isComplete(q) ? "" : " todo") + '" data-i="' + i + '">' +
-    '<span class="ed-no">' + (i + 1) + '</span><span class="ed-stem">' + (q.q.trim() ? esc(q.q) : "（還沒寫題目）") + "</span>" +
-    '<span class="ed-spot">' + SPOT_NAMES[q.spot] + (q.img ? "・有圖" : "") + (isComplete(q) ? "" : "・未完成") + "</span></button></li>").join("");
-  $("edList").querySelectorAll(".ed-item").forEach((b) => b.addEventListener("click", () => { ed.sel = +b.dataset.i; edRender(); }));
-  $("edCount").textContent = "這一關共 " + qs.length + " 題，其中 " + playable(cur()).length + " 題已完成";
+const curTest = () => isl().assessments[ed.lv];
+function qMeta(q) {
+  return '<span class="dtag ' + DTAG[q.diff] + '">' + DIFFS[q.diff] + "</span>" + esc(q.category + "／" + q.unit) +
+    (q.levels.length ? "・" + esc(q.levels.join("、")) : "・未標認知層次") + "・答案 " + "ABCD"[q.answer] + (q.explanation ? "・有解說" : "") + (q.image ? "・有圖" : "");
 }
 function edRender() {
-  disarm(); edLevels(); edList();
-  const q = cur().questions[ed.sel], form = $("edForm"), empty = $("edEmpty");
-  form.hidden = !q; empty.hidden = !!q;
-  if (!q) return;
-  $("fNo").textContent = levelLabel(cur()) + "　第 " + (ed.sel + 1) + " 題";
-  $("fQ").value = q.q; $("fSpot").value = q.spot; $("fWhy").value = q.why; $("fImg").value = q.img;
-  q.options.forEach((o, i) => { $("fO" + i).value = o; $("fA" + i).checked = i === q.answer; });
-  $("fUp").disabled = ed.sel === 0; $("fDown").disabled = ed.sel === cur().questions.length - 1;
+  disarm();
+  const I = isl(), pool = islandPool(), test = curTest();
+  $("edTitle").textContent = "關卡設定　" + I.name;
+  $("edBank").textContent = "題庫：" + bankSrc.label + "，共 " + bankSrc.list.length + " 題" + (bankSrc.skipped ? "（另有 " + bankSrc.skipped + " 題格式不完整，已略過）" : "") +
+    "；本島可用 " + pool.length + " 題（" + DIFFS.map((n, i) => n + " " + pool.filter((q) => q.diff === i).length).join("、") + "）";
+  $("edUnits").textContent = I.units.map((u) => u.category + "／" + u.unit).join("、");
+  $("edCount").value = I.practiceCount;
+  // 評量關卡
+  $("edLevel").innerHTML = I.assessments.length ? I.assessments.map((a, i) => '<option value="' + i + '">' + esc(a.name) + "（" + a.items.length + " 題）</option>").join("")
+    : '<option value="">還沒有評量關卡</option>';
+  $("edLevel").disabled = !I.assessments.length; $("lvDel").disabled = !test; $("lvName").disabled = !test;
+  if (test) $("edLevel").value = ed.lv;
+  $("lvName").value = test ? test.name : "";
+  // 已選題目
+  if (!test) {
+    $("edChosenCount").textContent = "按「新增評量關卡」開始挑題。";
+    $("edChosen").innerHTML = "";
+  } else {
+    const missing = test.items.filter((it) => !byId.get(it.id) || byId.get(it.id).disabled).length;
+    $("edChosenCount").textContent = "已選 " + test.items.length + " 題" + (missing ? "，其中 " + missing + " 題在目前的題庫找不到或已停用，學生不會看到" : "") + "。每一題可以設定鏡頭飛到哪裡。";
+    $("edChosen").innerHTML = test.items.map((it, i) => {
+      const q = byId.get(it.id), bad = !q || q.disabled;
+      return '<li class="pick-row in' + (bad ? " bad" : "") + '" data-i="' + i + '"><span class="ed-no">' + (i + 1) + '</span><span class="pick-main"><span class="pick-stem">' +
+        (q ? esc(q.stem) : "（題庫中找不到這一題：" + esc(it.id) + "）") + '</span><span class="pick-meta">' + (q ? qMeta(q) + (q.disabled ? "・已停用" : "") : "") + "</span></span>" +
+        '<span class="pick-tools"><select data-act="spot" aria-label="第 ' + (i + 1) + ' 題的鏡頭位置">' +
+        Object.keys(SPOT_NAMES).map((k) => '<option value="' + k + '"' + (k === it.spot ? " selected" : "") + ">" + (k === "none" ? "整座島" : "飛到" + SPOT_NAMES[k]) + "</option>").join("") +
+        '</select><button class="mini" type="button" data-act="up"' + (i ? "" : " disabled") + '>上移</button><button class="mini" type="button" data-act="down"' + (i < test.items.length - 1 ? "" : " disabled") +
+        '>下移</button><button class="mini warn" type="button" data-act="remove">移除</button></span></li>';
+    }).join("");
+  }
+  // 本島題庫
+  $("edChips").innerHTML = [-1, 0, 1, 2, 3].map((d) => '<button class="chip" type="button" data-d="' + d + '" aria-pressed="' + (ed.filter === d) + '">' +
+    (d < 0 ? "全部 " + pool.length : DIFFS[d] + " " + pool.filter((q) => q.diff === d).length) + "</button>").join("");
+  const kw = ed.search.trim().toLowerCase(), chosen = new Set(test ? test.items.map((it) => it.id) : []);
+  const shown = pool.filter((q) => (ed.filter < 0 || q.diff === ed.filter) && (!kw || (q.stem + " " + q.options.join(" ")).toLowerCase().includes(kw)));
+  $("edPool").innerHTML = shown.map((q) => '<li class="pick-row' + (chosen.has(q.id) ? " in" : "") + '" data-id="' + esc(q.id) + '"><span class="ed-no">' + DIFFS[q.diff].slice(0, 1) +
+    '</span><span class="pick-main"><span class="pick-stem">' + esc(q.stem) + '</span><span class="pick-opts">' + q.options.map((o, i) => "ABCD"[i] + ". " + esc(o)).join("　") +
+    '</span><span class="pick-meta">' + qMeta(q) + '</span></span><span class="pick-tools">' +
+    (chosen.has(q.id) ? '<span class="pick-done">已加入</span>' : '<button class="mini add" type="button" data-act="add"' + (test ? "" : " disabled") + ">加入</button>") + "</span></li>").join("") ||
+    '<li class="ad-note">' + (pool.length ? "沒有符合條件的題目。" : "題庫裡還沒有「" + esc(I.units.map((u) => u.category + "／" + u.unit).join("、")) + "」的題目。請先在互動式評量系統新增題目，再讀取題庫檔。") + "</li>";
 }
-function edChanged() {
-  const q = cur().questions[ed.sel]; if (!q) return;
-  q.q = $("fQ").value; q.spot = $("fSpot").value; q.why = $("fWhy").value;
-  const img = $("fImg").value.trim();
-  q.img = /^[\w\-./%]+\.(png|jpe?g|webp|gif)$/i.test(img) && !img.includes("..") ? img : "";
-  for (let i = 0; i < 4; i++) { q.options[i] = $("fO" + i).value; if ($("fA" + i).checked) q.answer = i; }
-  saveDraft(); edList(); edLevels();
-  edMsg(img && !q.img ? "圖片檔名只能用英文、數字、- 和 _，副檔名為 jpg、png 或 webp，例如 images/q1.jpg。" : "已自動存在這台電腦的瀏覽器。要給學生用，請按「儲存 JSON」。", !!(img && !q.img));
-}
+function edChanged(text) { saveDraft(); edRender(); if (text) edMsg(text); }
 function openEditor() {
-  showLevels(); ed.lv = Math.min(ed.lv, bank.levels.length - 1); ed.sel = Math.min(ed.sel, Math.max(0, cur().questions.length - 1));
+  showLevels(); ed.lv = Math.max(0, Math.min(ed.lv, isl().assessments.length - 1));
   $("editor").hidden = false; edRender();
-  edMsg(hasDraft ? "目前顯示的是這台電腦上修改過的題庫。" : "修改會自動存在這台電腦的瀏覽器。");
+  edMsg(hasDraft ? "目前顯示的是這台電腦上修改過的關卡設定。" : "修改會自動存在這台電腦的瀏覽器；要給學生用，請按「儲存關卡檔」。");
   $("edClose").focus();
 }
 function closeEditor() { disarm(); $("editor").hidden = true; home(); $("teacher").focus(); }
@@ -1327,82 +1375,84 @@ function closeEditor() { disarm(); $("editor").hidden = true; home(); $("teacher
 $("teacher").addEventListener("click", openEditor);
 $("edClose").addEventListener("click", closeEditor);
 $("editor").addEventListener("keydown", (e) => { if (e.key === "Escape") closeEditor(); });
-$("edForm").addEventListener("input", edChanged);
-$("edForm").addEventListener("submit", (e) => e.preventDefault());
-$("edLevel").addEventListener("change", () => { ed.lv = +$("edLevel").value; ed.sel = 0; edRender(); });
-$("lvName").addEventListener("input", () => { cur().name = $("lvName").value.slice(0, 30) || "評量"; saveDraft(); const v = ed.lv; edLevels(); $("edLevel").value = v; });
-$("edPass").addEventListener("input", () => { const v = parseInt($("edPass").value, 10); if (v >= 1) { cur().pass = v; saveDraft(); } });
+$("edCount").addEventListener("change", () => {
+  const v = parseInt($("edCount").value, 10);
+  if (!(v >= 1 && v <= 30)) { edRender(); edMsg("請輸入 1 到 30 的數字。", true); return; }
+  isl().practiceCount = v; edChanged("練習每次改為抽 " + v + " 題。");
+});
+$("edLevel").addEventListener("change", () => { ed.lv = +$("edLevel").value || 0; edRender(); });
+$("lvName").addEventListener("input", () => { const t = curTest(); if (!t) return; t.name = $("lvName").value.slice(0, 30) || "評量"; saveDraft(); const o = $("edLevel").options[ed.lv]; if (o) o.textContent = t.name + "（" + t.items.length + " 題）"; });
 $("lvAdd").addEventListener("click", () => {
-  const n = bank.levels.filter((l) => l.kind === "assessment").length + 1;
-  bank.levels.push({ id: newId(), kind: "assessment", name: "評量 " + n, pass: 1, questions: [] });
-  ed.lv = bank.levels.length - 1; ed.sel = 0; saveDraft(); edRender();
-  edMsg("已新增評量關卡。請改名、加入題目；學生每關最多作答 " + MAX_TRIES + " 次。"); $("lvName").focus(); $("lvName").select();
+  const A = isl().assessments; A.push({ id: newId(), name: "評量 " + (A.length + 1), items: [] });
+  ed.lv = A.length - 1; edChanged("已新增評量關卡。從右邊的本島題庫按「加入」挑題；學生每關最多作答 " + MAX_TRIES + " 次。");
+  $("lvName").focus(); $("lvName").select();
 });
 twoStep($("lvDel"), "再按一次確定刪除關卡", () => {
-  bank.levels.splice(ed.lv, 1); ed.lv = 0; ed.sel = 0; saveDraft(); edRender(); edMsg("已刪除這個評量關卡。試算表裡已經記錄的成績不受影響。");
+  isl().assessments.splice(ed.lv, 1); ed.lv = 0; edChanged("已刪除這個評量關卡。試算表裡已經記錄的成績不受影響。");
 });
-$("edAdd").addEventListener("click", () => {
-  const qs = cur().questions;
-  qs.push({ spot: "none", q: "", options: ["", "", "", ""], answer: 0, why: "", img: "" });
-  ed.sel = qs.length - 1; saveDraft(); edRender(); edMsg("已新增第 " + qs.length + " 題，請填寫內容。"); $("fQ").focus();
+$("edChosen").addEventListener("click", (e) => {
+  const b = e.target.closest("button"), row = e.target.closest("[data-i]"), t = curTest(); if (!b || !row || !t) return;
+  const i = +row.dataset.i, items = t.items;
+  if (b.dataset.act === "remove") { items.splice(i, 1); edChanged("已從這個關卡移除。"); }
+  if (b.dataset.act === "up" && i > 0) { [items[i - 1], items[i]] = [items[i], items[i - 1]]; edChanged(); }
+  if (b.dataset.act === "down" && i < items.length - 1) { [items[i + 1], items[i]] = [items[i], items[i + 1]]; edChanged(); }
 });
-function edMove(d) {
-  const qs = cur().questions, a = ed.sel, b = a + d; if (b < 0 || b >= qs.length) return;
-  [qs[a], qs[b]] = [qs[b], qs[a]]; ed.sel = b; saveDraft(); edRender();
-}
-$("fUp").addEventListener("click", () => edMove(-1));
-$("fDown").addEventListener("click", () => edMove(1));
-twoStep($("fDel"), "再按一次確定刪除", () => {
-  const qs = cur().questions;
-  qs.splice(ed.sel, 1); ed.sel = Math.max(0, Math.min(ed.sel, qs.length - 1));
-  saveDraft(); edRender(); edMsg("已刪除。");
+$("edChosen").addEventListener("change", (e) => {
+  const row = e.target.closest("[data-i]"), t = curTest(); if (!row || !t || e.target.dataset.act !== "spot") return;
+  t.items[+row.dataset.i].spot = e.target.value; saveDraft(); edMsg("已設定鏡頭位置。");
 });
+$("edPool").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-act='add']"), row = e.target.closest("[data-id]"), t = curTest(); if (!b || !row || !t) return;
+  t.items.push({ id: row.dataset.id, spot: "none" }); edChanged("已加入第 " + t.items.length + " 題。");
+});
+$("edChips").addEventListener("click", (e) => { const b = e.target.closest("[data-d]"); if (!b) return; ed.filter = +b.dataset.d; edRender(); });
+$("edSearch").addEventListener("input", () => { ed.search = $("edSearch").value; edRender(); });
 twoStep($("edReset"), "再按一次確定還原", () => {
-  try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
-  hasDraft = false; bank = clone(published); ed.lv = 0; ed.sel = 0; edRender(); edMsg("已還原成正式題庫，這台電腦上的修改已清除。");
+  try { localStorage.removeItem(CONFIG_KEY); } catch (e) {}
+  hasDraft = false; config = clone(published); ed.lv = 0; edRender(); edMsg("已還原成網站上的關卡設定，這台電腦上的修改已清除。");
 });
-$("edImport").addEventListener("click", () => $("edFile").click());
-$("edFile").addEventListener("change", () => {
-  const f = $("edFile").files[0]; if (!f) return;
+function readJsonFile(input, onLoad) {
+  const f = input.files[0]; if (!f) return;
   const rd = new FileReader();
   rd.onload = () => {
-    try {
-      bank = normalizeBank(JSON.parse(String(rd.result)));
-      ed.lv = 0; ed.sel = 0; saveDraft(); edRender();
-      edMsg("已匯入「" + f.name + "」，共 " + bank.levels.reduce((n, l) => n + l.questions.length, 0) + " 題。");
-    } catch (err) {
-      edMsg("匯入失敗：" + (err instanceof SyntaxError ? "這不是正確的 JSON 檔。" : err.message), true);
-    }
-    $("edFile").value = "";
+    try { onLoad(JSON.parse(String(rd.result)), f.name); }
+    catch (err) { edMsg("讀取失敗：" + (err instanceof SyntaxError ? "這不是正確的 JSON 檔。" : err.message), true); }
+    input.value = "";
   };
   rd.onerror = () => edMsg("讀不到這個檔案，請再試一次。", true);
   rd.readAsText(f, "utf-8");
-});
+}
+$("edBankFile").addEventListener("click", () => $("edBankInput").click());
+$("edBankInput").addEventListener("change", () => readJsonFile($("edBankInput"), (j, name) => {
+  if (j && j.format === "InteractiveAssessmentSystemBackup") { edMsg("這是完整備份檔（含班級與成績），請改用評量系統「題庫編修 → 儲存題庫」產生的檔案。", true); return; }
+  const b = readBank(j); useBank(b, "本機題庫檔「" + name + "」", false); edRender();
+  edMsg("已讀取題庫檔，共 " + b.list.length + " 題。這只在這次編輯時使用；要讓學生看到，請把這個檔案以 data/questions.json 上傳到網站。");
+}));
+$("edImport").addEventListener("click", () => $("edFile").click());
+$("edFile").addEventListener("change", () => readJsonFile($("edFile"), (j, name) => {
+  config = normConfig(j); ed.lv = 0; saveDraft(); edRender(); edMsg("已讀取關卡檔「" + name + "」。");
+}));
 $("edSave").addEventListener("click", async () => {
   if (inPreview || (window.claude && window.claude.use)) {
     try {
       const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
-      if (!dl) { edMsg("這個預覽頁無法下載檔案，請改按「複製 JSON」，貼到記事本存成 questions.json。", true); return; }
-      await dl.save({ filename: "questions.json", data: exportBank() });
-      edMsg("已儲存 questions.json。把它放在網頁的同一個資料夾，學生就會看到新題目。");
+      if (!dl) { edMsg("這個預覽頁無法下載檔案，請改按「複製 JSON」，貼到記事本存成 islands.json。", true); return; }
+      await dl.save({ filename: "islands.json", data: exportConfig() });
+      edMsg("已儲存 islands.json。把它放在網站的 data 資料夾，學生就會看到新的評量關卡。");
     } catch (e) { edMsg("沒有存檔（已取消或失敗）。也可以改按「複製 JSON」。", true); }
     return;
   }
   try {
-    const url = URL.createObjectURL(new Blob([exportBank()], { type: "application/json" }));
-    const a = document.createElement("a"); a.href = url; a.download = "questions.json";
+    const url = URL.createObjectURL(new Blob([exportConfig()], { type: "application/json" }));
+    const a = document.createElement("a"); a.href = url; a.download = "islands.json";
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
-    edMsg("已下載 questions.json。把它放在網頁的同一個資料夾，學生就會看到新題目。");
+    edMsg("已下載 islands.json。把它放在網站的 data 資料夾，學生就會看到新的評量關卡。");
   } catch (e) { edMsg("下載失敗，請改按「複製 JSON」。", true); }
 });
 $("edCopy").addEventListener("click", () => {
-  const text = exportBank();
-  const done = () => edMsg("已複製題庫 JSON。");
-  const fallback = () => {
-    const ta = $("edRaw"); ta.hidden = false; ta.value = text; ta.focus(); ta.select();
-    edMsg("瀏覽器不允許自動複製。題庫內容已顯示在下方，請按 Ctrl+C 複製。", true);
-  };
-  try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  const text = exportConfig();
+  const fallback = () => { const ta = $("edRaw"); ta.hidden = false; ta.value = text; ta.focus(); ta.select(); edMsg("瀏覽器不允許自動複製。內容已顯示在下方，請按 Ctrl+C 複製。", true); };
+  try { navigator.clipboard.writeText(text).then(() => edMsg("已複製關卡設定 JSON。"), fallback); } catch (e) { fallback(); }
 });
 
 home();
