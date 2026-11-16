@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 402" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="402" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >從傳統農業到以市場為導向的現代化農業</text>
+<rect x="40" y="64" width="420" height="210" rx="14" fill="#fff" stroke="#8A5A2B" stroke-width="2.2"/>
+<text x="250.0" y="108" text-anchor="middle" font-size="30" font-weight="400" fill="#332B25" >🌾</text><text x="250.0" y="146" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >傳統農業</text>
+<text x="250.0" y="176" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >順應自然環境種作物</text>
+<text x="250.0" y="200" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >集約方式種植生活所需</text>
+<text x="250.0" y="224" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >種類多元、規模較小</text>
+<text x="250.0" y="248" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >自給自足為主</text>
+<rect x="500" y="64" width="420" height="210" rx="14" fill="#fff" stroke="#3E8E5A" stroke-width="2.2"/>
+<text x="710.0" y="108" text-anchor="middle" font-size="30" font-weight="400" fill="#332B25" >🚜</text><text x="710.0" y="146" text-anchor="middle" font-size="16" font-weight="900" fill="#3E8E5A" >現代化農業</text>
+<text x="710.0" y="176" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >依市場需求調整作物與產期</text>
+<text x="710.0" y="200" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >區域專業化、企業化經營</text>
+<text x="710.0" y="224" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >例：雲林西螺蔬果專業區</text>
+<text x="710.0" y="248" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >以銷售為主</text>
+<line x1="462.0" y1="170.0" x2="490.8" y2="170.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M498.0,170.0 L487.2,175.2 L487.2,164.8 Z" fill="#6B5E52"/>
+<rect x="40" y="296" width="205" height="56" rx="12" fill="#FFF8E7" stroke="#45392F" stroke-width="1.2"/><text x="74" y="332" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🏭</text><text x="100" y="331" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >工商業發展</text>
+<rect x="265" y="296" width="205" height="56" rx="12" fill="#FFF8E7" stroke="#45392F" stroke-width="1.2"/><text x="299" y="332" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🛣️</text><text x="325" y="331" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >高速公路通車</text>
+<rect x="490" y="296" width="205" height="56" rx="12" fill="#FFF8E7" stroke="#45392F" stroke-width="1.2"/><text x="524" y="332" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🌐</text><text x="550" y="331" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >國際貿易普及</text>
+<rect x="715" y="296" width="205" height="56" rx="12" fill="#FFF8E7" stroke="#45392F" stroke-width="1.2"/><text x="749" y="332" text-anchor="middle" font-size="22" font-weight="400" fill="#332B25" >🔬</text><text x="775" y="331" text-anchor="start" font-size="15" font-weight="900" fill="#332B25" >農業科技進步</text>
+<text x="480" y="384" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >推動轉變的原因（自繪）</text>
+</svg>

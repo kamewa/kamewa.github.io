@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 486" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="486" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="21" font-weight="800" fill="#332B25" >食安五環：從產地到餐桌守護食品安全（民國 105 年起）</text>
+<line x1="480" y1="180" x2="480.0" y2="85.0" stroke="#4A90C2" stroke-width="3" opacity=".5"/>
+<rect x="402.0" y="61.0" width="156" height="48" rx="24" fill="#4A90C2"/><text x="480.0" y="91.0" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >1 源頭控管</text>
+<line x1="480" y1="180" x2="632.2" y2="150.6" stroke="#9C6ADE" stroke-width="3" opacity=".5"/>
+<rect x="554.2" y="126.6" width="156" height="48" rx="24" fill="#9C6ADE"/><text x="632.1690426072246" y="156.64338553438" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >2 生產管理</text>
+<line x1="480" y1="180" x2="574.0" y2="256.9" stroke="#E0694F" stroke-width="3" opacity=".5"/>
+<rect x="496.0" y="232.9" width="156" height="48" rx="24" fill="#E0694F"/><text x="574.0456403667957" y="262.85661446562" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >3 加強查驗</text>
+<line x1="480" y1="180" x2="386.0" y2="256.9" stroke="#E0A43A" stroke-width="3" opacity=".5"/>
+<rect x="308.0" y="232.9" width="156" height="48" rx="24" fill="#E0A43A"/><text x="385.9543596332043" y="262.85661446562" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >4 加重廠商責任</text>
+<line x1="480" y1="180" x2="327.8" y2="150.6" stroke="#3E8E5A" stroke-width="3" opacity=".5"/>
+<rect x="249.8" y="126.6" width="156" height="48" rx="24" fill="#3E8E5A"/><text x="327.8309573927754" y="156.64338553438" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >5 全民監督</text>
+<circle cx="480" cy="180" r="58" fill="#FFF8E7" stroke="#45392F" stroke-width="2"/><text x="480" y="176" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >食安</text><text x="480" y="202" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >五環</text>
+<rect x="40" y="300" width="880" height="140" rx="14" fill="#FFF8E7" stroke="#45392F" stroke-width="1.3"/>
+<text x="480" y="330" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >境外的食安威脅很複雜</text>
+<text x="80" y="362" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🦀</text><text x="104" y="362" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >戴奧辛大閘蟹</text><text x="320" y="362" text-anchor="start" font-size="13.5" font-weight="800" fill="#6B5E52" >可在邊境檢驗</text>
+<text x="80" y="388" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🐦</text><text x="104" y="388" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >禽流感</text><text x="320" y="388" text-anchor="start" font-size="13.5" font-weight="800" fill="#6B5E52" >還可能隨候鳥遷徙擴散</text>
+<text x="80" y="414" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🐖</text><text x="104" y="414" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >非洲豬瘟</text><text x="320" y="414" text-anchor="start" font-size="13.5" font-weight="800" fill="#6B5E52" >廚餘、海漂豬、旅客違禁肉品「陸海空」齊發</text>
+<text x="480" y="468" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >🐕 機場的檢疫犬會嗅出行李中的水果、肉類 → 屬於「加強查驗」（自繪）</text>
+</svg>

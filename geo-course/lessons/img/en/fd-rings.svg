@@ -1,0 +1,21 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 486" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="486" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="21" font-weight="800" fill="#332B25" >Five Food Safety Rings: protecting food from farm to table (since 2016)</text>
+<line x1="480" y1="180" x2="480.0" y2="85.0" stroke="#4A90C2" stroke-width="3" opacity=".5"/>
+<rect x="402.0" y="61.0" width="156" height="48" rx="24" fill="#4A90C2"/><text x="480.0" y="91.0" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >1 Source control</text>
+<line x1="480" y1="180" x2="632.2" y2="150.6" stroke="#9C6ADE" stroke-width="3" opacity=".5"/>
+<rect x="554.2" y="126.6" width="156" height="48" rx="24" fill="#9C6ADE"/><text x="632.1690426072246" y="156.64338553438" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >2 Production</text>
+<line x1="480" y1="180" x2="574.0" y2="256.9" stroke="#E0694F" stroke-width="3" opacity=".5"/>
+<rect x="496.0" y="232.9" width="156" height="48" rx="24" fill="#E0694F"/><text x="574.0456403667957" y="262.85661446562" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >3 Inspection</text>
+<line x1="480" y1="180" x2="386.0" y2="256.9" stroke="#E0A43A" stroke-width="3" opacity=".5"/>
+<rect x="308.0" y="232.9" width="156" height="48" rx="24" fill="#E0A43A"/><text x="385.9543596332043" y="262.85661446562" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >4 Company duty</text>
+<line x1="480" y1="180" x2="327.8" y2="150.6" stroke="#3E8E5A" stroke-width="3" opacity=".5"/>
+<rect x="249.8" y="126.6" width="156" height="48" rx="24" fill="#3E8E5A"/><text x="327.8309573927754" y="156.64338553438" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" >5 Public oversight</text>
+<circle cx="480" cy="180" r="58" fill="#FFF8E7" stroke="#45392F" stroke-width="2"/><text x="480" y="176" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >Five</text><text x="480" y="202" text-anchor="middle" font-size="20" font-weight="900" fill="#332B25" >Rings</text>
+<rect x="40" y="300" width="880" height="140" rx="14" fill="#FFF8E7" stroke="#45392F" stroke-width="1.3"/>
+<text x="480" y="330" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >Threats from abroad are complex</text>
+<text x="80" y="362" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🦀</text><text x="104" y="362" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >Dioxin-tainted hairy crabs</text><text x="320" y="362" text-anchor="start" font-size="13.5" font-weight="800" fill="#6B5E52" >Can be checked at the border</text>
+<text x="80" y="388" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🐦</text><text x="104" y="388" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >Bird flu</text><text x="320" y="388" text-anchor="start" font-size="13.5" font-weight="800" fill="#6B5E52" >May spread with migratory birds</text>
+<text x="80" y="414" text-anchor="middle" font-size="18" font-weight="400" fill="#332B25" >🐖</text><text x="104" y="414" text-anchor="start" font-size="14" font-weight="900" fill="#332B25" >African swine fever</text><text x="320" y="414" text-anchor="start" font-size="13.5" font-weight="800" fill="#6B5E52" >Food waste, pigs washed ashore, travelers’ banned meat: land, sea, air</text>
+<text x="480" y="468" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >🐕 Airport detector dogs sniff out fruit and meat in luggage → “inspection” (original drawing)</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 512" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="512" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="18.8" font-weight="800" fill="#332B25" >Changes in food processing and the cold chain</text>
+<rect x="40" y="64" width="420" height="190" rx="14" fill="#fff" stroke="#8A5A2B" stroke-width="2.2"/>
+<text x="250.0" y="108" text-anchor="middle" font-size="30" font-weight="400" fill="#332B25" >☀️</text><text x="250.0" y="146" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >Past: keep food longer</text>
+<text x="250.0" y="176" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >Sun-drying, pickling</text>
+<text x="250.0" y="200" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >Solve surpluses and seasons</text>
+<rect x="500" y="64" width="420" height="190" rx="14" fill="#fff" stroke="#4A90C2" stroke-width="2.2"/>
+<text x="710.0" y="108" text-anchor="middle" font-size="30" font-weight="400" fill="#332B25" >❄️</text><text x="710.0" y="146" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" >Today: easy to store and ship</text>
+<text x="710.0" y="176" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >Heat, freezing, chemicals</text>
+<text x="710.0" y="200" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >Change taste and look, smaller size</text>
+<rect x="40" y="274" width="880" height="96" rx="14" fill="#E6F2FA" stroke="#4A90C2" stroke-width="2"/>
+<circle cx="150" cy="326" r="20" fill="#4A90C2"/><text x="150" y="332" text-anchor="middle" font-size="17" font-weight="900" fill="#fff" >❄</text><text x="150" y="364" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Production</text>
+<line x1="174.0" y1="326.0" x2="338.6" y2="326.0" stroke="#4A90C2" stroke-width="3" stroke-linecap="round"/><path d="M344.0,326.0 L335.9,329.9 L335.9,322.1 Z" fill="#4A90C2"/>
+<circle cx="370" cy="326" r="20" fill="#4A90C2"/><text x="370" y="332" text-anchor="middle" font-size="17" font-weight="900" fill="#fff" >❄</text><text x="370" y="364" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Processing</text>
+<line x1="394.0" y1="326.0" x2="558.6" y2="326.0" stroke="#4A90C2" stroke-width="3" stroke-linecap="round"/><path d="M564.0,326.0 L555.9,329.9 L555.9,322.1 Z" fill="#4A90C2"/>
+<circle cx="590" cy="326" r="20" fill="#4A90C2"/><text x="590" y="332" text-anchor="middle" font-size="17" font-weight="900" fill="#fff" >❄</text><text x="590" y="364" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Transport</text>
+<line x1="614.0" y1="326.0" x2="778.6" y2="326.0" stroke="#4A90C2" stroke-width="3" stroke-linecap="round"/><path d="M784.0,326.0 L775.9,329.9 L775.9,322.1 Z" fill="#4A90C2"/>
+<circle cx="810" cy="326" r="20" fill="#4A90C2"/><text x="810" y="332" text-anchor="middle" font-size="17" font-weight="900" fill="#fff" >❄</text><text x="810" y="364" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Sales</text>
+<text x="480" y="296" text-anchor="middle" font-size="13" font-weight="900" fill="#4A90C2" >Cold chain: kept cold from source to market to protect quality and reduce waste</text>
+<rect x="40" y="390" width="880" height="80" rx="14" fill="#FFF0EC" stroke="#E0694F" stroke-width="2"/>
+<text x="480" y="420" text-anchor="middle" font-size="14.5" font-weight="900" fill="#E0694F" >⚠️ Longer transport → less link to the source; processed food is hard to recognize → food safety problems</text>
+<text x="480" y="450" text-anchor="middle" font-size="13" font-weight="800" fill="#332B25" >e.g. toxic sprouted potatoes may be made into fries</text>
+<text x="480" y="494" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >(e.g. raw milk dried into milk powder: smaller and keeps longer, original drawing)</text>
+</svg>

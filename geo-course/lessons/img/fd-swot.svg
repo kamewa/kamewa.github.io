@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 502" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="502" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >優劣分析：臺灣的養殖漁業</text>
+<text x="330" y="76" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >內部</text><text x="700" y="76" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >外部</text>
+<text x="60" y="186" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >正面</text><text x="60" y="376" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >負面</text>
+<rect x="150" y="90" width="350" height="176" rx="16" fill="#fff" stroke="#3E8E5A" stroke-width="2.5"/>
+<rect x="240.0" y="106.8" width="170" height="30.4" rx="15.2" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="325" y="127.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">優勢 S（甲）</text><text x="325" y="162" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >能超越競爭者的能力與條件</text>
+<text x="325" y="206" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" ></text><text x="325" y="232" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >養殖經驗豐富、設施完善、技術研發強</text>
+<rect x="520" y="90" width="350" height="176" rx="16" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<rect x="610.0" y="106.8" width="170" height="30.4" rx="15.2" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="695" y="127.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">機會 O（丙）</text><text x="695" y="162" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >有利產業發展的外部因素</text>
+<text x="695" y="206" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >海洋資源枯竭、捕撈受管控，</text><text x="695" y="232" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >可補需求缺口</text>
+<rect x="150" y="280" width="350" height="176" rx="16" fill="#fff" stroke="#E0A43A" stroke-width="2.5"/>
+<rect x="240.0" y="296.8" width="170" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="325" y="317.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">劣勢 W（乙）</text><text x="325" y="352" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >缺乏或落後競爭者的條件</text>
+<text x="325" y="396" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >地狹人稠，</text><text x="325" y="422" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >土地、水資源被各行業爭奪</text>
+<rect x="520" y="280" width="350" height="176" rx="16" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<rect x="610.0" y="296.8" width="170" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="695" y="317.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">威脅 T（丁）</text><text x="695" y="352" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >不利產業發展的外部因素</text>
+<text x="695" y="396" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >石斑魚依賴外銷中國，</text><text x="695" y="422" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >曾被以檢疫為由禁止進口</text>
+<text x="480" y="484" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >用「內部／外部」與「正面／負面」交錯成四格，幫助擬定發展策略（依課本表 1-3-1，自繪）</text>
+</svg>

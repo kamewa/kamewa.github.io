@@ -1,0 +1,43 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="480" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="21.2" font-weight="800" fill="#332B25" >Taiwan’s food self-sufficiency and main imported crops (approximate)</text>
+<rect x="20" y="56" width="455" height="380" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="248" y="86" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >Food self-sufficiency (by calories, %)</text>
+<line x1="70" x2="430" y1="390.0" y2="390.0" stroke="#E5DED3"/><text x="62" y="395.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >0</text>
+<line x1="70" x2="430" y1="352.9" y2="352.9" stroke="#E5DED3"/><text x="62" y="357.8571428571429" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >10</text>
+<line x1="70" x2="430" y1="315.7" y2="315.7" stroke="#E5DED3"/><text x="62" y="320.7142857142857" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >20</text>
+<line x1="70" x2="430" y1="278.6" y2="278.6" stroke="#E5DED3"/><text x="62" y="283.57142857142856" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >30</text>
+<line x1="70" x2="430" y1="241.4" y2="241.4" stroke="#E5DED3"/><text x="62" y="246.42857142857144" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >40</text>
+<line x1="70" x2="430" y1="204.3" y2="204.3" stroke="#E5DED3"/><text x="62" y="209.28571428571428" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >50</text>
+<line x1="70" x2="430" y1="167.1" y2="167.1" stroke="#E5DED3"/><text x="62" y="172.14285714285717" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >60</text>
+<line x1="70" x2="430" y1="130.0" y2="130.0" stroke="#E5DED3"/><text x="62" y="135.0" text-anchor="end" font-size="12" font-weight="700" fill="#6B5E52" >70</text>
+<polyline points="70.0,182.0 125.4,230.3 171.5,252.6 217.7,257.4 263.8,276.3 310.0,272.3 356.2,273.4 402.3,272.3 430.0,277.5" fill="none" stroke="#E0694F" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="70.0" cy="182.0" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="125.4" cy="230.3" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="171.5" cy="252.6" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="217.7" cy="257.4" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="263.8" cy="276.3" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="310.0" cy="272.3" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="356.2" cy="273.4" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="402.3" cy="272.3" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<circle cx="430.0" cy="277.5" r="4" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<text x="70.0" y="412" text-anchor="middle" font-size="12" font-weight="800" fill="#332B25" >1984</text>
+<text x="171.53846153846155" y="412" text-anchor="middle" font-size="12" font-weight="800" fill="#332B25" >1995</text>
+<text x="263.8461538461538" y="412" text-anchor="middle" font-size="12" font-weight="800" fill="#332B25" >2005</text>
+<text x="356.15384615384613" y="412" text-anchor="middle" font-size="12" font-weight="800" fill="#332B25" >2015</text>
+<text x="430.0" y="412" text-anchor="middle" font-size="12" font-weight="800" fill="#332B25" >2023</text>
+<text x="426.0" y="263.45714285714286" text-anchor="end" font-size="15" font-weight="900" fill="#E0694F" >≈30%</text>
+<rect x="490" y="56" width="450" height="380" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="715" y="86" text-anchor="middle" font-size="16" font-weight="900" fill="#332B25" >Imports vs. home production, 2023 (10,000 tons)</text>
+<text x="520" y="152" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌽</text><text x="556" y="150" text-anchor="start" font-size="16" font-weight="900" fill="#332B25" >Corn</text>
+<rect x="645" y="122" width="191.1" height="26" rx="5" fill="#E0A43A"/><text x="842.1111111111111" y="141" text-anchor="start" font-size="12.5" font-weight="900" fill="#E0A43A" >Imported ≈430</text>
+<rect x="645" y="156" width="6.7" height="26" rx="5" fill="#3E8E5A"/><text x="657.6666666666666" y="175" text-anchor="start" font-size="12.5" font-weight="900" fill="#3E8E5A" >Home ≈15</text>
+<text x="520" y="252" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🫘</text><text x="556" y="250" text-anchor="start" font-size="16" font-weight="900" fill="#332B25" >Soybeans</text>
+<rect x="645" y="222" width="106.7" height="26" rx="5" fill="#E0A43A"/><text x="757.6666666666666" y="241" text-anchor="start" font-size="12.5" font-weight="900" fill="#E0A43A" >Imported ≈240</text>
+<rect x="645" y="256" width="3.0" height="26" rx="5" fill="#3E8E5A"/><text x="654" y="275" text-anchor="start" font-size="12.5" font-weight="900" fill="#3E8E5A" >Home ≈1</text>
+<text x="520" y="352" text-anchor="middle" font-size="26" font-weight="400" fill="#332B25" >🌾</text><text x="556" y="350" text-anchor="start" font-size="16" font-weight="900" fill="#332B25" >Wheat</text>
+<rect x="645" y="322" width="57.8" height="26" rx="5" fill="#E0A43A"/><text x="708.7777777777778" y="341" text-anchor="start" font-size="12.5" font-weight="900" fill="#E0A43A" >Imported ≈130</text>
+<rect x="645" y="356" width="3.0" height="26" rx="5" fill="#3E8E5A"/><text x="654" y="375" text-anchor="start" font-size="12.5" font-weight="900" fill="#3E8E5A" >Home ≈0.2</text>
+<text x="715" y="420" text-anchor="middle" font-size="13.5" font-weight="900" fill="#E0694F" >Feed corn, soybeans, and wheat are almost all imported</text>
+<text x="480" y="462" text-anchor="middle" font-size="12.2" font-weight="800" fill="#6B5E52" >(Approximate, from Ministry of Agriculture data, original drawing)</text>
+</svg>

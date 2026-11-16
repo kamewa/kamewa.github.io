@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 432" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="432" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="21" font-weight="800" fill="#332B25" >2023 年稻米、小麥前五大生產國（百萬公噸，約略值）</text>
+<rect x="20" y="56" width="450" height="330" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="245" y="90" text-anchor="middle" font-size="18" font-weight="900" fill="#3E8E5A" >🍚 稻米</text>
+<text x="102" y="140" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >中國</text><rect x="114" y="120" width="263.5" height="30" rx="6" fill="#3E8E5A"/><text x="385.45454545454544" y="141" text-anchor="start" font-size="13" font-weight="900" fill="#3E8E5A" >約 207</text>
+<text x="102" y="192" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >印度</text><rect x="114" y="172" width="262.2" height="30" rx="6" fill="#3E8E5A"/><text x="384.1818181818182" y="193" text-anchor="start" font-size="13" font-weight="900" fill="#3E8E5A" >約 206</text>
+<text x="102" y="244" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >孟加拉</text><rect x="114" y="224" width="75.1" height="30" rx="6" fill="#3E8E5A"/><text x="197.0909090909091" y="245" text-anchor="start" font-size="13" font-weight="900" fill="#3E8E5A" >約 59</text>
+<text x="102" y="296" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >印尼</text><rect x="114" y="276" width="67.5" height="30" rx="6" fill="#3E8E5A"/><text x="189.45454545454544" y="297" text-anchor="start" font-size="13" font-weight="900" fill="#3E8E5A" >約 53</text>
+<text x="102" y="348" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >越南</text><rect x="114" y="328" width="54.7" height="30" rx="6" fill="#3E8E5A"/><text x="176.72727272727272" y="349" text-anchor="start" font-size="13" font-weight="900" fill="#3E8E5A" >約 43</text>
+<rect x="490" y="56" width="450" height="330" rx="16" fill="#fff" stroke="#45392F" stroke-width="1.5"/>
+<text x="715" y="90" text-anchor="middle" font-size="18" font-weight="900" fill="#E0A43A" >🌾 小麥</text>
+<text x="572" y="140" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >中國</text><rect x="584" y="120" width="174.4" height="30" rx="6" fill="#E0A43A"/><text x="766.3636363636364" y="141" text-anchor="start" font-size="13" font-weight="900" fill="#E0A43A" >約 137</text>
+<text x="572" y="192" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >印度</text><rect x="584" y="172" width="140.0" height="30" rx="6" fill="#E0A43A"/><text x="732.0" y="193" text-anchor="start" font-size="13" font-weight="900" fill="#E0A43A" >約 110</text>
+<text x="572" y="244" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >俄羅斯</text><rect x="584" y="224" width="117.1" height="30" rx="6" fill="#E0A43A"/><text x="709.0909090909091" y="245" text-anchor="start" font-size="13" font-weight="900" fill="#E0A43A" >約 92</text>
+<text x="572" y="296" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >美國</text><rect x="584" y="276" width="63.6" height="30" rx="6" fill="#E0A43A"/><text x="655.6363636363636" y="297" text-anchor="start" font-size="13" font-weight="900" fill="#E0A43A" >約 50</text>
+<text x="572" y="348" text-anchor="end" font-size="15" font-weight="900" fill="#332B25" >法國</text><rect x="584" y="328" width="45.8" height="30" rx="6" fill="#E0A43A"/><text x="637.8181818181819" y="349" text-anchor="start" font-size="13" font-weight="900" fill="#E0A43A" >約 36</text>
+<text x="480" y="414" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >稻米多產於溫暖溼熱的亞洲；中國、印度人口多，糧食需求大（依聯合國糧農組織資料整理，自繪）</text>
+</svg>

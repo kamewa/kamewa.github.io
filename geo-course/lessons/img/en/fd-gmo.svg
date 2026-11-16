@@ -1,0 +1,28 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 422" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="422" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >Why did GM crops appear?</text>
+<rect x="24" y="64" width="214" height="200" rx="14" fill="#fff" stroke="#E0A43A" stroke-width="2.2"/>
+<text x="131.0" y="108" text-anchor="middle" font-size="30" font-weight="400" fill="#332B25" >⚠️</text><text x="131.0" y="146" text-anchor="middle" font-size="16" font-weight="900" fill="#E0A43A" >Farming problems</text>
+<text x="131.0" y="176" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >One crop invites pests</text>
+<text x="131.0" y="200" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >Climate change cuts yields</text>
+<line x1="240.0" y1="164.0" x2="250.6" y2="164.0" stroke="#6B5E52" stroke-width="4" stroke-linecap="round"/><path d="M256.0,164.0 L247.9,167.9 L247.9,160.1 Z" fill="#6B5E52"/>
+<rect x="258" y="64" width="214" height="200" rx="14" fill="#fff" stroke="#4A90C2" stroke-width="2.2"/>
+<text x="365.0" y="108" text-anchor="middle" font-size="30" font-weight="400" fill="#332B25" >🧬</text><text x="365.0" y="146" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" >Scientists change genes</text>
+<text x="365.0" y="176" text-anchor="middle" font-size="12.4" font-weight="800" fill="#332B25" >Move genes from other organisms</text>
+<text x="365.0" y="200" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >into crops</text>
+<line x1="474.0" y1="164.0" x2="484.6" y2="164.0" stroke="#6B5E52" stroke-width="4" stroke-linecap="round"/><path d="M490.0,164.0 L481.9,167.9 L481.9,160.1 Z" fill="#6B5E52"/>
+<rect x="492" y="64" width="214" height="200" rx="14" fill="#fff" stroke="#3E8E5A" stroke-width="2.2"/>
+<text x="599.0" y="108" text-anchor="middle" font-size="30" font-weight="400" fill="#332B25" >🌽</text><text x="599.0" y="146" text-anchor="middle" font-size="16" font-weight="900" fill="#3E8E5A" >GM crop traits</text>
+<text x="599.0" y="176" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >Resist pests and herbicides</text>
+<text x="599.0" y="200" text-anchor="middle" font-size="11.0" font-weight="800" fill="#332B25" >Survive extreme weather, higher yields</text>
+<line x1="708.0" y1="164.0" x2="718.6" y2="164.0" stroke="#6B5E52" stroke-width="4" stroke-linecap="round"/><path d="M724.0,164.0 L715.9,167.9 L715.9,160.1 Z" fill="#6B5E52"/>
+<rect x="726" y="64" width="214" height="200" rx="14" fill="#fff" stroke="#E0694F" stroke-width="2.2"/>
+<text x="833.0" y="108" text-anchor="middle" font-size="30" font-weight="400" fill="#332B25" >❓</text><text x="833.0" y="146" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >Concerns</text>
+<text x="833.0" y="176" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >Loss of biodiversity</text>
+<text x="833.0" y="200" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >Imbalance, new viruses</text>
+<rect x="24" y="284" width="912" height="96" rx="14" fill="#FFF8E7" stroke="#45392F" stroke-width="1.3"/>
+<text x="480" y="314" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >Taiwan: no GM crops approved for planting</text>
+<text x="480" y="344" text-anchor="middle" font-size="14" font-weight="800" fill="#332B25" >After review, some GM crops may be imported for feed or food: soybeans, corn, cotton, rapeseed, sugar beets</text>
+<text x="480" y="368" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Main growers: USA, Argentina, Brazil</text>
+<text x="480" y="404" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >(original drawing)</text>
+</svg>

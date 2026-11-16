@@ -1,0 +1,19 @@
+<svg data-lang="en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 502" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="502" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >SWOT analysis: Taiwan’s aquaculture</text>
+<text x="330" y="76" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >Internal</text><text x="700" y="76" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >External</text>
+<text x="60" y="186" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >Positive</text><text x="60" y="376" text-anchor="middle" font-size="16" font-weight="900" fill="#6B5E52" >Negative</text>
+<rect x="150" y="90" width="350" height="176" rx="16" fill="#fff" stroke="#3E8E5A" stroke-width="2.5"/>
+<rect x="240.0" y="106.8" width="170" height="30.4" rx="15.2" fill="#3E8E5A" stroke="#45392F" stroke-width="2"/><text x="325" y="127.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Strength S (A)</text><text x="325" y="162" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Abilities that beat competitors</text>
+<text x="325" y="206" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" ></text><text x="325" y="232" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Rich experience, good facilities, strong R&amp;D</text>
+<rect x="520" y="90" width="350" height="176" rx="16" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<rect x="610.0" y="106.8" width="170" height="30.4" rx="15.2" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="695" y="127.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Opportunity O (C)</text><text x="695" y="162" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Outside factors that help</text>
+<text x="695" y="206" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Ocean resources shrinking, fishing limited,</text><text x="695" y="232" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >farmed fish can fill the gap</text>
+<rect x="150" y="280" width="350" height="176" rx="16" fill="#fff" stroke="#E0A43A" stroke-width="2.5"/>
+<rect x="240.0" y="296.8" width="170" height="30.4" rx="15.2" fill="#E0A43A" stroke="#45392F" stroke-width="2"/><text x="325" y="317.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Weakness W (B)</text><text x="325" y="352" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >What we lack vs. competitors</text>
+<text x="325" y="396" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Crowded land:</text><text x="325" y="422" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >land and water shared with other uses</text>
+<rect x="520" y="280" width="350" height="176" rx="16" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<rect x="610.0" y="296.8" width="170" height="30.4" rx="15.2" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="695" y="317.6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">Threat T (D)</text><text x="695" y="352" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >Outside factors that hurt</text>
+<text x="695" y="396" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >Grouper relied on exports to China,</text><text x="695" y="422" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >once banned for quarantine reasons</text>
+<text x="480" y="484" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >Cross internal/external with positive/negative to plan strategies (from textbook Table 1-3-1, original drawing)</text>
+</svg>

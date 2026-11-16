@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110362',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110363',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -138,7 +138,7 @@ window.SITE = {
         { label: '人文', icon: '🏮', x: 50.2, y: 42.8, href: '#/c/taiwan-human', kind: 'switch' },   // 1 島中央：切換到人文地圖
         { label: '行政區域', x: 24.7, y: 26.0, href: '#/l/tw-admin/taiwan-issues' },   // 2 左上（夜市人潮）：三下 第1章
         { label: '聚落地名', x: 27.3, y: 75.7, href: '#/l/tw-settle/taiwan-issues' },   // 3 左下（小吃）：三下 第2章
-        { label: '食品議題', x: 83.9, y: 23.6, href: '' },   // 4 右上（廟口夜市）
+        { label: '食品議題', x: 83.9, y: 23.6, href: '#/l/tw-food/taiwan-issues' },   // 4 右上（廟口夜市）：三下 第3章
         { label: '會考', x: 81.1, y: 73.2, href: '' },       // 5 右下（港邊夜市）
         { label: '自然', icon: '🌿', x: 58.1, y: 17.1, href: '#/c/taiwan', kind: 'switch' }   // 6 島北端：切換到自然地圖
       ] },
@@ -210,6 +210,8 @@ window.SITE = {
       on: { 'taiwan-issues': { x: 24.7, y: 26.0 } } },
     { id: 'tw-settle',       name: '臺灣聚落地名', book: '三下 第2章', status: 'open', file: 'lessons/tw-settle.js',
       on: { 'taiwan-issues': { x: 27.3, y: 75.7 } } },
+    { id: 'tw-food',         name: '臺灣的農業發展與食品議題', book: '三下 第3章', status: 'open', file: 'lessons/tw-food.js',
+      on: { 'taiwan-issues': { x: 83.9, y: 23.6 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
       on: { taiwan: { x: 30.1, y: 23.5 } } },
     { id: 'taiwan-world',    name: '世界中的臺灣', book: '一上 第2章', status: 'open', file: 'lessons/taiwan-world.js',

@@ -47,6 +47,7 @@ window.SITE_EN = {
     'chn-economy': 'China’s Economy and Global Links',
     'tw-admin': 'Taiwan and Its Administrative Names',
     'tw-settle': 'Settlement Place Names in Taiwan',
+    'tw-food': 'Agriculture and Food Issues in Taiwan',
     'location-map': 'Location and Maps',
     'taiwan-world': 'Taiwan in the World',
     'taiwan-landform': 'Landforms of Taiwan',
