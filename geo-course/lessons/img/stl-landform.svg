@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 478" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="478" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >地形與聚落地名（剖面示意）</text>
+<rect x="20" y="56" width="920" height="380" rx="16" fill="#E6F2FA" stroke="#45392F" stroke-width="2"/>
+<path d="M20,436 L20,190 C70,150 120,120 170,110 C215,118 240,190 262,262 L300,300 L420,300 L438,250 L560,250 C590,258 610,300 640,322 C660,330 680,300 700,300 C720,300 740,330 760,336 L830,336 C850,326 870,326 890,336 L940,336 L940,436 Z" fill="#CFE0B0" stroke="#6B8A4A" stroke-width="2"/>
+<ellipse cx="360" cy="304" rx="40" ry="8" fill="#7FB6DA"/>
+<line x1="90" y1="120" x2="90" y2="175" stroke="#6B5E52" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="90" cy="175" r="5" fill="#E0694F"/>
+<rect x="20" y="80" width="140" height="46" rx="10" fill="#fff" stroke="#8A5A2B" stroke-width="1.5"/>
+<text x="90" y="100" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >崎</text><text x="90" y="119" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >坡度陡的地方</text>
+<line x1="262" y1="120" x2="282" y2="285" stroke="#6B5E52" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="282" cy="285" r="5" fill="#E0694F"/>
+<rect x="192" y="80" width="140" height="46" rx="10" fill="#fff" stroke="#8A5A2B" stroke-width="1.5"/>
+<text x="262" y="100" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >山仔腳</text><text x="262" y="119" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >山腳下的聚落</text>
+<line x1="300" y1="410" x2="362" y2="312" stroke="#6B5E52" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="362" cy="312" r="5" fill="#E0694F"/>
+<rect x="230" y="370" width="140" height="46" rx="10" fill="#fff" stroke="#8A5A2B" stroke-width="1.5"/>
+<text x="300" y="390" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >潭・潭墘</text><text x="300" y="409" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >積水成池處、水的旁邊</text>
+<line x1="510" y1="120" x2="500" y2="245" stroke="#6B5E52" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="500" cy="245" r="5" fill="#E0694F"/>
+<rect x="440" y="80" width="140" height="46" rx="10" fill="#fff" stroke="#8A5A2B" stroke-width="1.5"/>
+<text x="510" y="100" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >崁頂</text><text x="510" y="119" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >崁上方的平地</text>
+<line x1="470" y1="410" x2="444" y2="272" stroke="#6B5E52" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="444" cy="272" r="5" fill="#E0694F"/>
+<rect x="400" y="370" width="140" height="46" rx="10" fill="#fff" stroke="#8A5A2B" stroke-width="1.5"/>
+<text x="470" y="390" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >崁</text><text x="470" y="409" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >台地邊緣的陡坡</text>
+<line x1="650" y1="410" x2="625" y2="330" stroke="#6B5E52" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="625" cy="330" r="5" fill="#E0694F"/>
+<rect x="580" y="370" width="140" height="46" rx="10" fill="#fff" stroke="#8A5A2B" stroke-width="1.5"/>
+<text x="650" y="390" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >崁腳</text><text x="650" y="409" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >崁下方的平地</text>
+<line x1="705" y1="200" x2="700" y2="296" stroke="#6B5E52" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="700" cy="296" r="5" fill="#E0694F"/>
+<rect x="635" y="160" width="140" height="46" rx="10" fill="#fff" stroke="#8A5A2B" stroke-width="1.5"/>
+<text x="705" y="180" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >崙</text><text x="705" y="199" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >隆起的小丘</text>
+<line x1="862" y1="260" x2="860" y2="324" stroke="#6B5E52" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="860" cy="324" r="5" fill="#E0694F"/>
+<rect x="792" y="220" width="140" height="46" rx="10" fill="#fff" stroke="#8A5A2B" stroke-width="1.5"/>
+<text x="862" y="240" text-anchor="middle" font-size="16" font-weight="900" fill="#8A5A2B" >崙（沙丘）</text><text x="862" y="259" text-anchor="middle" font-size="11.5" font-weight="800" fill="#332B25" >海邊風吹成的沙丘</text>
+<text x="480" y="460" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >（各種地形畫在同一張圖上是為了方便比較，實際分布在臺灣不同地方，自繪）</text>
+</svg>

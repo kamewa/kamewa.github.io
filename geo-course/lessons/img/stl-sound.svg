@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="430" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >聽聽地名的身世：字變了，音還在</text>
+<rect x="60" y="70" width="240" height="170" rx="18" fill="#fff" stroke="#6B5E52" stroke-width="2.5"/>
+<rect x="120.0" y="85.75" width="120" height="28.5" rx="14.25" fill="#6B5E52" stroke="#45392F" stroke-width="2"/><text x="180" y="105.25" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">早期地名</text><text x="180" y="168" text-anchor="middle" font-size="34" font-weight="900" fill="#6B5E52" >山仔腳</text><text x="180" y="214" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >「仔」是閩南語常用詞綴</text>
+<line x1="306.0" y1="155.0" x2="346.8" y2="155.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M354.0,155.0 L343.2,160.2 L343.2,149.8 Z" fill="#6B5E52"/>
+<rect x="360" y="70" width="240" height="170" rx="18" fill="#fff" stroke="#4A90C2" stroke-width="2.5"/>
+<rect x="420.0" y="85.75" width="120" height="28.5" rx="14.25" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="480" y="105.25" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">簡化</text><text x="480" y="168" text-anchor="middle" font-size="34" font-weight="900" fill="#4A90C2" >山子腳</text><text x="480" y="214" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >「仔」被省略或改成「子」</text>
+<line x1="606.0" y1="155.0" x2="646.8" y2="155.0" stroke="#6B5E52" stroke-width="5" stroke-linecap="round"/><path d="M654.0,155.0 L643.2,160.2 L643.2,149.8 Z" fill="#6B5E52"/>
+<rect x="660" y="70" width="240" height="170" rx="18" fill="#fff" stroke="#E0694F" stroke-width="2.5"/>
+<rect x="720.0" y="85.75" width="120" height="28.5" rx="14.25" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="780" y="105.25" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">雅化</text><text x="780" y="168" text-anchor="middle" font-size="34" font-weight="900" fill="#E0694F" >山佳</text><text x="780" y="214" text-anchor="middle" font-size="12.5" font-weight="800" fill="#332B25" >改成更文雅的字</text>
+<rect x="60" y="264" width="840" height="120" rx="14" fill="#FFF8E7" stroke="#45392F" stroke-width="1.3"/>
+<text x="480" y="296" text-anchor="middle" font-size="15" font-weight="900" fill="#332B25" >🔊 搭車時聽聽看：國語念字面，閩南語、客家語可能保留傳統念法</text>
+<rect x="90" y="318" width="220" height="44" rx="22" fill="#2F6F8F"/><text x="200" y="346" text-anchor="middle" font-size="15" font-weight="900" fill="#fff" >臺鐵 山佳站</text>
+<rect x="370" y="318" width="220" height="44" rx="22" fill="#2F6F8F"/><text x="480" y="346" text-anchor="middle" font-size="15" font-weight="900" fill="#fff" >臺北捷運 景美站</text>
+<rect x="650" y="318" width="220" height="44" rx="22" fill="#2F6F8F"/><text x="760" y="346" text-anchor="middle" font-size="15" font-weight="900" fill="#fff" >高雄捷運 凹子底站</text>
+<text x="480" y="412" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >（自繪）</text>
+</svg>
