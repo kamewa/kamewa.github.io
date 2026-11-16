@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110360',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110361',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -136,7 +136,7 @@ window.SITE = {
     { id: 'taiwan-issues', parent: 'asia', name: '台灣（地名與議題）', en: 'Taiwan · Places & Issues', icon: '🌃', color: 'purple', map: 'maps/taiwan-issues.webp', glow: 'neon', pinSize: 6.3,
       buttons: [
         { label: '人文', icon: '🏮', x: 50.2, y: 42.8, href: '#/c/taiwan-human', kind: 'switch' },   // 1 島中央：切換到人文地圖
-        { label: '行政區域', x: 24.7, y: 26.0, href: '' },   // 2 左上（夜市人潮）
+        { label: '行政區域', x: 24.7, y: 26.0, href: '#/l/tw-admin/taiwan-issues' },   // 2 左上（夜市人潮）：三下 第1章
         { label: '聚落地名', x: 27.3, y: 75.7, href: '' },   // 3 左下（小吃）
         { label: '食品議題', x: 83.9, y: 23.6, href: '' },   // 4 右上（廟口夜市）
         { label: '會考', x: 81.1, y: 73.2, href: '' },       // 5 右下（港邊夜市）
@@ -206,6 +206,8 @@ window.SITE = {
       on: { china: { x: 76.7, y: 67.4 } } },
     { id: 'chn-economy',     name: '中國的經濟發展與全球關連', book: '二上 第4章', status: 'open', file: 'lessons/chn-economy.js',
       on: { china: { x: 29.0, y: 39.5 } } },
+    { id: 'tw-admin',        name: '臺灣與行政區名', book: '三下 第1章', status: 'open', file: 'lessons/tw-admin.js',
+      on: { 'taiwan-issues': { x: 24.7, y: 26.0 } } },
     { id: 'location-map',    name: '認識位置與地圖', book: '一上 第1章', status: 'open', file: 'lessons/location-map.js',
       on: { taiwan: { x: 30.1, y: 23.5 } } },
     { id: 'taiwan-world',    name: '世界中的臺灣', book: '一上 第2章', status: 'open', file: 'lessons/taiwan-world.js',

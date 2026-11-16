@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 518" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="518" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >台江內海：昔日的「交會之地」（示意）</text>
+<rect x="20" y="56" width="450" height="420" rx="16" fill="#CFE6F3" stroke="#45392F" stroke-width="2"/>
+<text x="245" y="86" text-anchor="middle" font-size="17" font-weight="900" fill="#332B25" >17 世紀：台江內海</text>
+<path d="M310,100 C290,180 320,260 300,340 C290,400 320,440 310,470 L468,470 L468,100 Z" fill="#E9DDBF" stroke="#7A6450" stroke-width="1.5"/>
+<text x="390" y="290" text-anchor="middle" font-size="15" font-weight="900" fill="#5B4B3C" >臺灣本島</text>
+<path d="M170,130 C240,170 250,380 190,440" fill="none" stroke="#9AC8E3" stroke-width="0"/>
+<text x="225" y="260" text-anchor="middle" font-size="18" font-weight="900" fill="#1F5F8B" stroke="#fff" stroke-width="3" paint-order="stroke">台江內海</text><text x="225" y="284" text-anchor="middle" font-size="13" font-weight="800" fill="#1F5F8B" stroke="#fff" stroke-width="3" paint-order="stroke">（潟湖）</text>
+<ellipse cx="130" cy="150" rx="16" ry="19" fill="#F1E3B5" stroke="#B89A5A" stroke-width="1.2"/>
+<text x="102" y="155" text-anchor="end" font-size="11.5" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">一鯤鯓</text>
+<ellipse cx="133" cy="194" rx="16" ry="19" fill="#F1E3B5" stroke="#B89A5A" stroke-width="1.2"/>
+<text x="105" y="199" text-anchor="end" font-size="11.5" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">二鯤鯓</text>
+<ellipse cx="136" cy="238" rx="16" ry="19" fill="#F1E3B5" stroke="#B89A5A" stroke-width="1.2"/>
+<text x="108" y="243" text-anchor="end" font-size="11.5" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">三鯤鯓</text>
+<ellipse cx="139" cy="282" rx="16" ry="19" fill="#F1E3B5" stroke="#B89A5A" stroke-width="1.2"/>
+<text x="111" y="287" text-anchor="end" font-size="11.5" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">四鯤鯓</text>
+<ellipse cx="142" cy="326" rx="16" ry="19" fill="#F1E3B5" stroke="#B89A5A" stroke-width="1.2"/>
+<text x="114" y="331" text-anchor="end" font-size="11.5" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">五鯤鯓</text>
+<ellipse cx="145" cy="370" rx="16" ry="19" fill="#F1E3B5" stroke="#B89A5A" stroke-width="1.2"/>
+<text x="117" y="375" text-anchor="end" font-size="11.5" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">六鯤鯓</text>
+<ellipse cx="148" cy="414" rx="16" ry="19" fill="#F1E3B5" stroke="#B89A5A" stroke-width="1.2"/>
+<text x="120" y="419" text-anchor="end" font-size="11.5" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">七鯤鯓</text>
+<ellipse cx="128" cy="114" rx="12" ry="12" fill="#F1E3B5" stroke="#B89A5A"/><text x="148" y="118" text-anchor="start" font-size="11.5" font-weight="900" fill="#7A5A0E" stroke="#fff" stroke-width="3" paint-order="stroke">北線尾</text>
+<rect x="122" y="142" width="16" height="14" fill="#E0694F"/><text x="170" y="154" text-anchor="start" font-size="12.5" font-weight="900" fill="#E0694F" stroke="#fff" stroke-width="3" paint-order="stroke">熱蘭遮城（Tayovan）</text>
+<text x="245" y="460" text-anchor="middle" font-size="12.5" font-weight="900" fill="#332B25" stroke="#fff" stroke-width="3" paint-order="stroke">沙洲像魚浮出海面的背 → 稱為「鯤鯓」</text>
+<rect x="490" y="56" width="450" height="420" rx="16" fill="#CFE6F3" stroke="#45392F" stroke-width="2"/>
+<text x="715" y="86" text-anchor="middle" font-size="17" font-weight="900" fill="#332B25" >現今：大多變成陸地</text>
+<path d="M618,100 C616,200 622,330 630,470 L938,470 L938,100 Z" fill="#E9DDBF" stroke="#7A6450" stroke-width="1.5"/>
+<path d="M780,100 C760,180 790,260 770,340 C760,400 790,440 780,470 L938,470 L938,100 Z" fill="none" stroke="#B89A5A" stroke-width="2" stroke-dasharray="6 5"/>
+<rect x="650" y="150" width="40" height="30" fill="#BFE0EA" stroke="#7FB2C6"/>
+<rect x="700" y="200" width="40" height="30" fill="#BFE0EA" stroke="#7FB2C6"/>
+<rect x="650" y="250" width="40" height="30" fill="#BFE0EA" stroke="#7FB2C6"/>
+<rect x="700" y="300" width="40" height="30" fill="#BFE0EA" stroke="#7FB2C6"/>
+<rect x="650" y="350" width="40" height="30" fill="#BFE0EA" stroke="#7FB2C6"/>
+<text x="740" y="210" text-anchor="middle" font-size="14" font-weight="900" fill="#1F5F8B" stroke="#fff" stroke-width="3" paint-order="stroke">魚塭、鹽田</text>
+<rect x="620" y="140" width="16" height="14" fill="#E0694F"/><text x="642" y="136" text-anchor="start" font-size="12.5" font-weight="900" fill="#E0694F" stroke="#fff" stroke-width="3" paint-order="stroke">安平（今臺南市安平區）</text>
+<text x="790" y="400" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" stroke="#fff" stroke-width="3" paint-order="stroke">泥沙堆積，</text><text x="790" y="424" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" stroke="#fff" stroke-width="3" paint-order="stroke">內海變成陸地</text>
+<text x="780" y="456" text-anchor="middle" font-size="11.5" font-weight="800" fill="#6B5E52" stroke="#fff" stroke-width="3" paint-order="stroke">虛線：昔日內海的東岸（示意）</text>
+<text x="480" y="500" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >（不是實際比例的地圖，依古地圖大意自繪的示意圖）</text>
+</svg>

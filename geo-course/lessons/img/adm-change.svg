@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 672" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="672" rx="20" fill="#EAF5FB"/>
+<text x="480" y="38" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >行政區名的演變：政權更迭與語言文字</text>
+<rect x="40.0" y="67.275" width="220" height="29.45" rx="14.725" fill="#E0694F" stroke="#45392F" stroke-width="2"/><text x="150" y="87.425" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">因政權更迭而改變</text>
+<rect x="40" y="108" width="880" height="44" rx="10" fill="#fff" stroke="#45392F" stroke-width="1.2"/>
+<text x="150" y="136" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >打狗（Tá-káu）</text>
+<line x1="258.0" y1="130.0" x2="312.0" y2="130.0" stroke="#E0694F" stroke-width="4" stroke-linecap="round"/><path d="M318.0,130.0 L309.0,134.3 L309.0,125.7 Z" fill="#E0694F"/>
+<text x="430" y="136" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >高雄（Takao）</text>
+<text x="560" y="136" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >日治：改成日語發音相近的字</text>
+<rect x="40" y="160" width="880" height="44" rx="10" fill="#fff" stroke="#45392F" stroke-width="1.2"/>
+<text x="150" y="188" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >艋舺（Báng-kah）</text>
+<line x1="258.0" y1="182.0" x2="312.0" y2="182.0" stroke="#E0694F" stroke-width="4" stroke-linecap="round"/><path d="M318.0,182.0 L309.0,186.3 L309.0,177.7 Z" fill="#E0694F"/>
+<text x="430" y="188" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >萬華（Banka）</text>
+<text x="560" y="188" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >日治：改成日語發音相近的字</text>
+<rect x="40" y="212" width="880" height="44" rx="10" fill="#fff" stroke="#45392F" stroke-width="1.2"/>
+<text x="150" y="240" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >打貓（Tánn-niau）</text>
+<line x1="258.0" y1="234.0" x2="312.0" y2="234.0" stroke="#E0694F" stroke-width="4" stroke-linecap="round"/><path d="M318.0,234.0 L309.0,238.3 L309.0,229.7 Z" fill="#E0694F"/>
+<text x="430" y="240" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >民雄（Tamio）</text>
+<text x="560" y="240" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >日治：改成日語發音相近的字</text>
+<rect x="40" y="264" width="880" height="44" rx="10" fill="#fff" stroke="#45392F" stroke-width="1.2"/>
+<text x="150" y="292" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >錫口</text>
+<line x1="258.0" y1="286.0" x2="312.0" y2="286.0" stroke="#E0694F" stroke-width="4" stroke-linecap="round"/><path d="M318.0,286.0 L309.0,290.3 L309.0,281.7 Z" fill="#E0694F"/>
+<text x="430" y="292" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >松山</text>
+<text x="560" y="292" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >日治：景色像日本的松山</text>
+<rect x="40" y="316" width="880" height="44" rx="10" fill="#fff" stroke="#45392F" stroke-width="1.2"/>
+<text x="150" y="344" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >吉野（Yoshino）</text>
+<line x1="258.0" y1="338.0" x2="312.0" y2="338.0" stroke="#E0694F" stroke-width="4" stroke-linecap="round"/><path d="M318.0,338.0 L309.0,342.3 L309.0,333.7 Z" fill="#E0694F"/>
+<text x="430" y="344" text-anchor="middle" font-size="16" font-weight="900" fill="#E0694F" >吉安</text>
+<text x="560" y="344" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >戰後：去除日本殖民影響</text>
+<rect x="40.0" y="383.275" width="220" height="29.45" rx="14.725" fill="#4A90C2" stroke="#45392F" stroke-width="2"/><text x="150" y="403.425" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">因語言文字而調整</text>
+<rect x="40" y="424" width="880" height="44" rx="10" fill="#fff" stroke="#45392F" stroke-width="1.2"/>
+<text x="150" y="452" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >桃仔園</text>
+<line x1="258.0" y1="446.0" x2="312.0" y2="446.0" stroke="#4A90C2" stroke-width="4" stroke-linecap="round"/><path d="M318.0,446.0 L309.0,450.3 L309.0,441.7 Z" fill="#4A90C2"/>
+<text x="430" y="452" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" >桃園</text>
+<text x="560" y="452" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >簡化</text>
+<rect x="40" y="476" width="880" height="44" rx="10" fill="#fff" stroke="#45392F" stroke-width="1.2"/>
+<text x="150" y="504" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >雞籠</text>
+<line x1="258.0" y1="498.0" x2="312.0" y2="498.0" stroke="#4A90C2" stroke-width="4" stroke-linecap="round"/><path d="M318.0,498.0 L309.0,502.3 L309.0,493.7 Z" fill="#4A90C2"/>
+<text x="430" y="504" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" >基隆</text>
+<text x="560" y="504" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >文字雅化</text>
+<rect x="40" y="528" width="880" height="44" rx="10" fill="#fff" stroke="#45392F" stroke-width="1.2"/>
+<text x="150" y="556" text-anchor="middle" font-size="15" font-weight="900" fill="#6B5E52" >坪林尾</text>
+<line x1="258.0" y1="550.0" x2="312.0" y2="550.0" stroke="#4A90C2" stroke-width="4" stroke-linecap="round"/><path d="M318.0,550.0 L309.0,554.3 L309.0,545.7 Z" fill="#4A90C2"/>
+<text x="430" y="556" text-anchor="middle" font-size="16" font-weight="900" fill="#4A90C2" >坪林</text>
+<text x="560" y="556" text-anchor="start" font-size="13" font-weight="800" fill="#332B25" >日治：三個字簡化為兩個字</text>
+<rect x="40" y="592" width="880" height="60" rx="12" fill="#FFF8E7" stroke="#45392F" stroke-width="1.2"/>
+<text x="480" y="618" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >戰後政府也增加「仁愛、信義、中山、三民」等名稱，彰顯道德教化與政權意識</text>
+<text x="480" y="640" text-anchor="middle" font-size="12.5" font-weight="800" fill="#6B5E52" >也有很多地名從鄭氏或清代沿用到今天，例如：新營、頭份</text>
+</svg>

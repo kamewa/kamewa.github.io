@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 570" font-family="'Noto Sans TC','Microsoft JhengHei',sans-serif">
+<rect width="960" height="570" rx="20" fill="#EAF5FB"/>
+<text x="480" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#332B25" >臺灣 368 個鄉鎮市區名稱的常用字</text>
+<circle cx="220" cy="250" r="96.8" fill="#5C7F7A" opacity=".92"/>
+<text x="220" y="261.616" text-anchor="middle" font-size="87.12" font-weight="900" fill="#fff" data-keep="1">山</text><text x="220" y="310.016" text-anchor="middle" font-size="36.784" font-weight="900" fill="#fff" >23</text>
+<circle cx="380" cy="190" r="71.6" fill="#5C7F7A" opacity=".92"/>
+<text x="380" y="198.59199999999998" text-anchor="middle" font-size="64.44" font-weight="900" fill="#fff" data-keep="1">林</text><text x="380" y="234.392" text-anchor="middle" font-size="27.208" font-weight="900" fill="#fff" >16</text>
+<circle cx="500" cy="270" r="57.2" fill="#6A8F8A" opacity=".92"/>
+<text x="500" y="276.864" text-anchor="middle" font-size="51.480000000000004" font-weight="900" fill="#fff" data-keep="1">里</text><text x="500" y="305.464" text-anchor="middle" font-size="21.736" font-weight="900" fill="#fff" >12</text>
+<circle cx="610" cy="200" r="50.0" fill="#6A8F8A" opacity=".92"/>
+<text x="610" y="206.0" text-anchor="middle" font-size="45.0" font-weight="900" fill="#fff" data-keep="1">埔</text><text x="610" y="231.0" text-anchor="middle" font-size="19.0" font-weight="900" fill="#fff" >10</text>
+<circle cx="690" cy="300" r="50.0" fill="#6A8F8A" opacity=".92"/>
+<text x="690" y="306.0" text-anchor="middle" font-size="45.0" font-weight="900" fill="#fff" data-keep="1">竹</text><text x="690" y="331.0" text-anchor="middle" font-size="19.0" font-weight="900" fill="#fff" >10</text>
+<circle cx="420" cy="360" r="50.0" fill="#4E86A8" opacity=".92"/>
+<text x="420" y="366.0" text-anchor="middle" font-size="45.0" font-weight="900" fill="#fff" data-keep="1">湖</text><text x="420" y="391.0" text-anchor="middle" font-size="19.0" font-weight="900" fill="#fff" >10</text>
+<circle cx="560" cy="380" r="46.4" fill="#4E86A8" opacity=".92"/>
+<text x="560" y="385.568" text-anchor="middle" font-size="41.76" font-weight="900" fill="#fff" data-keep="1">港</text><text x="560" y="408.76800000000003" text-anchor="middle" font-size="17.631999999999998" font-weight="900" fill="#fff" >9</text>
+<circle cx="280" cy="420" r="42.8" fill="#4E86A8" opacity=".92"/>
+<text x="280" y="425.136" text-anchor="middle" font-size="38.519999999999996" font-weight="900" fill="#fff" data-keep="1">水</text><text x="280" y="446.536" text-anchor="middle" font-size="16.264" font-weight="900" fill="#fff" >8</text>
+<circle cx="690" cy="420" r="42.8" fill="#4E86A8" opacity=".92"/>
+<text x="690" y="425.136" text-anchor="middle" font-size="38.519999999999996" font-weight="900" fill="#fff" data-keep="1">溪</text><text x="690" y="446.536" text-anchor="middle" font-size="16.264" font-weight="900" fill="#fff" >8</text>
+<circle cx="790" cy="230" r="39.2" fill="#B0884A" opacity=".92"/>
+<text x="790" y="234.704" text-anchor="middle" font-size="35.28" font-weight="900" fill="#fff" data-keep="1">金</text><text x="790" y="254.304" text-anchor="middle" font-size="14.896" font-weight="900" fill="#fff" >7</text>
+<rect x="40" y="480" width="880" height="72" rx="14" fill="#FFF8E7" stroke="#45392F" stroke-width="1.3"/>
+<text x="480" y="508" text-anchor="middle" font-size="14" font-weight="900" fill="#332B25" >除了東、西、南、北、中、大、新等形容詞外，最常用的是山、林、湖、溪、港……</text>
+<text x="480" y="536" text-anchor="middle" font-size="13" font-weight="800" fill="#6B5E52" >→ 自然環境是臺灣地名命名的重要元素（數字為使用次數，依課本圖 1-1-8，自繪）</text>
+</svg>
