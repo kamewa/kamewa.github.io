@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>老師管理｜星願群島</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 版面：左邊是 3D 島嶼舞台，右邊（手機在下方）是作答卡。永遠明亮，不跟隨深色模式。 */
+:root{
+  color-scheme: light;
+  --plum:#4a2260;        /* 文字 */
+  --plum-soft:#7a5590;   /* 次要文字 */
+  --pink:#ff6fae;        /* 主色：糖果粉 */
+  --pink-soft:#ffd3e6;
+  --lav:#b79cff;         /* 薰衣草紫 */
+  --lav-soft:#e6dcff;
+  --mint:#63dcb6;        /* 薄荷綠：答對 */
+  --mint-soft:#c8f7e6;
+  --lemon:#ffe27a;       /* 檸檬黃 */
+  --sky:#8fd3ff;         /* 寶寶藍 */
+  --berry:#ff5f8a;       /* 答錯 */
+  --card:#fffafd;
+  --font-display:"Chiron GoRound TC","Baloo 2","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --font-body:"Chiron GoRound TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font-family:var(--font-body);font-weight:500;color:var(--plum);
+  background:linear-gradient(180deg,#bfe6ff 0%,#dcd3ff 28%,#ffd9ee 56%,#ffd9ee 100%);
+  background-color:#ffd9ee;
+  overflow:hidden;
+}
+.app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:0}
+.stage{position:relative;min-height:0;min-width:0;overflow:hidden}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#scene:active{cursor:grabbing}
+
+.brand{position:absolute;left:20px;top:16px;display:flex;flex-direction:column;gap:2px;pointer-events:none}
+.eyebrow{margin:0;font-size:.82rem;font-weight:700;letter-spacing:.14em;color:var(--plum-soft)}
+.brand h1{
+  margin:0;display:flex;align-items:center;gap:10px;
+  font-family:var(--font-display);font-weight:900;font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.15;
+  color:var(--pink);
+  text-shadow:0 2px 0 #fff,2px 0 0 #fff,-2px 0 0 #fff,0 -2px 0 #fff,0 5px 0 rgba(183,156,255,.55);
+}
+.brand svg{width:1.25em;height:1.25em;flex:none;filter:drop-shadow(0 2px 0 #fff)}
+.tip{
+  position:absolute;left:20px;bottom:14px;margin:0;padding:6px 14px;border-radius:999px;
+  background:rgba(255,255,255,.78);font-size:.85rem;font-weight:700;color:var(--plum-soft);pointer-events:none
+}
+.fallback{
+  position:absolute;inset:auto 20px 60px 20px;padding:14px 18px;border-radius:18px;
+  background:#fff;border:2.5px solid var(--berry);font-weight:700
+}
+
+.panel{
+  min-height:0;display:flex;flex-direction:column;gap:14px;padding:18px 18px 18px 6px;overflow-y:auto
+}
+.card{
+  position:relative;background:var(--card);border-radius:28px;padding:22px 20px 20px;
+  border:3px solid #fff;box-shadow:0 0 0 3px var(--pink-soft),0 14px 30px rgba(183,120,220,.28);
+  display:flex;flex-direction:column;gap:14px
+}
+.card::before{ /* 糖果條紋飾帶 */
+  content:"";position:absolute;left:26px;right:26px;top:-3px;height:8px;border-radius:0 0 8px 8px;
+  background:repeating-linear-gradient(90deg,var(--pink) 0 18px,var(--lemon) 18px 36px,var(--mint) 36px 54px,var(--sky) 54px 72px,var(--lav) 72px 90px)
+}
+.progress{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hearts{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0}
+.hearts svg{width:26px;height:26px;display:block}
+.hearts path{fill:#fff;stroke:var(--lav);stroke-width:2.2;transition:fill .3s,stroke .3s}
+.hearts .now path{fill:var(--lemon);stroke:var(--pink)}
+.hearts .ok path{fill:var(--pink);stroke:var(--pink)}
+.hearts .no path{fill:var(--lav-soft);stroke:var(--lav)}
+.count{font-family:var(--font-display);font-weight:800;font-size:.95rem;color:var(--plum-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.card h2{margin:0;font-family:var(--font-display);font-weight:900;font-size:1.35rem;line-height:1.35;text-wrap:balance}
+.card p{margin:0;line-height:1.75;font-size:1rem}
+.question{font-size:1.12rem !important;font-weight:700}
+.lead{color:var(--plum-soft)}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
+.opt{
+  min-height:56px;padding:10px 8px;border-radius:18px;background:#fff;
+  border:2.5px solid var(--lav-soft);font-family:var(--font-display);font-weight:800;font-size:1.15rem;
+  box-shadow:0 4px 0 var(--lav-soft);transition:transform .12s,border-color .12s,box-shadow .12s,background .2s
+}
+.opt:hover:not(:disabled){transform:translateY(-2px);border-color:var(--pink);box-shadow:0 6px 0 var(--pink-soft)}
+.opt:active:not(:disabled){transform:translateY(2px);box-shadow:0 2px 0 var(--pink-soft)}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.right{opacity:1;background:var(--mint-soft);border-color:var(--mint);box-shadow:0 4px 0 var(--mint)}
+.opt.wrong{opacity:1;background:#ffd9e2;border-color:var(--berry);box-shadow:0 4px 0 var(--berry);animation:shake .35s}
+.opt .mark{display:block;font-family:var(--font-body);font-size:.78rem;font-weight:700;margin-top:2px}
+.feedback{border-radius:18px;padding:12px 14px;background:var(--lav-soft);display:flex;flex-direction:column;gap:6px}
+.feedback.good{background:var(--mint-soft)}
+.feedback.bad{background:#ffe1ea}
+.feedback strong{font-family:var(--font-display);font-weight:900;font-size:1.08rem}
+.feedback p{font-size:.97rem}
+.go{
+  align-self:stretch;min-height:54px;border:0;border-radius:999px;padding:10px 22px;
+  font-family:var(--font-display);font-weight:900;font-size:1.15rem;color:#fff;
+  background:linear-gradient(180deg,#ff8fc2,var(--pink));box-shadow:0 5px 0 #e0458f,0 10px 18px rgba(255,111,174,.35);
+  text-shadow:0 1px 0 rgba(160,30,100,.45);transition:transform .12s,box-shadow .12s
+}
+.go:hover{transform:translateY(-2px);box-shadow:0 7px 0 #e0458f,0 12px 20px rgba(255,111,174,.4)}
+.go:active{transform:translateY(3px);box-shadow:0 2px 0 #e0458f}
+.score{font-family:var(--font-display);font-weight:900;font-size:2.6rem;line-height:1;color:var(--pink);font-variant-numeric:tabular-nums}
+.score small{font-size:1.1rem;color:var(--plum-soft)}
+.review{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+.review li{display:flex;gap:8px;align-items:baseline}
+.review b{font-family:var(--font-display);font-weight:900}
+.tag{flex:none;font-size:.78rem;font-weight:700;border-radius:999px;padding:1px 9px}
+.tag.ok{background:var(--mint-soft)}
+.tag.no{background:#ffd9e2}
+.foot{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.sound{
+  border-radius:999px;border:2.5px solid #fff;background:rgba(255,255,255,.75);
+  padding:6px 14px;font-size:.85rem;font-weight:700;color:var(--plum-soft)
+}
+/* ---------- 關卡選單 ---------- */
+.card .lvl-head{font-size:.85rem;font-weight:700;color:var(--plum-soft);line-height:1.4;margin-top:2px}
+.lvls{display:flex;flex-direction:column;gap:8px}
+.lvl{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;text-align:left;padding:9px 14px;border-radius:18px;
+  background:#fff;border:2.5px solid var(--lav-soft);box-shadow:0 4px 0 var(--lav-soft);transition:transform .12s,border-color .12s
+}
+.lvl:hover:not(:disabled){border-color:var(--pink);transform:translateY(-1px)}
+.lvl:disabled{opacity:.55;cursor:default;box-shadow:none}
+.lvl.done{border-color:var(--mint);box-shadow:0 4px 0 var(--mint)}
+.lvl.test{border-color:var(--lemon);box-shadow:0 4px 0 var(--lemon)}
+.lvl-name{font-family:var(--font-display);font-weight:900;font-size:1.1rem}
+.lvl-note{grid-column:1;font-size:.82rem;font-weight:700;color:var(--plum-soft)}
+.lvl-tag{grid-column:2;grid-row:1 / span 2;align-self:center;font-size:.8rem;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--mint-soft);white-space:nowrap}
+.lvl-tag:empty{display:none}
+.card .unlock{align-self:flex-start;font-weight:700;font-size:.95rem;border-radius:999px;padding:4px 14px;background:var(--mint-soft)}
+.qimg{padding:0;border:2.5px solid var(--lav-soft);border-radius:16px;overflow:hidden;background:#fff;cursor:zoom-in}
+.qimg img{display:block;width:100%;max-height:230px;object-fit:contain}
+.zoom{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:rgba(74,34,96,.72);border:0;cursor:zoom-out}
+.zoom[hidden]{display:none}
+.zoom img{max-width:100%;max-height:100%;border-radius:16px;background:#fff}
+/* ---------- 關卡設定（從題庫挑題） ---------- */
+.ed-bank{margin:0;font-size:.88rem;font-weight:700;color:var(--plum);line-height:1.6}
+.ed-note{margin:0;font-size:.82rem;line-height:1.7;color:var(--plum-soft)}
+.ed-list.chosen,.ed-list.pool{flex:none;min-height:0;overflow:visible;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{min-height:34px;padding:4px 12px;border-radius:999px;background:#fff;border:2.5px solid var(--lav-soft);font-weight:700;font-size:.85rem;font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--pink)}
+.chip[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#fff}
+.editor input[type=search]{font:inherit;color:var(--plum);background:#fff;border:2.5px solid var(--lav-soft);border-radius:14px;padding:9px 12px;width:100%}
+.editor select:disabled,.editor input:disabled{opacity:.55}
+.pick-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;border-radius:16px;background:#fff;border:2.5px solid var(--lav-soft)}
+.pick-row.in{border-color:var(--mint);background:#f4fffa}
+.pick-row.bad{border-color:#ffc2d2;background:#fff5f8}
+.pick-main{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pick-stem{font-weight:700;font-size:.93rem;line-height:1.55}
+.pick-opts{font-size:.8rem;line-height:1.5;color:var(--plum)}
+.pick-meta{font-size:.76rem;font-weight:700;color:var(--plum-soft);line-height:1.5}
+.pick-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.editor .pick-tools select{width:auto;padding:5px 8px;font-size:.82rem;border-radius:10px}
+.pick-done{font-size:.8rem;font-weight:700;color:#1f9c72}
+.dtag{display:inline-block;margin-right:6px;padding:0 8px;border-radius:999px;font-size:.74rem;color:#fff}
+.dtag.d0{background:#5fd8aa}.dtag.d1{background:#7cc8ff}.dtag.d2{background:#b08cff}.dtag.d3{background:#ff6fae}
+@media (max-width:860px){.pick-row{grid-template-columns:auto minmax(0,1fr)}.pick-tools{grid-column:1 / -1;justify-content:flex-start}}
+/* ---------- 學生管理 ---------- */
+.ad-body{min-height:0;overflow-y:auto;padding:18px 22px 22px;display:flex;flex-direction:column;gap:14px}
+.ad-body>*{flex-shrink:0}
+.ad-pick{display:flex;align-items:center;gap:10px;font-weight:700}
+.ad-pick select{width:auto;min-width:180px}
+.ad-form{display:grid;grid-template-columns:110px 90px minmax(0,1fr) auto;gap:10px;align-items:end;padding:14px;border-radius:18px;background:#fff3f9}
+.ad-form label,.ed-lab{display:block;font-size:.85rem;font-weight:700;color:var(--plum-soft);margin-bottom:3px}
+.ad-form .mini{min-height:44px}
+.ad-code{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:18px;background:#fff6c9;border:2.5px solid var(--lemon);font-weight:700}
+.ad-code[hidden]{display:none}
+.ad-code strong{font-family:var(--font-display);font-weight:900;font-size:2.2rem;letter-spacing:.08em;font-variant-numeric:tabular-nums;color:var(--pink)}
+.ad-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ad-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:6px 12px;border-radius:16px;background:#fff;border:2.5px solid var(--lav-soft)}
+.ad-row.off{background:#f6f1fa;border-style:dashed}
+.ad-row.off .ad-name{color:var(--plum-soft)}
+.ad-name{font-weight:700}
+.ad-note{font-weight:700;color:var(--plum-soft);padding:8px}
+@media (max-width:860px){.ad-form{grid-template-columns:1fr 1fr}.ad-form .ad-wide{grid-column:1 / -1}}
+/* ---------- 登入 ---------- */
+.login{display:flex;flex-direction:column;gap:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:.88rem;font-weight:700;color:var(--plum-soft)}
+.field input{
+  font:inherit;font-family:var(--font-display);font-weight:800;font-size:1.25rem;letter-spacing:.08em;color:var(--plum);
+  width:100%;min-height:52px;padding:8px 14px;border-radius:16px;background:#fff;border:2.5px solid var(--lav-soft)
+}
+.field input::placeholder{font-weight:500;font-size:.95rem;letter-spacing:0;color:#b9a3c8}
+.field input:focus-visible{outline:3px solid var(--pink);outline-offset:1px}
+.login-msg{min-height:1.4em;font-size:.92rem !important;font-weight:700;color:#c81e5b}
+.go:disabled{opacity:.6;cursor:default}
+.ghost{
+  min-height:48px;border-radius:999px;background:#fff;border:2.5px solid var(--lav-soft);
+  font-family:var(--font-display);font-weight:800;font-size:1rem
+}
+.ghost:hover{border-color:var(--pink)}
+.textlink{align-self:center;background:none;border:0;padding:4px 8px;font-size:.88rem;font-weight:700;color:var(--plum-soft);text-decoration:underline}
+.sync{font-size:.9rem !important;font-weight:700;color:var(--plum-soft);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.who{
+  position:absolute;right:16px;top:16px;display:flex;align-items:center;gap:10px;padding:6px 8px 6px 16px;border-radius:999px;
+  background:rgba(255,255,255,.88);border:2.5px solid #fff;font-size:.9rem;font-weight:700
+}
+.who[hidden]{display:none}
+.who button{border:0;border-radius:999px;padding:5px 14px;background:var(--pink-soft);font-size:.85rem;font-weight:700}
+@media (max-width:860px){.who{top:auto;bottom:10px;right:16px;font-size:.8rem}.tip{display:none}}
+/* ---------- 老師的試題編輯器 ---------- */
+.editor{position:fixed;inset:0;z-index:20;display:flex;padding:16px;background:rgba(122,85,144,.42)}
+.editor[hidden]{display:none}
+.ed-box{
+  margin:auto;width:min(1320px,100%);height:100%;background:var(--card);border-radius:28px;
+  border:3px solid #fff;box-shadow:0 0 0 3px var(--pink-soft),0 20px 44px rgba(120,60,160,.35);
+  display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden
+}
+.ed-head{padding:18px 22px 12px;display:flex;flex-direction:column;gap:10px;border-bottom:3px dotted var(--pink-soft)}
+.ed-titlerow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ed-head h2{margin:0;font-family:var(--font-display);font-weight:900;font-size:1.35rem;color:var(--pink)}
+.ed-done{align-self:auto;min-height:44px;padding:6px 26px;font-size:1.05rem}
+.ed-tools,.ed-moves{display:flex;flex-wrap:wrap;gap:8px}
+.mini{
+  min-height:40px;padding:6px 16px;border-radius:999px;background:#fff;border:2.5px solid var(--lav-soft);
+  font-family:var(--font-display);font-weight:800;font-size:.95rem;transition:border-color .12s,background .12s
+}
+.mini:hover:not(:disabled){border-color:var(--pink);background:#fff5fa}
+.mini:disabled{opacity:.4;cursor:default}
+.mini.add{border-color:var(--mint);background:var(--mint-soft)}
+.mini.warn{border-color:#ffc2d2}
+.mini.armed{background:var(--berry);border-color:var(--berry);color:#fff}
+.ed-msg{margin:0;min-height:1.5em;font-size:.9rem;font-weight:700;color:var(--plum-soft)}
+.ed-msg.bad{color:#c81e5b}
+.ed-raw{width:100%;font:500 .8rem/1.5 ui-monospace,Consolas,monospace;border:2.5px solid var(--lav-soft);border-radius:14px;padding:8px}
+.ed-body{min-height:0;display:grid;grid-template-columns:310px minmax(0,1fr)}
+.ed-side{min-height:0;display:flex;flex-direction:column;gap:10px;padding:16px;background:#fff3f9;border-right:3px dotted var(--pink-soft)}
+.ed-list{flex:1 1 0;min-height:120px;overflow-y:auto;margin:0;padding:2px;list-style:none;display:flex;flex-direction:column;gap:6px}
+.ed-item{
+  width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;row-gap:1px;align-items:center;text-align:left;
+  padding:8px 12px;border-radius:16px;background:#fff;border:2.5px solid transparent
+}
+.ed-item:hover{border-color:var(--pink-soft)}
+.ed-item.on{border-color:var(--pink);background:#fff}
+.ed-no{grid-row:span 2;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--lav-soft);font-family:var(--font-display);font-weight:800;font-size:.9rem;font-variant-numeric:tabular-nums}
+.ed-item.on .ed-no{background:var(--pink);color:#fff}
+.ed-stem{font-weight:700;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ed-spot{font-size:.76rem;font-weight:700;color:var(--plum-soft)}
+.ed-item.todo .ed-spot{color:#c81e5b}
+.ed-count{margin:0;font-size:.82rem;font-weight:700;color:var(--plum-soft)}
+.ed-pass{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.9rem;font-weight:700}
+.ed-pass input{width:74px}
+.ed-form,.ed-empty{min-height:0;overflow-y:auto;padding:18px 22px 22px;margin:0}
+.ed-form{display:flex;flex-direction:column;gap:8px}
+.ed-form>*,.ed-side>*{flex-shrink:0} /* 空間不夠時用捲動，不要把欄位壓扁 */
+.ed-side{overflow-y:auto}
+.ed-form[hidden]{display:none}
+.ed-empty{font-weight:700;color:var(--plum-soft);line-height:1.8}
+.ed-formhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ed-formhead strong{font-family:var(--font-display);font-weight:900;font-size:1.15rem}
+.ed-form label,.ed-form legend{font-size:.88rem;font-weight:700;color:var(--plum-soft);margin-top:6px;padding:0}
+.ed-form fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.editor input[type=text],.editor input[type=number],.editor textarea,.editor select{
+  font:inherit;color:var(--plum);background:#fff;border:2.5px solid var(--lav-soft);border-radius:14px;padding:9px 12px;width:100%
+}
+.editor textarea{resize:vertical;line-height:1.6;min-height:6.4em}
+.editor input:focus-visible,.editor textarea:focus-visible,.editor select:focus-visible{outline:3px solid var(--pink);outline-offset:1px}
+.ed-opt{display:flex;align-items:center;gap:10px}
+.ed-opt input[type=radio]{flex:none;width:24px;height:24px;accent-color:var(--mint);cursor:pointer}
+@media (max-width:860px){
+  .editor{padding:8px}
+  .ed-box{overflow-y:auto;grid-template-rows:auto auto}
+  .ed-body{grid-template-columns:1fr;grid-template-rows:auto auto;min-height:0}
+  .ed-side{border-right:0;border-bottom:3px dotted var(--pink-soft);overflow:visible}
+  .ed-list{flex:none;max-height:240px}
+  .ed-form,.ed-empty{overflow:visible}
+}
+@media (min-width:861px) and (max-height:680px){
+  .editor{padding:8px}
+  .ed-box{overflow-y:auto}
+  .ed-body{min-height:600px}
+}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.confetti i{
+  position:absolute;top:-30px;width:18px;height:18px;
+  clip-path:path("M9 16 C2 11 0 7 0 4.5 C0 2 2 0 4.5 0 C6.5 0 8 1 9 2.8 C10 1 11.5 0 13.5 0 C16 0 18 2 18 4.5 C18 7 16 11 9 16 Z");
+  animation:fall linear forwards
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+
+@media (max-width:860px){
+  .app{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}
+  .panel{padding:0 16px 16px;max-height:56vh;max-height:56dvh}
+  .brand{left:16px;top:12px}
+  .tip{left:16px;bottom:10px;font-size:.78rem}
+  .card{padding:20px 16px 16px;gap:11px}
+  .foot{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .opt,.go{transition:none}
+  .opt.wrong{animation:none}
+}
+
+/* ---------- 老師管理頁 ---------- */
+body{overflow:auto}
+.editor{background:transparent}
+.tabs{display:flex;gap:6px;margin-left:auto;margin-right:8px}
+.tab{border:2.5px solid var(--lav-soft);background:#fff;border-radius:999px;padding:6px 16px;font-weight:800;color:var(--plum)}
+.tab[aria-current="page"]{background:var(--pink);border-color:var(--pink);color:#fff}
+a.ed-done{text-decoration:none;display:inline-grid;place-items:center}
+.units{display:flex;flex-direction:column;gap:6px}
+.unit-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.unit-list li{display:flex;align-items:center;gap:4px;background:var(--mint-soft, #c8f7e6);border-radius:999px;padding:3px 4px 3px 12px;font-size:.88rem;font-weight:700}
+.unit-list li button{border:0;background:#fff;border-radius:50%;width:24px;height:24px;font-weight:900;color:var(--plum)}
+.unit-list .empty{background:#fff3c8;padding:3px 12px}
+.unit-add{display:flex;gap:6px;flex-wrap:wrap}
+.unit-add select{width:auto}
+.unit-add input{flex:1;min-width:8em}
+.gate{position:fixed;inset:0;display:grid;place-items:center;padding:16px}
+.gate[hidden]{display:none}
+.gate-card{width:min(400px,100%);background:#fffafd;border-radius:26px;padding:24px 22px 20px;border:3px solid #fff;box-shadow:0 0 0 3px #ffd3e6,0 14px 30px rgba(183,120,220,.32);display:flex;flex-direction:column;gap:12px}
+.gate-card h1{margin:0;display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:900;font-size:1.4rem;color:var(--plum)}
+.gate-card h1 img{width:40px;height:40px}
+.gate-card p{margin:0;line-height:1.6}
+.gate-card form{display:flex;flex-direction:column;gap:10px}
+.gate-card input{width:100%;font:inherit;font-size:1.05rem;color:var(--plum);background:#fff;border:2.5px solid #e6dcff;border-radius:14px;padding:9px 12px}
+.gate-card .lg-msg{min-height:1.2em;font-size:.88rem;font-weight:700;color:#d23a77}
+.gate-card a{color:var(--plum-soft);font-weight:700;text-align:center}
+.seal{width:34px;height:34px;flex:none}
+.ad-pick label{white-space:nowrap}
+@media (max-width:700px){.tabs{order:3;width:100%;margin:6px 0 0}}
+</style>
+</head>
+<body>
+<div class="gate" id="gate" hidden>
+  <div class="gate-card">
+    <h1><img class="seal" src="data:image/png;base64,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" alt="和">老師管理</h1>
+    <p>關卡設定與學生管理只有老師可以使用。</p>
+    <form id="gtForm" novalidate>
+      <div><label for="gtCode">教師碼</label><input id="gtCode" type="password" autocomplete="off" maxlength="12"></div>
+      <p class="lg-msg" id="gtMsg" role="alert"></p>
+      <button class="go" id="gtGo" type="submit">登入</button>
+    </form>
+    <a href="index.html">回到地圖</a>
+  </div>
+</div>
+<div class="editor" id="editor" hidden>
+  <div class="ed-box">
+    <header class="ed-head">
+      <div class="ed-titlerow">
+        <h2 id="edTitle">關卡設定</h2><nav class="tabs" aria-label="老師管理"><button class="tab" type="button" data-tab="editor">關卡設定</button><button class="tab" type="button" data-tab="admin">學生管理</button></nav>
+        <a class="go ed-done" href="index.html">回到地圖</a>
+      </div>
+      <div class="ed-tools">
+        <button class="mini" id="edBankFile" type="button">讀取題庫檔</button>
+        <input id="edBankInput" type="file" accept=".json,application/json" hidden>
+        <button class="mini" id="edImport" type="button">讀取關卡檔</button>
+        <input id="edFile" type="file" accept=".json,application/json" hidden>
+        <button class="mini" id="edSave" type="button">儲存關卡檔</button>
+        <button class="mini" id="edCopy" type="button">複製 JSON</button>
+        <button class="mini warn" id="edReset" type="button">還原網站設定</button>
+      </div>
+      <p class="ed-bank" id="edBank"></p>
+      <p class="ed-msg" id="edMsg" role="status"></p>
+      <textarea class="ed-raw" id="edRaw" rows="4" readonly hidden aria-label="關卡設定 JSON 內容"></textarea>
+    </header>
+    <div class="ed-body">
+      <div class="ed-side">
+        <div><label class="ed-lab" for="edIsland">設定哪一座島</label><select id="edIsland"></select></div>
+        <div class="units"><span class="ed-lab">這座島使用的單元</span><ul class="unit-list" id="unitList"></ul>
+          <div class="unit-add"><select id="unitCat" aria-label="分類"></select><input id="unitName" list="unitNames" type="text" maxlength="20" placeholder="單元名稱，例如 氣候" aria-label="單元名稱"><datalist id="unitNames"></datalist><button class="mini add" id="unitAdd" type="button">加入</button></div>
+        </div>
+        <label class="ed-pass" for="edCount">練習每次抽幾題
+          <input id="edCount" type="number" min="1" max="30" inputmode="numeric">
+        </label>
+        <p class="ed-note">練習會依本島的單元與難易度自動抽題，不需要挑題。題目、選項與解說請在互動式評量系統修改。下面設定的是評量關卡。</p>
+        <div><label class="ed-lab" for="edLevel">評量關卡</label><select id="edLevel"></select></div>
+        <div class="ed-moves">
+          <button class="mini add" id="lvAdd" type="button">＋ 新增評量關卡</button>
+          <button class="mini warn" id="lvDel" type="button">刪除這個關卡</button>
+        </div>
+        <div><label class="ed-lab" for="lvName">關卡名稱</label><input id="lvName" type="text" maxlength="30"></div>
+        <p class="ed-count" id="edChosenCount"></p>
+        <ol class="ed-list chosen" id="edChosen"></ol>
+      </div>
+      <div class="ed-form">
+        <div class="ed-formhead"><strong>本島題庫</strong><span class="ed-count" id="edUnits"></span></div>
+        <div class="chips" id="edChips" role="group" aria-label="依難易度篩選"></div>
+        <label class="ed-lab" for="edSearch">搜尋題目</label>
+        <input id="edSearch" type="search" placeholder="輸入題目或選項的關鍵字" autocomplete="off">
+        <ol class="ed-list pool" id="edPool"></ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="editor" id="admin" hidden>
+  <div class="ed-box">
+    <header class="ed-head">
+      <div class="ed-titlerow">
+        <h2 id="adTitle">學生管理</h2><nav class="tabs" aria-label="老師管理"><button class="tab" type="button" data-tab="editor">關卡設定</button><button class="tab" type="button" data-tab="admin">學生管理</button></nav>
+        <a class="go ed-done" href="index.html">回到地圖</a>
+      </div>
+      <p class="ed-msg" id="adMsg" role="status"></p>
+    </header>
+    <div class="ad-body">
+      <div class="ad-code" id="adCode" role="status" hidden></div>
+      <div class="ad-pick"><label for="adCls">班級</label><select id="adCls"></select></div>
+      <form class="ad-form" id="adForm" novalidate>
+        <div><label for="adNewCls">轉入班級</label><input id="adNewCls" type="text" inputmode="numeric" maxlength="3" autocomplete="off"></div>
+        <div><label for="adNewSeat">座號</label><input id="adNewSeat" type="text" inputmode="numeric" maxlength="2" autocomplete="off"></div>
+        <div class="ad-wide"><label for="adNewName">姓名</label><input id="adNewName" type="text" maxlength="20" autocomplete="off"></div>
+        <button class="mini add ad-wide" type="submit">轉入並產生通關碼</button>
+      </form>
+      <ol class="ad-list" id="adList"></ol>
+    </div>
+  </div>
+</div>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+let ISLAND_ID = "place";
+const SPOT_NAMES = { mountain: "山地", hills: "丘陵", plateau: "台地", basin: "盆地", plain: "平原", none: "整座島" };
+// 網站上還沒有放題庫檔時使用的示範題目（格式和「互動式評量系統」的題庫檔相同）
+const DEMO_BANK = { format: "InteractiveAssessmentQuestionBank", schemaVersion: 1, questions: [
+  { id: "demo-terrain-1", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "這裡高度高、坡度陡、起伏很大，是哪一種地形？", options: ["山地", "丘陵", "台地", "盆地"],
+    explanation: "山地的特徵是高度高、起伏大。看顏色就知道：短短的距離內，顏色從粉紅換到紫色再到白色，代表高度變化很快。" },
+  { id: "demo-terrain-2", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "靠海的一大片土地，地勢低、幾乎沒有起伏，是哪一種地形？", options: ["平原", "盆地", "台地", "丘陵"],
+    explanation: "平原地勢低平、起伏很小。平坦的土地適合耕作和居住，人口通常比較多。" },
+  { id: "demo-terrain-3", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "外圍一圈比較高，中間低而平，是哪一種地形？", options: ["盆地", "平原", "山地", "台地"],
+    explanation: "盆地四周高、中間低平，形狀像一個臉盆。臺北盆地、臺中盆地都是這種地形。" },
+  { id: "demo-terrain-4", category: "通論", unit: "地形", cognitiveLevels: ["記憶"], answer: "A",
+    stem: "頂部平坦、邊緣陡峭，像一張桌子，是哪一種地形？", options: ["台地", "山地", "丘陵", "平原"],
+    explanation: "台地的頂部平坦、四周是陡坡，可以記成「頂平崖陡」。林口台地、桃園台地都是例子。" },
+  { id: "demo-terrain-5", category: "通論", unit: "地形", cognitiveLevels: ["記憶"], answer: "A",
+    stem: "比山地低、坡度和緩的一群小山包，是哪一種地形？", options: ["丘陵", "山地", "平原", "盆地"],
+    explanation: "丘陵的高度比山地低，起伏也比較和緩，常分布在山地和平原之間。" }
+] };
+// 網站上還沒有放關卡設定檔時使用的預設值
+const DEFAULT_CONFIG = { format: "StarWishIslandsConfig", version: 1, islands: {
+  place:    { name: "星辰尋夢島", units: [{ category: "通論", unit: "位置" }, { category: "台灣", unit: "位置" }], practiceCount: 5, assessments: [] },
+  terrain:  { name: "粉彩地形島", units: [{ category: "通論", unit: "地形" }, { category: "台灣", unit: "地形" }], practiceCount: 5, assessments: [] },
+  climate:  { name: "四季魔法島", units: [{ category: "通論", unit: "氣候" }, { category: "台灣", unit: "氣候" }], practiceCount: 5, assessments: [] },
+  water:    { name: "晶泉瀑布島", units: [{ category: "通論", unit: "水文" }, { category: "台灣", unit: "水文" }], practiceCount: 5, assessments: [] },
+  people:   { name: "繁晶慶典島", units: [{ category: "通論", unit: "人口" }, { category: "台灣", unit: "人口" }], practiceCount: 5, assessments: [] },
+  traffic:  { name: "晶軌夢遊島", units: [{ category: "通論", unit: "交通" }, { category: "台灣", unit: "交通" }], practiceCount: 5, assessments: [] },
+  industry: { name: "糖晶工坊島", units: [{ category: "通論", unit: "產業" }, { category: "台灣", unit: "產業" }], practiceCount: 5, assessments: [] },
+  village:  { name: "晶語童話島", units: [{ category: "通論", unit: "聚落" }, { category: "台灣", unit: "聚落" }], practiceCount: 5, assessments: [] },
+  issue:    { name: "晶願守護島", units: [], practiceCount: 5, assessments: [] },
+  other:    { name: "幻彩祕境島", units: [], practiceCount: 5, assessments: [] }
+} };
+const ISLAND_ORDER = ["place", "terrain", "climate", "water", "people", "traffic", "industry", "village", "issue", "other"];
+
+const DIFFS = ["基礎", "進階", "思考", "統整"];
+const RANK = { 記憶: 0, 理解: 0, 應用: 1, 分析: 2, 評鑑: 2, 創造: 3, 記: 0, 理: 0, 應: 1, 分: 2, 評: 2, 創: 3 };
+const PASS_RATE = 0.6; // 答對六成（無條件進位）算過關
+const CONFIG_KEY = "island-quiz-config-draft";
+const LEGACY_CAT = { 世界: "通論", 南美洲: "中南美洲", 極地: "南極洲" };
+const clone = (o) => JSON.parse(JSON.stringify(o));
+const esc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const newId = () => "a" + Math.random().toString(36).slice(2, 8);
+const passFor = (n) => Math.max(1, Math.ceil(n * PASS_RATE));
+
+// 認知層次 → 難易度：取最高的層次；沒有標的算基礎
+function difficultyOf(levels) {
+  const list = Array.isArray(levels) ? levels : String(levels || "").split(/[、,，/\s]+/);
+  return list.reduce((d, v) => Math.max(d, RANK[String(v).trim()] || 0), 0);
+}
+function safeImage(v) {
+  const s = String(v || "").trim();
+  if (/^data:image\//i.test(s) || /^https?:\/\//i.test(s)) return s;
+  return /\.(png|jpe?g|webp|gif|bmp|svg)$/i.test(s) && !s.includes("..") && !/^[a-z]+:/i.test(s) ? s : "";
+}
+// 讀一題「互動式評量系統」的題目；不完整的題目略過
+function shapeQuestion(o) {
+  if (!o || typeof o !== "object") return null;
+  const id = String(o.id ?? "").trim(), stem = String(o.stem ?? o.question ?? o.title ?? o.text ?? "").trim();
+  let opts = o.options ?? o.choices ?? o.answers;
+  if (opts && !Array.isArray(opts) && typeof opts === "object") opts = ["A", "B", "C", "D"].map((k) => opts[k] ?? opts[k.toLowerCase()]);
+  if (!id || !stem || !Array.isArray(opts) || opts.length < 4) return null;
+  const options = opts.slice(0, 4).map((x) => String(x ?? "").trim());
+  if (options.some((x) => !x)) return null;
+  const raw = o.answer ?? o.correctAnswer ?? o.correct ?? o.key;
+  const answer = Number.isInteger(raw) ? raw : "ABCD".indexOf(((String(raw || "").match(/[A-D]/i) || [""])[0]).toUpperCase());
+  if (!(answer >= 0 && answer <= 3)) return null;
+  const cat = String(o.category || o.subject || "").trim();
+  const levels = o.cognitiveLevels ?? o.cognitiveLevel ?? o.bloom;
+  return { id, stem, options, answer, category: LEGACY_CAT[cat] || cat, unit: String(o.unit || o.chapter || "").trim(),
+           levels: Array.isArray(levels) ? levels.map(String) : String(levels || "").split(/[、,，/\s]+/).filter(Boolean),
+           diff: difficultyOf(levels), image: safeImage(o.image ?? o.imageUrl), explanation: String(o.explanation ?? o.why ?? "").trim(),
+           disabled: Boolean(o.disabled ?? o.inactive) };
+}
+function readBank(raw) {
+  const rows = Array.isArray(raw) ? raw : raw && Array.isArray(raw.questions) ? raw.questions : raw && raw.data && Array.isArray(raw.data.questions) ? raw.data.questions : null;
+  if (!rows) throw new Error("這不是互動式評量系統的題庫檔，找不到題目清單。");
+  const byId = new Map();
+  rows.map(shapeQuestion).filter(Boolean).forEach((q) => byId.set(q.id, q));
+  return { list: [...byId.values()], skipped: rows.length - byId.size };
+}
+function normIsland(raw, fallback) {
+  const r = raw && typeof raw === "object" ? raw : {}, f = fallback || {};
+  const units = (Array.isArray(r.units) ? r.units : f.units || []).filter((u) => u && u.category && u.unit).map((u) => ({ category: String(u.category), unit: String(u.unit) }));
+  let count = parseInt(r.practiceCount, 10); if (!(count >= 1 && count <= 30)) count = f.practiceCount || 5;
+  const seen = {};
+  const assessments = (Array.isArray(r.assessments) ? r.assessments : []).filter((a) => a && typeof a === "object").map((a) => {
+    let id = /^a[a-z0-9]{1,15}$/.test(a.id) && !seen[a.id] ? a.id : newId(); seen[id] = true;
+    const ids = {};
+    const items = (Array.isArray(a.items) ? a.items : []).map((it) => (typeof it === "string" ? { id: it } : it))
+      .filter((it) => it && it.id && !ids[it.id] && (ids[it.id] = true))
+      .map((it) => ({ id: String(it.id), spot: SPOT_NAMES[it.spot] ? it.spot : "none" }));
+    return { id, name: String(a.name || "評量").slice(0, 30), items };
+  });
+  return { name: String(r.name || f.name || "島嶼"), units, practiceCount: count, assessments };
+}
+function normConfig(raw) {
+  if (!raw || typeof raw !== "object" || !raw.islands || typeof raw.islands !== "object") throw new Error("這不是星願群島的關卡設定檔。");
+  const out = { format: "StarWishIslandsConfig", version: 1, islands: {} };
+  Object.keys(raw.islands).forEach((k) => { if (/^[a-z0-9-]{1,30}$/.test(k)) out.islands[k] = normIsland(raw.islands[k], DEFAULT_CONFIG.islands[k]); });
+  ISLAND_ORDER.forEach((k) => { if (!out.islands[k]) out.islands[k] = normIsland(null, DEFAULT_CONFIG.islands[k]); else out.islands[k].name = DEFAULT_CONFIG.islands[k].name; });
+  return out;
+}
+const exportConfig = () => JSON.stringify(config, null, 2);
+
+let bankSrc = Object.assign({ label: "示範題目（網站上還沒有題庫檔）", demo: true }, readBank(DEMO_BANK));
+let byId = new Map(bankSrc.list.map((q) => [q.id, q]));
+function useBank(b, label, demo) { bankSrc = Object.assign({ label, demo: !!demo }, b); byId = new Map(b.list.map((q) => [q.id, q])); }
+let published = normConfig(DEFAULT_CONFIG), config = clone(published), hasDraft = false;
+try { const d = localStorage.getItem(CONFIG_KEY); if (d) { config = normConfig(JSON.parse(d)); hasDraft = true; } } catch (e) { /* 沒有草稿 */ }
+function saveDraft() { hasDraft = true; try { localStorage.setItem(CONFIG_KEY, exportConfig()); } catch (e) {} }
+const isl = () => config.islands[ISLAND_ID];
+const inIsland = (q) => !q.disabled && isl().units.some((u) => u.category === q.category && u.unit === q.unit);
+const islandPool = () => bankSrc.list.filter(inIsland);
+const poolOf = (d) => islandPool().filter((q) => q.diff === d);
+const practiceLevels = () => DIFFS.map((name, i) => ({ id: "p" + (i + 1), kind: "practice", name, pool: poolOf(i) }));
+const assessmentLevels = () => isl().assessments.map((a) => ({ id: a.id, kind: "assessment", name: a.name,
+  items: a.items.map((it) => ({ q: byId.get(it.id), spot: it.spot })).filter((x) => x.q && !x.q.disabled) }));
+
+// 網站上的題庫檔與關卡設定檔
+fetch("data/questions.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
+  const b = readBank(j); useBank(b, "網站題庫（data/questions.json）", false);
+  if (ready) edRender();
+}).catch(() => {});
+fetch("data/islands.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
+  published = normConfig(j);
+  if (!hasDraft) { config = clone(published); if (ready) edRender(); }
+}).catch(() => {});
+
+/* ============================================================
+   登入與雲端
+   API_URL 是老師 Google 試算表上那支程式的網址；留空時不啟用登入（單機模式）。
+   在 Claude 的預覽頁裡連不到雲端，所以預覽頁也是單機模式。
+   ============================================================ */
+const API_URL = "https://script.google.com/macros/s/AKfycbxCc_CpF-nJr1oRM1smz_jxSDGePPvVFwBBs7TdeuBG5Vp3W7rayIoKiGFVtMayN-gjNQ/exec";
+const inPreview = /claude|anthropic/i.test(location.hostname);
+const MAX_TRIES = 3;
+const SESSION_KEY = "island-quiz-session";
+let session = null;
+try { session = JSON.parse(sessionStorage.getItem(SESSION_KEY)); } catch (e) {}
+if (session && session.role !== "guest" && !session.token) session = null;
+const cloudOn = () => !!API_URL && !inPreview;
+const isStudent = () => cloudOn() && session && session.role === "student";
+const isTeacher = () => !cloudOn() || (session && session.role === "teacher");
+function setSession(s) {
+  session = s;
+  try { if (s) sessionStorage.setItem(SESSION_KEY, JSON.stringify(s)); else sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+}
+async function api(payload) {
+  // 用 text/plain 送出，瀏覽器才不會先發一次預檢請求（Apps Script 不支援）
+  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload), redirect: "follow" });
+  if (!r.ok) throw new Error("http " + r.status);
+  return r.json();
+}
+function failText(res) {
+  const map = {
+    locked: "輸錯太多次，請 " + (res.minutes || 10) + " 分鐘後再試，或請老師幫忙。",
+    wrong: "資料不正確，請再檢查一次。" + (res.left > 0 ? "還可以再試 " + res.left + " 次。" : ""),
+    expired: "登入已經過期，請登出後重新登入。",
+    limit: "這個評量已經作答 " + MAX_TRIES + " 次，不能再作答了。",
+    exists: "這個座號已經有學生" + (res.name ? "（" + res.name + "）" : "") + "。請先把原本的學生轉出，或換一個座號。",
+    not_found: "找不到這位學生。",
+    bad_request: "資料格式不正確，請檢查後再試。"
+  };
+  return map[res.error] || "雲端暫時沒有回應，請稍後再試。";
+}
+
+/* ---------- 兩段式按鈕：刪除、轉出這類動作要按兩次才執行 ---------- */
+let armed = null;
+function disarm() { if (armed) { armed.btn.textContent = armed.label; armed.btn.classList.remove("armed"); armed = null; } }
+function twoStep(btn, askText, run) {
+  btn.addEventListener("click", () => {
+    if (armed && armed.btn === btn) { disarm(); run(); return; }
+    disarm(); armed = { btn, label: btn.textContent }; btn.textContent = askText; btn.classList.add("armed");
+  });
+}
+
+/* ============================================================
+   老師：學生管理（轉入、轉出、重設通關碼）
+   ============================================================ */
+const ad = { cls: "" };
+function adMsg(text, bad) { const m = $("adMsg"); m.textContent = text; m.className = "ed-msg" + (bad ? " bad" : ""); }
+function adCode(res, what) {
+  $("adCode").hidden = false;
+  $("adCode").innerHTML = "<span>" + esc(res.cls) + " 班 " + res.seat + " 號　" + esc(res.name) + "　" + what + "</span><strong>" +
+    esc(res.code.slice(0, 3) + " " + res.code.slice(3)) + "</strong><span>請現在抄給學生。關閉後要到試算表才查得到。</span>";
+}
+async function adCall(payload) {
+  try {
+    const res = await api(Object.assign({ token: session.token }, payload));
+    if (!res.ok) adMsg(failText(res), true);
+    return res.ok ? res : null;
+  } catch (e) { adMsg("連不上雲端，請檢查網路後再試一次。", true); return null; }
+}
+async function adLoadClasses(keep) {
+  const res = await adCall({ action: "classes" });
+  if (!res) return;
+  const sel = $("adCls");
+  sel.innerHTML = res.classes.map((c) => '<option value="' + esc(c.cls) + '">' + esc(c.cls) + " 班（" + c.n + " 人）</option>").join("");
+  if (keep && res.classes.some((c) => c.cls === keep)) sel.value = keep;
+  ad.cls = sel.value; $("adNewCls").value = ad.cls;
+  await adLoadRoster();
+}
+async function adLoadRoster() {
+  disarm();
+  $("adList").innerHTML = '<li class="ad-note">讀取中…</li>';
+  const res = await adCall({ action: "roster", cls: ad.cls });
+  if (!res) { $("adList").innerHTML = ""; return; }
+  $("adList").innerHTML = res.students.map((s) =>
+    '<li class="ad-row' + (s.active ? "" : " off") + '"><span class="ed-no">' + s.seat + '</span><span class="ad-name">' + esc(s.name) +
+    (s.active ? "" : "（已轉出）") + '</span><span class="ed-moves">' +
+    (s.active ? '<button class="mini" type="button" data-act="reset" data-seat="' + s.seat + '">重設通關碼</button><button class="mini warn" type="button" data-act="off" data-seat="' + s.seat + '">轉出</button>'
+              : '<button class="mini" type="button" data-act="on" data-seat="' + s.seat + '">恢復</button>') + "</span></li>").join("") ||
+    '<li class="ad-note">這個班級還沒有學生。</li>';
+  $("adList").querySelectorAll("button").forEach((b) => {
+    const seat = +b.dataset.seat, act = b.dataset.act;
+    if (act === "reset") twoStep(b, "再按一次確定重設", async () => {
+      const r = await adCall({ action: "resetCode", cls: ad.cls, seat });
+      if (r) { adCode(r, "新的通關碼"); adMsg("已重設，舊的通關碼已經失效。"); }
+    });
+    else if (act === "off") twoStep(b, "再按一次確定轉出", async () => {
+      if (await adCall({ action: "removeStudent", cls: ad.cls, seat })) { adMsg(ad.cls + " 班 " + seat + " 號已轉出，不能再登入；過去的成績仍然保留。"); adLoadClasses(ad.cls); }
+    });
+    else b.addEventListener("click", async () => {
+      if (await adCall({ action: "restoreStudent", cls: ad.cls, seat })) { adMsg(ad.cls + " 班 " + seat + " 號已恢復，可以用原本的通關碼登入。"); adLoadClasses(ad.cls); }
+    });
+  });
+}
+
+$("adCls").addEventListener("change", () => { ad.cls = $("adCls").value; $("adNewCls").value = ad.cls; $("adCode").hidden = true; adLoadRoster(); });
+$("adForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const cls = $("adNewCls").value.trim(), seat = $("adNewSeat").value.trim(), name = $("adNewName").value.trim();
+  if (!/^\d{3}$/.test(cls)) { adMsg("班級請輸入 3 位數字，例如 204。", true); return; }
+  if (!/^\d{1,2}$/.test(seat) || +seat < 1 || +seat > 60) { adMsg("座號請輸入 1 到 60 的數字。", true); return; }
+  if (!name) { adMsg("請輸入學生姓名。", true); return; }
+  const r = await adCall({ action: "addStudent", cls, seat: +seat, name });
+  if (!r) return;
+  adCode(r, "的通關碼"); adMsg("已轉入 " + cls + " 班 " + seat + " 號。");
+  $("adNewSeat").value = ""; $("adNewName").value = "";
+  adLoadClasses(cls);
+});
+
+/* ============================================================
+   老師：關卡設定（從共用題庫挑題組成評量關卡）
+   題目一律在「互動式評量系統」編修；這裡只決定哪幾題放進哪個評量關卡。
+   ============================================================ */
+const ed = { lv: 0, filter: -1, search: "" };
+const DTAG = ["d0", "d1", "d2", "d3"];
+function edMsg(text, bad) { const m = $("edMsg"); m.textContent = text; m.className = "ed-msg" + (bad ? " bad" : ""); }
+const curTest = () => isl().assessments[ed.lv];
+function qMeta(q) {
+  return '<span class="dtag ' + DTAG[q.diff] + '">' + DIFFS[q.diff] + "</span>" + esc(q.category + "／" + q.unit) +
+    (q.levels.length ? "・" + esc(q.levels.join("、")) : "・未標認知層次") + "・答案 " + "ABCD"[q.answer] + (q.explanation ? "・有解說" : "") + (q.image ? "・有圖" : "");
+}
+function edRender() {
+  disarm();
+  const I = isl(), pool = islandPool(), test = curTest();
+  $("edTitle").textContent = "關卡設定";
+  $("edBank").textContent = "題庫：" + bankSrc.label + "，共 " + bankSrc.list.length + " 題" + (bankSrc.skipped ? "（另有 " + bankSrc.skipped + " 題格式不完整，已略過）" : "") +
+    "；本島可用 " + pool.length + " 題（" + DIFFS.map((n, i) => n + " " + pool.filter((q) => q.diff === i).length).join("、") + "）";
+  $("edUnits").textContent = I.units.length ? I.units.map((u) => u.category + "／" + u.unit).join("、") : "還沒有設定單元"; drawUnits();
+  $("edCount").value = I.practiceCount;
+  // 評量關卡
+  $("edLevel").innerHTML = I.assessments.length ? I.assessments.map((a, i) => '<option value="' + i + '">' + esc(a.name) + "（" + a.items.length + " 題）</option>").join("")
+    : '<option value="">還沒有評量關卡</option>';
+  $("edLevel").disabled = !I.assessments.length; $("lvDel").disabled = !test; $("lvName").disabled = !test;
+  if (test) $("edLevel").value = ed.lv;
+  $("lvName").value = test ? test.name : "";
+  // 已選題目
+  if (!test) {
+    $("edChosenCount").textContent = "按「新增評量關卡」開始挑題。";
+    $("edChosen").innerHTML = "";
+  } else {
+    const missing = test.items.filter((it) => !byId.get(it.id) || byId.get(it.id).disabled).length;
+    $("edChosenCount").textContent = "已選 " + test.items.length + " 題" + (missing ? "，其中 " + missing + " 題在目前的題庫找不到或已停用，學生不會看到" : "") + "。每一題可以設定鏡頭飛到哪裡。";
+    $("edChosen").innerHTML = test.items.map((it, i) => {
+      const q = byId.get(it.id), bad = !q || q.disabled;
+      return '<li class="pick-row in' + (bad ? " bad" : "") + '" data-i="' + i + '"><span class="ed-no">' + (i + 1) + '</span><span class="pick-main"><span class="pick-stem">' +
+        (q ? esc(q.stem) : "（題庫中找不到這一題：" + esc(it.id) + "）") + '</span><span class="pick-meta">' + (q ? qMeta(q) + (q.disabled ? "・已停用" : "") : "") + "</span></span>" +
+        '<span class="pick-tools">' + (ISLAND_ID === "terrain" ? '<select data-act="spot" aria-label="第 ' + (i + 1) + ' 題的鏡頭位置">' +
+        Object.keys(SPOT_NAMES).map((k) => '<option value="' + k + '"' + (k === it.spot ? " selected" : "") + ">" + (k === "none" ? "整座島" : "飛到" + SPOT_NAMES[k]) + "</option>").join("") + '</select>' : "") +
+        '<button class="mini" type="button" data-act="up"' + (i ? "" : " disabled") + '>上移</button><button class="mini" type="button" data-act="down"' + (i < test.items.length - 1 ? "" : " disabled") +
+        '>下移</button><button class="mini warn" type="button" data-act="remove">移除</button></span></li>';
+    }).join("");
+  }
+  // 本島題庫
+  $("edChips").innerHTML = [-1, 0, 1, 2, 3].map((d) => '<button class="chip" type="button" data-d="' + d + '" aria-pressed="' + (ed.filter === d) + '">' +
+    (d < 0 ? "全部 " + pool.length : DIFFS[d] + " " + pool.filter((q) => q.diff === d).length) + "</button>").join("");
+  const kw = ed.search.trim().toLowerCase(), chosen = new Set(test ? test.items.map((it) => it.id) : []);
+  const shown = pool.filter((q) => (ed.filter < 0 || q.diff === ed.filter) && (!kw || (q.stem + " " + q.options.join(" ")).toLowerCase().includes(kw)));
+  $("edPool").innerHTML = shown.map((q) => '<li class="pick-row' + (chosen.has(q.id) ? " in" : "") + '" data-id="' + esc(q.id) + '"><span class="ed-no">' + DIFFS[q.diff].slice(0, 1) +
+    '</span><span class="pick-main"><span class="pick-stem">' + esc(q.stem) + '</span><span class="pick-opts">' + q.options.map((o, i) => "ABCD"[i] + ". " + esc(o)).join("　") +
+    '</span><span class="pick-meta">' + qMeta(q) + '</span></span><span class="pick-tools">' +
+    (chosen.has(q.id) ? '<span class="pick-done">已加入</span>' : '<button class="mini add" type="button" data-act="add"' + (test ? "" : " disabled") + ">加入</button>") + "</span></li>").join("") ||
+    '<li class="ad-note">' + (pool.length ? "沒有符合條件的題目。" : "題庫裡還沒有「" + esc(I.units.map((u) => u.category + "／" + u.unit).join("、")) + "」的題目。請先在互動式評量系統新增題目，再讀取題庫檔。") + "</li>";
+}
+function edChanged(text) { saveDraft(); edRender(); if (text) edMsg(text); }
+
+$("edCount").addEventListener("change", () => {
+  const v = parseInt($("edCount").value, 10);
+  if (!(v >= 1 && v <= 30)) { edRender(); edMsg("請輸入 1 到 30 的數字。", true); return; }
+  isl().practiceCount = v; edChanged("練習每次改為抽 " + v + " 題。");
+});
+$("edLevel").addEventListener("change", () => { ed.lv = +$("edLevel").value || 0; edRender(); });
+$("lvName").addEventListener("input", () => { const t = curTest(); if (!t) return; t.name = $("lvName").value.slice(0, 30) || "評量"; saveDraft(); const o = $("edLevel").options[ed.lv]; if (o) o.textContent = t.name + "（" + t.items.length + " 題）"; });
+$("lvAdd").addEventListener("click", () => {
+  const A = isl().assessments; A.push({ id: newId(), name: "評量 " + (A.length + 1), items: [] });
+  ed.lv = A.length - 1; edChanged("已新增評量關卡。從右邊的本島題庫按「加入」挑題；學生每關最多作答 " + MAX_TRIES + " 次。");
+  $("lvName").focus(); $("lvName").select();
+});
+twoStep($("lvDel"), "再按一次確定刪除關卡", () => {
+  isl().assessments.splice(ed.lv, 1); ed.lv = 0; edChanged("已刪除這個評量關卡。試算表裡已經記錄的成績不受影響。");
+});
+$("edChosen").addEventListener("click", (e) => {
+  const b = e.target.closest("button"), row = e.target.closest("[data-i]"), t = curTest(); if (!b || !row || !t) return;
+  const i = +row.dataset.i, items = t.items;
+  if (b.dataset.act === "remove") { items.splice(i, 1); edChanged("已從這個關卡移除。"); }
+  if (b.dataset.act === "up" && i > 0) { [items[i - 1], items[i]] = [items[i], items[i - 1]]; edChanged(); }
+  if (b.dataset.act === "down" && i < items.length - 1) { [items[i + 1], items[i]] = [items[i], items[i + 1]]; edChanged(); }
+});
+$("edChosen").addEventListener("change", (e) => {
+  const row = e.target.closest("[data-i]"), t = curTest(); if (!row || !t || e.target.dataset.act !== "spot") return;
+  t.items[+row.dataset.i].spot = e.target.value; saveDraft(); edMsg("已設定鏡頭位置。");
+});
+$("edPool").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-act='add']"), row = e.target.closest("[data-id]"), t = curTest(); if (!b || !row || !t) return;
+  t.items.push({ id: row.dataset.id, spot: "none" }); edChanged("已加入第 " + t.items.length + " 題。");
+});
+$("edChips").addEventListener("click", (e) => { const b = e.target.closest("[data-d]"); if (!b) return; ed.filter = +b.dataset.d; edRender(); });
+$("edSearch").addEventListener("input", () => { ed.search = $("edSearch").value; edRender(); });
+twoStep($("edReset"), "再按一次確定還原", () => {
+  try { localStorage.removeItem(CONFIG_KEY); } catch (e) {}
+  hasDraft = false; config = clone(published); ed.lv = 0; edRender(); edMsg("已還原成網站上的關卡設定，這台電腦上的修改已清除。");
+});
+function readJsonFile(input, onLoad) {
+  const f = input.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    try { onLoad(JSON.parse(String(rd.result)), f.name); }
+    catch (err) { edMsg("讀取失敗：" + (err instanceof SyntaxError ? "這不是正確的 JSON 檔。" : err.message), true); }
+    input.value = "";
+  };
+  rd.onerror = () => edMsg("讀不到這個檔案，請再試一次。", true);
+  rd.readAsText(f, "utf-8");
+}
+$("edBankFile").addEventListener("click", () => $("edBankInput").click());
+$("edBankInput").addEventListener("change", () => readJsonFile($("edBankInput"), (j, name) => {
+  if (j && j.format === "InteractiveAssessmentSystemBackup") { edMsg("這是完整備份檔（含班級與成績），請改用評量系統「題庫編修 → 儲存題庫」產生的檔案。", true); return; }
+  const b = readBank(j); useBank(b, "本機題庫檔「" + name + "」", false); edRender();
+  edMsg("已讀取題庫檔，共 " + b.list.length + " 題。這只在這次編輯時使用；要讓學生看到，請把這個檔案以 data/questions.json 上傳到網站。");
+}));
+$("edImport").addEventListener("click", () => $("edFile").click());
+$("edFile").addEventListener("change", () => readJsonFile($("edFile"), (j, name) => {
+  config = normConfig(j); ed.lv = 0; saveDraft(); edRender(); edMsg("已讀取關卡檔「" + name + "」。");
+}));
+$("edSave").addEventListener("click", async () => {
+  if (inPreview || (window.claude && window.claude.use)) {
+    try {
+      const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+      if (!dl) { edMsg("這個預覽頁無法下載檔案，請改按「複製 JSON」，貼到記事本存成 islands.json。", true); return; }
+      await dl.save({ filename: "islands.json", data: exportConfig() });
+      edMsg("已儲存 islands.json。把它放在網站的 data 資料夾，學生就會看到新的評量關卡。");
+    } catch (e) { edMsg("沒有存檔（已取消或失敗）。也可以改按「複製 JSON」。", true); }
+    return;
+  }
+  try {
+    const url = URL.createObjectURL(new Blob([exportConfig()], { type: "application/json" }));
+    const a = document.createElement("a"); a.href = url; a.download = "islands.json";
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
+    edMsg("已下載 islands.json。把它放在網站的 data 資料夾，學生就會看到新的評量關卡。");
+  } catch (e) { edMsg("下載失敗，請改按「複製 JSON」。", true); }
+});
+$("edCopy").addEventListener("click", () => {
+  const text = exportConfig();
+  const fallback = () => { const ta = $("edRaw"); ta.hidden = false; ta.value = text; ta.focus(); ta.select(); edMsg("瀏覽器不允許自動複製。內容已顯示在下方，請按 Ctrl+C 複製。", true); };
+  try { navigator.clipboard.writeText(text).then(() => edMsg("已複製關卡設定 JSON。"), fallback); } catch (e) { fallback(); }
+});
+
+
+/* ============================================================
+   老師管理頁：分頁切換、選島、單元設定、老師登入
+   ============================================================ */
+let ready = false;
+function showTab(name) {
+  disarm();
+  $("editor").hidden = name !== "editor"; $("admin").hidden = name !== "admin";
+  document.querySelectorAll(".tab").forEach((b) => b.setAttribute("aria-current", b.dataset.tab === name ? "page" : "false"));
+  if (name === "editor") { edRender(); edMsg(hasDraft ? "目前顯示的是這台電腦上修改過的關卡設定。" : "修改會自動存在這台電腦的瀏覽器；要給學生用，請按「儲存關卡檔」再上傳到網站。"); }
+  else if (!cloudOn()) { adMsg("學生管理要在網站上（kamewa.github.io）使用，這個預覽頁連不到雲端。", true); $("adList").innerHTML = ""; }
+  else { $("adCode").hidden = true; adMsg("選一個班級，就能轉入、轉出學生或重設通關碼。"); adLoadClasses(ad.cls); }
+  try { history.replaceState(null, "", "#" + name); } catch (e) {}
+}
+document.addEventListener("click", (e) => { const b = e.target.closest(".tab"); if (b) showTab(b.dataset.tab); });
+// 選島
+$("edIsland").innerHTML = ISLAND_ORDER.map((k) => '<option value="' + k + '">' + esc(DEFAULT_CONFIG.islands[k].name) + "</option>").join("");
+$("edIsland").addEventListener("change", () => { ISLAND_ID = $("edIsland").value; ed.lv = 0; ed.filter = -1; ed.search = ""; $("edSearch").value = ""; edRender(); edMsg("現在設定的是「" + isl().name + "」。"); });
+// 單元：題庫裡有的分類與單元會出現在選單裡，也可以自己輸入
+function drawUnits() {
+  const I = isl();
+  $("unitList").innerHTML = I.units.length ? I.units.map((u, i) => "<li>" + esc(u.category + "／" + u.unit) + '<button type="button" data-i="' + i + '" aria-label="移除 ' + esc(u.category + u.unit) + '">×</button></li>').join("")
+    : '<li class="empty">還沒有設定單元，練習抽不到題目</li>';
+  const cats = [...new Set(["通論", "台灣"].concat(bankSrc.list.map((q) => q.category).filter(Boolean)))];
+  const keep = $("unitCat").value;
+  $("unitCat").innerHTML = cats.map((c) => '<option value="' + esc(c) + '">' + esc(c) + "</option>").join("");
+  if (cats.includes(keep)) $("unitCat").value = keep;
+  $("unitNames").innerHTML = [...new Set(bankSrc.list.map((q) => q.unit).filter(Boolean))].map((u) => '<option value="' + esc(u) + '">').join("");
+}
+$("unitList").addEventListener("click", (e) => { const b = e.target.closest("button[data-i]"); if (!b) return; const u = isl().units.splice(+b.dataset.i, 1)[0]; edChanged("已移除單元「" + u.category + "／" + u.unit + "」。"); });
+$("unitAdd").addEventListener("click", () => {
+  const category = $("unitCat").value, unit = $("unitName").value.trim();
+  if (!unit) { edMsg("請輸入單元名稱。", true); $("unitName").focus(); return; }
+  if (isl().units.some((u) => u.category === category && u.unit === unit)) { edMsg("這個單元已經加入了。", true); return; }
+  isl().units.push({ category, unit }); $("unitName").value = ""; edChanged("已加入單元「" + category + "／" + unit + "」。");
+});
+$("unitName").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); $("unitAdd").click(); } });
+
+// 老師登入：在大地圖登入過就直接進來
+function start() {
+  $("gate").hidden = true; ready = true;
+  showTab(location.hash === "#admin" ? "admin" : "editor");
+}
+function showGate() {
+  $("gate").hidden = false; $("editor").hidden = true; $("admin").hidden = true;
+  const msg = (t) => { $("gtMsg").textContent = t; };
+  $("gtCode").focus();
+  $("gtForm").onsubmit = async (e) => {
+    e.preventDefault();
+    const code = $("gtCode").value.trim(); if (!code) { msg("請輸入教師碼。"); return; }
+    const go = $("gtGo"); go.disabled = true; go.textContent = "登入中…"; msg("");
+    try {
+      const res = await api({ action: "teacher", code });
+      if (res.ok && res.role === "teacher") { setSession({ role: "teacher", token: res.token }); start(); return; }
+      msg(failText(res)); $("gtCode").value = "";
+    } catch (err) { msg("連不上雲端，請檢查網路後再試一次。"); }
+    go.disabled = false; go.textContent = "登入";
+  };
+}
+if (!cloudOn() || (session && session.role === "teacher")) start(); else showGate();
+
+</script>
+</body>
+</html>
