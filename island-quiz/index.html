@@ -738,7 +738,7 @@ function init3D() {
 
   const clock = new THREE.Clock(); let time = 0;
   function frame() {
-    const dt = Math.min(0.05, clock.getDelta()); time += dt;
+    const dt = Math.min(0.1, clock.getDelta()); time = clock.elapsedTime;   // 用真實經過的時間，電腦比較慢時節奏也不會變慢
     if (autoSpin && pts.size === 0 && !reduceMotion) goal.theta += dt * 0.1;
     const k = 1 - Math.exp(-dt * 3.4);
     for (const key in cam) cam[key] += (goal[key] - cam[key]) * k;
