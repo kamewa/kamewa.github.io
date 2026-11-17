@@ -4,18 +4,10 @@
   "islands": {
     "terrain": {
       "name": "粉彩地形島",
-      "units": [
-        {
-          "category": "通論",
-          "unit": "地形"
-        },
-        {
-          "category": "台灣",
-          "unit": "地形"
-        }
-      ],
+      "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "theme": "地形"
     }
   }
 }

@@ -8,8 +8,8 @@
       "disabled": false,
       "createdAt": "2026-11-16T12:31:25.940Z",
       "id": "demo-terrain-1",
-      "category": "通論",
-      "unit": "地形",
+      "category": "臺灣",
+      "unit": "地形與海域",
       "cognitiveLevels": [
         "理解"
       ],
@@ -21,7 +21,9 @@
         "台地",
         "盆地"
       ],
-      "explanation": "山地的特徵是高度高、起伏大。看顏色就知道：短短的距離內，顏色從粉紅換到紫色再到白色，代表高度變化很快。"
+      "explanation": "山地的特徵是高度高、起伏大。看顏色就知道：短短的距離內，顏色從粉紅換到紫色再到白色，代表高度變化很快。",
+      "theme": "地形",
+      "learningContent": "地Ab-Ⅳ-1"
     },
     {
       "abilityIndicator": "",
@@ -29,8 +31,8 @@
       "disabled": false,
       "createdAt": "2026-11-16T12:31:25.940Z",
       "id": "demo-terrain-2",
-      "category": "通論",
-      "unit": "地形",
+      "category": "臺灣",
+      "unit": "地形與海域",
       "cognitiveLevels": [
         "理解"
       ],
@@ -42,7 +44,9 @@
         "台地",
         "丘陵"
       ],
-      "explanation": "平原地勢低平、起伏很小。平坦的土地適合耕作和居住，人口通常比較多。"
+      "explanation": "平原地勢低平、起伏很小。平坦的土地適合耕作和居住，人口通常比較多。",
+      "theme": "地形",
+      "learningContent": "地Ab-Ⅳ-1"
     },
     {
       "abilityIndicator": "",
@@ -50,8 +54,8 @@
       "disabled": false,
       "createdAt": "2026-11-16T12:31:25.940Z",
       "id": "demo-terrain-3",
-      "category": "通論",
-      "unit": "地形",
+      "category": "臺灣",
+      "unit": "地形與海域",
       "cognitiveLevels": [
         "理解"
       ],
@@ -63,7 +67,9 @@
         "山地",
         "台地"
       ],
-      "explanation": "盆地四周高、中間低平，形狀像一個臉盆。臺北盆地、臺中盆地都是這種地形。"
+      "explanation": "盆地四周高、中間低平，形狀像一個臉盆。臺北盆地、臺中盆地都是這種地形。",
+      "theme": "地形",
+      "learningContent": "地Ab-Ⅳ-1"
     },
     {
       "abilityIndicator": "",
@@ -71,8 +77,8 @@
       "disabled": false,
       "createdAt": "2026-11-16T12:31:25.940Z",
       "id": "demo-terrain-4",
-      "category": "通論",
-      "unit": "地形",
+      "category": "臺灣",
+      "unit": "地形與海域",
       "cognitiveLevels": [
         "記憶"
       ],
@@ -84,7 +90,9 @@
         "丘陵",
         "平原"
       ],
-      "explanation": "台地的頂部平坦、四周是陡坡，可以記成「頂平崖陡」。林口台地、桃園台地都是例子。"
+      "explanation": "台地的頂部平坦、四周是陡坡，可以記成「頂平崖陡」。林口台地、桃園台地都是例子。",
+      "theme": "地形",
+      "learningContent": "地Ab-Ⅳ-1"
     },
     {
       "abilityIndicator": "",
@@ -92,8 +100,8 @@
       "disabled": false,
       "createdAt": "2026-11-16T12:31:25.940Z",
       "id": "demo-terrain-5",
-      "category": "通論",
-      "unit": "地形",
+      "category": "臺灣",
+      "unit": "地形與海域",
       "cognitiveLevels": [
         "記憶"
       ],
@@ -105,13 +113,15 @@
         "平原",
         "盆地"
       ],
-      "explanation": "丘陵的高度比山地低，起伏也比較和緩，常分布在山地和平原之間。"
+      "explanation": "丘陵的高度比山地低，起伏也比較和緩，常分布在山地和平原之間。",
+      "theme": "地形",
+      "learningContent": "地Ab-Ⅳ-1"
     }
   ],
   "exportedAt": "2026-11-16T12:31:25.940Z",
   "application": {
     "name": "互動式評量系統",
-    "version": "1.19.0",
+    "version": "1.20.0",
     "databaseVersion": 4
   },
   "questionCount": 5
