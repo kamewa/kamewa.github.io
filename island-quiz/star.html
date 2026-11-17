@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>星辰尋夢島</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 版面：整頁是一座 3D 島，左上角只放印章、島名和課程標籤。永遠明亮，不跟隨深色模式。 */
+:root{
+  color-scheme: light;
+  --plum:#4a2260; --plum-soft:#7a5590; --pink:#ff6fae; --pink-soft:#ffd3e6; --lav:#b79cff;
+  --font-display:"Chiron GoRound TC","Baloo 2","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --font-body:"Chiron GoRound TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font-family:var(--font-body);font-weight:500;color:var(--plum);overflow:hidden;
+  background:linear-gradient(180deg,#bfe6ff 0%,#dcd3ff 28%,#ffd9ee 56%,#ffd9ee 100%);background-color:#ffd9ee;
+}
+.stage{position:relative;height:100%;overflow:hidden}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#scene:active{cursor:grabbing}
+.brand{position:absolute;left:20px;top:16px;right:20px;display:flex;align-items:center;gap:.4em;pointer-events:none;font-size:clamp(1.3rem,3vw,2.4rem)}
+.logo{flex:none;width:1.15em;height:1.15em;display:block}
+.brand h1{
+  margin:0;white-space:nowrap;font-family:var(--font-display);font-weight:900;font-size:1em;line-height:1.15;color:var(--pink);
+  text-shadow:0 2px 0 #fff,2px 0 0 #fff,-2px 0 0 #fff,0 -2px 0 #fff,0 5px 0 rgba(183,156,255,.55)
+}
+.chip{
+  align-self:center;margin-left:.2em;padding:3px 12px;border-radius:999px;background:rgba(255,255,255,.85);
+  font-size:clamp(.75rem,1.2vw,.9rem);font-weight:700;color:var(--plum-soft);white-space:nowrap
+}
+.tip{position:absolute;left:20px;bottom:14px;margin:0;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.78);font-size:.85rem;font-weight:700;color:var(--plum-soft);pointer-events:none}
+.fallback{position:absolute;left:20px;right:20px;top:50%;padding:14px 18px;border-radius:18px;background:#fff;border:2.5px solid #ff5f8a;font-weight:700}
+@media (max-width:600px){.brand{left:12px;top:10px;flex-wrap:wrap}.tip{font-size:.75rem;left:12px}}
+</style>
+<style>
+.to-map{position:absolute;right:16px;top:16px;z-index:15;display:flex;align-items:center;gap:6px;padding:7px 15px 7px 11px;border-radius:999px;
+  background:rgba(255,255,255,.86);border:2.5px solid #fff;box-shadow:0 3px 0 rgba(183,156,255,.45);
+  font:700 .92rem/1 "Noto Sans TC",system-ui,sans-serif;color:#7a4f9a;text-decoration:none;transition:transform .15s,background .15s}
+.to-map:hover{transform:translateY(-2px);background:#fff}
+.to-map:focus-visible{outline:3px solid #ff8fc8;outline-offset:2px}
+.to-map svg{width:18px;height:18px;flex:none}
+@media (max-width:600px){.to-map{top:auto;bottom:12px;right:12px;font-size:.8rem;padding:6px 12px 6px 9px}}
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+  <canvas id="scene" aria-label="星辰尋夢島：中央是水晶燈塔，四周的花圃排成八方位羅盤，北方有一顆旋轉的愛心"></canvas>
+  <header class="brand">
+    <img class="logo" id="logo" alt="和" width="56" height="56">
+    <h1>星辰尋夢島</h1>
+    <span class="chip">課程 01｜位置</span>
+  </header>
+  <p class="tip">拖曳旋轉　滾輪或雙指縮放</p>
+  <p class="fallback" id="fallback" hidden>3D 畫面沒有載入成功，請確認網路後重新整理。</p>
+<a class="to-map" href="https://kamewa.github.io/island-quiz/map.html" aria-label="回到星願群島地圖"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg>回到地圖</a>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+"use strict";
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (id) => document.getElementById(id);
+$("logo").src = "data:image/png;base64,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";
+
+/* ============================================================
+   島的形狀：接近圓形但帶一點不規則的海岸，中央微微隆起放燈塔，其餘平坦好排羅盤
+   ============================================================ */
+function smooth(a, b, v) { const t = Math.min(1, Math.max(0, (v - a) / (b - a))); return t * t * (3 - 2 * t); }
+function islandHeight(x, z) {
+  const a = Math.atan2(z, x), r = Math.hypot(x, z);
+  const R = 8.6 + 0.35 * Math.sin(3 * a + 0.7) + 0.25 * Math.sin(5 * a + 2.1) + 0.15 * Math.sin(7 * a + 0.3);
+  const land = 0.45 + 0.55 * Math.exp(-(r * r) / (2 * 1.6 * 1.6));
+  return -0.6 + (land + 0.6) * (1 - smooth(R - 1.2, R, r));
+}
+const ground = (x, z) => Math.max(0, islandHeight(x, z));
+
+/* 八方位：北朝向畫面的 -z（和大地圖的北方一致），東是 +x；角度由北順時針 */
+const DIRS = [
+  { name: "北",   deg: 0,   hex: 0xff6fae, main: true },
+  { name: "東北", deg: 45,  hex: 0xffa883 },
+  { name: "東",   deg: 90,  hex: 0xffd84d, main: true },
+  { name: "東南", deg: 135, hex: 0xb5e86a },
+  { name: "南",   deg: 180, hex: 0x5fd8aa, main: true },
+  { name: "西南", deg: 225, hex: 0x7cc8ff },
+  { name: "西",   deg: 270, hex: 0xb08cff, main: true },
+  { name: "西北", deg: 315, hex: 0xf28ce0 }
+];
+const dirVec = (deg) => { const r = deg * Math.PI / 180; return [Math.sin(r), -Math.cos(r)]; };
+
+function init3D() {
+  const canvas = $("scene"), stage = $("stage");
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0xffd9ee, 40, 95);
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 300);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xffc9e6, 0.78));
+  const sun = new THREE.DirectionalLight(0xfff4e0, 0.5); sun.position.set(8, 14, 6); scene.add(sun);
+
+  let seed = 1116;
+  const rnd = () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const ticks = [];
+  const mats = {};
+  const M = (hex, extra) => {
+    if (extra && extra.transparent) return new THREE.MeshLambertMaterial(Object.assign({ color: hex }, extra));
+    const key = hex + (extra ? JSON.stringify(extra) : "");
+    return mats[key] || (mats[key] = new THREE.MeshLambertMaterial(Object.assign({ color: hex }, extra || {})));
+  };
+  const GEO = { ball: new THREE.SphereGeometry(1, 16, 12), cyl: new THREE.CylinderGeometry(1, 1, 1, 24), cone: new THREE.ConeGeometry(1, 1, 16), box: new THREE.BoxGeometry(1, 1, 1) };
+  function part(p, geo, hex, x, y, z, sx, sy, sz, extra) {
+    const m = new THREE.Mesh(GEO[geo], M(hex, extra)); m.position.set(x, y, z);
+    m.scale.set(sx, sy === undefined ? sx : sy, sz === undefined ? sx : sz); p.add(m); return m;
+  }
+  function glowTexture(inner, outer) {
+    const c = document.createElement("canvas"); c.width = c.height = 128;
+    const x = c.getContext("2d"), g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+    g.addColorStop(0, inner); g.addColorStop(0.35, outer); g.addColorStop(1, "rgba(255,255,255,0)");
+    x.fillStyle = g; x.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(c);
+  }
+  const heartShape = new THREE.Shape();
+  heartShape.moveTo(25, 25); heartShape.bezierCurveTo(25, 25, 20, 0, 0, 0); heartShape.bezierCurveTo(-30, 0, -30, 35, -30, 35);
+  heartShape.bezierCurveTo(-30, 55, -10, 77, 25, 95); heartShape.bezierCurveTo(60, 77, 80, 55, 80, 35);
+  heartShape.bezierCurveTo(80, 35, 80, 0, 50, 0); heartShape.bezierCurveTo(35, 0, 25, 25, 25, 25);
+  const heartGeo = new THREE.ExtrudeGeometry(heartShape, { depth: 16, bevelEnabled: true, bevelThickness: 7, bevelSize: 6, bevelSegments: 4, curveSegments: 18 });
+  heartGeo.center(); heartGeo.rotateZ(Math.PI); heartGeo.scale(0.01, 0.01, 0.01);
+
+  /* ---------- 島的本體 ---------- */
+  const N = 150, SIZE = 21;
+  const geo = new THREE.PlaneGeometry(SIZE, SIZE, N, N); geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position, cols = new Float32Array(pos.count * 3), hs = new Float32Array(pos.count);
+  const bands = [[0.02, 0xffe6b0], [0.25, 0xfff3c4], [0.62, 0x9cf0c4], [1.1, 0xc6f48e], [99, 0xffe36e]];
+  const col = new THREE.Color(), deepSea = new THREE.Color(0xa9e8f6);
+  for (let i = 0; i < pos.count; i++) {
+    const h = islandHeight(pos.getX(i), pos.getZ(i)); pos.setY(i, h); hs[i] = h;
+    for (const [top, hex] of bands) { if (h < top) { col.setHex(hex); break; } }
+    if (h < 0) col.lerp(deepSea, Math.min(1, -h / 0.45));
+    cols[i * 3] = col.r; cols[i * 3 + 1] = col.g; cols[i * 3 + 2] = col.b;
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(cols, 3));
+  const src = geo.index.array, keep = [];
+  for (let i = 0; i < src.length; i += 3) if (Math.max(hs[src[i]], hs[src[i + 1]], hs[src[i + 2]]) > -0.5) keep.push(src[i], src[i + 1], src[i + 2]);
+  geo.setIndex(keep); geo.computeVertexNormals();
+  scene.add(new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true })));
+  const sea = new THREE.Mesh(new THREE.CircleGeometry(95, 72), new THREE.MeshBasicMaterial({ color: 0x86e4f4, transparent: true, opacity: 0.82 }));
+  sea.rotation.x = -Math.PI / 2; scene.add(sea);
+
+  /* ============================================================
+     花圃羅盤：八條花帶，主方位長、斜方位短，每個方位一種花色
+     ============================================================ */
+  const INNER = 2.1;
+  const flowerList = [];
+  DIRS.forEach((d) => {
+    const [dx, dz] = dirVec(d.deg), px = -dz, pz = dx; // px,pz：與花帶垂直的方向
+    const len = d.main ? 7.3 : 5.5, w = d.main ? 0.95 : 0.62;
+    // 花床：一條尖尖的淡色土壤，像羅盤指針；每一段都貼著地面
+    const S = 24, bp = [], bi = [];
+    for (let i = 0; i <= S; i++) {
+      const v = i / S, t = INNER - 0.1 + v * (len - INNER + 0.45), half = w * 0.62 * (1 - v) + 0.05 * v;
+      [-half, half].forEach((o) => { const x = dx * t + px * o, z = dz * t + pz * o; bp.push(x, ground(x, z) + 0.025, z); });
+      if (i < S) { const k = i * 2; bi.push(k, k + 2, k + 1, k + 1, k + 2, k + 3); }
+    }
+    const bedGeo = new THREE.BufferGeometry(); bedGeo.setAttribute("position", new THREE.Float32BufferAttribute(bp, 3)); bedGeo.setIndex(bi); bedGeo.computeVertexNormals();
+    scene.add(new THREE.Mesh(bedGeo, M(0xfff6e9, { side: THREE.DoubleSide })));
+    for (let t = INNER + 0.1; t <= len; t += 0.17) {
+      const k = (t - INNER) / (len - INNER), half = w * 0.5 * (1 - k * 0.85);
+      for (let o = -half; o <= half + 1e-6; o += 0.17) {
+        const x = dx * t + px * o + (rnd() - 0.5) * 0.05, z = dz * t + pz * o + (rnd() - 0.5) * 0.05;
+        flowerList.push({ x, z, y: ground(x, z), hex: rnd() < 0.18 ? 0xffffff : d.hex, s: 0.75 + rnd() * 0.5 });
+      }
+    }
+  });
+  const flowers = new THREE.InstancedMesh(new THREE.SphereGeometry(0.085, 8, 6), new THREE.MeshLambertMaterial({ color: 0xffffff }), flowerList.length);
+  const dummy = new THREE.Object3D();
+  flowerList.forEach((f, i) => {
+    dummy.position.set(f.x, f.y + 0.07, f.z); dummy.scale.set(f.s, f.s * 0.75, f.s); dummy.updateMatrix();
+    flowers.setMatrixAt(i, dummy.matrix); flowers.setColorAt(i, col.setHex(f.hex));
+  });
+  scene.add(flowers);
+  // 羅盤的刻度環：兩圈奶油色小徑
+  [3.5, 6.1].forEach((r) => {
+    const ring = new THREE.Mesh(new THREE.RingGeometry(r - 0.11, r + 0.11, 120), M(0xfff8ee, { side: THREE.DoubleSide }));
+    ring.rotation.x = -Math.PI / 2; ring.position.y = ground(r, 0) + 0.025; scene.add(ring);
+  });
+  // 刻度環上的小圓石（每 22.5 度一顆），像羅盤的細刻度
+  for (let i = 0; i < 16; i++) {
+    const [dx, dz] = dirVec(i * 22.5 + 11.25), r = 6.1;
+    part(scene, "ball", 0xffe0ef, dx * r, ground(dx * r, dz * r) + 0.05, dz * r, 0.13, 0.07, 0.13);
+  }
+
+  /* ---------- 北方的愛心：一直慢慢旋轉，偶爾跳一下 ---------- */
+  const [nx, nz] = dirVec(0), NR = 7.85, ny = ground(nx * NR, nz * NR);
+  part(scene, "cyl", 0xffffff, nx * NR, ny + 0.12, nz * NR, 0.42, 0.24, 0.42);
+  part(scene, "cyl", 0xffd3e6, nx * NR, ny + 0.26, nz * NR, 0.34, 0.06, 0.34);
+  const northHeart = new THREE.Mesh(heartGeo, M(0xff4f9a, { emissive: 0x3a0a20 }));
+  northHeart.scale.setScalar(0.85); scene.add(northHeart);
+  let hopAt = 3, hopping = -1;
+  ticks.push((t) => {
+    const baseY = ny + 0.95;
+    northHeart.position.set(nx * NR, baseY, nz * NR);
+    if (reduceMotion) { northHeart.rotation.y = 0; return; }
+    northHeart.rotation.y = t * 0.9;
+    if (hopping < 0 && t > hopAt) hopping = t;
+    if (hopping >= 0) {
+      const p = (t - hopping) / 0.7;
+      if (p >= 1) { hopping = -1; hopAt = t + 4 + Math.random() * 5; northHeart.scale.set(0.85, 0.85, 0.85); }
+      else {
+        northHeart.position.y = baseY + 4 * 0.5 * p * (1 - p);
+        const sq = p < 0.12 ? 1 - p * 1.2 : p > 0.88 ? 1 - (1 - p) * 1.2 : 1.05;
+        northHeart.scale.set(0.85 * (2 - sq), 0.85 * sq, 0.85 * (2 - sq));
+      }
+    } else northHeart.position.y = baseY + Math.sin(t * 1.6) * 0.06;
+  });
+
+  /* ============================================================
+     水晶燈塔：塔頂是會發光的星辰水晶，裡面有螢火蟲般的光點
+     ============================================================ */
+  const y0 = ground(0, 0);
+  const lh = new THREE.Group(); lh.position.y = y0; scene.add(lh);
+  part(lh, "cyl", 0xffe9f3, 0, -0.05, 0, 1.55, 0.5, 1.55);
+  part(lh, "cyl", 0xfff6fa, 0, 0.28, 0, 1.18, 0.2, 1.18);
+  for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2; part(lh, "ball", [0xff9ccb, 0xffe27a, 0xd4b3ff][i % 3], Math.cos(a) * 1.42, 0.24, Math.sin(a) * 1.42, 0.13); }
+  const TH = 3.7;
+  const tower = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.82, TH, 28), M(0xffffff)); tower.position.y = 0.38 + TH / 2; lh.add(tower);
+  [0.8, 1.75, 2.7].forEach((h) => { const r = 0.82 - (h / TH) * 0.32; part(lh, "cyl", 0xff9cc8, 0, 0.38 + h, 0, r + 0.02, 0.36, r + 0.02); });
+  part(lh, "box", 0xb79cff, 0, 0.75, 0.77, 0.34, 0.6, 0.06);                                // 小門
+  part(lh, "cyl", 0xb79cff, 0, 1.05, 0.77, 0.17, 0.06, 0.17).rotation.x = Math.PI / 2;
+  [1.6, 2.6].forEach((h, i) => { const r = 0.82 - (h / TH) * 0.32; part(lh, "ball", 0x9fe3ff, Math.sin(i * 2.4) * r, 0.38 + h, Math.cos(i * 2.4) * r, 0.12, 0.17, 0.12); });
+  const topY = 0.38 + TH;
+  part(lh, "cyl", 0xffd3e6, 0, topY + 0.06, 0, 0.92, 0.12, 0.92);                         // 觀景台
+  const rail = new THREE.Mesh(new THREE.TorusGeometry(0.86, 0.035, 6, 40), M(0xffe27a)); rail.rotation.x = Math.PI / 2; rail.position.y = topY + 0.38; lh.add(rail);
+  for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2; part(lh, "cyl", 0xffe27a, Math.cos(a) * 0.86, topY + 0.24, Math.sin(a) * 0.86, 0.025, 0.3, 0.025); }
+  // 托住水晶的金色花托
+  for (let i = 0; i < 6; i++) {
+    const a = i / 6 * Math.PI * 2, p = part(lh, "cone", 0xffd84d, Math.cos(a) * 0.32, topY + 0.32, Math.sin(a) * 0.32, 0.12, 0.42, 0.12);
+    p.rotation.z = -Math.cos(a) * 0.5; p.rotation.x = Math.sin(a) * 0.5;
+  }
+  const CY = y0 + topY + 1.12; // 水晶中心的高度
+
+  const crystal = new THREE.Group(); crystal.position.y = CY; scene.add(crystal);
+  const crystalMat = new THREE.MeshPhongMaterial({ color: 0xf6ecff, emissive: 0xc9a2ff, emissiveIntensity: 0.55, specular: 0xffffff, shininess: 90,
+    flatShading: true, transparent: true, opacity: 0.55, depthWrite: false, side: THREE.DoubleSide });
+  const cA = new THREE.Mesh(new THREE.OctahedronGeometry(0.62), crystalMat); cA.scale.set(1, 1.45, 1); crystal.add(cA);
+  const cB = new THREE.Mesh(new THREE.OctahedronGeometry(0.62), crystalMat); cB.scale.set(0.82, 1.05, 0.82); cB.rotation.set(0, Math.PI / 4, Math.PI / 4); crystal.add(cB);
+  cA.renderOrder = cB.renderOrder = 1;
+  // 光暈
+  const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("rgba(255,250,220,1)", "rgba(255,214,240,.55)"), transparent: true, depthWrite: false, fog: false }));
+  halo.scale.setScalar(3.2); crystal.add(halo); halo.renderOrder = 0;
+  // 螢火蟲：在水晶裡慢慢飄、忽明忽暗
+  const FF = 16, ffPos = new Float32Array(FF * 3), ffCol = new Float32Array(FF * 3), ffSeed = [];
+  for (let i = 0; i < FF; i++) ffSeed.push({ a: rnd() * 6.28, b: rnd() * 6.28, sp: 0.4 + rnd() * 0.6, r: 0.12 + rnd() * 0.3, fl: 1.5 + rnd() * 2.5 });
+  const ffGeo = new THREE.BufferGeometry();
+  ffGeo.setAttribute("position", new THREE.BufferAttribute(ffPos, 3)); ffGeo.setAttribute("color", new THREE.BufferAttribute(ffCol, 3));
+  const ffMat = new THREE.PointsMaterial({ map: glowTexture("rgba(255,255,230,1)", "rgba(255,226,120,.8)"), size: 0.3, vertexColors: true,
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false });
+  const fireflies = new THREE.Points(ffGeo, ffMat); fireflies.renderOrder = 2; crystal.add(fireflies);
+  // 水晶的光照亮燈塔頂端
+  const glowLight = new THREE.PointLight(0xffe6b0, 0.6, 9, 2); crystal.add(glowLight);
+  // 光束：從水晶射出、旋轉掃過海面
+  const bc = document.createElement("canvas"); bc.width = 4; bc.height = 128;
+  const bx = bc.getContext("2d"), bg = bx.createLinearGradient(0, 0, 0, 128);
+  bg.addColorStop(0, "#fff"); bg.addColorStop(0.25, "#aaa"); bg.addColorStop(1, "#000"); bx.fillStyle = bg; bx.fillRect(0, 0, 4, 128);
+  const beamMat = new THREE.MeshBasicMaterial({ color: 0xfff0b0, alphaMap: new THREE.CanvasTexture(bc), transparent: true, opacity: 0.55,
+    depthWrite: false, side: THREE.DoubleSide, fog: false });
+  const beamGeo = new THREE.ConeGeometry(2.0, 12, 32, 1, true); beamGeo.translate(0, -6, 0);
+  const beams = new THREE.Group(); crystal.add(beams);
+  [0, Math.PI].forEach((ry) => {
+    const holder = new THREE.Group(); holder.rotation.y = ry; beams.add(holder);
+    const tilt = new THREE.Group(); tilt.rotation.z = -0.13; holder.add(tilt);
+    const b = new THREE.Mesh(beamGeo, beamMat); b.rotation.z = Math.PI / 2; tilt.add(b);
+  });
+  ticks.push((t) => {
+    const k = reduceMotion ? 0 : t, pulse = 0.5 + 0.5 * Math.sin(k * 1.4);
+    crystal.rotation.y = k * 0.35;
+    beams.rotation.y = -k * 0.35 + k * 0.6;          // 光束轉得比水晶快一點
+    crystalMat.emissiveIntensity = 0.45 + pulse * 0.35;
+    halo.scale.setScalar(2.9 + pulse * 0.7); halo.material.opacity = 0.75 + pulse * 0.25;
+    beamMat.opacity = 0.42 + pulse * 0.2; glowLight.intensity = 0.45 + pulse * 0.4;
+    for (let i = 0; i < FF; i++) {
+      const s = ffSeed[i], a = s.a + k * s.sp, b = s.b + k * s.sp * 0.7;
+      ffPos[i * 3] = Math.cos(a) * s.r; ffPos[i * 3 + 1] = Math.sin(b) * s.r * 1.6; ffPos[i * 3 + 2] = Math.sin(a) * s.r;
+      const f = reduceMotion ? 0.8 : 0.35 + 0.65 * Math.max(0, Math.sin(k * s.fl + s.a));
+      ffCol[i * 3] = f; ffCol[i * 3 + 1] = f * 0.92; ffCol[i * 3 + 2] = f * 0.6;
+    }
+    ffGeo.attributes.position.needsUpdate = true; ffGeo.attributes.color.needsUpdate = true;
+  });
+
+  /* ---------- 斜方位之間的小樹與海邊花叢 ---------- */
+  const trunkGeo = new THREE.CylinderGeometry(0.06, 0.1, 0.5, 8);
+  for (let i = 0; i < 8; i++) {
+    const [dx, dz] = dirVec(22.5 + i * 45), r = 7.35 + (i % 2) * 0.3, x = dx * r, z = dz * r;
+    const g = new THREE.Group(); g.position.set(x, ground(x, z) - 0.03, z); g.scale.setScalar(0.72); g.rotation.y = rnd() * 6.28; scene.add(g);
+    const m = M([0xff9ccb, 0xd4b3ff, 0xffb8dc, 0xa8ecd2][i % 4]);
+    const tr = new THREE.Mesh(trunkGeo, M(0xd9a98a)); tr.position.y = 0.25; g.add(tr);
+    [[0, 0.72, 0, 0.36], [0.22, 0.56, 0.1, 0.26], [-0.2, 0.58, -0.06, 0.25]].forEach(([a, b, c, s]) => { const ball = new THREE.Mesh(GEO.ball, m); ball.position.set(a, b, c); ball.scale.setScalar(s); g.add(ball); });
+  }
+  for (let i = 0; i < 26; i++) {
+    const a = rnd() * Math.PI * 2, r = 7.9 + rnd() * 0.4, x = Math.cos(a) * r, z = Math.sin(a) * r, h = islandHeight(x, z);
+    if (h < 0.05) continue;
+    part(scene, "ball", [0xff9ccb, 0xffffff, 0xffe27a, 0xd4b3ff][i % 4], x, h + 0.05, z, 0.1);
+  }
+
+  /* ============================================================
+     海上：小船一直在；鯨魚和貝殼輪流出現
+     ============================================================ */
+  // 超夢幻小船
+  const boat = new THREE.Group(); scene.add(boat);
+  const hull = part(boat, "ball", 0xff8fc2, 0, 0.04, 0, 0.95, 0.38, 0.5);
+  part(boat, "ball", 0xfff3ea, 0, 0.2, 0, 0.82, 0.12, 0.4);
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(1, 0.06, 6, 32), M(0xffd84d)); rim.rotation.x = Math.PI / 2; rim.scale.set(0.93, 0.5, 1); rim.position.y = 0.22; boat.add(rim);
+  part(boat, "cyl", 0xd9a98a, 0, 0.95, 0, 0.035, 1.5, 0.035);
+  const sail = new THREE.Mesh(heartGeo, M(0xffffff)); sail.scale.set(0.95, 0.95, 0.35); sail.position.set(0.02, 1.0, 0); boat.add(sail);
+  const sailHeart = new THREE.Mesh(heartGeo, M(0xff6fae)); sailHeart.scale.set(0.35, 0.35, 0.5); sailHeart.position.set(0.02, 1.0, 0); boat.add(sailHeart);
+  const pennant = part(boat, "cone", 0xb79cff, 0.12, 1.72, 0, 0.07, 0.24, 0.02); pennant.rotation.z = -Math.PI / 2;
+  ticks.push((t) => {
+    const k = reduceMotion ? 0.8 : t, a = k * 0.06, R = 12.2;
+    boat.position.set(Math.cos(a) * R, 0.02 + Math.sin(k * 1.3) * 0.05, Math.sin(a) * R);
+    boat.rotation.set(0, -a - Math.PI / 2, reduceMotion ? 0 : Math.sin(k * 1.1) * 0.07);
+    pennant.rotation.x = reduceMotion ? 0 : Math.sin(k * 6) * 0.3;
+  });
+
+  // 超可愛小鯨魚
+  const whale = new THREE.Group(); whale.visible = false; scene.add(whale);
+  const wBody = new THREE.Group(); whale.add(wBody);
+  part(wBody, "ball", 0x8ccfff, 0, 0, 0, 1.15, 0.78, 0.82);
+  part(wBody, "ball", 0xeaf7ff, 0.35, -0.28, 0, 0.75, 0.42, 0.62);
+  [-1, 1].forEach((s) => {
+    part(wBody, "ball", 0x4a2260, 0.78, 0.18, s * 0.5, 0.07, 0.09, 0.07);
+    part(wBody, "ball", 0xffffff, 0.81, 0.21, s * 0.53, 0.025);
+    part(wBody, "ball", 0xffb3d1, 0.8, -0.02, s * 0.6, 0.12, 0.06, 0.06);
+    const fin = part(wBody, "ball", 0x7cc3fa, 0.2, -0.35, s * 0.75, 0.32, 0.08, 0.18); fin.rotation.x = s * 0.6;
+  });
+  const tail = new THREE.Group(); tail.position.set(-1.05, 0.15, 0); wBody.add(tail);
+  part(tail, "ball", 0x8ccfff, -0.2, 0.05, 0, 0.32, 0.22, 0.24);
+  [-1, 1].forEach((s) => { const f = part(tail, "ball", 0x7cc3fa, -0.48, 0.28, s * 0.28, 0.3, 0.07, 0.2); f.rotation.x = s * 0.5; f.rotation.z = 0.5; });
+  const spout = []; for (let i = 0; i < 6; i++) { const h = new THREE.Mesh(heartGeo, new THREE.MeshLambertMaterial({ color: i % 2 ? 0xffb3d1 : 0xc9f1ff, transparent: true })); h.visible = false; whale.add(h); spout.push(h); }
+  const water = part(whale, "cone", 0xe6f9ff, 0.25, 0.9, 0, 0.18, 0.7, 0.18, { transparent: true, opacity: 0 });
+
+  // 維納斯貝殼與珍珠
+  function shellHalf(hex) {
+    const g = new THREE.SphereGeometry(1, 48, 10, 0, Math.PI, 0, Math.PI / 2), p = g.attributes.position;
+    for (let i = 0; i < p.count; i++) {
+      const x = p.getX(i), y = p.getY(i), z = p.getZ(i), az = Math.atan2(z, -x), rib = 1 + 0.06 * Math.cos(az * 15);
+      p.setXYZ(i, x * rib, y * 0.36, z * rib);
+    }
+    g.computeVertexNormals();
+    return new THREE.Mesh(g, M(hex, { side: THREE.DoubleSide }));
+  }
+  const shell = new THREE.Group(); shell.visible = false; scene.add(shell);
+  part(shell, "ball", 0xffe6b0, 0, -0.18, 0.4, 1.5, 0.3, 1.25);                               // 小沙洲
+  const lower = shellHalf(0xffbcd8); lower.scale.y = -1; lower.position.y = 0.12; shell.add(lower);
+  const lid = new THREE.Group(); lid.position.y = 0.12; shell.add(lid);
+  lid.add(shellHalf(0xffa9cf));
+  const pearl = part(shell, "ball", 0xffffff, 0, 0.24, 0.42, 0.2, 0.2, 0.2, { emissive: 0xffd6ec });
+  const pearlGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("rgba(255,255,255,1)", "rgba(255,190,225,.6)"), transparent: true, depthWrite: false, fog: false }));
+  pearlGlow.position.copy(pearl.position); shell.add(pearlGlow);
+  const shellSparkles = []; for (let i = 0; i < 5; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("rgba(255,255,255,1)", "rgba(255,240,180,.7)"), transparent: true, depthWrite: false, fog: false })); s.visible = false; shell.add(s); shellSparkles.push(s); }
+
+  // 輪流出現的排程：鯨魚 12 秒 → 休息 2 秒 → 貝殼 12 秒 → 休息 2 秒
+  const EVENT = 12, GAP = 2;
+  let who = "whale", start = 1.5, ang = 0.9;
+  const ease = (x) => x * x * (3 - 2 * x);
+  function placeAround(obj, r) {
+    // 避開小船目前所在的位置
+    const boatA = Math.atan2(boat.position.z, boat.position.x);
+    let a = 0; for (let tries = 0; tries < 10; tries++) { a = Math.random() * Math.PI * 2; const d = Math.abs(((a - boatA + Math.PI * 3) % (Math.PI * 2)) - Math.PI); if (d > 1.1) break; }
+    obj.position.set(Math.cos(a) * r, 0, Math.sin(a) * r); return a;
+  }
+  ticks.push((t) => {
+    if (reduceMotion) { // 不播放動畫時：鯨魚和貝殼都靜靜待在海上
+      if (!whale.visible) { whale.visible = shell.visible = true; whale.position.set(-11.5, 0.05, 5); whale.rotation.y = 0.6; shell.position.set(9.6, 0, 5.4); shell.rotation.y = -2.2; lid.rotation.x = -0.75; pearlGlow.scale.setScalar(1.4); }
+      return;
+    }
+    const e = t - start;
+    if (e < 0) return;
+    if (who === "whale") {
+      if (!whale.visible) { whale.visible = true; ang = placeAround(whale, 11.2 + Math.random() * 2.5); whale.rotation.y = -ang - Math.PI / 2 + (Math.random() < 0.5 ? 0 : Math.PI); }
+      const rise = Math.min(1, e / 1.6), dive = Math.max(0, (e - (EVENT - 1.8)) / 1.8);
+      whale.position.y = -1.3 + 1.32 * ease(rise) - 1.6 * ease(dive);
+      wBody.rotation.z = -0.25 * (1 - ease(rise)) + 0.45 * ease(dive) + Math.sin(e * 1.6) * 0.04;
+      tail.rotation.z = Math.sin(e * 2.6) * 0.25;
+      whale.translateX(0.004);
+      // 噴出愛心水花
+      const sp = (p) => { water.material.opacity = Math.max(0, 0.75 * Math.sin(Math.min(1, p) * Math.PI)); water.scale.y = 0.4 + p * 1.0; };
+      const s1 = e - 2.4, s2 = e - 6.2, sNow = s1 >= 0 && s1 < 1.8 ? s1 : s2 >= 0 && s2 < 1.8 ? s2 : -1;
+      if (sNow >= 0) sp(sNow / 0.9); else water.material.opacity = 0;
+      spout.forEach((h, i) => {
+        const p = sNow < 0 ? -1 : sNow / 1.8 - i * 0.08;
+        h.visible = p > 0 && p < 1;
+        if (!h.visible) return;
+        const side = (i % 3 - 1) * 0.35;
+        h.position.set(0.25 + side * p, 1.0 + p * 1.7, (i % 2 ? 1 : -1) * 0.25 * p);
+        h.scale.setScalar(0.18 + 0.12 * Math.sin(p * Math.PI)); h.rotation.y = e * 3 + i;
+        h.material.opacity = 1 - p * p;
+      });
+      if (e > EVENT) { whale.visible = false; spout.forEach((h) => { h.visible = false; }); who = "shell"; start = t + GAP; }
+    } else {
+      if (!shell.visible) { shell.visible = true; ang = placeAround(shell, 10.3); shell.rotation.y = Math.PI / 2 - ang; } // 貝殼開口朝向外海
+      const rise = Math.min(1, e / 1.5), sink = Math.max(0, (e - (EVENT - 1.5)) / 1.5);
+      shell.position.y = -0.9 + 0.95 * ease(rise) - 0.95 * ease(sink);
+      const open = e < 1.8 ? 0 : e < 3.3 ? ease((e - 1.8) / 1.5) : e < EVENT - 3.2 ? 1 : Math.max(0, 1 - ease((e - (EVENT - 3.2)) / 1.5));
+      lid.rotation.x = -0.85 * open;
+      const glow = open * (0.85 + 0.15 * Math.sin(e * 3));
+      pearlGlow.scale.setScalar(0.2 + glow * 1.5); pearlGlow.material.opacity = glow;
+      pearl.material.emissiveIntensity = 0.3 + glow * 0.7;
+      shellSparkles.forEach((s, i) => {
+        const p = ((e * 0.5 + i / 5) % 1);
+        s.visible = open > 0.6;
+        s.position.set(Math.cos(i * 1.3 + e) * 0.5, 0.45 + p * 1.2, 0.42 + Math.sin(i * 1.7 + e) * 0.4);
+        s.scale.setScalar(0.25 * Math.sin(p * Math.PI)); s.material.opacity = Math.sin(p * Math.PI);
+      });
+      if (e > EVENT) { shell.visible = false; who = "whale"; start = t + GAP; }
+    }
+  });
+
+  /* ---------- 雲與閃亮亮的星星（和粉彩地形島一樣） ---------- */
+  const clouds = [];
+  for (let i = 0; i < 6; i++) {
+    const g = new THREE.Group(); g.scale.setScalar(0.9 + rnd() * 0.7); scene.add(g);
+    [[0, 0, 0, 1], [0.9, -0.1, 0.1, 0.72], [-0.9, -0.12, -0.1, 0.68], [0.3, 0.38, -0.1, 0.7], [-0.35, 0.3, 0.2, 0.6]].forEach(([x, y, z, r]) => {
+      const b = new THREE.Mesh(GEO.ball, M(0xffffff, { fog: false })); b.position.set(x, y, z); b.scale.set(r, r * 0.78, r); g.add(b);
+    });
+    clouds.push({ g, a: i * 1.05 + rnd(), rad: 14 + rnd() * 7, y: 7 + rnd() * 3.5, sp: 0.02 + rnd() * 0.025 });
+  }
+  ticks.push((t) => clouds.forEach((c) => { const a = c.a + (reduceMotion ? 0 : t * c.sp); c.g.position.set(Math.cos(a) * c.rad, c.y, Math.sin(a) * c.rad); }));
+  const sc = document.createElement("canvas"); sc.width = sc.height = 64;
+  const sx = sc.getContext("2d"), gr = sx.createRadialGradient(32, 32, 0, 32, 32, 30);
+  gr.addColorStop(0, "rgba(255,255,255,.9)"); gr.addColorStop(1, "rgba(255,255,255,0)"); sx.fillStyle = gr; sx.fillRect(0, 0, 64, 64);
+  sx.fillStyle = "#fff"; sx.beginPath(); sx.moveTo(32, 2); sx.quadraticCurveTo(35, 29, 62, 32); sx.quadraticCurveTo(35, 35, 32, 62); sx.quadraticCurveTo(29, 35, 2, 32); sx.quadraticCurveTo(29, 29, 32, 2); sx.fill();
+  const SP = 120, spPos = new Float32Array(SP * 3), spCol = new Float32Array(SP * 3), spHex = [0xffffff, 0xfff3a0, 0xffc4e2, 0xd9c8ff];
+  for (let i = 0; i < SP; i++) { const a = rnd() * 6.283, r = 5 + rnd() * 14; spPos.set([Math.cos(a) * r, 1.6 + rnd() * 9, Math.sin(a) * r], i * 3); col.setHex(spHex[i % 4]); spCol.set([col.r, col.g, col.b], i * 3); }
+  const spGeo = new THREE.BufferGeometry(); spGeo.setAttribute("position", new THREE.BufferAttribute(spPos, 3)); spGeo.setAttribute("color", new THREE.BufferAttribute(spCol, 3));
+  const spMat = new THREE.PointsMaterial({ map: new THREE.CanvasTexture(sc), size: 0.6, transparent: true, depthWrite: false, vertexColors: true, fog: false });
+  const sparkles = new THREE.Points(spGeo, spMat); scene.add(sparkles);
+  ticks.push((t) => { if (!reduceMotion) { sparkles.rotation.y = t * 0.03; spMat.size = 0.6 + 0.14 * Math.sin(t * 2.2); } });
+
+  /* ---------- 鏡頭：拖曳旋轉、滾輪或雙指縮放 ---------- */
+  const cam = { theta: 0.55, phi: 0.98, radius: 27, ty: 1.6 }, goal = Object.assign({}, cam);
+  let aspect = 1;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const pts = new Map(); let pinch = 0, lastTouch = -10;
+  canvas.addEventListener("pointerdown", (e) => { pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); pinch = 0; lastTouch = clock.elapsedTime; try { canvas.setPointerCapture(e.pointerId); } catch (err) {} });
+  canvas.addEventListener("pointermove", (e) => {
+    const p = pts.get(e.pointerId); if (!p) return;
+    const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+    if (pts.size === 1) { goal.theta -= dx * 0.006; goal.phi = clamp(goal.phi - dy * 0.005, 0.3, 1.42); }
+    else if (pts.size === 2) { const [a, b] = [...pts.values()], d = Math.hypot(a.x - b.x, a.y - b.y); if (pinch) goal.radius = clamp(goal.radius * pinch / d, 8, 46); pinch = d; }
+    lastTouch = clock.elapsedTime;
+  });
+  const release = (e) => { pts.delete(e.pointerId); pinch = 0; };
+  canvas.addEventListener("pointerup", release); canvas.addEventListener("pointercancel", release);
+  canvas.addEventListener("wheel", (e) => { e.preventDefault(); goal.radius = clamp(goal.radius * Math.exp(e.deltaY * 0.0011), 8, 46); }, { passive: false });
+  function resize() { const w = stage.clientWidth || 1, h = stage.clientHeight || 1; renderer.setSize(w, h, false); aspect = w / h; camera.aspect = aspect; camera.updateProjectionMatrix(); }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(stage); else window.addEventListener("resize", resize);
+  resize();
+
+  const clock = new THREE.Clock(); let time = 0;
+  function frame() {
+    const dt = Math.min(0.1, clock.getDelta()); time = clock.elapsedTime;   // 用真實經過的時間，電腦比較慢時節奏也不會變慢
+    // 放手幾秒後，島會自己慢慢轉
+    if (!reduceMotion && pts.size === 0 && time - lastTouch > 4) goal.theta += dt * 0.08;
+    for (const f of ticks) f(time, dt);
+    const k = 1 - Math.exp(-dt * 4);
+    for (const key in cam) cam[key] += (goal[key] - cam[key]) * k;
+    const fit = aspect < 1 ? Math.min(1.8, 1 / aspect) : 1, r = cam.radius * fit, s = Math.sin(cam.phi);
+    camera.position.set(r * s * Math.sin(cam.theta), cam.ty + r * Math.cos(cam.phi), r * s * Math.cos(cam.theta));
+    camera.lookAt(0, cam.ty, 0);
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+try {
+  if (!window.THREE) throw new Error("three.js 未載入");
+  init3D();
+} catch (err) {
+  console.error(err);
+  $("fallback").hidden = false;
+}
+</script>
+</body>
+</html>

@@ -306,6 +306,15 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
   .opt.wrong{animation:none}
 }
 </style>
+<style>
+.to-map{position:absolute;right:16px;top:16px;z-index:15;display:flex;align-items:center;gap:6px;padding:7px 15px 7px 11px;border-radius:999px;
+  background:rgba(255,255,255,.86);border:2.5px solid #fff;box-shadow:0 3px 0 rgba(183,156,255,.45);
+  font:700 .92rem/1 "Noto Sans TC",system-ui,sans-serif;color:#7a4f9a;text-decoration:none;transition:transform .15s,background .15s}
+.to-map:hover{transform:translateY(-2px);background:#fff}
+.to-map:focus-visible{outline:3px solid #ff8fc8;outline-offset:2px}
+.to-map svg{width:18px;height:18px;flex:none}
+@media (max-width:600px){.to-map{top:auto;bottom:12px;right:12px;font-size:.8rem;padding:6px 12px 6px 9px}}
+.to-map{top:70px}@media (max-width:860px){.to-map{top:16px}}@media (max-width:600px){.to-map{top:10px;bottom:auto}}</style>
 </head>
 <body>
 <main class="app">
@@ -346,6 +355,7 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
       <button class="sound" id="sound" type="button" aria-pressed="true">音效：開</button>
     </div>
   </aside>
+<a class="to-map" href="https://kamewa.github.io/island-quiz/map.html" aria-label="回到星願群島地圖"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg>回到地圖</a>
 </main>
 
 <div class="editor" id="editor" role="dialog" aria-modal="true" aria-labelledby="edTitle" hidden>

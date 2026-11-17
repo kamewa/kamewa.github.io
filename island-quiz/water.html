@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>晶泉瀑布島</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 版面：整頁是一座 3D 島；左上角印章、島名、課程標籤。永遠明亮。 */
+:root{
+  color-scheme: light;
+  --plum:#4a2260; --plum-soft:#7a5590; --pink:#ff6fae; --lav:#b79cff;
+  --font-display:"Chiron GoRound TC","Baloo 2","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --font-body:"Chiron GoRound TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font-family:var(--font-body);font-weight:500;color:var(--plum);overflow:hidden;
+  background:linear-gradient(180deg,#b9e8ff 0%,#d4f1ff 24%,#e4dcff 52%,#ffdcef 100%);background-color:#ffdcef;
+}
+.stage{position:relative;height:100%;overflow:hidden}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#scene:active{cursor:grabbing}
+.brand{position:absolute;left:20px;top:16px;right:20px;display:flex;align-items:center;gap:.4em;pointer-events:none;font-size:clamp(1.3rem,3vw,2.4rem)}
+.logo{flex:none;width:1.15em;height:1.15em;display:block}
+.brand h1{
+  margin:0;white-space:nowrap;font-family:var(--font-display);font-weight:900;font-size:1em;line-height:1.15;color:var(--pink);
+  text-shadow:0 2px 0 #fff,2px 0 0 #fff,-2px 0 0 #fff,0 -2px 0 #fff,0 5px 0 rgba(183,156,255,.55)
+}
+.chip{align-self:center;margin-left:.2em;padding:3px 12px;border-radius:999px;background:rgba(255,255,255,.85);font-size:clamp(.75rem,1.2vw,.9rem);font-weight:700;color:var(--plum-soft);white-space:nowrap}
+.tip{position:absolute;left:20px;bottom:14px;margin:0;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.78);font-size:.85rem;font-weight:700;color:var(--plum-soft);pointer-events:none}
+.fallback{position:absolute;left:20px;right:20px;top:50%;padding:14px 18px;border-radius:18px;background:#fff;border:2.5px solid #ff5f8a;font-weight:700}
+@media (max-width:600px){.brand{left:12px;top:10px;flex-wrap:wrap}.tip{display:none}}
+</style>
+<style>
+.to-map{position:absolute;right:16px;top:16px;z-index:15;display:flex;align-items:center;gap:6px;padding:7px 15px 7px 11px;border-radius:999px;
+  background:rgba(255,255,255,.86);border:2.5px solid #fff;box-shadow:0 3px 0 rgba(183,156,255,.45);
+  font:700 .92rem/1 "Noto Sans TC",system-ui,sans-serif;color:#7a4f9a;text-decoration:none;transition:transform .15s,background .15s}
+.to-map:hover{transform:translateY(-2px);background:#fff}
+.to-map:focus-visible{outline:3px solid #ff8fc8;outline-offset:2px}
+.to-map svg{width:18px;height:18px;flex:none}
+@media (max-width:600px){.to-map{top:auto;bottom:12px;right:12px;font-size:.8rem;padding:6px 12px 6px 9px}}
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+  <canvas id="scene" aria-label="晶泉瀑布島：圓錐尖山山頂的火口湖裡有一顆海藍水晶，湖水從缺口傾瀉成瀑布，山腳下是一階一階的水池階梯，還有河流、水庫、湖泊、間歇泉、地下水剖面與河口三角洲"></canvas>
+  <header class="brand">
+    <img class="logo" id="logo" alt="和" width="56" height="56">
+    <h1>晶泉瀑布島</h1>
+    <span class="chip">課程 04｜水文</span>
+  </header>
+  <p class="tip">拖曳旋轉　滾輪或雙指縮放</p>
+  <p class="fallback" id="fallback" hidden>3D 畫面沒有載入成功，請確認網路後重新整理。</p>
+<a class="to-map" href="https://kamewa.github.io/island-quiz/map.html" aria-label="回到星願群島地圖"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg>回到地圖</a>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+"use strict";
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (id) => document.getElementById(id);
+$("logo").src = "data:image/png;base64,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";
+
+const TAU = Math.PI * 2;
+function smooth(a, b, v) { const t = Math.min(1, Math.max(0, (v - a) / (b - a))); return t * t * (3 - 2 * t); }
+const angDiff = (a, b) => { let d = (a - b) % TAU; if (d > Math.PI) d -= TAU; if (d < -Math.PI) d += TAU; return d; };
+
+/* ============================================================
+   島的地形：中央圓錐尖山，山腳以下四層階梯平台，最外圈是沙灘
+   方位（以島中心看出去的角度）：
+     正面 F：棉堡水池階梯（瀑布落下的地方）
+     左前：地下水剖面窗　　後方：河流、水庫、曲流、三角洲
+     右後：間歇泉與小企鵝　右前：湖泊與小水獺
+   ============================================================ */
+const F = 1.07;                                   // 鏡頭一開始看過來的方向
+const Rw = (a) => 10.3 + 0.4 * Math.sin(3 * a + 1.1) + 0.25 * Math.sin(5 * a + 0.2) + 0.15 * Math.sin(8 * a + 2.0);
+const polar = (a, u) => { const r = u * Rw(a); return [Math.cos(a) * r, Math.sin(a) * r]; };
+const B = [0.40, 0.54, 0.69, 0.84], DH = [0.9, 0.9, 0.8, 0.55], W = 0.04;   // 每一階的外緣、落差、坡寬
+const LV = [3.6, 2.7, 1.8, 1.0];                                            // 四層平台的高度（由上而下）
+function terraceH(u) {
+  let h = -0.6 + 1.05 * (1 - smooth(0.9, 1.0, u));
+  for (let k = 0; k < 4; k++) h += DH[k] * (1 - smooth(B[k] - W, B[k], u));
+  return h;
+}
+// 各個景點的位置
+const A_RIVER = 4.08, A_LAKE = 5.85, A_GEYSER = 4.95, A_WIN = 2.57;
+const P_RES = polar(A_RIVER, 0.465), P_LAKE = polar(A_LAKE, 0.615), P_GEY = polar(A_GEYSER, 0.462);
+const radOf = (a) => [Math.cos(a), Math.sin(a)];
+function ellipseE(x, z, c, a, Ar, At) {
+  const [rx, rz] = radOf(a), dx = x - c[0], dz = z - c[1];
+  const dr = dx * rx + dz * rz, dt = -dx * rz + dz * rx;
+  return Math.hypot(dr / Ar, dt / At);
+}
+const RES = { c: P_RES, a: A_RIVER, Ar: 0.42, At: 1.15, level: LV[1] - 0.1 };
+const LAKE = { c: P_LAKE, a: A_LAKE, Ar: 0.55, At: 1.25, level: LV[2] - 0.11 };
+const WIN = { n: radOf(A_WIN), t: [-Math.sin(A_WIN), Math.cos(A_WIN)], D: 6.4, HW: 2.0 };
+
+// 圓錐尖山：剖面（半徑, 高度），由山腳到山頂，最後繞進火口湖
+const CONE = [[3.05, 3.3], [2.6, 4.3], [2.15, 5.6], [1.8, 7.2], [1.55, 8.9], [1.4, 10.4], [1.32, 11.4], [1.27, 11.72], [1.17, 11.8], [1.06, 11.66], [0.95, 11.3], [0.7, 11.12], [0.001, 11.1]];
+const CRATER_LAKE = 11.42;
+function coneR(y) {               // 外坡在高度 y 的半徑
+  if (y <= CONE[0][1]) return CONE[0][0];
+  for (let i = 1; i < 7; i++) if (y <= CONE[i][1]) { const [r0, y0] = CONE[i - 1], [r1, y1] = CONE[i]; return r0 + (r1 - r0) * (y - y0) / (y1 - y0); }
+  return CONE[6][0];
+}
+function coneY(r) {               // 半徑 r 處的山面高度
+  if (r > CONE[0][0]) return -99;
+  if (r < 0.97) return CRATER_LAKE;
+  if (r < 1.27) return 11.72;
+  for (let i = 1; i < 7; i++) if (r >= CONE[i][0]) { const [r0, y0] = CONE[i - 1], [r1, y1] = CONE[i]; return y0 + (y1 - y0) * (r0 - r) / (r0 - r1); }
+  return 11.4;
+}
+
+let SEGS = [];                    // 河道（含三角洲分流）的線段，用來在地面刻出河床
+function polyDist(x, z) {
+  let best = 1e9;
+  for (const s of SEGS) {
+    const dx = s[2] - s[0], dz = s[3] - s[1]; let t = ((x - s[0]) * dx + (z - s[1]) * dz) / (dx * dx + dz * dz || 1);
+    t = t < 0 ? 0 : t > 1 ? 1 : t;
+    const ex = s[0] + dx * t - x, ez = s[1] + dz * t - z, d = ex * ex + ez * ez;
+    if (d < best) best = d;
+  }
+  return Math.sqrt(best);
+}
+
+function info(x, z, noCut) {
+  const r = Math.hypot(x, z), a = Math.atan2(z, x), R = Rw(a), u = r / R;
+  let h = terraceH(u);
+  const sd = angDiff(a, F), dF = Math.abs(sd);
+  // 河口三角洲：沙洲往海裡伸出去
+  const fan = (1 - smooth(0.12, 0.26, Math.abs(angDiff(a, A_RIVER)))) * smooth(0.84, 0.9, u);
+  if (fan > 0) { const target = 0.32 * (1 - smooth(0.95, 1.07, u)) - 0.75 * smooth(1.03, 1.12, u); h += (Math.max(h, target) - h) * fan; }
+  // 第幾層平台
+  let plat = -1;
+  for (let k = 0; k < 4; k++) { const lo = k ? B[k - 1] : 0; if (u >= lo && u <= B[k] - W) plat = k; }
+  let riser = 0, kR = 0, rf = -1;
+  for (let k = 0; k < 4; k++) {
+    const v = 1 - smooth(0, W * 0.75, Math.abs(u - (B[k] - W / 2))); if (v > riser) { riser = v; kR = k; }
+    if (u > B[k] - W - 0.012 && u < B[k] + 0.006) { kR = k; rf = (u - (B[k] - W)) / W; }   // 在坡面上的位置：0 是上緣、1 是下緣
+  }
+  // 棉堡水池：池緣和隔間的小矮牆
+  const pool = 1 - smooth(0.74, 0.86, dF);
+  let lip = 0;
+  if (pool > 0.01 && plat >= 0 && u > 0.27) {
+    const lo = plat ? B[plat - 1] : 0.27, hi = B[plat] - W;
+    const edge = Math.exp(-(((u - (hi - 0.006)) / 0.009) ** 2));
+    const inside = smooth(lo, lo + 0.012, u) * (1 - smooth(hi - 0.012, hi - 0.004, u));
+    const off = plat % 2 ? 0.12 : -0.04;
+    let div = 0;
+    for (const dv of [-0.78, -0.26 + off, 0.26 + off, 0.78]) div = Math.max(div, Math.exp(-((Math.abs(sd - dv) * r / 0.11) ** 2)));
+    lip = 0.13 * Math.max(edge, div * inside) * (1 - smooth(0.8, 0.9, dF));
+    h += lip;
+  }
+  // 河床
+  let chanD = 99;
+  if (Math.abs(angDiff(a, A_RIVER)) < 0.45 && u > 0.25) { chanD = polyDist(x, z); h -= (u > 0.86 ? 0.09 : 0.13) * (1 - smooth(0.12, 0.32, chanD)); }
+  // 水庫與湖泊的凹地
+  const eRes = ellipseE(x, z, RES.c, RES.a, RES.Ar, RES.At); h -= 0.28 * (1 - smooth(0.6, 1.0, eRes));
+  const eLake = ellipseE(x, z, LAKE.c, LAKE.a, LAKE.Ar, LAKE.At); h -= 0.34 * (1 - smooth(0.55, 1.0, eLake));
+  // 間歇泉的泉華丘
+  const dG = Math.hypot(x - P_GEY[0], z - P_GEY[1]);
+  h += 0.3 * Math.exp(-((dG / 0.42) ** 2)) - 0.16 * Math.exp(-((dG / 0.14) ** 2));
+  // 地下水剖面窗：把這一塊切掉，露出地層
+  const s = x * WIN.n[0] + z * WIN.n[1], t = x * WIN.t[0] + z * WIN.t[1];
+  const cut = !noCut && s > WIN.D && Math.abs(t) < WIN.HW;
+  if (cut) h = -3;
+  return { h, u, a, r, sd, dF, plat, riser, kR, rf, pool, lip, chanD, eRes, eLake, dG, fan, cut };
+}
+const ground = (x, z) => Math.max(info(x, z).h, coneY(Math.hypot(x, z)));
+
+function init3D() {
+  const canvas = $("scene"), stage = $("stage");
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0xffdcef, 50, 120);
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 320);
+  const hemi = new THREE.HemisphereLight(0xffffff, 0xd7c8ff, 0.8); scene.add(hemi);
+  const sun = new THREE.DirectionalLight(0xfff4e8, 0.5); sun.position.set(8, 16, 6); scene.add(sun);
+
+  let seed = 4404;
+  const rnd = () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const ticks = [], mats = {};
+  const M = (hex, extra) => {
+    if (extra && extra.transparent) return new THREE.MeshLambertMaterial(Object.assign({ color: hex }, extra));
+    const key = hex + (extra ? JSON.stringify(extra) : "");
+    return mats[key] || (mats[key] = new THREE.MeshLambertMaterial(Object.assign({ color: hex }, extra || {})));
+  };
+  const GEO = { ball: new THREE.SphereGeometry(1, 18, 14), cyl: new THREE.CylinderGeometry(1, 1, 1, 18), cone: new THREE.ConeGeometry(1, 1, 16), box: new THREE.BoxGeometry(1, 1, 1) };
+  function part(p, geo, mat, x, y, z, sx, sy, sz) {
+    const m = new THREE.Mesh(GEO[geo], typeof mat === "number" ? M(mat) : mat); m.position.set(x, y, z);
+    m.scale.set(sx, sy === undefined ? sx : sy, sz === undefined ? sx : sz); p.add(m); return m;
+  }
+  function glowTexture(inner, outer) {
+    const c = document.createElement("canvas"); c.width = c.height = 128;
+    const x = c.getContext("2d"), g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+    g.addColorStop(0, inner); g.addColorStop(0.35, outer); g.addColorStop(1, "rgba(255,255,255,0)");
+    x.fillStyle = g; x.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(c);
+  }
+  const glowSprite = (inner, outer, s) => { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(inner, outer), transparent: true, depthWrite: false, fog: false })); sp.scale.setScalar(s); return sp; };
+  const smileGeo = new THREE.TorusGeometry(1, 0.22, 8, 20, Math.PI);
+  function face(p, z, s, y) {
+    y = y || 0;
+    [-1, 1].forEach((d) => part(p, "ball", 0x4a2260, d * 0.13 * s, y + 0.06 * s, z, 0.045 * s, 0.06 * s, 0.03 * s));
+    [-1, 1].forEach((d) => part(p, "ball", 0xffb3d1, d * 0.22 * s, y - 0.04 * s, z - 0.01 * s, 0.06 * s, 0.035 * s, 0.02 * s));
+    const m = new THREE.Mesh(smileGeo, M(0x4a2260)); m.rotation.z = Math.PI; m.scale.setScalar(0.06 * s); m.position.set(0, y - 0.04 * s, z); p.add(m);
+  }
+  const faceCam = (g) => { g.rotation.y = Math.atan2(camera.position.x - g.position.x, camera.position.z - g.position.z); };
+  const crystalMat = (hex, em, op) => new THREE.MeshPhongMaterial({ color: hex, emissive: em, emissiveIntensity: 0.4, specular: 0xffffff, shininess: 140, flatShading: true, transparent: true, opacity: op || 0.82 });
+
+  /* ---------- 水的材質：會發光、有波光流動 ---------- */
+  const TIME = { value: 0 };
+  const pondMat = (a, b, alpha) => new THREE.ShaderMaterial({
+    uniforms: { uTime: TIME, uA: { value: new THREE.Color(a) }, uB: { value: new THREE.Color(b) }, uAlpha: { value: alpha } },
+    transparent: true, depthWrite: false, side: THREE.DoubleSide,
+    vertexShader: "varying vec3 vW; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }",
+    fragmentShader: [
+      "uniform float uTime; uniform vec3 uA; uniform vec3 uB; uniform float uAlpha; varying vec3 vW;",
+      "void main(){",
+      "  float w1 = sin(vW.x * 3.1 + uTime * 1.3) * sin(vW.z * 2.7 - uTime * 1.1);",
+      "  float w2 = sin((vW.x + vW.z) * 5.3 + uTime * 2.0) * 0.5;",
+      "  float c = smoothstep(0.55, 1.1, w1 + w2);",
+      "  vec3 col = mix(uA, uB, 0.5 + 0.5 * sin(vW.x * 0.9 + vW.z * 0.6 + uTime * 0.5));",
+      "  col = mix(col, vec3(1.0), c * 0.6);",
+      "  gl_FragColor = vec4(col, uAlpha);",
+      "}"].join("\n")
+  });
+  const flowMat = (a, alpha, speed, foam) => new THREE.ShaderMaterial({
+    uniforms: { uTime: TIME, uA: { value: new THREE.Color(a) }, uAlpha: { value: alpha }, uSpeed: { value: speed }, uFoam: { value: foam || 0.15 } },
+    transparent: true, depthWrite: false, side: THREE.DoubleSide,
+    vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+    fragmentShader: [
+      "uniform float uTime; uniform vec3 uA; uniform float uAlpha; uniform float uSpeed; uniform float uFoam; varying vec2 vUv;",
+      "void main(){",
+      "  float s = vUv.y * 2.2 - uTime * uSpeed;",
+      "  float st = 0.5 + 0.5 * sin(s * 6.2832 + sin(vUv.x * 7.0) * 0.6 + vUv.x * 1.3);",
+      "  st = smoothstep(0.55, 1.0, st);",
+      "  float edge = smoothstep(0.0, 0.2, vUv.x) * smoothstep(1.0, 0.8, vUv.x);",
+      "  vec3 col = mix(uA, vec3(1.0), uFoam + st * 0.55);",
+      "  gl_FragColor = vec4(col, uAlpha * (0.45 + 0.55 * edge));",
+      "}"].join("\n")
+  });
+  // 一條水帶：沿著中心線，往 side 方向展開寬度
+  function ribbon(center, side, width, mat) {
+    const n = center.length, pos = new Float32Array(n * 6), uv = new Float32Array(n * 4), idx = [];
+    let L = 0;
+    for (let i = 0; i < n; i++) {
+      if (i) L += center[i].distanceTo(center[i - 1]);
+      const sv = side[i] || side[0], w = Array.isArray(width) ? width[i] : width;
+      for (let s = 0; s < 2; s++) {
+        const k = (i * 2 + s);
+        pos[k * 3] = center[i].x + sv.x * (s - 0.5) * w; pos[k * 3 + 1] = center[i].y + sv.y * (s - 0.5) * w; pos[k * 3 + 2] = center[i].z + sv.z * (s - 0.5) * w;
+        uv[k * 2] = s; uv[k * 2 + 1] = L;
+      }
+      if (i < n - 1) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.BufferAttribute(uv, 2)); g.setIndex(idx);
+    const m = new THREE.Mesh(g, mat); m.renderOrder = 3; scene.add(m); return m;
+  }
+  function ellipseMesh(E, y, mat, shrink) {
+    const [rx, rz] = radOf(E.a), pos = [0 + E.c[0], y, E.c[1]], idx = [], N = 48, k = shrink || 0.93;
+    for (let i = 0; i <= N; i++) {
+      const th = i / N * TAU, dr = Math.cos(th) * E.Ar * k, dt = Math.sin(th) * E.At * k;
+      pos.push(E.c[0] + rx * dr - rz * dt, y, E.c[1] + rz * dr + rx * dt);
+      if (i) idx.push(0, i, i + 1);
+    }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx);
+    const m = new THREE.Mesh(g, mat); m.renderOrder = 2; scene.add(m); return m;
+  }
+
+  /* ---------- 河道：上游溪流 → 水庫 → 水壩 → 曲流 → 三角洲 ---------- */
+  const v3 = (a, u, y) => { const [x, z] = polar(a, u); return new THREE.Vector3(x, y || 0, z); };
+  const riverCtl = [[4.07, 0.285], [4.11, 0.33], [4.05, 0.37], [4.08, 0.405], [4.08, 0.43], [4.08, 0.465], [4.08, 0.50], [4.08, 0.53], [4.11, 0.575], [4.05, 0.625],
+    [4.08, 0.665], [4.08, 0.70], [4.22, 0.712], [4.25, 0.735], [4.08, 0.752], [3.93, 0.768], [3.91, 0.788], [4.06, 0.805], [4.08, 0.83], [4.08, 0.86], [4.08, 0.885]];
+  const riverPts = new THREE.CatmullRomCurve3(riverCtl.map(([a, u]) => v3(a, u))).getSpacedPoints(170);
+  const mouth = riverPts[riverPts.length - 1];
+  const branches = [[3.94, 1.05], [4.08, 1.065], [4.22, 1.05]].map(([a, u], i) => {
+    const end = v3(a, u), mid = v3((a + A_RIVER) / 2 + (i - 1) * 0.02, 0.97);
+    return new THREE.CatmullRomCurve3([mouth.clone(), mid, end]).getSpacedPoints(16);
+  });
+  const toSegs = (pts) => { for (let i = 1; i < pts.length; i++) SEGS.push([pts[i - 1].x, pts[i - 1].z, pts[i].x, pts[i].z]); };
+  toSegs(riverPts); branches.forEach(toSegs);
+
+  /* ---------- 島：一階一階的平台，正面是白色的棉堡水池 ---------- */
+  // 用「一圈一圈」的網格鋪地面，讓每一階的邊緣都順著圓弧，像蛋糕奶油一樣平滑
+  const NA = 440, US = [];
+  for (let u = 0.24; u < 1.3; ) {
+    US.push(u);
+    let near = false; for (let k = 0; k < 4; k++) if (u > B[k] - W - 0.02 && u < B[k] + 0.015) near = true;
+    u += near ? 0.0022 : 0.006;
+  }
+  const NU = US.length, gp = new Float32Array(NA * NU * 3), gi = [];
+  for (let j = 0; j < NU; j++) for (let i = 0; i < NA; i++) {
+    const a = i / NA * TAU, r = US[j] * Rw(a), k = (j * NA + i) * 3;
+    gp[k] = Math.cos(a) * r; gp[k + 2] = Math.sin(a) * r;
+  }
+  for (let j = 0; j < NU - 1; j++) for (let i = 0; i < NA; i++) {
+    const a = j * NA + i, b = j * NA + (i + 1) % NA, c = a + NA, d = b + NA; gi.push(a, b, c, b, d, c);
+  }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.BufferAttribute(gp, 3)); geo.setIndex(gi);
+  const pos = geo.attributes.position, cols = new Float32Array(pos.count * 3), hs = new Float32Array(pos.count);
+  const COL = { sand: 0xfff0c8, wet: 0xffe3b0, rock: [0xe6d8ff, 0xffd6e8, 0xdccbff, 0xffdcef], deep: [0xcdb9ff, 0xffbcd9, 0xc6b2ff, 0xffc4e0], grass: [0xc4f2d6, 0xc9f5b0, 0xb4eedd, 0xd2f7b8], trav: 0xfff4fa, bed: 0xa6e9ff, basin: 0x96e0f7, sinter: 0xfff1f6, marsh: 0xc2f2b8 };
+  const col = new THREE.Color(), tmp = new THREE.Color(), deepSea = new THREE.Color(0x9fe3f4);
+  const mix = (hex, f) => { if (f > 0) col.lerp(tmp.setHex(hex), Math.min(1, f)); };
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), z = pos.getZ(i), I = info(x, z), h = I.h; pos.setY(i, h); hs[i] = h;
+    if (I.u >= 0.835) col.setHex(h < 0.18 ? COL.wet : COL.sand); else col.setHex(COL.grass[Math.max(0, I.plat)]);
+    if (I.rf > -1 && I.u < 0.86) {             // 坡面：上緣奶油白 → 粉彩色 → 下緣稍深，像抹了一層奶油
+      const f = I.rf, cream = 0xfff6fa;
+      if (f < 0) mix(cream, smooth(-0.3, 0, f)); else {
+        col.setHex(cream); mix(COL.rock[I.kR], smooth(0.0, 0.45, f)); mix(COL.deep[I.kR], smooth(0.75, 1.05, f) * 0.55);
+      }
+    }
+    mix(COL.trav, I.pool * (I.plat >= 0 ? 1 : 0.6) * (I.u < 0.86 ? 1 : 0));
+    mix(0xffffff, I.lip / 0.1);
+    if (I.fan > 0.2 && h > 0.02) mix(Math.sin(x * 4.1) * Math.sin(z * 3.7) > 0.25 ? COL.marsh : COL.sand, I.fan);
+    mix(COL.bed, 1 - smooth(0.1, 0.3, I.chanD));
+    mix(COL.basin, 1 - smooth(0.7, 1.0, Math.min(I.eRes, I.eLake)));
+    mix(COL.sinter, Math.exp(-((I.dG / 0.55) ** 2)) * 1.2); mix(0x9fe8ff, Math.exp(-((I.dG / 0.13) ** 2)));
+    if (h < 0) col.lerp(deepSea, Math.min(1, -h / 0.45));
+    cols[i * 3] = col.r; cols[i * 3 + 1] = col.g; cols[i * 3 + 2] = col.b;
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(cols, 3));
+  const src = geo.index.array, keep = [];
+  for (let i = 0; i < src.length; i += 3) if (Math.max(hs[src[i]], hs[src[i + 1]], hs[src[i + 2]]) > -0.5) keep.push(src[i], src[i + 1], src[i + 2]);
+  geo.setIndex(keep); geo.computeVertexNormals();
+  scene.add(new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true })));
+  const sea = new THREE.Mesh(new THREE.CircleGeometry(110, 72), new THREE.MeshBasicMaterial({ color: 0x86e2f4, transparent: true, opacity: 0.82, depthWrite: false }));
+  sea.rotation.x = -Math.PI / 2; sea.renderOrder = 1; scene.add(sea);
+
+  /* ---------- 奶油擠花：每一階上緣一圈圓滾滾的奶油珠 ---------- */
+  const beadList = [];
+  for (let k = 0; k < 4; k++) {
+    const uTop = B[k] - W + 0.004, rr = uTop * 10.3, n = Math.round(TAU * rr / 0.3);
+    for (let i = 0; i < n; i++) {
+      const a = i / n * TAU, [x, z] = polar(a, uTop), I = info(x, z);
+      if (I.cut || I.pool > 0.2 || I.chanD < 0.45 || I.eRes < 1.1 || I.eLake < 1.1 || I.dG < 0.7 || I.h < 0.3) continue;
+      beadList.push([x, I.h + 0.02, z, k, i]);
+    }
+  }
+  const beads = new THREE.InstancedMesh(new THREE.SphereGeometry(0.12, 12, 9), new THREE.MeshLambertMaterial({ color: 0xffffff }), beadList.length);
+  const bd = new THREE.Object3D(), beadCols = [0xfffafc, 0xfff0f6, 0xfffdf4];
+  beadList.forEach(([x, y, z, k, i], n) => {
+    bd.position.set(x, y, z); bd.rotation.y = -Math.atan2(z, x); bd.scale.set(1.05, 0.72, 1.25); bd.updateMatrix();
+    beads.setMatrixAt(n, bd.matrix); beads.setColorAt(n, col.setHex(beadCols[(i + k) % 3]));
+  });
+  scene.add(beads);
+
+  /* ============================================================
+     圓錐尖山＋火口湖＋海藍水晶
+     ============================================================ */
+  const lathe = new THREE.LatheGeometry(CONE.map(([r, y]) => new THREE.Vector2(r, y)), 72);
+  const lp = lathe.attributes.position, lc = new Float32Array(lp.count * 3);
+  const coneCols = [[3.3, 0xcdbdff], [6.0, 0xe2d4ff], [9.0, 0xffcde6], [11.9, 0xfff0f8]];
+  for (let i = 0; i < lp.count; i++) {
+    const x = lp.getX(i), z = lp.getZ(i), r = Math.hypot(x, z), a = Math.atan2(z, x);
+    let y = lp.getY(i);
+    // 火口湖的缺口：湖水從這裡流出去
+    const da = Math.abs(angDiff(a, F));
+    if (y > 11.3 && r > 1.0 && da < 0.2) { y = Math.min(y, 11.33 + smooth(0.1, 0.2, da) * 0.45); lp.setY(i, y); }
+    for (let k = 0; k < coneCols.length; k++) if (y <= coneCols[k][0] || k === coneCols.length - 1) {
+      const [y1, h1] = coneCols[k], [y0, h0] = coneCols[Math.max(0, k - 1)];
+      col.setHex(h0).lerp(tmp.setHex(h1), k ? smooth(y0, y1, y) : 1); break;
+    }
+    col.lerp(tmp.setHex(0xffffff), Math.max(0, Math.sin(a * 13 + y * 0.4)) * 0.18);   // 一道一道淡淡的水痕
+    if (r < 1.12 && y > 10.9) col.setHex(0xbff0ff);
+    lc[i * 3] = col.r; lc[i * 3 + 1] = col.g; lc[i * 3 + 2] = col.b;
+  }
+  lathe.setAttribute("color", new THREE.BufferAttribute(lc, 3)); lathe.computeVertexNormals();
+  scene.add(new THREE.Mesh(lathe, new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide })));
+  const craterLake = new THREE.Mesh(new THREE.CircleGeometry(1.0, 40), pondMat(0x8fe6ff, 0xc9f7ff, 0.9));
+  craterLake.rotation.x = -Math.PI / 2; craterLake.position.y = CRATER_LAKE; craterLake.renderOrder = 2; scene.add(craterLake);
+
+  const aqua = new THREE.Group(); aqua.position.set(0, CRATER_LAKE + 0.78, 0); scene.add(aqua);
+  const aquaMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: TIME }, transparent: true,
+    vertexShader: "varying vec3 vPos; varying vec3 vN; varying vec3 vView; void main(){ vPos = position; vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position, 1.0); vView = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }",
+    fragmentShader: [
+      "uniform float uTime; varying vec3 vPos; varying vec3 vN; varying vec3 vView;",
+      "void main(){",
+      "  float wave = 0.1 * sin(vPos.x * 5.0 + uTime * 1.3) + 0.08 * sin(vPos.z * 4.0 - uTime * 1.0) + 0.05 * sin((vPos.x + vPos.z) * 8.0 + uTime * 2.2);",
+      "  float h = abs(fract(vPos.y * 0.6 - uTime * 0.16 + wave) * 2.0 - 1.0);",
+      "  vec3 c = mix(mix(vec3(0.25, 0.66, 0.98), vec3(0.45, 0.88, 1.0), smoothstep(0.0, 0.6, h)), vec3(0.82, 1.0, 0.98), smoothstep(0.6, 1.0, h));",
+      "  float fres = pow(1.0 - abs(dot(vN, vView)), 2.0);",
+      "  c = mix(c, vec3(1.0), 0.14 + fres * 0.6);",
+      "  gl_FragColor = vec4(c, 0.92);",
+      "}"].join("\n")
+  });
+  const aquaCore = new THREE.Mesh(new THREE.OctahedronGeometry(0.5, 1), aquaMat); aquaCore.scale.set(1, 1.9, 1); aqua.add(aquaCore);
+  const aquaShell = new THREE.Mesh(new THREE.OctahedronGeometry(0.6, 0), new THREE.MeshPhongMaterial({ color: 0xe8fbff, specular: 0xffffff, shininess: 170, flatShading: true, transparent: true, opacity: 0.28, depthWrite: false }));
+  aquaShell.scale.set(1, 1.9, 1); aqua.add(aquaShell);
+  const aquaGlow = glowSprite("rgba(230,252,255,1)", "rgba(110,220,255,.5)", 3.4); aqua.add(aquaGlow);
+  const aquaLight = new THREE.PointLight(0x7fe8ff, 0.9, 9, 2); aqua.add(aquaLight);
+  const aquaBits = [0x9fe8ff, 0xffffff, 0xb8d8ff, 0xc9fff0].map((hex) => { const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.09), crystalMat(hex, hex, 0.95)); aqua.add(m); return m; });
+  ticks.push((t) => {
+    aqua.rotation.y = t * 0.35; aqua.position.y = CRATER_LAKE + 0.78 + Math.sin(t * 1.1) * 0.08;
+    aquaGlow.scale.setScalar(3.2 + Math.sin(t * 1.6) * 0.35);
+    aquaBits.forEach((m, i) => { const a = t * 0.9 + i * Math.PI / 2; m.position.set(Math.cos(a) * 0.95, Math.sin(t * 1.4 + i) * 0.5, Math.sin(a) * 0.95); m.rotation.y = t * 2; });
+  });
+
+  /* ---------- 天使瀑布：從缺口垂直落下，底部散成水霧和小彩虹 ---------- */
+  const fDir = new THREE.Vector3(Math.cos(F), 0, Math.sin(F)), fSide = new THREE.Vector3(-Math.sin(F), 0, Math.cos(F));
+  const fallPts = [], fallW = [];
+  [[0.75, CRATER_LAKE + 0.01], [1.1, CRATER_LAKE], [1.38, 11.32]].forEach(([r, y]) => { fallPts.push(fDir.clone().multiplyScalar(r).setY(y)); fallW.push(0.7); });
+  for (let i = 1; i <= 26; i++) {
+    const y = 11.32 - (11.32 - LV[0] - 0.08) * i / 26, r = Math.max(coneR(y) + 0.24, 1.42 + 0.07 * (11.32 - y));
+    fallPts.push(fDir.clone().multiplyScalar(r).setY(y)); fallW.push(0.75 + 0.55 * i / 26);
+  }
+  ribbon(fallPts, [fSide], fallW, flowMat(0x8fe2ff, 0.9, 1.6, 0.3));
+  ribbon(fallPts.slice(3).map((p) => p.clone().addScaledVector(fDir, 0.05)), [fSide], fallW.slice(3).map((w) => w * 0.45), flowMat(0xffffff, 0.55, 2.3, 0.6));
+  const fallBase = fallPts[fallPts.length - 1];
+  const fallGlow = [];
+  for (let i = 4; i < fallPts.length; i += 5) { const g = glowSprite("rgba(235,252,255,.9)", "rgba(140,225,255,.35)", 1.3); g.position.copy(fallPts[i]).addScaledVector(fDir, 0.1); scene.add(g); fallGlow.push(g); }
+  ticks.push((t) => fallGlow.forEach((g, i) => g.material.opacity = 0.55 + 0.3 * Math.sin(t * 2.2 - i * 0.9)));
+  const mist = glowSprite("rgba(255,255,255,.95)", "rgba(200,245,255,.55)", 2.4); mist.position.copy(fallBase).add(new THREE.Vector3(0, 0.35, 0)); scene.add(mist);
+  const mistRb = new THREE.Group(), mistRbMats = [];
+  [0xff8fb4, 0xffb98a, 0xffe27a, 0x9cf0c4, 0x8fd3ff, 0xc3a6ff].forEach((hex, i) => {
+    const m = new THREE.MeshBasicMaterial({ color: hex, transparent: true, opacity: 0.5, fog: false, depthWrite: false }); mistRbMats.push(m);
+    mistRb.add(new THREE.Mesh(new THREE.TorusGeometry(0.95 - i * 0.07, 0.035, 6, 40, Math.PI), m));
+  });
+  mistRb.position.copy(fallBase).addScaledVector(fDir, 0.55).add(new THREE.Vector3(0, 0.05, 0)); scene.add(mistRb);
+  ticks.push((t) => {
+    mist.scale.setScalar(2.3 + Math.sin(t * 2.3) * 0.25 + Math.sin(t * 5.1) * 0.1);
+    faceCam(mistRb); mistRbMats.forEach((m) => { m.opacity = 0.32 + 0.22 * Math.sin(t * 0.7); });
+  });
+
+  /* ---------- 棉堡水池：四層池子，水從池緣溢出成一道道小簾幕 ---------- */
+  const poolWater = pondMat(0x8fe6ff, 0xd2f8ff, 0.78);
+  for (let k = 0; k < 4; k++) {
+    const NA = 52, NR = 5, P = [], I = [];
+    for (let i = 0; i <= NA; i++) {
+      const sd = -0.78 + 1.56 * i / NA, a = F + sd, R = Rw(a);
+      const rIn = k === 0 ? 2.85 : B[k - 1] * R + 0.05, rOut = (B[k] - W - 0.006) * R;
+      for (let j = 0; j <= NR; j++) { const r = rIn + (rOut - rIn) * j / NR; P.push(Math.cos(a) * r, LV[k] + 0.085, Math.sin(a) * r); }
+    }
+    for (let i = 0; i < NA; i++) for (let j = 0; j < NR; j++) { const a = i * (NR + 1) + j, b = a + NR + 1; I.push(a, b, a + 1, b, b + 1, a + 1); }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(P, 3)); g.setIndex(I);
+    const m = new THREE.Mesh(g, poolWater); m.renderOrder = 2; scene.add(m);
+    // 簾幕：每一格池子的中間溢出一道
+    const off = k % 2 ? 0.12 : -0.04, d1 = -0.26 + off, d2 = 0.26 + off;
+    [(-0.78 + d1) / 2, (d1 + d2) / 2, (d2 + 0.78) / 2].forEach((c) => {
+      const a = F + c, R = Rw(a), rad = new THREE.Vector3(Math.cos(a), 0, Math.sin(a)), side = new THREE.Vector3(-Math.sin(a), 0, Math.cos(a));
+      const pts = [], n = 9, uTop = B[k] - W - 0.006, uBot = B[k] + 0.014;
+      for (let i = 0; i < n; i++) {
+        const u = uTop + (uBot - uTop) * i / (n - 1);
+        let y = i === 0 ? LV[k] + 0.15 : terraceH(u) + 0.07;
+        if (i === n - 1) y = k < 3 ? LV[k + 1] + 0.09 : 0.5;
+        pts.push(rad.clone().multiplyScalar(u * R + 0.05 + Math.sin(i / (n - 1) * Math.PI) * 0.08).setY(y));
+      }
+      ribbon(pts, [side], 0.17 * u2r(a, uTop), flowMat(0xa6eeff, 0.85, 1.4, 0.35));
+    });
+  }
+  function u2r(a, u) { return u * Rw(a); }
+
+  /* ---------- 河流：沿著河道的發光水帶 ---------- */
+  const riverMat = flowMat(0x86dcff, 0.88, 0.9, 0.2), branchMat = flowMat(0x9fe6ff, 0.8, 0.7, 0.25);
+  const sideOf = (pts) => pts.map((p, i) => { const q = pts[Math.min(pts.length - 1, i + 1)], o = pts[Math.max(0, i - 1)]; return new THREE.Vector3(-(q.z - o.z), 0, q.x - o.x).normalize(); });
+  const riverY = riverPts.map((p) => Math.max(0.04, info(p.x, p.z).h + 0.07));
+  let run = [];
+  const flushRun = () => { if (run.length > 1) { const pts = run.map((i) => riverPts[i].clone().setY(riverY[i])); ribbon(pts, sideOf(pts), pts.map((p, j) => 0.4 + (run[j] < 20 ? -0.1 : 0)), riverMat); } run = []; };
+  riverPts.forEach((p, i) => { if (ellipseE(p.x, p.z, RES.c, RES.a, RES.Ar, RES.At) < 0.88) flushRun(); else run.push(i); }); flushRun();
+  branches.forEach((pts) => { const c = pts.map((p) => p.clone().setY(Math.max(0.03, info(p.x, p.z).h + 0.05))); ribbon(c, sideOf(c), 0.2, branchMat); });
+  // 河口：淡水帶著泥沙流進海裡，顏色慢慢變淡
+  const plumeE = { c: polar(A_RIVER, 1.12), a: A_RIVER, Ar: 0.9, At: 1.5 };
+  ellipseMesh(plumeE, 0.02, new THREE.MeshBasicMaterial({ color: 0xd8f5dc, transparent: true, opacity: 0.42, depthWrite: false }), 1);
+  // 上游：小石頭和白色水花
+  const pebble = [0xffffff, 0xffdcef, 0xe3d4ff];
+  for (let i = 4; i < 30; i += 2) {
+    const p = riverPts[i], sv = sideOf([riverPts[i - 1], p, riverPts[i + 1]])[1], s = (i % 4 ? 1 : -1) * (0.2 + rnd() * 0.08);
+    part(scene, "ball", pebble[i % 3], p.x + sv.x * s, info(p.x + sv.x * s, p.z + sv.z * s).h + 0.04, p.z + sv.z * s, 0.07 + rnd() * 0.05, 0.05, 0.08);
+  }
+  const foam = [];
+  for (let i = 0; i < 6; i++) { const sp = glowSprite("rgba(255,255,255,1)", "rgba(230,250,255,.6)", 0.35); const p = riverPts[6 + i * 4]; sp.position.set(p.x, riverY[6 + i * 4] + 0.1, p.z); scene.add(sp); foam.push(sp); }
+  ticks.push((t) => foam.forEach((f, i) => f.scale.setScalar(0.25 + 0.12 * Math.abs(Math.sin(t * 4 + i * 1.7)))));
+
+  /* ---------- 水庫與水壩 ---------- */
+  ellipseMesh(RES, RES.level, pondMat(0x6fd0f5, 0xa6e9ff, 0.85));
+  const damU = 0.508, dam = new THREE.Group(), [dx0, dz0] = polar(A_RIVER, damU);
+  dam.position.set(dx0, LV[1] - 0.1, dz0); dam.rotation.y = -A_RIVER; scene.add(dam);   // 讓水壩的長邊順著等高線
+  part(dam, "box", 0xfff7fb, 0, 0.05, 0, 0.18, 0.5, 1.35);
+  part(dam, "box", 0xffb3d6, 0.0, 0.33, 0, 0.24, 0.07, 1.45);
+  [-0.4, 0, 0.4].forEach((z) => { part(dam, "box", 0x6fd0f5, 0.1, -0.08, z, 0.03, 0.2, 0.2); part(dam, "ball", 0xffffff, 0.1, 0.03, z, 0.02, 0.1, 0.1); });
+  [-0.68, 0.68].forEach((z) => part(dam, "cyl", 0xffd3e6, 0, 0.28, z, 0.1, 0.62, 0.1));
+
+  /* ---------- 湖泊、水晶荷葉與小水獺 ---------- */
+  ellipseMesh(LAKE, LAKE.level, pondMat(0x7fdcf2, 0xc4f6ff, 0.85));
+  const lakeAt = (fr, fs) => { const [rx, rz] = radOf(LAKE.a), dr = fr * LAKE.Ar, dt = fs * LAKE.At; return [LAKE.c[0] + rx * dr - rz * dt, LAKE.c[1] + rz * dr + rx * dt]; };
+  [[0.45, -0.55], [-0.4, -0.25], [0.35, 0.5], [-0.3, 0.62], [0.05, -0.8]].forEach(([fr, fs], i) => {
+    const [x, z] = lakeAt(fr, fs), g = new THREE.Group(); g.position.set(x, LAKE.level + 0.02, z); g.rotation.y = i * 1.3; scene.add(g);
+    part(g, "cyl", 0xa8f0c8, 0, 0, 0, 0.22, 0.025, 0.22);
+    if (i % 2 === 0) {
+      for (let j = 0; j < 5; j++) { const p = part(g, "ball", crystalMat(0xffc4e2, 0xff7aa8, 0.9), Math.cos(j * 1.256) * 0.07, 0.07, Math.sin(j * 1.256) * 0.07, 0.06, 0.09, 0.05); p.rotation.y = -j * 1.256; }
+      part(g, "ball", 0xfff3a0, 0, 0.1, 0, 0.04);
+    }
+  });
+  const otter = new THREE.Group(), ot = new THREE.Group(); otter.add(ot); scene.add(otter);
+  const fur = 0xc99a84, furLt = 0xf4dccb;
+  part(ot, "ball", fur, 0, 0, 0, 0.2, 0.13, 0.34);
+  part(ot, "ball", fur, 0, 0.12, 0.3, 0.16);
+  part(ot, "ball", furLt, 0, 0.08, 0.42, 0.09, 0.065, 0.07);
+  part(ot, "ball", 0x4a2260, 0, 0.12, 0.49, 0.03, 0.025, 0.02);
+  [-1, 1].forEach((d) => {
+    part(ot, "ball", 0x4a2260, d * 0.065, 0.19, 0.42, 0.024, 0.03, 0.02);
+    part(ot, "ball", 0xffa8c8, d * 0.11, 0.1, 0.41, 0.035, 0.022, 0.02);
+    part(ot, "ball", fur, d * 0.12, 0.26, 0.26, 0.045);
+  });
+  const tail = part(ot, "cone", fur, 0, -0.01, -0.42, 0.07, 0.3, 0.07); tail.rotation.x = -Math.PI / 2;
+  const wake = [];
+  for (let i = 0; i < 6; i++) { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("rgba(255,255,255,.9)", "rgba(220,250,255,.45)"), transparent: true, depthWrite: false, fog: false })); scene.add(s); wake.push({ s, life: i / 6, x: 0, z: 0 }); }
+  ticks.push((t, dt) => {
+    const ph = t * 0.32, [x, z] = lakeAt(Math.cos(ph) * 0.55, Math.sin(ph) * 0.55), [x2, z2] = lakeAt(Math.cos(ph + 0.05) * 0.55, Math.sin(ph + 0.05) * 0.55);
+    otter.position.set(x, LAKE.level + 0.05 + Math.sin(t * 2.4) * 0.02, z);
+    otter.rotation.y = Math.atan2(x2 - x, z2 - z); ot.rotation.z = Math.sin(t * 2.4) * 0.08; tail.rotation.y = Math.sin(t * 5) * 0.4;
+    wake.forEach((w) => {
+      w.life += dt * 0.5; if (w.life > 1) { w.life -= 1; w.x = x; w.z = z; }
+      w.s.position.set(w.x, LAKE.level + 0.03, w.z); w.s.scale.setScalar(0.15 + w.life * 0.45); w.s.material.opacity = (1 - w.life) * 0.7;
+    });
+  });
+
+  /* ---------- 間歇泉與小企鵝：每 7 秒「噗」地噴一次 ---------- */
+  const gy = ground(P_GEY[0], P_GEY[1]), gTop = gy + 0.02;
+  const jet = new THREE.Group(); jet.position.set(P_GEY[0], gTop, P_GEY[1]); scene.add(jet);
+  const jetCol = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.17, 1, 14, 1, true).translate(0, 0.5, 0), flowMat(0xbff2ff, 0.85, 3.0, 0.4));
+  jet.add(jetCol);
+  const jetHead = part(jet, "ball", crystalMat(0xe8fbff, 0x7fd8ff, 0.85), 0, 1, 0, 0.26);
+  const bubbles = [0, 1, 2].map((i) => part(jet, "ball", crystalMat(0xd8f8ff, 0x7fd8ff, 0.85), (i - 1) * 0.06, 0, (i % 2) * 0.05, 0.05));
+  const steamMat = [];
+  const steams = [0, 1, 2, 3].map((i) => { const m = new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity: 0, depthWrite: false }); steamMat.push(m); return part(jet, "ball", m, 0, 0, 0, 0.3); });
+  const SPR = 70, sprPos = new Float32Array(SPR * 3), sprCol = new Float32Array(SPR * 3), sprData = [];
+  for (let i = 0; i < SPR; i++) { const th = rnd() * TAU, sp = 0.35 + rnd() * 1.0; sprData.push({ vx: Math.cos(th) * sp, vz: Math.sin(th) * sp, vy: 1.0 + rnd() * 1.6, off: rnd() * 0.9 }); }
+  const sprGeo = new THREE.BufferGeometry(); sprGeo.setAttribute("position", new THREE.BufferAttribute(sprPos, 3)); sprGeo.setAttribute("color", new THREE.BufferAttribute(sprCol, 3));
+  const sprPts = new THREE.Points(sprGeo, new THREE.PointsMaterial({ map: glowTexture("rgba(255,255,255,1)", "rgba(190,240,255,.8)"), size: 0.22, transparent: true, depthWrite: false, vertexColors: true, blending: THREE.AdditiveBlending, fog: false }));
+  sprPts.position.copy(jet.position); scene.add(sprPts);
+  // 小企鵝站在間歇泉旁邊
+  const pengSpot = polar(A_GEYSER + 0.16, 0.452);
+  const peng = new THREE.Group(), pb = new THREE.Group(); peng.add(pb);
+  peng.position.set(pengSpot[0], ground(pengSpot[0], pengSpot[1]) - 0.02, pengSpot[1]); scene.add(peng);
+  part(pb, "ball", 0x6a72bd, 0, 0.36, 0, 0.27, 0.36, 0.25);
+  part(pb, "ball", 0xffffff, 0, 0.32, 0.1, 0.2, 0.28, 0.17);
+  const pEyes = [-1, 1].map((d) => part(pb, "ball", 0x2a1840, d * 0.085, 0.5, 0.215, 0.032, 0.045, 0.02));
+  const pShut = [-1, 1].map((d) => { const m = new THREE.Mesh(smileGeo, M(0x2a1840)); m.scale.setScalar(0.04); m.rotation.z = 0; m.position.set(d * 0.085, 0.49, 0.222); pb.add(m); m.visible = false; return m; });
+  [-1, 1].forEach((d) => part(pb, "ball", 0xffa8c8, d * 0.15, 0.43, 0.19, 0.045, 0.028, 0.02));
+  const beak = part(pb, "cone", 0xffa64d, 0, 0.44, 0.27, 0.05, 0.11, 0.05); beak.rotation.x = Math.PI / 2;
+  const scarf = new THREE.Mesh(new THREE.TorusGeometry(0.21, 0.045, 8, 24), M(0xff8fc2)); scarf.rotation.x = Math.PI / 2; scarf.position.y = 0.3; pb.add(scarf);
+  part(pb, "box", 0xff8fc2, 0.12, 0.2, 0.18, 0.07, 0.16, 0.03);
+  const flips = [-1, 1].map((d) => { const f = new THREE.Group(); f.position.set(d * 0.25, 0.42, 0); pb.add(f); part(f, "ball", 0x5a62ad, 0, -0.14, 0, 0.055, 0.18, 0.1); return f; });
+  [-1, 1].forEach((d) => part(peng, "ball", 0xffa64d, d * 0.09, 0.02, 0.08, 0.08, 0.03, 0.12));
+  const GEY_T = 7;
+  ticks.push((t) => {
+    const c = reduceMotion ? 3.5 : t % GEY_T;
+    // 噴發前：泉口冒泡泡
+    bubbles.forEach((b, i) => { const on = c < 0.9; b.visible = on; b.position.y = on ? ((c * 3 + i * 0.33) % 1) * 0.25 : 0; });
+    // 水柱：0.9 秒噴起，2.5 秒後落下
+    const up = smooth(0.85, 1.2, c) * (1 - smooth(2.4, 3.1, c)), H = 3.2 * up * (1 + 0.05 * Math.sin(t * 20));
+    jetCol.visible = jetHead.visible = up > 0.01; jetCol.scale.set(1, Math.max(0.01, H), 1); jetHead.position.y = H; jetHead.scale.setScalar(0.26 * (0.6 + up * 0.5));
+    for (let i = 0; i < SPR; i++) {
+      const d = sprData[i], life = ((c - 1.0 - d.off) % 0.9 + 0.9) % 0.9, on = c > 1.0 + d.off && c < 3.0;
+      const y = H * 0.95 + d.vy * life - 4.9 * life * life;
+      sprPos[i * 3] = d.vx * life * 1.6; sprPos[i * 3 + 1] = y; sprPos[i * 3 + 2] = d.vz * life * 1.6;
+      const f = on && y > 0 ? 1 : 0; sprCol[i * 3] = 0.85 * f; sprCol[i * 3 + 1] = 0.97 * f; sprCol[i * 3 + 2] = f;
+    }
+    sprGeo.attributes.position.needsUpdate = true; sprGeo.attributes.color.needsUpdate = true;
+    steams.forEach((s, i) => { const q = (c - 1.6 - i * 0.35) / 2.4, on = q > 0 && q < 1; s.visible = on; if (on) { s.position.set(Math.sin(i * 2) * 0.3 * q, 1.2 + q * 2.6, Math.cos(i * 2) * 0.3 * q); s.scale.setScalar(0.3 + q * 0.6); steamMat[i].opacity = Math.sin(q * Math.PI) * 0.55; } });
+    // 小企鵝：被噴到會跳起來、閉眼拍翅膀，之後甩甩身體
+    faceCam(peng);
+    const jump = c > 0.95 && c < 1.4 ? Math.sin((c - 0.95) / 0.45 * Math.PI) * 0.35 : 0;
+    const soaked = c > 0.95 && c < 2.8, shake = c > 2.9 && c < 3.7;
+    pb.position.y = jump;
+    pb.rotation.z = shake ? Math.sin(c * 38) * 0.22 * (1 - smooth(3.3, 3.7, c)) : Math.sin(t * 1.5) * 0.04;
+    const blink = !soaked && (t % 3.3) < 0.12;
+    pEyes.forEach((e) => { e.visible = !soaked && !blink; }); pShut.forEach((e) => { e.visible = soaked || blink; });
+    flips.forEach((f, i) => { const s = i ? -1 : 1; f.rotation.z = s * (soaked ? 0.7 + Math.sin(c * 28) * 0.5 : 0.18 + Math.sin(t * 1.5) * 0.05); });
+  });
+
+  /* ============================================================
+     地下水剖面窗：切開島的一角，看見土壤、含水層、不透水層和岩盤
+     地下水在含水層裡慢慢流動，從岩壁縫隙湧出成為泉水
+     ============================================================ */
+  const panelMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: TIME }, side: THREE.DoubleSide,
+    vertexShader: "attribute float aTop; attribute float aFlow; varying float vY; varying float vTop; varying float vFlow; void main(){ vY = position.y; vTop = aTop; vFlow = aFlow; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+    fragmentShader: [
+      "uniform float uTime; varying float vY; varying float vTop; varying float vFlow;",
+      "void main(){",
+      "  float d = vTop - vY; vec3 col;",
+      "  float grain = fract(sin(dot(floor(vec2(vFlow, vY) * 18.0), vec2(12.9898, 78.233))) * 43758.5453);",
+      "  if (d < 0.07) col = vec3(0.66, 0.94, 0.78);",
+      "  else if (d < 0.38 && vY > 0.55) col = mix(vec3(0.95, 0.78, 0.74), vec3(0.98, 0.86, 0.82), step(0.7, grain));",
+      "  else if (vY > 0.55) {",
+      "    vec3 base = mix(vec3(0.74, 0.9, 1.0), vec3(0.82, 0.93, 1.0), step(0.7, grain));",
+      "    float row = vY * 5.0; float f = fract(vFlow * 1.4 - uTime * 0.35 + floor(row) * 0.37);",
+      "    float dotv = smoothstep(0.14, 0.0, abs(f - 0.5)) * smoothstep(0.42, 0.1, abs(fract(row) - 0.5));",
+      "    col = mix(base, vec3(0.28, 0.62, 1.0), dotv * 0.85);",
+      "    col = mix(col, vec3(0.42, 0.78, 1.0), smoothstep(0.03, 0.0, abs(d - 0.4)));",
+      "  }",
+      "  else if (vY > 0.15) col = mix(vec3(0.8, 0.72, 0.95), vec3(0.86, 0.79, 0.98), step(0.5, fract(vY * 7.0)));",
+      "  else col = mix(vec3(0.64, 0.55, 0.85), vec3(0.95, 0.9, 1.0), step(0.93, grain));",
+      "  gl_FragColor = vec4(col, 1.0);",
+      "}"].join("\n")
+  });
+  const glassMat = new THREE.MeshPhongMaterial({ color: 0xeafcff, specular: 0xffffff, shininess: 160, transparent: true, opacity: 0.16, depthWrite: false, side: THREE.DoubleSide });
+  const frameMat = crystalMat(0xe9fbff, 0x9fe8ff, 0.9);
+  const wn = new THREE.Vector3(WIN.n[0], 0, WIN.n[1]), wt = new THREE.Vector3(WIN.t[0], 0, WIN.t[1]);
+  const at = (s, t) => wn.clone().multiplyScalar(s).addScaledVector(wt, t);
+  const BOT = -1.9;
+  function panel(list, flow, normal) {           // list：沿著切面的一串地面點
+    const P = [], T = [], FL = [], I = [], tops = [];
+    list.forEach((p, i) => {
+      const top = Math.max(info(p.x, p.z, true).h, BOT + 0.05); tops.push(p.clone().setY(top));
+      P.push(p.x, top, p.z, p.x, BOT, p.z); T.push(top, top); FL.push(flow[i], flow[i]);
+      if (i) { const a = (i - 1) * 2; I.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    });
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(P, 3)); g.setAttribute("aTop", new THREE.Float32BufferAttribute(T, 1)); g.setAttribute("aFlow", new THREE.Float32BufferAttribute(FL, 1)); g.setIndex(I);
+    scene.add(new THREE.Mesh(g, panelMat));
+    const glass = new THREE.Mesh(g.clone(), glassMat); glass.position.addScaledVector(normal, 0.05); glass.renderOrder = 4; scene.add(glass);
+    const top = tops.filter((p) => p.y > -0.2).map((p) => p.clone().addScaledVector(normal, 0.05));
+    if (top.length > 1) scene.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(top), top.length * 2, 0.045, 6), frameMat));
+    return tops;
+  }
+  const S0 = WIN.D + 0.15, T0 = WIN.HW - 0.15, SPRING_T = 0.7;
+  const front = [], frontFlow = [];
+  for (let i = 0; i <= 40; i++) { const t = -T0 + 2 * T0 * i / 40; front.push(at(S0, t)); frontFlow.push(-Math.abs(t - SPRING_T)); }
+  const frontTops = panel(front, frontFlow, wn);
+  [-1, 1].forEach((sgn) => {
+    const list = [], flow = [];
+    for (let s = S0; s < S0 + 6; s += 0.1) { const p = at(s, sgn * T0); list.push(p); flow.push(s); if (info(p.x, p.z, true).h < -0.25) break; }
+    panel(list, flow, wt.clone().multiplyScalar(-sgn));
+    const c = list[0], post = part(scene, "cyl", frameMat, c.x, (BOT + frontTops[sgn < 0 ? 0 : frontTops.length - 1].y) / 2 + 0.02, c.z, 0.06, frontTops[0].y - BOT, 0.06);
+    post.position.addScaledVector(wn, 0.05).addScaledVector(wt, -sgn * 0.05);
+  });
+  // 泉水：從岩壁縫隙湧出
+  const sp0 = at(S0 + 0.02, SPRING_T).setY(0.85);
+  const springPts = [sp0, at(S0 + 0.2, SPRING_T).setY(0.8), at(S0 + 0.42, SPRING_T).setY(0.5), at(S0 + 0.58, SPRING_T).setY(0.02)];
+  ribbon(springPts, [wt], [0.16, 0.2, 0.24, 0.28], flowMat(0x8fe2ff, 0.9, 1.4, 0.35));
+  const springRing = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.035, 8, 20), crystalMat(0xffffff, 0x7fd8ff, 0.95));
+  springRing.position.copy(sp0).addScaledVector(wn, 0.02); springRing.lookAt(springRing.position.clone().add(wn)); scene.add(springRing);
+  const springGlow = glowSprite("rgba(230,252,255,1)", "rgba(120,220,255,.5)", 0.8); springGlow.position.copy(sp0); scene.add(springGlow);
+  const sBub = [0, 1, 2, 3].map((i) => { const s = glowSprite("rgba(255,255,255,1)", "rgba(200,245,255,.6)", 0.15); scene.add(s); return s; });
+  ticks.push((t) => {
+    springGlow.scale.setScalar(0.75 + Math.sin(t * 3) * 0.12);
+    sBub.forEach((s, i) => { const q = (t * 0.7 + i / 4) % 1, p = springPts[3]; s.position.set(p.x + Math.sin(i * 2.1) * 0.2, q * 0.5, p.z + Math.cos(i * 2.1) * 0.2); s.material.opacity = Math.sin(q * Math.PI); });
+  });
+
+  /* ---------- 平台上的小樹和小花 ---------- */
+  const leafCols = [0xffb3d6, 0x9cf0c4, 0xc9b6ff, 0xffd59e];
+  const okSpot = (x, z) => {
+    const I = info(x, z), r = Math.hypot(x, z);
+    if (r < 3.3 || I.plat < 0 || I.riser > 0.05 || I.pool > 0.05 || I.chanD < 0.7 || I.eRes < 1.25 || I.eLake < 1.2 || I.dG < 1.2 || I.fan > 0.1 || I.h < 0.6) return null;
+    const s = x * WIN.n[0] + z * WIN.n[1], t = x * WIN.t[0] + z * WIN.t[1];
+    if (s > WIN.D - 0.6 && Math.abs(t) < WIN.HW + 0.6) return null;
+    if (Math.hypot(x - pengSpot[0], z - pengSpot[1]) < 0.8) return null;
+    return I.h;
+  };
+  let placed = 0;
+  for (let tries = 0; tries < 400 && placed < 24; tries++) {
+    const a = rnd() * TAU, r = 3.4 + rnd() * 5.4, x = Math.cos(a) * r, z = Math.sin(a) * r, h = okSpot(x, z); if (h === null) continue;
+    const g = new THREE.Group(); g.position.set(x, h - 0.03, z); g.scale.setScalar(0.7 + rnd() * 0.4); scene.add(g); placed++;
+    const c = leafCols[placed % 4];
+    part(g, "cyl", 0xd8b4a6, 0, 0.25, 0, 0.07, 0.5, 0.07);
+    part(g, "ball", c, 0, 0.7, 0, 0.34); part(g, "ball", c, 0.2, 0.55, 0.1, 0.24); part(g, "ball", 0xffffff, -0.18, 0.58, -0.06, 0.16);
+  }
+  const FL = 150, flowers = new THREE.InstancedMesh(new THREE.SphereGeometry(0.07, 8, 6), new THREE.MeshLambertMaterial({ color: 0xffffff }), FL), dmy = new THREE.Object3D();
+  const flCols = [0xff8fc2, 0xffffff, 0xfff07a, 0xc3a6ff];
+  let fi = 0;
+  for (let tries = 0; tries < 1500 && fi < FL; tries++) {
+    const a = rnd() * TAU, r = 3.2 + rnd() * 5.8, x = Math.cos(a) * r, z = Math.sin(a) * r, h = okSpot(x, z); if (h === null) continue;
+    dmy.position.set(x, h + 0.04, z); dmy.scale.setScalar(0.7 + rnd() * 0.6); dmy.updateMatrix(); flowers.setMatrixAt(fi, dmy.matrix); flowers.setColorAt(fi, col.setHex(flCols[fi % 4])); fi++;
+  }
+  flowers.count = fi; scene.add(flowers);
+
+  /* ---------- 水滴精靈：一群小水滴順著河流漂到海裡 ---------- */
+  const dropPath = riverPts.map((p, i) => {
+    const e = ellipseE(p.x, p.z, RES.c, RES.a, RES.Ar, RES.At), u = Math.hypot(p.x, p.z) / Rw(Math.atan2(p.z, p.x));
+    const y = e < 0.88 ? RES.level : riverY[i];
+    return p.clone().setY(y + 0.16 + 0.45 * Math.exp(-(((u - damU) / 0.012) ** 2)));
+  }).concat(branches[1].slice(1).map((p) => p.clone().setY(Math.max(0.03, info(p.x, p.z).h + 0.05) + 0.16)));
+  const dropCum = [0]; for (let i = 1; i < dropPath.length; i++) dropCum.push(dropCum[i - 1] + dropPath[i].distanceTo(dropPath[i - 1]));
+  const dropLen = dropCum[dropCum.length - 1];
+  const pathAt = (d) => { let i = 1; while (i < dropCum.length - 1 && dropCum[i] < d) i++; const f = (d - dropCum[i - 1]) / (dropCum[i] - dropCum[i - 1] || 1); return dropPath[i - 1].clone().lerp(dropPath[i], Math.min(1, Math.max(0, f))); };
+  const spriteMat = crystalMat(0xa8ecff, 0x2a8ac0, 0.88);
+  const sprites = [0, 1, 2, 3, 4].map((i) => {
+    const g = new THREE.Group(), b = new THREE.Group(); g.add(b); b.scale.setScalar(0.34);
+    b.add(new THREE.Mesh(new THREE.IcosahedronGeometry(0.44, 1), spriteMat));
+    const tip = new THREE.Mesh(new THREE.ConeGeometry(0.31, 0.64, 10), spriteMat); tip.position.y = 0.5; b.add(tip);
+    part(b, "ball", 0xffffff, -0.17, 0.15, 0.37, 0.06, 0.11, 0.04); face(b, 0.43, 1.7, -0.05);
+    scene.add(g); return { g, b, off: i / 5 };
+  });
+  ticks.push((t) => {
+    sprites.forEach((s, i) => {
+      const q = ((t * 0.9) / dropLen + s.off) % 1, d = q * dropLen, p = pathAt(d);
+      const sink = smooth(0.94, 1.0, q), rise = smooth(0, 0.03, q);
+      s.g.position.copy(p).add(new THREE.Vector3(0, Math.sin(t * 4 + i) * 0.04 - sink * 0.3, 0));
+      s.b.scale.setScalar(0.34 * rise * (1 - sink) + 0.001);
+      faceCam(s.g); s.b.rotation.z = Math.sin(t * 3 + i) * 0.15;
+    });
+  });
+
+  /* ============================================================
+     水循環：海面與湖面的水氣慢慢升上去（蒸發）→ 聚成雲（凝結）
+     → 雲吃飽了就下起水晶雨（降水）→ 雨水流回河流、湖泊和大海
+     ============================================================ */
+  const cloud = new THREE.Group(); scene.add(cloud);
+  const cloudBody = new THREE.Group(); cloud.add(cloudBody);
+  const cloudMat = new THREE.MeshLambertMaterial({ color: 0xffffff, fog: false });
+  [[0, 0, 0, 1.35], [1.2, -0.15, 0.1, 1.0], [-1.2, -0.15, -0.05, 1.0], [0.55, 0.5, -0.15, 0.95], [-0.6, 0.45, 0.1, 0.85], [2.0, -0.3, 0, 0.65], [-2.0, -0.3, 0.05, 0.65]]
+    .forEach(([x, y, z, r]) => part(cloudBody, "ball", cloudMat, x, y, z, r, r * 0.8, r * 0.95));
+  const FZ = 1.22;
+  const cEyes = [-1, 1].map((d) => part(cloudBody, "ball", 0x4a2260, d * 0.3, 0.12, FZ, 0.09, 0.13, 0.06));
+  const cArcs = [-1, 1].map((d) => { const m = new THREE.Mesh(smileGeo, M(0x4a2260)); m.scale.setScalar(0.11); m.position.set(d * 0.3, 0.1, FZ + 0.02); cloudBody.add(m); return m; });
+  const cSquint = [-1, 1].map((d) => { const m = part(cloudBody, "box", 0x4a2260, d * 0.3, 0.1, FZ + 0.02, 0.2, 0.04, 0.03); m.rotation.z = d * 0.35; return m; });
+  const cheekMat = new THREE.MeshLambertMaterial({ color: 0xffa8c8, fog: false });
+  const cheeks = [-1, 1].map((d) => part(cloudBody, "ball", cheekMat, d * 0.56, -0.12, FZ - 0.08, 0.15, 0.09, 0.05));
+  const cSmile = new THREE.Mesh(smileGeo, M(0xd94f7a)); cSmile.rotation.z = Math.PI; cSmile.scale.setScalar(0.15); cSmile.position.set(0, -0.12, FZ + 0.03); cloudBody.add(cSmile);
+  const cO = new THREE.Mesh(new THREE.TorusGeometry(1, 0.35, 8, 20), M(0xd94f7a)); cO.scale.setScalar(0.09); cO.position.set(0, -0.18, FZ + 0.03); cloudBody.add(cO);
+  const cPuff = part(cloudBody, "ball", 0xd94f7a, 0, -0.16, FZ + 0.01, 0.07, 0.04, 0.03);
+  function cloudFace(m) {   // smile 微笑、full 鼓起臉頰憋著、rain 開心地「哇」、wink 眨眼放鬆
+    cEyes[0].visible = m === "smile" || m === "wink"; cEyes[1].visible = m === "smile";
+    cArcs[0].visible = m === "rain"; cArcs[1].visible = m === "rain" || m === "wink";
+    cSquint.forEach((e) => { e.visible = m === "full"; });
+    cSmile.visible = m === "smile" || m === "wink"; cO.visible = m === "rain"; cPuff.visible = m === "full";
+  }
+  const CYC = 15;
+  // 雨滴
+  const rainMat = crystalMat(0x9fdcff, 0x2a6aa0, 0.85), rainGeo = new THREE.IcosahedronGeometry(0.11, 1), rainTip = new THREE.ConeGeometry(0.078, 0.16, 8);
+  const rain = [], splashTex = glowTexture("rgba(255,255,255,1)", "rgba(210,245,255,.7)");
+  for (let i = 0; i < 22; i++) {
+    const g = new THREE.Group(); g.add(new THREE.Mesh(rainGeo, rainMat)); const tp = new THREE.Mesh(rainTip, rainMat); tp.position.y = 0.12; g.add(tp);
+    g.visible = false; scene.add(g);
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: splashTex, transparent: true, depthWrite: false, fog: false })); sp.visible = false; scene.add(sp);
+    rain.push({ g, sp, on: false, land: 0, t: 0 });
+  }
+  let rainTimer = 0;
+  // 蒸發的水氣
+  const EV = 90, evPos = new Float32Array(EV * 3), evCol = new Float32Array(EV * 3), evData = [];
+  const waterSpots = () => {
+    const k = rnd();
+    if (k < 0.55) { const a = rnd() * TAU, r = 10.8 + rnd() * 7; return [Math.cos(a) * r, 0.05, Math.sin(a) * r]; }
+    if (k < 0.7) { const [x, z] = lakeAt((rnd() - 0.5) * 1.2, (rnd() - 0.5) * 1.2); return [x, LAKE.level, z]; }
+    if (k < 0.82) { const [x, z] = polar(F + (rnd() - 0.5) * 1.4, 0.45 + rnd() * 0.35); return [x, ground(x, z), z]; }
+    if (k < 0.9) return [RES.c[0] + (rnd() - 0.5) * 0.6, RES.level, RES.c[1] + (rnd() - 0.5) * 0.6];
+    const a = A_RIVER + (rnd() - 0.5) * 0.4, [x, z] = polar(a, 1.0 + rnd() * 0.25); return [x, 0.05, z];
+  };
+  for (let i = 0; i < EV; i++) evData.push({ o: waterSpots(), dur: 6 + rnd() * 3, off: rnd(), j: [(rnd() - 0.5) * 1.6, (rnd() - 0.5) * 0.6, (rnd() - 0.5) * 1.6] });
+  const evGeo = new THREE.BufferGeometry(); evGeo.setAttribute("position", new THREE.BufferAttribute(evPos, 3)); evGeo.setAttribute("color", new THREE.BufferAttribute(evCol, 3));
+  scene.add(new THREE.Points(evGeo, new THREE.PointsMaterial({ map: glowTexture("rgba(255,255,255,1)", "rgba(170,235,255,.75)"), size: 0.32, transparent: true, depthWrite: false, vertexColors: true, blending: THREE.AdditiveBlending, fog: false })));
+  const cWhite = new THREE.Color(0xffffff), cFull = new THREE.Color(0xdde4ff);
+  let lastFace = "";
+  ticks.push((t, dt) => {
+    const k = reduceMotion ? 2 : t, c = reduceMotion ? 3 : t % CYC;
+    const ca = k * 0.1, cr = 3.4 + Math.sin(k * 0.19) * 1.3;
+    cloud.position.set(Math.cos(ca) * cr, 14.4 + Math.sin(k * 0.6) * 0.2, Math.sin(ca) * cr);
+    faceCam(cloud);
+    // 吸飽水氣：雲慢慢變大、顏色變得有點灰紫；下完雨又變回白白小小的
+    const full = c < 10 ? smooth(0, 10, c) : 1 - smooth(10.5, 14, c);
+    cloudBody.scale.setScalar(1 + 0.32 * full);
+    cloudMat.color.copy(cWhite).lerp(cFull, full);
+    cheeks.forEach((ch) => ch.scale.set(0.15 + full * 0.09, 0.09 + full * 0.06, 0.05));
+    const m = c < 7.5 ? ((t % 4) < 0.15 ? "wink" : "smile") : c < 10 ? "full" : c < 13.5 ? "rain" : "wink";
+    if (m !== lastFace) { cloudFace(m); lastFace = m; }
+    cloudBody.rotation.z = c > 7.5 && c < 10 ? Math.sin(t * 18) * 0.025 : 0;
+    // 蒸發
+    for (let i = 0; i < EV; i++) {
+      const d = evData[i], q = reduceMotion ? d.off : ((t / d.dur + d.off) % 1);
+      if (!reduceMotion && q < dt / d.dur * 1.5) { d.o = waterSpots(); }
+      const e = q * q, tx = cloud.position.x + d.j[0], ty = cloud.position.y - 0.6 + d.j[1], tz = cloud.position.z + d.j[2];
+      evPos[i * 3] = d.o[0] + (tx - d.o[0]) * e + Math.sin(q * 9 + i) * 0.15;
+      evPos[i * 3 + 1] = d.o[1] + (ty - d.o[1]) * q;
+      evPos[i * 3 + 2] = d.o[2] + (tz - d.o[2]) * e + Math.cos(q * 9 + i) * 0.15;
+      const f = Math.sin(q * Math.PI) * 0.9; evCol[i * 3] = 0.72 * f; evCol[i * 3 + 1] = 0.92 * f; evCol[i * 3 + 2] = f;
+    }
+    evGeo.attributes.position.needsUpdate = true; evGeo.attributes.color.needsUpdate = true;
+    if (reduceMotion) return;
+    // 降水：一顆一顆的水晶雨滴落到山上和平台上
+    if (c > 10 && c < 13.4) {
+      rainTimer -= dt;
+      if (rainTimer <= 0) {
+        rainTimer = 0.14; const r = rain.find((d) => !d.on);
+        if (r) {
+          const a = rnd() * TAU, rr = Math.sqrt(rnd()) * 1.9, x = cloud.position.x + Math.cos(a) * rr, z = cloud.position.z + Math.sin(a) * rr * 0.6;
+          r.on = true; r.t = 0; r.g.visible = true; r.g.scale.setScalar(1); r.g.position.set(x, cloud.position.y - 1.0, z); r.land = Math.max(ground(x, z), 0) + 0.08;
+        }
+      }
+    }
+    rain.forEach((r) => {
+      if (!r.on) return;
+      if (r.g.visible) {
+        r.g.position.y -= dt * 7;
+        if (r.g.position.y <= r.land) { r.g.visible = false; r.sp.visible = true; r.sp.position.copy(r.g.position); r.t = 0; }
+      } else {
+        r.t += dt; r.sp.scale.setScalar(0.2 + r.t * 1.4); r.sp.material.opacity = Math.max(0, 1 - r.t / 0.4);
+        if (r.t > 0.4) { r.sp.visible = false; r.on = false; }
+      }
+    });
+  });
+
+  /* ---------- 背景的雲與星星 ---------- */
+  const bgCloudMat = M(0xffffff, { fog: false });
+  const clouds = [];
+  for (let i = 0; i < 5; i++) {
+    const g = new THREE.Group(); g.scale.setScalar(0.9 + rnd() * 0.7); scene.add(g);
+    [[0, 0, 0, 1], [0.9, -0.1, 0.1, 0.72], [-0.9, -0.12, -0.1, 0.68], [0.3, 0.38, -0.1, 0.7]].forEach(([x, y, z, r]) => part(g, "ball", bgCloudMat, x, y, z, r, r * 0.78, r));
+    clouds.push({ g, a: i * 1.25 + rnd(), rad: 21 + rnd() * 6, y: 7 + rnd() * 3, sp: 0.02 + rnd() * 0.02 });
+  }
+  ticks.push((t) => clouds.forEach((c) => { const a = c.a + (reduceMotion ? 0 : t * c.sp); c.g.position.set(Math.cos(a) * c.rad, c.y, Math.sin(a) * c.rad); }));
+  const sc = document.createElement("canvas"); sc.width = sc.height = 64;
+  const sx = sc.getContext("2d"), gr = sx.createRadialGradient(32, 32, 0, 32, 32, 30);
+  gr.addColorStop(0, "rgba(255,255,255,.9)"); gr.addColorStop(1, "rgba(255,255,255,0)"); sx.fillStyle = gr; sx.fillRect(0, 0, 64, 64);
+  sx.fillStyle = "#fff"; sx.beginPath(); sx.moveTo(32, 2); sx.quadraticCurveTo(35, 29, 62, 32); sx.quadraticCurveTo(35, 35, 32, 62); sx.quadraticCurveTo(29, 35, 2, 32); sx.quadraticCurveTo(29, 29, 32, 2); sx.fill();
+  const SP = 110, spPos = new Float32Array(SP * 3), spCol = new Float32Array(SP * 3), spHex = [0xffffff, 0xd2f8ff, 0xffc4e2, 0xd9c8ff];
+  for (let i = 0; i < SP; i++) { const a = rnd() * 6.283, r = 7 + rnd() * 15; spPos.set([Math.cos(a) * r, 1.6 + rnd() * 13, Math.sin(a) * r], i * 3); col.setHex(spHex[i % 4]); spCol.set([col.r, col.g, col.b], i * 3); }
+  const spGeo = new THREE.BufferGeometry(); spGeo.setAttribute("position", new THREE.BufferAttribute(spPos, 3)); spGeo.setAttribute("color", new THREE.BufferAttribute(spCol, 3));
+  const spMat = new THREE.PointsMaterial({ map: new THREE.CanvasTexture(sc), size: 0.6, transparent: true, depthWrite: false, vertexColors: true, fog: false });
+  const sparkles = new THREE.Points(spGeo, spMat); scene.add(sparkles);
+  ticks.push((t) => { if (!reduceMotion) { sparkles.rotation.y = t * 0.03; spMat.size = 0.6 + 0.14 * Math.sin(t * 2.2); } });
+
+  /* ---------- 鏡頭 ---------- */
+  const cam = { theta: 0.5, phi: 1.13, radius: 35, ty: 5.4 }; /*DBG*/ const goal = Object.assign({}, cam);
+  let aspect = 1;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const clock = new THREE.Clock();
+  const pts = new Map(); let pinch = 0, lastTouch = -10;
+  canvas.addEventListener("pointerdown", (e) => { pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); pinch = 0; lastTouch = clock.elapsedTime; try { canvas.setPointerCapture(e.pointerId); } catch (err) {} });
+  canvas.addEventListener("pointermove", (e) => {
+    const p = pts.get(e.pointerId); if (!p) return;
+    const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+    if (pts.size === 1) { goal.theta -= dx * 0.006; goal.phi = clamp(goal.phi - dy * 0.005, 0.3, 1.45); }
+    else if (pts.size === 2) { const [a, b] = [...pts.values()], d = Math.hypot(a.x - b.x, a.y - b.y); if (pinch) goal.radius = clamp(goal.radius * pinch / d, 12, 62); pinch = d; }
+    lastTouch = clock.elapsedTime;
+  });
+  const release = (e) => { pts.delete(e.pointerId); pinch = 0; };
+  canvas.addEventListener("pointerup", release); canvas.addEventListener("pointercancel", release);
+  canvas.addEventListener("wheel", (e) => { e.preventDefault(); goal.radius = clamp(goal.radius * Math.exp(e.deltaY * 0.0011), 12, 62); }, { passive: false });
+  function resize() { const w = stage.clientWidth || 1, h = stage.clientHeight || 1; renderer.setSize(w, h, false); aspect = w / h; camera.aspect = aspect; camera.updateProjectionMatrix(); }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(stage); else window.addEventListener("resize", resize);
+  resize();
+
+  let time = 0;
+  function frame() {
+    const dt = Math.min(0.1, clock.getDelta()); time = clock.elapsedTime;   // 用真實經過的時間，電腦比較慢時節奏也不會變慢
+    if (!reduceMotion && pts.size === 0 && time - lastTouch > 4) goal.theta += dt * 0.07;
+    const k = 1 - Math.exp(-dt * 4);
+    for (const key in cam) cam[key] += (goal[key] - cam[key]) * k;
+    const fit = aspect < 1 ? Math.min(1.8, 1 / aspect) : 1, r = cam.radius * fit, s = Math.sin(cam.phi);
+    camera.position.set(r * s * Math.sin(cam.theta), cam.ty + r * Math.cos(cam.phi), r * s * Math.cos(cam.theta));
+    camera.lookAt(0, cam.ty, 0);
+    TIME.value = reduceMotion ? 3 : time;
+    for (const f of ticks) f(reduceMotion ? 3 : time, dt);
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+try {
+  if (!window.THREE) throw new Error("three.js 未載入");
+  init3D();
+} catch (err) {
+  console.error(err);
+  $("fallback").hidden = false;
+}
+</script>
+</body>
+</html>
