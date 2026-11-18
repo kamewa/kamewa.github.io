@@ -6,8 +6,191 @@
       "name": "粉彩地形島",
       "units": [],
       "practiceCount": 5,
-      "assessments": [],
-      "theme": "地形"
+      "assessments": []
+    },
+    "place": {
+      "name": "星辰尋夢島",
+      "units": [
+        {
+          "category": "通論",
+          "unit": "位置"
+        },
+        {
+          "category": "台灣",
+          "unit": "位置"
+        }
+      ],
+      "practiceCount": 5,
+      "assessments": []
+    },
+    "climate": {
+      "name": "四季魔法島",
+      "units": [
+        {
+          "category": "通論",
+          "unit": "氣候"
+        },
+        {
+          "category": "台灣",
+          "unit": "氣候"
+        }
+      ],
+      "practiceCount": 5,
+      "assessments": []
+    },
+    "water": {
+      "name": "晶泉瀑布島",
+      "units": [
+        {
+          "category": "通論",
+          "unit": "水文"
+        },
+        {
+          "category": "台灣",
+          "unit": "水文"
+        }
+      ],
+      "practiceCount": 5,
+      "assessments": []
+    },
+    "people": {
+      "name": "繁晶慶典島",
+      "units": [
+        {
+          "category": "通論",
+          "unit": "人口"
+        },
+        {
+          "category": "台灣",
+          "unit": "人口"
+        },
+        {
+          "category": "臺灣",
+          "unit": "人口與文化"
+        }
+      ],
+      "practiceCount": 5,
+      "assessments": [
+        {
+          "id": "a9pgg5c",
+          "name": "人口-小試身手",
+          "items": [
+            {
+              "id": "85a2293a-8a23-4b1c-9d13-f4540d509b41",
+              "spot": "none"
+            },
+            {
+              "id": "700e26d9-42a1-4011-9e13-efa2385ac34e",
+              "spot": "none"
+            },
+            {
+              "id": "f308e56b-2b05-4c91-be5f-4114db68a509",
+              "spot": "none"
+            },
+            {
+              "id": "6112d794-c5aa-4752-bbe8-371b87e5ef6c",
+              "spot": "none"
+            },
+            {
+              "id": "7a2af323-b33e-448e-abdf-47ac38bfda76",
+              "spot": "none"
+            },
+            {
+              "id": "b88878ae-2dd0-4f1b-99c0-9e525c44a43f",
+              "spot": "none"
+            },
+            {
+              "id": "929e2b5f-ccb7-4e40-a621-36e590c8feb4",
+              "spot": "none"
+            },
+            {
+              "id": "11686a54-4b01-462f-bffc-a6baab7fe7a3",
+              "spot": "none"
+            },
+            {
+              "id": "302b3fae-33fb-456d-9630-8b4b8ee77b76",
+              "spot": "none"
+            },
+            {
+              "id": "364ca936-4154-4a11-8b07-f58671a686c6",
+              "spot": "none"
+            },
+            {
+              "id": "24cacd1d-5896-4576-b2ff-cd6871bc4f01",
+              "spot": "none"
+            },
+            {
+              "id": "bd09d6e2-4c5b-4774-b77f-6fb3492d8544",
+              "spot": "none"
+            },
+            {
+              "id": "52292efb-fabf-4d3c-83f0-89186cbe05b2",
+              "spot": "none"
+            },
+            {
+              "id": "afa44a04-646f-487b-b555-00be91a994ca",
+              "spot": "none"
+            }
+          ]
+        }
+      ]
+    },
+    "traffic": {
+      "name": "晶軌夢遊島",
+      "units": [
+        {
+          "category": "通論",
+          "unit": "交通"
+        },
+        {
+          "category": "台灣",
+          "unit": "交通"
+        }
+      ],
+      "practiceCount": 5,
+      "assessments": []
+    },
+    "industry": {
+      "name": "糖晶工坊島",
+      "units": [
+        {
+          "category": "通論",
+          "unit": "產業"
+        },
+        {
+          "category": "台灣",
+          "unit": "產業"
+        }
+      ],
+      "practiceCount": 5,
+      "assessments": []
+    },
+    "village": {
+      "name": "晶語童話島",
+      "units": [
+        {
+          "category": "通論",
+          "unit": "聚落"
+        },
+        {
+          "category": "台灣",
+          "unit": "聚落"
+        }
+      ],
+      "practiceCount": 5,
+      "assessments": []
+    },
+    "issue": {
+      "name": "晶願守護島",
+      "units": [],
+      "practiceCount": 5,
+      "assessments": []
+    },
+    "other": {
+      "name": "幻彩祕境島",
+      "units": [],
+      "practiceCount": 5,
+      "assessments": []
     }
   }
 }
