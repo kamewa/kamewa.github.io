@@ -4,7 +4,12 @@
   "islands": {
     "terrain": {
       "name": "粉彩地形島",
-      "units": [],
+      "units": [
+        {
+          "category": "臺灣",
+          "unit": "地形與海域"
+        }
+      ],
       "practiceCount": 5,
       "assessments": []
     },
@@ -16,8 +21,12 @@
           "unit": "位置"
         },
         {
-          "category": "台灣",
+          "category": "臺灣",
           "unit": "位置"
+        },
+        {
+          "category": "臺灣",
+          "unit": "世界中的臺灣"
         }
       ],
       "practiceCount": 5,
@@ -31,7 +40,7 @@
           "unit": "氣候"
         },
         {
-          "category": "台灣",
+          "category": "臺灣",
           "unit": "氣候"
         }
       ],
@@ -46,7 +55,7 @@
           "unit": "水文"
         },
         {
-          "category": "台灣",
+          "category": "臺灣",
           "unit": "水文"
         }
       ],
@@ -61,7 +70,7 @@
           "unit": "人口"
         },
         {
-          "category": "台灣",
+          "category": "臺灣",
           "unit": "人口"
         },
         {
@@ -143,7 +152,7 @@
           "unit": "交通"
         },
         {
-          "category": "台灣",
+          "category": "臺灣",
           "unit": "交通"
         }
       ],
@@ -158,7 +167,7 @@
           "unit": "產業"
         },
         {
-          "category": "台灣",
+          "category": "臺灣",
           "unit": "產業"
         }
       ],
@@ -173,7 +182,7 @@
           "unit": "聚落"
         },
         {
-          "category": "台灣",
+          "category": "臺灣",
           "unit": "聚落"
         }
       ],
