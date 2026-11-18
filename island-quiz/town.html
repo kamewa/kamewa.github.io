@@ -1019,16 +1019,16 @@ const DEMO_BANK = { format: "InteractiveAssessmentQuestionBank", schemaVersion: 
 ] };
 // 網站上還沒有放關卡設定檔時使用的預設值
 const DEFAULT_CONFIG = { format: "StarWishIslandsConfig", version: 1, islands: {
-  place:    { name: "星辰尋夢島", units: [{ category: "通論", unit: "位置" }, { category: "臺灣", unit: "位置" }], practiceCount: 5, assessments: [] },
-  terrain:  { name: "粉彩地形島", units: [{ category: "通論", unit: "地形" }, { category: "臺灣", unit: "地形" }], practiceCount: 5, assessments: [] },
-  climate:  { name: "四季魔法島", units: [{ category: "通論", unit: "氣候" }, { category: "臺灣", unit: "氣候" }], practiceCount: 5, assessments: [] },
-  water:    { name: "晶泉瀑布島", units: [{ category: "通論", unit: "水文" }, { category: "臺灣", unit: "水文" }], practiceCount: 5, assessments: [] },
-  people:   { name: "繁晶慶典島", units: [{ category: "通論", unit: "人口" }, { category: "臺灣", unit: "人口" }], practiceCount: 5, assessments: [] },
-  traffic:  { name: "晶軌夢遊島", units: [{ category: "通論", unit: "交通" }, { category: "臺灣", unit: "交通" }], practiceCount: 5, assessments: [] },
-  industry: { name: "糖晶工坊島", units: [{ category: "通論", unit: "產業" }, { category: "臺灣", unit: "產業" }], practiceCount: 5, assessments: [] },
-  village:  { name: "晶語童話島", units: [{ category: "通論", unit: "聚落" }, { category: "臺灣", unit: "聚落" }], practiceCount: 5, assessments: [] },
-  issue:    { name: "晶願守護島", units: [], practiceCount: 5, assessments: [] },
-  other:    { name: "幻彩祕境島", units: [], practiceCount: 5, assessments: [] }
+  place:    { name: "星辰尋夢島", theme: "位置", units: [], practiceCount: 5, assessments: [] },
+  terrain:  { name: "粉彩地形島", theme: "地形", units: [], practiceCount: 5, assessments: [] },
+  climate:  { name: "四季魔法島", theme: "氣候", units: [], practiceCount: 5, assessments: [] },
+  water:    { name: "晶泉瀑布島", theme: "水文", units: [], practiceCount: 5, assessments: [] },
+  people:   { name: "繁晶慶典島", theme: "人口", units: [], practiceCount: 5, assessments: [] },
+  traffic:  { name: "晶軌夢遊島", theme: "交通", units: [], practiceCount: 5, assessments: [] },
+  industry: { name: "糖晶工坊島", theme: "產業", units: [], practiceCount: 5, assessments: [] },
+  village:  { name: "晶語童話島", theme: "聚落", units: [], practiceCount: 5, assessments: [] },
+  issue:    { name: "晶願守護島", theme: "議題", units: [], practiceCount: 5, assessments: [] },
+  other:    { name: "幻彩祕境島", theme: "其他", units: [], practiceCount: 5, assessments: [] }
 } };
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1075,7 +1075,11 @@ const DIFFS = ["基礎", "進階", "思考", "統整"];
 const RANK = { 記憶: 0, 理解: 0, 應用: 1, 分析: 2, 評鑑: 2, 創造: 3, 記: 0, 理: 0, 應: 1, 分: 2, 評: 2, 創: 3 };
 const PASS_RATE = 0.6; // 答對六成（無條件進位）算過關
 const CONFIG_KEY = "island-quiz-config-draft";
-const LEGACY_CAT = { 世界: "通論", 南美洲: "中南美洲", 極地: "南極洲" };
+const LEGACY_CAT = { 世界: "通論", 南美洲: "中南美洲", 極地: "南極洲", 台灣: "臺灣" };
+const THEMES = ["位置", "地形", "氣候", "水文", "人口", "交通", "產業", "聚落", "議題", "其他"];
+const LEGACY_THEME = { 位置與範圍: "位置", 水文與海岸: "水文" };
+function themeOf(o) { const t = String(o.theme ?? o.topic ?? "").trim(); if (THEMES.includes(t)) return t; const u = String(o.unit || o.chapter || "").trim(); return LEGACY_THEME[u] || (THEMES.includes(u) ? u : ""); }
+
 const clone = (o) => JSON.parse(JSON.stringify(o));
 const esc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
 const newId = () => "a" + Math.random().toString(36).slice(2, 8);
@@ -1105,7 +1109,7 @@ function shapeQuestion(o) {
   if (!(answer >= 0 && answer <= 3)) return null;
   const cat = String(o.category || o.subject || "").trim();
   const levels = o.cognitiveLevels ?? o.cognitiveLevel ?? o.bloom;
-  return { id, stem, options, answer, category: LEGACY_CAT[cat] || cat, unit: String(o.unit || o.chapter || "").trim(),
+  return { id, stem, options, answer, category: LEGACY_CAT[cat] || cat, unit: String(o.unit || o.chapter || "").trim(), theme: themeOf(o),
            levels: Array.isArray(levels) ? levels.map(String) : String(levels || "").split(/[、,，/\s]+/).filter(Boolean),
            diff: difficultyOf(levels), image: safeImage(o.image ?? o.imageUrl), explanation: String(o.explanation ?? o.why ?? "").trim(),
            disabled: Boolean(o.disabled ?? o.inactive) };
@@ -1130,7 +1134,8 @@ function normIsland(raw, fallback) {
       .map((it) => ({ id: String(it.id), spot: SPOT_NAMES[it.spot] ? it.spot : "none" }));
     return { id, name: String(a.name || "評量").slice(0, 30), items };
   });
-  return { name: String(r.name || f.name || "島嶼"), units, practiceCount: count, assessments };
+  const theme = THEMES.includes(r.theme) ? r.theme : (f.theme || "");
+  return { name: String(r.name || f.name || "島嶼"), theme, units, practiceCount: count, assessments };
 }
 function normConfig(raw) {
   if (!raw || typeof raw !== "object" || !raw.islands || typeof raw.islands !== "object") throw new Error("這不是星願群島的關卡設定檔。");
@@ -1148,7 +1153,8 @@ let published = normConfig(DEFAULT_CONFIG), config = clone(published), hasDraft 
 try { const who = JSON.parse(sessionStorage.getItem("island-quiz-session") || "null"), d = localStorage.getItem(CONFIG_KEY); if (d && who && who.role === "teacher") { config = normConfig(JSON.parse(d)); hasDraft = true; } } catch (e) { /* 沒有草稿 */ }
 function saveDraft() { hasDraft = true; try { localStorage.setItem(CONFIG_KEY, exportConfig()); } catch (e) {} }
 const isl = () => config.islands[ISLAND_ID];
-const inIsland = (q) => !q.disabled && isl().units.some((u) => u.category === q.category && u.unit === q.unit);
+// 依評量系統的「主題」抽題；「另外加入的單元」是選用的補充
+const inIsland = (q) => !q.disabled && ((isl().theme && q.theme === isl().theme) || isl().units.some((u) => u.category === q.category && u.unit === q.unit));
 const islandPool = () => bankSrc.list.filter(inIsland);
 const poolOf = (d) => islandPool().filter((q) => q.diff === d);
 const practiceLevels = () => DIFFS.map((name, i) => ({ id: "p" + (i + 1), kind: "practice", name, pool: poolOf(i) }));

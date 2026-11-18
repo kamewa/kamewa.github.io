@@ -4,80 +4,36 @@
   "islands": {
     "terrain": {
       "name": "粉彩地形島",
-      "units": [
-        {
-          "category": "臺灣",
-          "unit": "地形與海域"
-        }
-      ],
+      "theme": "地形",
+      "units": [],
       "practiceCount": 5,
       "assessments": []
     },
     "place": {
       "name": "星辰尋夢島",
-      "units": [
-        {
-          "category": "通論",
-          "unit": "位置"
-        },
-        {
-          "category": "臺灣",
-          "unit": "位置"
-        },
-        {
-          "category": "臺灣",
-          "unit": "世界中的臺灣"
-        }
-      ],
+      "theme": "位置",
+      "units": [],
       "practiceCount": 5,
       "assessments": []
     },
     "climate": {
       "name": "四季魔法島",
-      "units": [
-        {
-          "category": "通論",
-          "unit": "氣候"
-        },
-        {
-          "category": "臺灣",
-          "unit": "氣候"
-        }
-      ],
+      "theme": "氣候",
+      "units": [],
       "practiceCount": 5,
       "assessments": []
     },
     "water": {
       "name": "晶泉瀑布島",
-      "units": [
-        {
-          "category": "通論",
-          "unit": "水文"
-        },
-        {
-          "category": "臺灣",
-          "unit": "水文"
-        }
-      ],
+      "theme": "水文",
+      "units": [],
       "practiceCount": 5,
       "assessments": []
     },
     "people": {
       "name": "繁晶慶典島",
-      "units": [
-        {
-          "category": "通論",
-          "unit": "人口"
-        },
-        {
-          "category": "臺灣",
-          "unit": "人口"
-        },
-        {
-          "category": "臺灣",
-          "unit": "人口與文化"
-        }
-      ],
+      "theme": "人口",
+      "units": [],
       "practiceCount": 5,
       "assessments": [
         {
@@ -146,57 +102,35 @@
     },
     "traffic": {
       "name": "晶軌夢遊島",
-      "units": [
-        {
-          "category": "通論",
-          "unit": "交通"
-        },
-        {
-          "category": "臺灣",
-          "unit": "交通"
-        }
-      ],
+      "theme": "交通",
+      "units": [],
       "practiceCount": 5,
       "assessments": []
     },
     "industry": {
       "name": "糖晶工坊島",
-      "units": [
-        {
-          "category": "通論",
-          "unit": "產業"
-        },
-        {
-          "category": "臺灣",
-          "unit": "產業"
-        }
-      ],
+      "theme": "產業",
+      "units": [],
       "practiceCount": 5,
       "assessments": []
     },
     "village": {
       "name": "晶語童話島",
-      "units": [
-        {
-          "category": "通論",
-          "unit": "聚落"
-        },
-        {
-          "category": "臺灣",
-          "unit": "聚落"
-        }
-      ],
+      "theme": "聚落",
+      "units": [],
       "practiceCount": 5,
       "assessments": []
     },
     "issue": {
       "name": "晶願守護島",
+      "theme": "議題",
       "units": [],
       "practiceCount": 5,
       "assessments": []
     },
     "other": {
       "name": "幻彩祕境島",
+      "theme": "其他",
       "units": [],
       "practiceCount": 5,
       "assessments": []
