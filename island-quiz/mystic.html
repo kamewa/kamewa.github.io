@@ -11,6 +11,310 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
+/* 版面：左邊是 3D 島嶼舞台，右邊（手機在下方）是作答卡。永遠明亮，不跟隨深色模式。 */
+:root{
+  color-scheme: light;
+  --plum:#4a2260;        /* 文字 */
+  --plum-soft:#7a5590;   /* 次要文字 */
+  --pink:#ff6fae;        /* 主色：糖果粉 */
+  --pink-soft:#ffd3e6;
+  --lav:#b79cff;         /* 薰衣草紫 */
+  --lav-soft:#e6dcff;
+  --mint:#63dcb6;        /* 薄荷綠：答對 */
+  --mint-soft:#c8f7e6;
+  --lemon:#ffe27a;       /* 檸檬黃 */
+  --sky:#8fd3ff;         /* 寶寶藍 */
+  --berry:#ff5f8a;       /* 答錯 */
+  --card:#fffafd;
+  --font-display:"Chiron GoRound TC","Baloo 2","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --font-body:"Chiron GoRound TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+
+.app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:0}
+.stage{position:relative;min-height:0;min-width:0;overflow:hidden}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#scene:active{cursor:grabbing}
+
+.brand{position:absolute;left:20px;top:16px;right:20px;display:flex;align-items:center;gap:.4em;pointer-events:none;font-size:clamp(1.3rem,3vw,2.4rem)}
+.logo{flex:none;width:1.15em;height:1.15em;display:block}
+.brand h1{
+  margin:0;white-space:nowrap;font-family:var(--font-display);font-weight:900;font-size:1em;line-height:1.15;color:var(--pink);
+  text-shadow:0 2px 0 #fff,2px 0 0 #fff,-2px 0 0 #fff,0 -2px 0 #fff,0 5px 0 rgba(183,156,255,.55)
+}
+.bchip{align-self:center;margin-left:.2em;padding:3px 12px;border-radius:999px;background:rgba(255,255,255,.85);font-size:clamp(.75rem,1.2vw,.9rem);font-weight:700;color:var(--plum-soft);white-space:nowrap}
+/* 右上角：回到地圖＋名牌，排在 3D 畫面裡，不會蓋到作答卡 */
+.corner{position:absolute;right:16px;top:16px;display:flex;align-items:center;gap:8px;z-index:5}
+.to-map{display:flex;align-items:center;gap:6px;padding:7px 15px 7px 11px;border-radius:999px;background:rgba(255,255,255,.88);border:2.5px solid #fff;
+  box-shadow:0 3px 0 rgba(183,156,255,.45);font:700 .92rem/1 var(--font-body);color:#7a4f9a;text-decoration:none;transition:transform .15s,background .15s}
+.to-map:hover{transform:translateY(-2px);background:#fff}
+.to-map:focus-visible{outline:3px solid #ff8fc8;outline-offset:2px}
+.to-map svg{width:18px;height:18px;flex:none}
+.tip{
+  position:absolute;left:20px;bottom:14px;margin:0;padding:6px 14px;border-radius:999px;
+  background:rgba(255,255,255,.78);font-size:.85rem;font-weight:700;color:var(--plum-soft);pointer-events:none
+}
+.fallback{
+  position:absolute;inset:auto 20px 60px 20px;padding:14px 18px;border-radius:18px;
+  background:#fff;border:2.5px solid var(--berry);font-weight:700
+}
+
+.panel{
+  min-height:0;display:flex;flex-direction:column;gap:14px;padding:18px 18px 18px 6px;overflow-y:auto
+}
+.card{
+  position:relative;background:var(--card);border-radius:28px;padding:22px 20px 20px;
+  border:3px solid #fff;box-shadow:0 0 0 3px var(--pink-soft),0 14px 30px rgba(183,120,220,.28);
+  display:flex;flex-direction:column;gap:14px
+}
+.card::before{ /* 糖果條紋飾帶 */
+  content:"";position:absolute;left:26px;right:26px;top:-3px;height:8px;border-radius:0 0 8px 8px;
+  background:repeating-linear-gradient(90deg,var(--pink) 0 18px,var(--lemon) 18px 36px,var(--mint) 36px 54px,var(--sky) 54px 72px,var(--lav) 72px 90px)
+}
+.progress{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hearts{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0}
+.hearts svg{width:26px;height:26px;display:block}
+.hearts path{fill:#fff;stroke:var(--lav);stroke-width:2.2;transition:fill .3s,stroke .3s}
+.hearts .now path{fill:var(--lemon);stroke:var(--pink)}
+.hearts .ok path{fill:var(--pink);stroke:var(--pink)}
+.hearts .no path{fill:var(--lav-soft);stroke:var(--lav)}
+.count{font-family:var(--font-display);font-weight:800;font-size:.95rem;color:var(--plum-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.card h2{margin:0;font-family:var(--font-display);font-weight:900;font-size:1.35rem;line-height:1.35;text-wrap:balance}
+.card p{margin:0;line-height:1.75;font-size:1rem}
+.question{font-size:1.12rem !important;font-weight:700}
+.lead{color:var(--plum-soft)}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
+.opt{
+  min-height:56px;padding:10px 8px;border-radius:18px;background:#fff;
+  border:2.5px solid var(--lav-soft);font-family:var(--font-display);font-weight:800;font-size:1.15rem;
+  box-shadow:0 4px 0 var(--lav-soft);transition:transform .12s,border-color .12s,box-shadow .12s,background .2s
+}
+.opt:hover:not(:disabled){transform:translateY(-2px);border-color:var(--pink);box-shadow:0 6px 0 var(--pink-soft)}
+.opt:active:not(:disabled){transform:translateY(2px);box-shadow:0 2px 0 var(--pink-soft)}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.right{opacity:1;background:var(--mint-soft);border-color:var(--mint);box-shadow:0 4px 0 var(--mint)}
+.opt.wrong{opacity:1;background:#ffd9e2;border-color:var(--berry);box-shadow:0 4px 0 var(--berry);animation:shake .35s}
+.opt .mark{display:block;font-family:var(--font-body);font-size:.78rem;font-weight:700;margin-top:2px}
+.feedback{border-radius:18px;padding:12px 14px;background:var(--lav-soft);display:flex;flex-direction:column;gap:6px}
+.feedback.good{background:var(--mint-soft)}
+.feedback.bad{background:#ffe1ea}
+.feedback strong{font-family:var(--font-display);font-weight:900;font-size:1.08rem}
+.feedback p{font-size:.97rem}
+.go{
+  align-self:stretch;min-height:54px;border:0;border-radius:999px;padding:10px 22px;
+  font-family:var(--font-display);font-weight:900;font-size:1.15rem;color:#fff;
+  background:linear-gradient(180deg,#ff8fc2,var(--pink));box-shadow:0 5px 0 #e0458f,0 10px 18px rgba(255,111,174,.35);
+  text-shadow:0 1px 0 rgba(160,30,100,.45);transition:transform .12s,box-shadow .12s
+}
+.go:hover{transform:translateY(-2px);box-shadow:0 7px 0 #e0458f,0 12px 20px rgba(255,111,174,.4)}
+.go:active{transform:translateY(3px);box-shadow:0 2px 0 #e0458f}
+.score{font-family:var(--font-display);font-weight:900;font-size:2.6rem;line-height:1;color:var(--pink);font-variant-numeric:tabular-nums}
+.score small{font-size:1.1rem;color:var(--plum-soft)}
+.review{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+.review li{display:flex;gap:8px;align-items:baseline}
+.review b{font-family:var(--font-display);font-weight:900}
+.tag{flex:none;font-size:.78rem;font-weight:700;border-radius:999px;padding:1px 9px}
+.tag.ok{background:var(--mint-soft)}
+.tag.no{background:#ffd9e2}
+.foot{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.sound{
+  border-radius:999px;border:2.5px solid #fff;background:rgba(255,255,255,.75);
+  padding:6px 14px;font-size:.85rem;font-weight:700;color:var(--plum-soft)
+}
+/* ---------- 關卡選單 ---------- */
+.card .lvl-head{font-size:.85rem;font-weight:700;color:var(--plum-soft);line-height:1.4;margin-top:2px}
+.lvls{display:flex;flex-direction:column;gap:8px}
+.lvl{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;text-align:left;padding:9px 14px;border-radius:18px;
+  background:#fff;border:2.5px solid var(--lav-soft);box-shadow:0 4px 0 var(--lav-soft);transition:transform .12s,border-color .12s
+}
+.lvl:hover:not(:disabled){border-color:var(--pink);transform:translateY(-1px)}
+.lvl:disabled{opacity:.55;cursor:default;box-shadow:none}
+.lvl.done{border-color:var(--mint);box-shadow:0 4px 0 var(--mint)}
+.lvl.test{border-color:var(--lemon);box-shadow:0 4px 0 var(--lemon)}
+.lvl-name{font-family:var(--font-display);font-weight:900;font-size:1.1rem}
+.lvl-note{grid-column:1;font-size:.82rem;font-weight:700;color:var(--plum-soft)}
+.lvl-tag{grid-column:2;grid-row:1 / span 2;align-self:center;font-size:.8rem;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--mint-soft);white-space:nowrap}
+.lvl-tag:empty{display:none}
+.card .unlock{align-self:flex-start;font-weight:700;font-size:.95rem;border-radius:999px;padding:4px 14px;background:var(--mint-soft)}
+.qimg{padding:0;border:2.5px solid var(--lav-soft);border-radius:16px;overflow:hidden;background:#fff;cursor:zoom-in}
+.qimg img{display:block;width:100%;max-height:230px;object-fit:contain}
+.zoom{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:rgba(74,34,96,.72);border:0;cursor:zoom-out}
+.zoom[hidden]{display:none}
+.zoom img{max-width:100%;max-height:100%;border-radius:16px;background:#fff}
+/* ---------- 關卡設定（從題庫挑題） ---------- */
+.ed-bank{margin:0;font-size:.88rem;font-weight:700;color:var(--plum);line-height:1.6}
+.ed-note{margin:0;font-size:.82rem;line-height:1.7;color:var(--plum-soft)}
+.ed-list.chosen,.ed-list.pool{flex:none;min-height:0;overflow:visible;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{min-height:34px;padding:4px 12px;border-radius:999px;background:#fff;border:2.5px solid var(--lav-soft);font-weight:700;font-size:.85rem;font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--pink)}
+.chip[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#fff}
+.editor input[type=search]{font:inherit;color:var(--plum);background:#fff;border:2.5px solid var(--lav-soft);border-radius:14px;padding:9px 12px;width:100%}
+.editor select:disabled,.editor input:disabled{opacity:.55}
+.pick-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;border-radius:16px;background:#fff;border:2.5px solid var(--lav-soft)}
+.pick-row.in{border-color:var(--mint);background:#f4fffa}
+.pick-row.bad{border-color:#ffc2d2;background:#fff5f8}
+.pick-main{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pick-stem{font-weight:700;font-size:.93rem;line-height:1.55}
+.pick-opts{font-size:.8rem;line-height:1.5;color:var(--plum)}
+.pick-meta{font-size:.76rem;font-weight:700;color:var(--plum-soft);line-height:1.5}
+.pick-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.editor .pick-tools select{width:auto;padding:5px 8px;font-size:.82rem;border-radius:10px}
+.pick-done{font-size:.8rem;font-weight:700;color:#1f9c72}
+.dtag{display:inline-block;margin-right:6px;padding:0 8px;border-radius:999px;font-size:.74rem;color:#fff}
+.dtag.d0{background:#5fd8aa}.dtag.d1{background:#7cc8ff}.dtag.d2{background:#b08cff}.dtag.d3{background:#ff6fae}
+@media (max-width:860px){.pick-row{grid-template-columns:auto minmax(0,1fr)}.pick-tools{grid-column:1 / -1;justify-content:flex-start}}
+/* ---------- 學生管理 ---------- */
+.ad-body{min-height:0;overflow-y:auto;padding:18px 22px 22px;display:flex;flex-direction:column;gap:14px}
+.ad-body>*{flex-shrink:0}
+.ad-pick{display:flex;align-items:center;gap:10px;font-weight:700}
+.ad-pick select{width:auto;min-width:180px}
+.ad-form{display:grid;grid-template-columns:110px 90px minmax(0,1fr) auto;gap:10px;align-items:end;padding:14px;border-radius:18px;background:#fff3f9}
+.ad-form label,.ed-lab{display:block;font-size:.85rem;font-weight:700;color:var(--plum-soft);margin-bottom:3px}
+.ad-form .mini{min-height:44px}
+.ad-code{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:18px;background:#fff6c9;border:2.5px solid var(--lemon);font-weight:700}
+.ad-code[hidden]{display:none}
+.ad-code strong{font-family:var(--font-display);font-weight:900;font-size:2.2rem;letter-spacing:.08em;font-variant-numeric:tabular-nums;color:var(--pink)}
+.ad-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ad-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:6px 12px;border-radius:16px;background:#fff;border:2.5px solid var(--lav-soft)}
+.ad-row.off{background:#f6f1fa;border-style:dashed}
+.ad-row.off .ad-name{color:var(--plum-soft)}
+.ad-name{font-weight:700}
+.ad-note{font-weight:700;color:var(--plum-soft);padding:8px}
+@media (max-width:860px){.ad-form{grid-template-columns:1fr 1fr}.ad-form .ad-wide{grid-column:1 / -1}}
+/* ---------- 登入 ---------- */
+.login{display:flex;flex-direction:column;gap:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:.88rem;font-weight:700;color:var(--plum-soft)}
+.field input{
+  font:inherit;font-family:var(--font-display);font-weight:800;font-size:1.25rem;letter-spacing:.08em;color:var(--plum);
+  width:100%;min-height:52px;padding:8px 14px;border-radius:16px;background:#fff;border:2.5px solid var(--lav-soft)
+}
+.field input::placeholder{font-weight:500;font-size:.95rem;letter-spacing:0;color:#b9a3c8}
+.field input:focus-visible{outline:3px solid var(--pink);outline-offset:1px}
+.login-msg{min-height:1.4em;font-size:.92rem !important;font-weight:700;color:#c81e5b}
+.go:disabled{opacity:.6;cursor:default}
+.ghost{
+  min-height:48px;border-radius:999px;background:#fff;border:2.5px solid var(--lav-soft);
+  font-family:var(--font-display);font-weight:800;font-size:1rem
+}
+.ghost:hover{border-color:var(--pink)}
+.textlink{align-self:center;background:none;border:0;padding:4px 8px;font-size:.88rem;font-weight:700;color:var(--plum-soft);text-decoration:underline}
+.sync{font-size:.9rem !important;font-weight:700;color:var(--plum-soft);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.who{
+  display:flex;align-items:center;gap:10px;padding:6px 8px 6px 16px;border-radius:999px;
+  background:rgba(255,255,255,.88);border:2.5px solid #fff;font-size:.9rem;font-weight:700
+}
+.who[hidden]{display:none}
+.who button{border:0;border-radius:999px;padding:5px 14px;background:var(--pink-soft);font-size:.85rem;font-weight:700}
+@media (max-width:860px){.corner{top:auto;bottom:10px;right:12px}.who{font-size:.8rem}.to-map{font-size:.8rem;padding:6px 12px 6px 9px}.tip{display:none}}
+@media (max-width:600px){.brand{left:12px;top:10px;flex-wrap:wrap}}
+/* ---------- 老師的試題編輯器 ---------- */
+.editor{position:fixed;inset:0;z-index:20;display:flex;padding:16px;background:rgba(122,85,144,.42)}
+.editor[hidden]{display:none}
+.ed-box{
+  margin:auto;width:min(1320px,100%);height:100%;background:var(--card);border-radius:28px;
+  border:3px solid #fff;box-shadow:0 0 0 3px var(--pink-soft),0 20px 44px rgba(120,60,160,.35);
+  display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden
+}
+.ed-head{padding:18px 22px 12px;display:flex;flex-direction:column;gap:10px;border-bottom:3px dotted var(--pink-soft)}
+.ed-titlerow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ed-head h2{margin:0;font-family:var(--font-display);font-weight:900;font-size:1.35rem;color:var(--pink)}
+.ed-done{align-self:auto;min-height:44px;padding:6px 26px;font-size:1.05rem}
+.ed-tools,.ed-moves{display:flex;flex-wrap:wrap;gap:8px}
+.mini{
+  min-height:40px;padding:6px 16px;border-radius:999px;background:#fff;border:2.5px solid var(--lav-soft);
+  font-family:var(--font-display);font-weight:800;font-size:.95rem;transition:border-color .12s,background .12s
+}
+.mini:hover:not(:disabled){border-color:var(--pink);background:#fff5fa}
+.mini:disabled{opacity:.4;cursor:default}
+.mini.add{border-color:var(--mint);background:var(--mint-soft)}
+.mini.warn{border-color:#ffc2d2}
+.mini.armed{background:var(--berry);border-color:var(--berry);color:#fff}
+.ed-msg{margin:0;min-height:1.5em;font-size:.9rem;font-weight:700;color:var(--plum-soft)}
+.ed-msg.bad{color:#c81e5b}
+.ed-raw{width:100%;font:500 .8rem/1.5 ui-monospace,Consolas,monospace;border:2.5px solid var(--lav-soft);border-radius:14px;padding:8px}
+.ed-body{min-height:0;display:grid;grid-template-columns:310px minmax(0,1fr)}
+.ed-side{min-height:0;display:flex;flex-direction:column;gap:10px;padding:16px;background:#fff3f9;border-right:3px dotted var(--pink-soft)}
+.ed-list{flex:1 1 0;min-height:120px;overflow-y:auto;margin:0;padding:2px;list-style:none;display:flex;flex-direction:column;gap:6px}
+.ed-item{
+  width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;row-gap:1px;align-items:center;text-align:left;
+  padding:8px 12px;border-radius:16px;background:#fff;border:2.5px solid transparent
+}
+.ed-item:hover{border-color:var(--pink-soft)}
+.ed-item.on{border-color:var(--pink);background:#fff}
+.ed-no{grid-row:span 2;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--lav-soft);font-family:var(--font-display);font-weight:800;font-size:.9rem;font-variant-numeric:tabular-nums}
+.ed-item.on .ed-no{background:var(--pink);color:#fff}
+.ed-stem{font-weight:700;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ed-spot{font-size:.76rem;font-weight:700;color:var(--plum-soft)}
+.ed-item.todo .ed-spot{color:#c81e5b}
+.ed-count{margin:0;font-size:.82rem;font-weight:700;color:var(--plum-soft)}
+.ed-pass{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.9rem;font-weight:700}
+.ed-pass input{width:74px}
+.ed-form,.ed-empty{min-height:0;overflow-y:auto;padding:18px 22px 22px;margin:0}
+.ed-form{display:flex;flex-direction:column;gap:8px}
+.ed-form>*,.ed-side>*{flex-shrink:0} /* 空間不夠時用捲動，不要把欄位壓扁 */
+.ed-side{overflow-y:auto}
+.ed-form[hidden]{display:none}
+.ed-empty{font-weight:700;color:var(--plum-soft);line-height:1.8}
+.ed-formhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ed-formhead strong{font-family:var(--font-display);font-weight:900;font-size:1.15rem}
+.ed-form label,.ed-form legend{font-size:.88rem;font-weight:700;color:var(--plum-soft);margin-top:6px;padding:0}
+.ed-form fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.editor input[type=text],.editor input[type=number],.editor textarea,.editor select{
+  font:inherit;color:var(--plum);background:#fff;border:2.5px solid var(--lav-soft);border-radius:14px;padding:9px 12px;width:100%
+}
+.editor textarea{resize:vertical;line-height:1.6;min-height:6.4em}
+.editor input:focus-visible,.editor textarea:focus-visible,.editor select:focus-visible{outline:3px solid var(--pink);outline-offset:1px}
+.ed-opt{display:flex;align-items:center;gap:10px}
+.ed-opt input[type=radio]{flex:none;width:24px;height:24px;accent-color:var(--mint);cursor:pointer}
+@media (max-width:860px){
+  .editor{padding:8px}
+  .ed-box{overflow-y:auto;grid-template-rows:auto auto}
+  .ed-body{grid-template-columns:1fr;grid-template-rows:auto auto;min-height:0}
+  .ed-side{border-right:0;border-bottom:3px dotted var(--pink-soft);overflow:visible}
+  .ed-list{flex:none;max-height:240px}
+  .ed-form,.ed-empty{overflow:visible}
+}
+@media (min-width:861px) and (max-height:680px){
+  .editor{padding:8px}
+  .ed-box{overflow-y:auto}
+  .ed-body{min-height:600px}
+}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.confetti i{
+  position:absolute;top:-30px;width:18px;height:18px;
+  clip-path:path("M9 16 C2 11 0 7 0 4.5 C0 2 2 0 4.5 0 C6.5 0 8 1 9 2.8 C10 1 11.5 0 13.5 0 C16 0 18 2 18 4.5 C18 7 16 11 9 16 Z");
+  animation:fall linear forwards
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+
+@media (max-width:860px){
+  .app{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}
+  .panel{padding:0 16px 16px;max-height:56vh;max-height:56dvh}
+  .brand{left:16px;top:12px}
+  .tip{left:16px;bottom:10px;font-size:.78rem}
+  .card{padding:20px 16px 16px;gap:11px}
+  .foot{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .opt,.go{transition:none}
+  .opt.wrong{animation:none}
+}
+
+/* 作答卡版面：左邊 3D、右邊作答卡；手機上作答卡在下方 */
+html,body{height:100%}
+body{overflow:hidden}
+.stage{height:auto}
+</style>
+<style>
 /* 版面：整頁是一座 3D 島；左上角印章、島名、課程標籤。永遠明亮。 */
 :root{
   color-scheme: light;
@@ -38,18 +342,10 @@ body{
 .fallback{position:absolute;left:20px;right:20px;top:50%;padding:14px 18px;border-radius:18px;background:#fff;border:2.5px solid #ff5f8a;font-weight:700}
 @media (max-width:600px){.brand{left:12px;top:10px;flex-wrap:wrap}.tip{display:none}}
 </style>
-<style>
-.to-map{position:absolute;right:16px;top:16px;z-index:15;display:flex;align-items:center;gap:6px;padding:7px 15px 7px 11px;border-radius:999px;
-  background:rgba(255,255,255,.86);border:2.5px solid #fff;box-shadow:0 3px 0 rgba(183,156,255,.45);
-  font:700 .92rem/1 "Noto Sans TC",system-ui,sans-serif;color:#7a4f9a;text-decoration:none;transition:transform .15s,background .15s}
-.to-map:hover{transform:translateY(-2px);background:#fff}
-.to-map:focus-visible{outline:3px solid #ff8fc8;outline-offset:2px}
-.to-map svg{width:18px;height:18px;flex:none}
-@media (max-width:600px){.to-map{top:auto;bottom:12px;right:12px;font-size:.8rem;padding:6px 12px 6px 9px}}
-</style>
 </head>
 <body>
-<main class="stage" id="stage">
+<main class="app">
+<section class="stage" id="stage">
   <canvas id="scene" aria-label="幻彩祕境島：被遺忘的古代遺跡。中央是魔法陣（傳送陣），外圈九座台座放著九座主題島的小晶石；後方岩丘頂端有一顆黯淡的神祕巨大水晶，山腰的彩晶洞穴透出光芒。傳送陣定時升起光柱；晶石一顆顆亮起後，巨大水晶會短暫甦醒。一隻晶石小狐狸守護著遺跡"></canvas>
   <header class="brand">
     <img class="logo" id="logo" alt="和" width="56" height="56">
@@ -58,8 +354,29 @@ body{
   </header>
   <p class="tip">拖曳旋轉　滾輪或雙指縮放</p>
   <p class="fallback" id="fallback" hidden>3D 畫面沒有載入成功，請確認網路後重新整理。</p>
-<a class="to-map" href="https://kamewa.github.io/island-quiz/" aria-label="回到星願群島地圖"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg>回到地圖</a>
+    <div class="corner">
+      <a class="to-map" href="https://kamewa.github.io/island-quiz/" aria-label="回到星願群島地圖"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg>回到地圖</a>
+      <div class="who" id="who" hidden></div>
+    </div>
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+</section>
+  <aside class="panel" aria-label="作答區">
+    <div class="card">
+      <div class="progress">
+        <ol class="hearts" id="hearts" aria-label="答題進度"></ol>
+        <span class="count" id="count">幻彩祕境島</span>
+      </div>
+      <div id="view" aria-live="polite" style="display:contents">
+        <h2>幻彩祕境島</h2>
+        <p class="lead">報到之後，就可以開始練習或評量。</p>
+      </div>
+    </div>
+    <div class="foot">
+      <button class="sound" id="sound" type="button" aria-pressed="true">音效：開</button>
+    </div>
+  </aside>
 </main>
+<button class="zoom" id="zoom" type="button" aria-label="關閉放大的圖片" hidden><img id="zoomImg" alt="題目圖片（放大）"></button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -434,7 +751,7 @@ function init3D() {
     if (!reduceMotion && pts.size === 0 && time - lastTouch > 4) goal.theta += dt * 0.07;
     const k = 1 - Math.exp(-dt * 4);
     for (const key in cam) cam[key] += (goal[key] - cam[key]) * k;
-    const fit = aspect < 1 ? Math.min(1.8, 1 / aspect) : 1, r = cam.radius * fit, s = Math.sin(cam.phi);
+    const fit = aspect < 1.55 ? Math.min(2.0, 1.55 / aspect) : 1, r = cam.radius * fit, s = Math.sin(cam.phi);
     camera.position.set(r * s * Math.sin(cam.theta), cam.ty + r * Math.cos(cam.phi), r * s * Math.cos(cam.theta));
     camera.lookAt(0, cam.ty, 0);
     const tt = reduceMotion ? 3 : time;
@@ -452,6 +769,522 @@ try {
   console.error(err);
   $("fallback").hidden = false;
 }
+</script>
+<script>
+/* 作答卡（報到、關卡、題目、計分）：和粉彩地形島同一套程式 */
+(() => {
+"use strict";
+
+/* ============================================================
+   預設題庫：老師可以在頁面上的「老師編輯題目」修改，
+   或把匯出的 questions.json 放在網頁旁邊，就會自動取代這份預設題庫。
+   ============================================================ */
+const ISLAND_ID = "other";
+const SPOT_NAMES = { mountain: "山地", hills: "丘陵", plateau: "台地", basin: "盆地", plain: "平原", none: "整座島" };
+// 網站上還沒有放題庫檔時使用的示範題目（格式和「互動式評量系統」的題庫檔相同）
+const DEMO_BANK = { format: "InteractiveAssessmentQuestionBank", schemaVersion: 1, questions: [
+  { id: "demo-terrain-1", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "這裡高度高、坡度陡、起伏很大，是哪一種地形？", options: ["山地", "丘陵", "台地", "盆地"],
+    explanation: "山地的特徵是高度高、起伏大。看顏色就知道：短短的距離內，顏色從粉紅換到紫色再到白色，代表高度變化很快。" },
+  { id: "demo-terrain-2", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "靠海的一大片土地，地勢低、幾乎沒有起伏，是哪一種地形？", options: ["平原", "盆地", "台地", "丘陵"],
+    explanation: "平原地勢低平、起伏很小。平坦的土地適合耕作和居住，人口通常比較多。" },
+  { id: "demo-terrain-3", category: "通論", unit: "地形", cognitiveLevels: ["理解"], answer: "A",
+    stem: "外圍一圈比較高，中間低而平，是哪一種地形？", options: ["盆地", "平原", "山地", "台地"],
+    explanation: "盆地四周高、中間低平，形狀像一個臉盆。臺北盆地、臺中盆地都是這種地形。" },
+  { id: "demo-terrain-4", category: "通論", unit: "地形", cognitiveLevels: ["記憶"], answer: "A",
+    stem: "頂部平坦、邊緣陡峭，像一張桌子，是哪一種地形？", options: ["台地", "山地", "丘陵", "平原"],
+    explanation: "台地的頂部平坦、四周是陡坡，可以記成「頂平崖陡」。林口台地、桃園台地都是例子。" },
+  { id: "demo-terrain-5", category: "通論", unit: "地形", cognitiveLevels: ["記憶"], answer: "A",
+    stem: "比山地低、坡度和緩的一群小山包，是哪一種地形？", options: ["丘陵", "山地", "平原", "盆地"],
+    explanation: "丘陵的高度比山地低，起伏也比較和緩，常分布在山地和平原之間。" }
+] };
+// 網站上還沒有放關卡設定檔時使用的預設值
+const DEFAULT_CONFIG = { format: "StarWishIslandsConfig", version: 1, islands: {
+  place:    { name: "星辰尋夢島", units: [{ category: "通論", unit: "位置" }, { category: "臺灣", unit: "位置" }], practiceCount: 5, assessments: [] },
+  terrain:  { name: "粉彩地形島", units: [{ category: "通論", unit: "地形" }, { category: "臺灣", unit: "地形" }], practiceCount: 5, assessments: [] },
+  climate:  { name: "四季魔法島", units: [{ category: "通論", unit: "氣候" }, { category: "臺灣", unit: "氣候" }], practiceCount: 5, assessments: [] },
+  water:    { name: "晶泉瀑布島", units: [{ category: "通論", unit: "水文" }, { category: "臺灣", unit: "水文" }], practiceCount: 5, assessments: [] },
+  people:   { name: "繁晶慶典島", units: [{ category: "通論", unit: "人口" }, { category: "臺灣", unit: "人口" }], practiceCount: 5, assessments: [] },
+  traffic:  { name: "晶軌夢遊島", units: [{ category: "通論", unit: "交通" }, { category: "臺灣", unit: "交通" }], practiceCount: 5, assessments: [] },
+  industry: { name: "糖晶工坊島", units: [{ category: "通論", unit: "產業" }, { category: "臺灣", unit: "產業" }], practiceCount: 5, assessments: [] },
+  village:  { name: "晶語童話島", units: [{ category: "通論", unit: "聚落" }, { category: "臺灣", unit: "聚落" }], practiceCount: 5, assessments: [] },
+  issue:    { name: "晶願守護島", units: [], practiceCount: 5, assessments: [] },
+  other:    { name: "幻彩祕境島", units: [], practiceCount: 5, assessments: [] }
+} };
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (id) => document.getElementById(id);
+
+/* ---------- 音效（瀏覽器即時合成） ---------- */
+let soundOn = true, actx = null;
+function tone(freq, at, dur, type, vol) {
+  if (!soundOn) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === "suspended") actx.resume();
+    const o = actx.createOscillator(), gn = actx.createGain(), t = actx.currentTime + at;
+    o.type = type || "sine"; o.frequency.value = freq;
+    gn.gain.setValueAtTime(0.0001, t);
+    gn.gain.exponentialRampToValueAtTime(vol || 0.14, t + 0.02);
+    gn.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(gn); gn.connect(actx.destination); o.start(t); o.stop(t + dur + 0.05);
+  } catch (e) { /* 沒有聲音也能玩 */ }
+}
+const sfx = {
+  good() { tone(784, 0, 0.18); tone(1047, 0.12, 0.3); },
+  bad() { tone(311, 0, 0.2, "triangle", 0.1); tone(262, 0.14, 0.32, "triangle", 0.1); },
+  win() { [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, i * 0.11, 0.35)); },
+  tap() { tone(660, 0, 0.1, "sine", 0.08); }
+};
+$("sound").addEventListener("click", () => {
+  soundOn = !soundOn;
+  $("sound").textContent = "音效：" + (soundOn ? "開" : "關");
+  $("sound").setAttribute("aria-pressed", String(soundOn));
+  if (soundOn) sfx.tap();
+});
+
+let world = { focus() {}, home() {}, mark() {}, clearMarks() {}, rainbow() {}, onPick() {} };
+
+/* ============================================================
+   共用題庫與關卡設定
+   題目來自「互動式評量系統」儲存的題庫檔（data/questions.json）。
+   關卡設定在 data/islands.json：
+   ・練習：依本島的分類與單元，按難易度（由認知層次推算）自動抽題。
+   ・評量：老師從題庫挑選固定題目，每關最多作答 3 次，由雲端計次。
+   ============================================================ */
+const DIFFS = ["基礎", "進階", "思考", "統整"];
+const RANK = { 記憶: 0, 理解: 0, 應用: 1, 分析: 2, 評鑑: 2, 創造: 3, 記: 0, 理: 0, 應: 1, 分: 2, 評: 2, 創: 3 };
+const PASS_RATE = 0.6; // 答對六成（無條件進位）算過關
+const CONFIG_KEY = "island-quiz-config-draft";
+const LEGACY_CAT = { 世界: "通論", 南美洲: "中南美洲", 極地: "南極洲" };
+const clone = (o) => JSON.parse(JSON.stringify(o));
+const esc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const newId = () => "a" + Math.random().toString(36).slice(2, 8);
+const passFor = (n) => Math.max(1, Math.ceil(n * PASS_RATE));
+
+// 認知層次 → 難易度：取最高的層次；沒有標的算基礎
+function difficultyOf(levels) {
+  const list = Array.isArray(levels) ? levels : String(levels || "").split(/[、,，/\s]+/);
+  return list.reduce((d, v) => Math.max(d, RANK[String(v).trim()] || 0), 0);
+}
+function safeImage(v) {
+  const s = String(v || "").trim();
+  if (/^data:image\//i.test(s) || /^https?:\/\//i.test(s)) return s;
+  return /\.(png|jpe?g|webp|gif|bmp|svg)$/i.test(s) && !s.includes("..") && !/^[a-z]+:/i.test(s) ? s : "";
+}
+// 讀一題「互動式評量系統」的題目；不完整的題目略過
+function shapeQuestion(o) {
+  if (!o || typeof o !== "object") return null;
+  const id = String(o.id ?? "").trim(), stem = String(o.stem ?? o.question ?? o.title ?? o.text ?? "").trim();
+  let opts = o.options ?? o.choices ?? o.answers;
+  if (opts && !Array.isArray(opts) && typeof opts === "object") opts = ["A", "B", "C", "D"].map((k) => opts[k] ?? opts[k.toLowerCase()]);
+  if (!id || !stem || !Array.isArray(opts) || opts.length < 4) return null;
+  const options = opts.slice(0, 4).map((x) => String(x ?? "").trim());
+  if (options.some((x) => !x)) return null;
+  const raw = o.answer ?? o.correctAnswer ?? o.correct ?? o.key;
+  const answer = Number.isInteger(raw) ? raw : "ABCD".indexOf(((String(raw || "").match(/[A-D]/i) || [""])[0]).toUpperCase());
+  if (!(answer >= 0 && answer <= 3)) return null;
+  const cat = String(o.category || o.subject || "").trim();
+  const levels = o.cognitiveLevels ?? o.cognitiveLevel ?? o.bloom;
+  return { id, stem, options, answer, category: LEGACY_CAT[cat] || cat, unit: String(o.unit || o.chapter || "").trim(),
+           levels: Array.isArray(levels) ? levels.map(String) : String(levels || "").split(/[、,，/\s]+/).filter(Boolean),
+           diff: difficultyOf(levels), image: safeImage(o.image ?? o.imageUrl), explanation: String(o.explanation ?? o.why ?? "").trim(),
+           disabled: Boolean(o.disabled ?? o.inactive) };
+}
+function readBank(raw) {
+  const rows = Array.isArray(raw) ? raw : raw && Array.isArray(raw.questions) ? raw.questions : raw && raw.data && Array.isArray(raw.data.questions) ? raw.data.questions : null;
+  if (!rows) throw new Error("這不是互動式評量系統的題庫檔，找不到題目清單。");
+  const byId = new Map();
+  rows.map(shapeQuestion).filter(Boolean).forEach((q) => byId.set(q.id, q));
+  return { list: [...byId.values()], skipped: rows.length - byId.size };
+}
+function normIsland(raw, fallback) {
+  const r = raw && typeof raw === "object" ? raw : {}, f = fallback || {};
+  const units = (Array.isArray(r.units) ? r.units : f.units || []).filter((u) => u && u.category && u.unit).map((u) => ({ category: String(u.category), unit: String(u.unit) }));
+  let count = parseInt(r.practiceCount, 10); if (!(count >= 1 && count <= 30)) count = f.practiceCount || 5;
+  const seen = {};
+  const assessments = (Array.isArray(r.assessments) ? r.assessments : []).filter((a) => a && typeof a === "object").map((a) => {
+    let id = /^a[a-z0-9]{1,15}$/.test(a.id) && !seen[a.id] ? a.id : newId(); seen[id] = true;
+    const ids = {};
+    const items = (Array.isArray(a.items) ? a.items : []).map((it) => (typeof it === "string" ? { id: it } : it))
+      .filter((it) => it && it.id && !ids[it.id] && (ids[it.id] = true))
+      .map((it) => ({ id: String(it.id), spot: SPOT_NAMES[it.spot] ? it.spot : "none" }));
+    return { id, name: String(a.name || "評量").slice(0, 30), items };
+  });
+  return { name: String(r.name || f.name || "島嶼"), units, practiceCount: count, assessments };
+}
+function normConfig(raw) {
+  if (!raw || typeof raw !== "object" || !raw.islands || typeof raw.islands !== "object") throw new Error("這不是星願群島的關卡設定檔。");
+  const out = { format: "StarWishIslandsConfig", version: 1, islands: {} };
+  Object.keys(raw.islands).forEach((k) => { if (/^[a-z0-9-]{1,30}$/.test(k)) out.islands[k] = normIsland(raw.islands[k], DEFAULT_CONFIG.islands[k]); });
+  if (!out.islands[ISLAND_ID]) out.islands[ISLAND_ID] = normIsland(null, DEFAULT_CONFIG.islands[ISLAND_ID]);
+  return out;
+}
+const exportConfig = () => JSON.stringify(config, null, 2);
+
+let bankSrc = Object.assign({ label: "示範題目（網站上還沒有題庫檔）", demo: true }, readBank(DEMO_BANK));
+let byId = new Map(bankSrc.list.map((q) => [q.id, q]));
+function useBank(b, label, demo) { bankSrc = Object.assign({ label, demo: !!demo }, b); byId = new Map(b.list.map((q) => [q.id, q])); }
+let published = normConfig(DEFAULT_CONFIG), config = clone(published), hasDraft = false;
+try { const who = JSON.parse(sessionStorage.getItem("island-quiz-session") || "null"), d = localStorage.getItem(CONFIG_KEY); if (d && who && who.role === "teacher") { config = normConfig(JSON.parse(d)); hasDraft = true; } } catch (e) { /* 沒有草稿 */ }
+function saveDraft() { hasDraft = true; try { localStorage.setItem(CONFIG_KEY, exportConfig()); } catch (e) {} }
+const isl = () => config.islands[ISLAND_ID];
+const inIsland = (q) => !q.disabled && isl().units.some((u) => u.category === q.category && u.unit === q.unit);
+const islandPool = () => bankSrc.list.filter(inIsland);
+const poolOf = (d) => islandPool().filter((q) => q.diff === d);
+const practiceLevels = () => DIFFS.map((name, i) => ({ id: "p" + (i + 1), kind: "practice", name, pool: poolOf(i) }));
+const assessmentLevels = () => isl().assessments.map((a) => ({ id: a.id, kind: "assessment", name: a.name,
+  items: a.items.map((it) => ({ q: byId.get(it.id), spot: it.spot })).filter((x) => x.q && !x.q.disabled) }));
+const levelLabel = (l) => (l.kind === "practice" ? "練習・" : "評量・") + l.name;
+const idle = () => !playing && !level;
+// 網站上的題庫檔與關卡設定檔
+fetch("data/questions.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
+  const b = readBank(j); useBank(b, "網站題庫（data/questions.json）", false);
+  if (idle()) home();
+}).catch(() => {});
+fetch("data/islands.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
+  published = normConfig(j);
+  if (!hasDraft) { config = clone(published); if (idle()) home(); }
+}).catch(() => {});
+
+/* ============================================================
+   登入與雲端
+   API_URL 是老師 Google 試算表上那支程式的網址；留空時不啟用登入（單機模式）。
+   在 Claude 的預覽頁裡連不到雲端，所以預覽頁也是單機模式。
+   ============================================================ */
+const API_URL = "https://script.google.com/macros/s/AKfycbxCc_CpF-nJr1oRM1smz_jxSDGePPvVFwBBs7TdeuBG5Vp3W7rayIoKiGFVtMayN-gjNQ/exec";
+const inPreview = /claude|anthropic/i.test(location.hostname);
+const MAX_TRIES = 3;
+const SESSION_KEY = "island-quiz-session";
+let session = null;
+try { session = JSON.parse(sessionStorage.getItem(SESSION_KEY)); } catch (e) {}
+if (session && session.role !== "guest" && !session.token) session = null;
+const cloudOn = () => !!API_URL && !inPreview;
+const isStudent = () => cloudOn() && session && session.role === "student";
+const isTeacher = () => !cloudOn() || (session && session.role === "teacher");
+function setSession(s) {
+  session = s;
+  try { if (s) sessionStorage.setItem(SESSION_KEY, JSON.stringify(s)); else sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+}
+async function api(payload) {
+  // 用 text/plain 送出，瀏覽器才不會先發一次預檢請求（Apps Script 不支援）
+  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload), redirect: "follow" });
+  if (!r.ok) throw new Error("http " + r.status);
+  return r.json();
+}
+function failText(res) {
+  const map = {
+    locked: "輸錯太多次，請 " + (res.minutes || 10) + " 分鐘後再試，或請老師幫忙。",
+    wrong: "資料不正確，請再檢查一次。" + (res.left > 0 ? "還可以再試 " + res.left + " 次。" : ""),
+    expired: "登入已經過期，請登出後重新登入。",
+    limit: "這個評量已經作答 " + MAX_TRIES + " 次，不能再作答了。",
+    exists: "這個座號已經有學生" + (res.name ? "（" + res.name + "）" : "") + "。請先把原本的學生轉出，或換一個座號。",
+    not_found: "找不到這位學生。",
+    bad_request: "資料格式不正確，請檢查後再試。"
+  };
+  return map[res.error] || "雲端暫時沒有回應，請稍後再試。";
+}
+
+/* ============================================================
+   畫面：登入 → 關卡選單 → 作答 → 結果
+   ============================================================ */
+const HEART = '<svg viewBox="0 0 26 24" aria-hidden="true"><path d="M13 22 C4 15.5 1.5 11 1.5 7.2 C1.5 4 4 1.5 7.2 1.5 C9.7 1.5 11.8 2.9 13 5 C14.2 2.9 16.3 1.5 18.8 1.5 C22 1.5 24.5 4 24.5 7.2 C24.5 11 22 15.5 13 22 Z"/></svg>';
+const view = $("view"), heartsEl = $("hearts"), countEl = $("count");
+let level = null, quiz = [], step = 0, results = [], playing = false, opts = [];
+let attempt = null;   // 評量：{ id, n }；null 代表這次不記錄
+let cloudStatus = {}; // 評量：每關已用次數與分數
+
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function resetStage() {
+  playing = false; quiz = []; results = []; step = 0; attempt = null;
+  world.clearMarks(); world.rainbow(false); world.home(); $("confetti").innerHTML = "";
+  heartsEl.innerHTML = "";
+}
+function drawHearts() {
+  let html = "";
+  for (let i = 0; i < quiz.length; i++) {
+    const r = results[i], cls = r === true ? "ok" : r === false ? "no" : (playing && i === step ? "now" : "");
+    const label = r === true ? "答對" : r === false ? "答錯" : "未作答";
+    html += '<li class="' + cls + '" aria-label="第 ' + (i + 1) + " 題" + label + '">' + HEART + "</li>";
+  }
+  heartsEl.innerHTML = html;
+}
+function drawWho() {
+  const box = $("who");
+  if (!cloudOn() || !session) { box.hidden = true; return; }
+  box.hidden = false;
+  const label = session.role === "student" ? session.cls + " 班 " + session.seat + " 號　" + esc(session.name)
+    : session.role === "teacher" ? "老師" : "訪客（不記錄成績）";
+  box.innerHTML = "<span>" + label + '</span><button type="button" id="whoOut">' + (session.role === "guest" ? "登入" : "登出") + "</button>";
+  $("whoOut").addEventListener("click", () => { setSession(null); home(); });
+}
+function home() {
+  drawWho();
+  if (cloudOn() && !session) showLogin(); else showLevels();
+}
+
+/* ---------- 練習進度（存在這台電腦的瀏覽器） ---------- */
+const progKey = () => "island-quiz-progress:" + ISLAND_ID + ":" + (isStudent() ? session.cls + "-" + session.seat : "guest");
+function passedSet() { try { return JSON.parse(localStorage.getItem(progKey())) || []; } catch (e) { return []; } }
+function markPassed(id) {
+  const s = passedSet(); if (s.includes(id)) return false;
+  s.push(id); try { localStorage.setItem(progKey(), JSON.stringify(s)); } catch (e) {}
+  return true;
+}
+// 前一個「有題目」的難度過關後，下一個難度才開放；沒有題目的難度直接跳過
+function unlocked(l, levels) {
+  if (l.kind !== "practice" || isTeacher()) return true;
+  const passed = passedSet();
+  for (let j = levels.indexOf(l) - 1; j >= 0; j--) if (levels[j].pool.length) return passed.includes(levels[j].id);
+  return true;
+}
+
+/* ---------- 關卡選單 ---------- */
+async function showLevels() {
+  resetStage(); level = null;
+  countEl.textContent = isl().name;
+  const practice = practiceLevels(), tests = assessmentLevels().filter((l) => l.items.length);
+  const draw = (loading) => {
+    const passed = passedSet();
+    let html = "<h2>選一個關卡</h2><p class=\"lvl-head\">練習　不限次數，不記錄分數，每次隨機出題</p><div class=\"lvls\">";
+    practice.forEach((l) => {
+      const n = Math.min(isl().practiceCount, l.pool.length), open = unlocked(l, practice), done = passed.includes(l.id);
+      const note = !n ? "尚無題目" : !open ? "通過上一個難度後開放" : "每次 " + n + " 題・答對 " + passFor(n) + " 題過關";
+      html += '<button class="lvl' + (done ? " done" : "") + '" type="button" data-id="' + l.id + '"' + (n && open ? "" : " disabled") + ">" +
+        '<span class="lvl-name">' + esc(l.name) + '</span><span class="lvl-note">' + note + '</span><span class="lvl-tag">' + (done ? "已過關" : !open && n ? "未開放" : "") + "</span></button>";
+    });
+    html += "</div>";
+    if (tests.length) {
+      html += '<p class="lvl-head">評量　每關最多 ' + MAX_TRIES + " 次，計算平均</p><div class=\"lvls\">";
+      tests.forEach((l) => {
+        const n = l.items.length, st = cloudStatus[l.id] || { used: 0, scores: [], avg: null };
+        let note = n + " 題", tag = "", off = false;
+        if (!cloudOn() || (session && session.role === "teacher")) { note += "・試玩，不記錄"; }
+        else if (!isStudent()) { note = "登入後才能作答"; off = true; }
+        else if (loading) { note = "讀取作答紀錄中…"; off = true; }
+        else { note += "・已作答 " + st.used + "／" + MAX_TRIES + " 次"; tag = st.avg === null ? "" : "平均 " + st.avg + " 分"; off = st.used >= MAX_TRIES; }
+        html += '<button class="lvl test" type="button" data-id="' + l.id + '"' + (off ? " disabled" : "") + ">" +
+          '<span class="lvl-name">' + esc(l.name) + '</span><span class="lvl-note">' + note + '</span><span class="lvl-tag">' + tag + "</span></button>";
+      });
+      html += "</div>";
+    }
+    if (isTeacher() && bankSrc.demo) html += '<p class="lvl-head">目前使用示範題目。把評量系統的題庫檔放上網站後，就會改用你的題目。</p>';
+    html += '<p class="login-msg" id="lvMsg" role="alert"></p>';
+    view.innerHTML = html;
+    view.querySelectorAll(".lvl").forEach((b) => b.addEventListener("click", () => pickLevel([...practice, ...tests].find((l) => l.id === b.dataset.id))));
+  };
+  const needCloud = isStudent() && tests.length;
+  draw(needCloud);
+  if (!needCloud) return;
+  const who = session;
+  try {
+    const res = await api({ action: "status", token: session.token, island: isl().name });
+    if (session !== who || level || playing) return;
+    if (res.ok) { cloudStatus = res.levels || {}; draw(false); }
+    else { draw(false); $("lvMsg").textContent = failText(res); }
+  } catch (e) {
+    if (session !== who || level || playing) return;
+    draw(true); $("lvMsg").textContent = "連不上雲端，暫時無法作答評量。練習可以照常進行。";
+  }
+}
+function pickLevel(l) {
+  if (!l) return;
+  level = l; sfx.tap();
+  if (l.kind === "practice") { startQuiz(); return; }
+  const recorded = isStudent(), st = cloudStatus[l.id] || { used: 0 }, n = l.items.length;
+  countEl.textContent = "評量";
+  view.innerHTML = "<h2>" + esc(l.name) + '</h2><p class="lead">共 ' + n + " 題。" +
+    (recorded ? "按下「開始作答」就算一次，中途離開也算。你還可以作答 " + (MAX_TRIES - st.used) + " 次。" : "現在是試玩，不計次數，也不記錄分數。") +
+    '作答中只會告訴你對或錯，不會顯示正確答案。</p><p class="login-msg" id="lvMsg" role="alert"></p>' +
+    '<button class="go" id="lvGo" type="button">開始作答</button><button class="ghost" id="lvBack" type="button">回關卡選單</button>';
+  $("lvBack").addEventListener("click", showLevels);
+  $("lvGo").addEventListener("click", async () => {
+    if (!recorded) { startQuiz(); return; }
+    const go = $("lvGo"); go.disabled = true; go.textContent = "準備中…";
+    try {
+      const res = await api({ action: "begin", token: session.token, island: isl().name, levelId: l.id, levelName: l.name, total: n });
+      if (res.ok) { attempt = { id: res.id, n: res.attempt }; startQuiz(); return; }
+      $("lvMsg").textContent = failText(res);
+    } catch (e) { $("lvMsg").textContent = "連不上雲端，請檢查網路後再試一次。這次不算作答。"; }
+    if ($("lvGo")) { go.disabled = false; go.textContent = "開始作答"; }
+  });
+}
+
+/* ---------- 作答 ---------- */
+const toItem = (q, spot) => ({ spot: spot || "none", q: q.stem, options: q.options, answer: q.answer, why: q.explanation, img: q.image });
+function startQuiz() {
+  const keep = attempt;
+  quiz = level.kind === "practice"
+    ? shuffle(level.pool.slice()).slice(0, isl().practiceCount).map((q) => toItem(q, "none"))
+    : shuffle(level.items.slice()).map((x) => toItem(x.q, x.spot));
+  if (!quiz.length) { showLevels(); return; }
+  step = 0; results = []; playing = true; attempt = keep;
+  world.clearMarks(); world.rainbow(false); $("confetti").innerHTML = "";
+  ask();
+}
+function ask() {
+  const item = quiz[step], strict = level.kind === "assessment";
+  world.clearMarks();
+  quiz.forEach((q, i) => { if (i < step) world.mark(q.spot, results[i] ? "ok" : "no"); });
+  world.mark(item.spot, "now"); world.focus(item.spot);
+  countEl.textContent = levelLabel(level) + "　" + (step + 1) + "／" + quiz.length;
+  drawHearts();
+  opts = shuffle(item.options.map((t, i) => ({ t, right: i === item.answer })));
+  view.innerHTML = '<p class="question">' + esc(item.q) + "</p>" +
+    (item.img ? '<button class="qimg" id="qimg" type="button" aria-label="放大題目圖片"><img src="' + esc(item.img) + '" alt="題目圖片"></button>' : "") +
+    '<div class="options">' + opts.map((o, i) => '<button class="opt" type="button" data-i="' + i + '">' + esc(o.t) + "</button>").join("") +
+    '</div><div id="fb"></div>' + (strict ? "" : '<button class="textlink" id="quit" type="button">回關卡選單</button>');
+  view.querySelectorAll(".opt").forEach((b) => b.addEventListener("click", () => answer(b, item)));
+  if (!strict) $("quit").addEventListener("click", showLevels);
+  if (item.img) {
+    const im = $("qimg").querySelector("img");
+    im.addEventListener("error", () => { $("qimg").outerHTML = '<p class="login-msg">圖片載入失敗：' + esc(item.img) + "</p>"; });
+    $("qimg").addEventListener("click", () => { $("zoomImg").src = item.img; $("zoom").hidden = false; $("zoom").focus(); });
+  }
+}
+function answer(btn, item) {
+  const ok = opts[+btn.dataset.i].right, strict = level.kind === "assessment"; results[step] = ok;
+  view.querySelectorAll(".opt").forEach((b) => {
+    b.disabled = true;
+    const right = opts[+b.dataset.i].right;
+    if (right && (!strict || b === btn)) { b.classList.add("right"); b.insertAdjacentHTML("beforeend", '<span class="mark">' + (strict ? "答對" : "正確答案") + "</span>"); }
+    else if (b === btn) { b.classList.add("wrong"); b.insertAdjacentHTML("beforeend", '<span class="mark">你的答案</span>'); }
+  });
+  world.mark(item.spot, ok ? "ok" : "no");
+  ok ? sfx.good() : sfx.bad();
+  drawHearts();
+  if ($("quit")) $("quit").remove();
+  const last = step === quiz.length - 1, right = item.options[item.answer];
+  const title = ok ? "答對了！" : strict ? "這一題答錯了。" : "差一點，答案是「" + esc(right) + "」";
+  $("fb").outerHTML = '<div class="feedback ' + (ok ? "good" : "bad") + '"><strong>' + title + "</strong>" +
+    (!strict && item.why ? "<p>" + esc(item.why) + "</p>" : "") + "</div>" +
+    '<button class="go" id="next" type="button">' + (last ? "看結果" : "下一題") + "</button>";
+  const next = $("next");
+  next.addEventListener("click", () => { sfx.tap(); if (last) finish(); else { step++; ask(); } });
+  next.focus({ preventScroll: true });
+}
+function finish() {
+  const score = results.filter(Boolean).length, strict = level.kind === "assessment";
+  const pass = score >= passFor(quiz.length);
+  playing = false; world.home(); world.rainbow(pass);
+  countEl.textContent = levelLabel(level); drawHearts();
+  let title, extra = "";
+  if (strict) {
+    title = "評量完成";
+  } else {
+    title = score === quiz.length ? "全部答對，彩虹出現了！" : pass ? "過關！彩虹出現了" : "再試一次，把彩虹找出來";
+    if (pass) {
+      const fresh = markPassed(level.id), practice = practiceLevels(), nextLevel = practice.slice(practice.findIndex((l) => l.id === level.id) + 1).find((l) => l.pool.length);
+      if (fresh && nextLevel) extra = '<p class="unlock">已開放新的難度：' + esc(nextLevel.name) + "</p>";
+    }
+  }
+  view.innerHTML = "<h2>" + title + '</h2><p class="score">' + (strict ? Math.round(score / quiz.length * 100) + " <small>分（答對 " + score + "／" + quiz.length + " 題）</small>"
+      : score + " <small>／ " + quiz.length + " 題</small>") + "</p>" + extra + '<ul class="review">' +
+    quiz.map((q, i) => '<li><span class="tag ' + (results[i] ? "ok" : "no") + '">' + (results[i] ? "答對" : strict ? "答錯" : "再看看") + "</span><span>第 " + (i + 1) + " 題" +
+      (strict ? "" : "　<b>" + esc(q.options[q.answer]) + "</b>") + "</span></li>").join("") +
+    '</ul><p class="sync" id="sync"></p>' + (strict ? "" : '<button class="go" id="again" type="button">再玩一次</button>') +
+    '<button class="' + (strict ? "go" : "ghost") + '" id="back" type="button">回關卡選單</button>';
+  if (!strict) $("again").addEventListener("click", () => { sfx.tap(); startQuiz(); });
+  $("back").addEventListener("click", showLevels);
+  if (pass) { sfx.win(); confetti(); }
+  if (strict) sendScore({ id: attempt && attempt.id, score, detail: results.map((r, i) => (i + 1) + (r ? "○" : "×")).join(" ") });
+}
+// 評量結束：把成績送到老師的試算表
+async function sendScore(data) {
+  const say = (t, retry) => {
+    const el = $("sync"); if (!el) return;
+    el.textContent = t;
+    if (retry) {
+      const b = document.createElement("button"); b.type = "button"; b.className = "textlink"; b.textContent = "重新送出";
+      b.addEventListener("click", () => sendScore(data)); el.appendChild(b);
+    }
+  };
+  if (!data.id) { say("試玩模式，這次沒有記錄。"); return; }
+  say("成績傳送中…");
+  try {
+    const res = await api(Object.assign({ action: "score", token: session.token }, data));
+    if (res.ok) say("第 " + res.used + " 次作答已記錄。目前平均 " + res.avg + " 分，" + (res.left > 0 ? "還可以作答 " + res.left + " 次。" : "作答次數已用完。"));
+    else if (res.error === "done") say("這次成績先前已經記錄。");
+    else if (res.error === "expired") say("登入已經過期，成績沒有送出。請不要關閉這個畫面，告訴老師。");
+    else say("成績沒有送出。", true);
+  } catch (err) { say("連不上雲端，成績沒有送出。", true); }
+}
+function confetti() {
+  if (reduceMotion) return;
+  const box = $("confetti"), colors = ["#ff6fae", "#ffe27a", "#63dcb6", "#8fd3ff", "#b79cff", "#ffffff"];
+  let html = "";
+  for (let i = 0; i < 36; i++) {
+    html += '<i style="left:' + (Math.random() * 100).toFixed(1) + "%;background:" + colors[i % colors.length] +
+      ";animation-duration:" + (2.4 + Math.random() * 2).toFixed(2) + "s;animation-delay:" + (Math.random() * 0.9).toFixed(2) +
+      "s;transform:scale(" + (0.7 + Math.random() * 0.9).toFixed(2) + ')"></i>';
+  }
+  box.innerHTML = html;
+  setTimeout(() => { box.innerHTML = ""; }, 6000);
+}
+$("zoom").addEventListener("click", () => { $("zoom").hidden = true; });
+$("zoom").addEventListener("keydown", (e) => { if (e.key === "Escape" || e.key === "Enter") $("zoom").hidden = true; });
+
+/* ---------- 登入 ---------- */
+function showLogin(asTeacher) {
+  resetStage(); level = null;
+  countEl.textContent = asTeacher ? "老師登入" : "請先報到";
+  view.innerHTML = asTeacher
+    ? '<h2>老師登入</h2><form class="login" id="lgForm" novalidate>' +
+      '<div class="field"><label for="lgCode">教師碼</label><input id="lgCode" type="password" autocomplete="off" maxlength="12"></div>' +
+      '<p class="login-msg" id="lgMsg" role="alert"></p><button class="go" id="lgGo" type="submit">登入</button></form>' +
+      '<button class="ghost" id="lgBack" type="button">回到學生登入</button>'
+    : '<h2>先報到，再出發</h2><form class="login" id="lgForm" novalidate><div class="row2">' +
+      '<div class="field"><label for="lgCls">班級</label><input id="lgCls" type="text" inputmode="numeric" autocomplete="off" maxlength="3" placeholder="例如 204"></div>' +
+      '<div class="field"><label for="lgSeat">座號</label><input id="lgSeat" type="text" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="例如 12"></div></div>' +
+      '<div class="field"><label for="lgCode">通關碼（老師發的 6 位數字）</label><input id="lgCode" type="password" inputmode="numeric" autocomplete="off" maxlength="6"></div>' +
+      '<p class="login-msg" id="lgMsg" role="alert"></p><button class="go" id="lgGo" type="submit">登入</button></form>' +
+      '<button class="ghost" id="lgGuest" type="button">訪客進入（只能練習）</button>' +
+      '<button class="textlink" id="lgTeacher" type="button">我是老師</button>';
+  const msg = (t) => { $("lgMsg").textContent = t; };
+  if (asTeacher) $("lgBack").addEventListener("click", () => showLogin(false));
+  else {
+    $("lgGuest").addEventListener("click", () => { setSession({ role: "guest" }); sfx.tap(); home(); });
+    $("lgTeacher").addEventListener("click", () => showLogin(true));
+  }
+  $("lgForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const code = $("lgCode").value.trim();
+    let payload;
+    if (asTeacher) {
+      if (!code) { msg("請輸入教師碼。"); return; }
+      payload = { action: "teacher", code };
+    } else {
+      const cls = $("lgCls").value.trim(), seat = $("lgSeat").value.trim();
+      if (!/^\d{3}$/.test(cls)) { msg("班級請輸入 3 位數字，例如 204。"); $("lgCls").focus(); return; }
+      if (!/^\d{1,2}$/.test(seat) || +seat < 1) { msg("座號請輸入數字，例如 12。"); $("lgSeat").focus(); return; }
+      if (!/^\d{6}$/.test(code)) { msg("通關碼是 6 位數字。"); $("lgCode").focus(); return; }
+      payload = { action: "login", cls, seat: +seat, code };
+    }
+    const go = $("lgGo"); go.disabled = true; go.textContent = "登入中…"; msg("");
+    try {
+      const res = await api(payload);
+      if (res.ok) {
+        cloudStatus = {};
+        setSession(res.role === "teacher" ? { role: "teacher", token: res.token } : { role: "student", cls: res.cls, seat: res.seat, name: res.name, token: res.token });
+        sfx.good(); home(); return;
+      }
+      msg(failText(res)); $("lgCode").value = "";
+    } catch (err) {
+      msg("連不上雲端，請檢查網路後再試一次。" + (asTeacher ? "" : "也可以先用訪客進入。"));
+    }
+    if ($("lgGo")) { go.disabled = false; go.textContent = "登入"; }
+  });
+}
+world.onPick(() => { // 在關卡選單時，點島上的愛心直接開始第一個可玩的練習
+  if (playing || level || (cloudOn() && !session)) return;
+  const practice = practiceLevels(), first = practice.find((l) => l.pool.length && unlocked(l, practice));
+  if (first) pickLevel(first);
+});
+
+home();
+
+})();
 </script>
 </body>
 </html>
