@@ -7,28 +7,32 @@
       "theme": "地形",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": false
     },
     "place": {
       "name": "星辰尋夢島",
       "theme": "位置",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": false
     },
     "climate": {
       "name": "四季魔法島",
       "theme": "氣候",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": false
     },
     "water": {
       "name": "晶泉瀑布島",
       "theme": "水文",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": false
     },
     "people": {
       "name": "繁晶慶典島",
@@ -98,42 +102,48 @@
             }
           ]
         }
-      ]
+      ],
+      "examPool": false
     },
     "traffic": {
       "name": "晶軌夢遊島",
       "theme": "交通",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": false
     },
     "industry": {
       "name": "糖晶工坊島",
       "theme": "產業",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": false
     },
     "village": {
       "name": "晶語童話島",
       "theme": "聚落",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": false
     },
     "issue": {
       "name": "晶願守護島",
       "theme": "議題",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": false
     },
     "other": {
       "name": "幻彩祕境島",
       "theme": "其他",
       "units": [],
       "practiceCount": 5,
-      "assessments": []
+      "assessments": [],
+      "examPool": true
     }
   }
 }

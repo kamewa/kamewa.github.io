@@ -1034,7 +1034,7 @@ const DEFAULT_CONFIG = { format: "StarWishIslandsConfig", version: 1, islands: {
   industry: { name: "糖晶工坊島", theme: "產業", units: [], practiceCount: 5, assessments: [] },
   village:  { name: "晶語童話島", theme: "聚落", units: [], practiceCount: 5, assessments: [] },
   issue:    { name: "晶願守護島", theme: "議題", units: [], practiceCount: 5, assessments: [] },
-  other:    { name: "幻彩祕境島", theme: "其他", units: [], practiceCount: 5, assessments: [] }
+  other:    { name: "幻彩祕境島", theme: "其他", units: [], practiceCount: 5, assessments: [], examPool: true }
 } };
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1141,7 +1141,8 @@ function normIsland(raw, fallback) {
     return { id, name: String(a.name || "評量").slice(0, 30), items };
   });
   const theme = THEMES.includes(r.theme) ? r.theme : (f.theme || "");
-  return { name: String(r.name || f.name || "島嶼"), theme, units, practiceCount: count, assessments };
+  const examPool = typeof r.examPool === "boolean" ? r.examPool : Boolean(f.examPool);
+  return { name: String(r.name || f.name || "島嶼"), theme, units, practiceCount: count, assessments, examPool };
 }
 function normConfig(raw) {
   if (!raw || typeof raw !== "object" || !raw.islands || typeof raw.islands !== "object") throw new Error("這不是星願群島的關卡設定檔。");
@@ -1160,7 +1161,9 @@ try { const who = JSON.parse(sessionStorage.getItem("island-quiz-session") || "n
 function saveDraft() { hasDraft = true; try { localStorage.setItem(CONFIG_KEY, exportConfig()); } catch (e) {} }
 const isl = () => config.islands[ISLAND_ID];
 // 依評量系統的「主題」抽題；「另外加入的單元」是選用的補充
-const inIsland = (q) => !q.disabled && ((isl().theme && q.theme === isl().theme) || isl().units.some((u) => u.category === q.category && u.unit === q.unit));
+// 幻彩祕境島：另外收錄所有會考題（題目結尾標有「（000年會考）」）
+const isExamQuestion = (q) => /\d+\s*年會考）\s*$/.test(String(q.stem || ""));
+const inIsland = (q) => !q.disabled && ((isl().theme && q.theme === isl().theme) || isl().units.some((u) => u.category === q.category && u.unit === q.unit) || (isl().examPool && isExamQuestion(q)));
 const islandPool = () => bankSrc.list.filter(inIsland);
 const poolOf = (d) => islandPool().filter((q) => q.diff === d);
 const practiceLevels = () => DIFFS.map((name, i) => ({ id: "p" + (i + 1), kind: "practice", name, pool: poolOf(i) }));
