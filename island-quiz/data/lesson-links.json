@@ -1,0 +1,1468 @@
+{
+ "format": "StarWishLessonLinks",
+ "version": 1,
+ "note": "題目做錯時「📖 回去看這段」要開哪一課。questions 是現有題目的對應（含卡片）；新題目沒有對應時，依 rules 由上往下找第一個符合的規則。這個檔案可以重新產生，不必改題庫。",
+ "site": "https://kamewa.github.io/geo-course/",
+ "maps": {
+  "se-asia": "southeast-asia",
+  "wasia-nature": "west-asia",
+  "wana-conflict": "west-asia",
+  "nafrica": "africa",
+  "ssa-nature": "africa",
+  "sub-saharan": "africa",
+  "population": "taiwan-human",
+  "ethnic": "taiwan-human",
+  "agr": "taiwan-human",
+  "ind": "taiwan-human",
+  "set": "taiwan-human",
+  "reg": "taiwan-human",
+  "chn-landform": "china",
+  "chn-climate": "china",
+  "chn-population": "china",
+  "chn-economy": "china",
+  "tw-admin": "taiwan-issues",
+  "tw-settle": "taiwan-issues",
+  "tw-food": "taiwan-issues",
+  "location-map": "taiwan",
+  "taiwan-world": "taiwan",
+  "taiwan-landform": "taiwan",
+  "coast-island": "taiwan",
+  "weather-climate": "taiwan",
+  "hydrology": "taiwan",
+  "ne-asia-nature": "northeast-asia",
+  "ne-asia-economy": "northeast-asia",
+  "s-asia": "south-asia",
+  "europe": "europe",
+  "russia": "europe",
+  "n-america": "namerica",
+  "latin-america": "namerica",
+  "oceania": "oceania",
+  "polar": "antarctica"
+ },
+ "rules": [
+  {
+   "category": "臺灣",
+   "unit": "世界中的臺灣",
+   "keyword": "經緯|經度|緯度|比例尺|等高線|地圖|方位|座標|GIS|遙測|衛星定位",
+   "lesson": "location-map"
+  },
+  {
+   "category": "臺灣",
+   "unit": "世界中的臺灣",
+   "lesson": "taiwan-world"
+  },
+  {
+   "category": "臺灣",
+   "unit": "地形與海域",
+   "keyword": "海岸|海域|島嶼|離島|沙洲|潟湖|岬|海灣|珊瑚礁|領海|經濟海域|澎湖|金門|馬祖|蘭嶼|綠島",
+   "lesson": "coast-island"
+  },
+  {
+   "category": "臺灣",
+   "unit": "地形與海域",
+   "lesson": "taiwan-landform"
+  },
+  {
+   "category": "臺灣",
+   "unit": "氣候與水文",
+   "theme": "水文",
+   "lesson": "hydrology"
+  },
+  {
+   "category": "臺灣",
+   "unit": "氣候與水文",
+   "lesson": "weather-climate"
+  },
+  {
+   "category": "臺灣",
+   "unit": "人口與文化",
+   "keyword": "族群|原住民|客家|閩南|新住民|新移民|語言|宗教|文化|祭典|飲食",
+   "lesson": "ethnic"
+  },
+  {
+   "category": "臺灣",
+   "unit": "人口與文化",
+   "lesson": "population"
+  },
+  {
+   "category": "臺灣",
+   "unit": "產業發展",
+   "keyword": "農|漁|林業|牧|稻|茶|蔬果|養殖|糧食",
+   "lesson": "agr"
+  },
+  {
+   "category": "臺灣",
+   "unit": "產業發展",
+   "lesson": "ind"
+  },
+  {
+   "category": "臺灣",
+   "unit": "區域發展",
+   "theme": "聚落",
+   "lesson": "set"
+  },
+  {
+   "category": "臺灣",
+   "unit": "區域發展",
+   "lesson": "reg"
+  },
+  {
+   "category": "中國",
+   "unit": "自然環境與人口",
+   "theme": [
+    "氣候"
+   ],
+   "lesson": "chn-climate"
+  },
+  {
+   "category": "中國",
+   "unit": "自然環境與人口",
+   "theme": [
+    "人口",
+    "聚落",
+    "交通"
+   ],
+   "lesson": "chn-population"
+  },
+  {
+   "category": "中國",
+   "unit": "自然環境與人口",
+   "lesson": "chn-landform"
+  },
+  {
+   "category": "中國",
+   "unit": "產業與經濟發展",
+   "lesson": "chn-economy"
+  },
+  {
+   "category": "地理議題",
+   "unit": "臺灣的地名文化",
+   "keyword": "行政區|縣|直轄市|省",
+   "lesson": "tw-admin"
+  },
+  {
+   "category": "地理議題",
+   "unit": "臺灣的地名文化",
+   "lesson": "tw-settle"
+  },
+  {
+   "category": "地理議題",
+   "unit": "臺灣的農業與食品安全",
+   "lesson": "tw-food"
+  },
+  {
+   "category": "世界",
+   "unit": "大洋洲與兩極",
+   "keyword": "南極|北極|極地|極圈|冰|氣候變遷|暖化|永晝|永夜",
+   "lesson": "polar"
+  },
+  {
+   "category": "世界",
+   "unit": "大洋洲與兩極",
+   "lesson": "oceania"
+  },
+  {
+   "category": "世界",
+   "unit": "東北亞",
+   "theme": [
+    "產業",
+    "聚落",
+    "交通"
+   ],
+   "lesson": "ne-asia-economy"
+  },
+  {
+   "category": "世界",
+   "unit": "東北亞",
+   "lesson": "ne-asia-nature"
+  },
+  {
+   "category": "世界",
+   "unit": "東南亞和南亞",
+   "keyword": "南亞|印度|巴基斯坦|孟加拉|恆河|印度河|斯里蘭卡|尼泊爾|不丹|喜馬拉雅|德干|孟買|加爾各答|班加羅爾",
+   "lesson": "s-asia"
+  },
+  {
+   "category": "世界",
+   "unit": "東南亞和南亞",
+   "lesson": "se-asia"
+  },
+  {
+   "category": "世界",
+   "unit": "歐洲與俄羅斯",
+   "keyword": "俄羅斯|西伯利亞|莫斯科|烏拉山|貝加爾",
+   "lesson": "russia"
+  },
+  {
+   "category": "世界",
+   "unit": "歐洲與俄羅斯",
+   "lesson": "europe"
+  },
+  {
+   "category": "世界",
+   "unit": "漠南非洲",
+   "theme": [
+    "產業",
+    "議題",
+    "交通"
+   ],
+   "lesson": "sub-saharan"
+  },
+  {
+   "category": "世界",
+   "unit": "漠南非洲",
+   "lesson": "ssa-nature"
+  },
+  {
+   "category": "世界",
+   "unit": "美洲",
+   "keyword": "中美|南美|中南美|拉丁|巴西|阿根廷|墨西哥|安地斯|亞馬遜|智利|祕魯|秘魯|巴拿馬|加勒比",
+   "lesson": "latin-america"
+  },
+  {
+   "category": "世界",
+   "unit": "美洲",
+   "lesson": "n-america"
+  },
+  {
+   "category": "世界",
+   "unit": "西亞與北非",
+   "keyword": "北非|埃及|尼羅|撒哈拉|摩洛哥|利比亞|阿爾及利亞|突尼西亞",
+   "lesson": "nafrica"
+  },
+  {
+   "category": "世界",
+   "unit": "西亞與北非",
+   "theme": [
+    "人口",
+    "產業",
+    "交通",
+    "議題"
+   ],
+   "lesson": "wana-conflict"
+  },
+  {
+   "category": "世界",
+   "unit": "西亞與北非",
+   "lesson": "wasia-nature"
+  }
+ ],
+ "questions": {
+  "00bdbd6a-2a15-4b37-8d3a-9592ccd9572f": {
+   "lesson": "population",
+   "card": "s3-0"
+  },
+  "00ec28e5-1982-4661-ad28-2e262332b6bd": {
+   "lesson": "population",
+   "card": "s2-1"
+  },
+  "0808552f-bf3c-4a89-a4ba-f3fe4cb62eb0": {
+   "lesson": "location-map",
+   "card": "s0-0"
+  },
+  "11686a54-4b01-462f-bffc-a6baab7fe7a3": {
+   "lesson": "ethnic",
+   "card": "s0-5"
+  },
+  "24cacd1d-5896-4576-b2ff-cd6871bc4f01": {
+   "lesson": "ethnic",
+   "card": "s1-3"
+  },
+  "28d65c36-6ea1-407e-873f-dbfefe1f8d64": {
+   "lesson": "population",
+   "card": "s2-2"
+  },
+  "302b3fae-33fb-456d-9630-8b4b8ee77b76": {
+   "lesson": "ethnic",
+   "card": "s0-4"
+  },
+  "364ca936-4154-4a11-8b07-f58671a686c6": {
+   "lesson": "ethnic",
+   "card": "s2-1"
+  },
+  "3abeeca0-187b-4d7c-bd84-bfb98a0aed4e": {
+   "lesson": "location-map",
+   "card": "s2-1"
+  },
+  "3bc50942-1f84-4c54-94d4-936c883066db": {
+   "lesson": "taiwan-world",
+   "card": "s1-2"
+  },
+  "4e8ea38f-75a3-4de6-8ae1-59d888d76512": {
+   "lesson": "location-map",
+   "card": "s2-0"
+  },
+  "52292efb-fabf-4d3c-83f0-89186cbe05b2": {
+   "lesson": "ethnic",
+   "card": "s0-5"
+  },
+  "5dc7d395-4407-4959-8b8e-740b6a8310cc": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "6112d794-c5aa-4752-bbe8-371b87e5ef6c": {
+   "lesson": "population",
+   "card": "s1-3"
+  },
+  "700e26d9-42a1-4011-9e13-efa2385ac34e": {
+   "lesson": "population",
+   "card": "s0-1"
+  },
+  "7a2af323-b33e-448e-abdf-47ac38bfda76": {
+   "lesson": "ethnic",
+   "card": "s1-2"
+  },
+  "7a489944-c8fc-44df-ab3e-42bcceacaf99": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "7d15f1f0-0796-4478-a814-d62035cde36a": {
+   "lesson": "population",
+   "card": "s2-3"
+  },
+  "82e3cc9a-6cbd-4f91-83c6-68ca29a10d51": {
+   "lesson": "location-map",
+   "card": "s1-0"
+  },
+  "85a2293a-8a23-4b1c-9d13-f4540d509b41": {
+   "lesson": "population",
+   "card": "s0-0"
+  },
+  "8ff2a43a-0de9-465f-897a-39b39c8e0523": {
+   "lesson": "location-map",
+   "card": "s0-1"
+  },
+  "929e2b5f-ccb7-4e40-a621-36e590c8feb4": {
+   "lesson": "ethnic",
+   "card": "s0-6"
+  },
+  "945399dd-91cf-4f47-8ca9-c294a7cf2693": {
+   "lesson": "location-map",
+   "card": "s1-1"
+  },
+  "ad4e7290-c58d-4888-802d-64a07a99244c": {
+   "lesson": "population",
+   "card": "s0-0"
+  },
+  "afa44a04-646f-487b-b555-00be91a994ca": {
+   "lesson": "ethnic",
+   "card": "s0-3"
+  },
+  "b88878ae-2dd0-4f1b-99c0-9e525c44a43f": {
+   "lesson": "ethnic",
+   "card": "s0-1"
+  },
+  "bba00418-9461-46d3-a86c-9342de28c033": {
+   "lesson": "location-map",
+   "card": "s3-1"
+  },
+  "bd09d6e2-4c5b-4774-b77f-6fb3492d8544": {
+   "lesson": "population",
+   "card": "s3-1"
+  },
+  "c04a0eda-3ca4-436f-a208-2b9701458eb5": {
+   "lesson": "location-map",
+   "card": "s1-1"
+  },
+  "c3e2b452-2602-467a-9d33-5b6ed6e13c89": {
+   "lesson": "taiwan-world",
+   "card": "s0-1"
+  },
+  "d4c77f31-503c-453d-9c57-7c0c39111bcd": {
+   "lesson": "location-map",
+   "card": "s0-1"
+  },
+  "d6cf91bd-0114-415e-bbbd-7325bda8e37b": {
+   "lesson": "location-map",
+   "card": "s1-0"
+  },
+  "dc8c182b-d5be-4f81-90e2-1e8b9e86c0b1": {
+   "lesson": "ethnic",
+   "card": "s0-3"
+  },
+  "ee926d79-a57e-4bcf-8cc1-e07e891e7724": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "f308e56b-2b05-4c91-be5f-4114db68a509": {
+   "lesson": "population",
+   "card": "s0-1"
+  },
+  "84334fd9-70b0-4d8a-8fb9-71d08b562196": {
+   "lesson": "taiwan-landform",
+   "card": "s0-2"
+  },
+  "963d66b2-2e94-4f42-bc08-c5867f213f6d": {
+   "lesson": "taiwan-landform",
+   "card": "s0-1"
+  },
+  "2d33bdb9-0a41-466d-9b34-981e05d4ad34": {
+   "lesson": "taiwan-landform",
+   "card": "s1-0"
+  },
+  "87fa5503-5665-4231-b206-29818d863027": {
+   "lesson": "taiwan-landform",
+   "card": "s1-2"
+  },
+  "7e9ebf95-445b-49b0-9b20-af9d488df458": {
+   "lesson": "taiwan-landform",
+   "card": "s1-3"
+  },
+  "cd3e031c-1eeb-494b-b275-ca34da52771c": {
+   "lesson": "taiwan-landform",
+   "card": "s1-0"
+  },
+  "d5eb3f88-57a6-4bca-ad40-6b85f26e06fe": {
+   "lesson": "taiwan-landform",
+   "card": "s1-2"
+  },
+  "dd41eb3c-ba7b-4d30-bf42-2774030fc870": {
+   "lesson": "coast-island",
+   "card": "s1-3"
+  },
+  "0d75090e-b110-479f-8288-218b76adaf5e": {
+   "lesson": "coast-island",
+   "card": "s3-0"
+  },
+  "6c2c2bd1-bb6f-4a97-af31-39351e1bc56c": {
+   "lesson": "taiwan-landform",
+   "card": "s2-1"
+  },
+  "7dcf0aac-fb20-4fab-bf2b-c99d7ae3a5fc": {
+   "lesson": "coast-island",
+   "card": "s0-0"
+  },
+  "f679c75a-ba05-4ffe-adcc-af31befa4213": {
+   "lesson": "coast-island",
+   "card": "s0-1"
+  },
+  "55ea4204-132a-4630-b7c4-dab4e723bd55": {
+   "lesson": "coast-island",
+   "card": "s1-2"
+  },
+  "323dfaa0-6198-4118-9b5b-af14b1c80981": {
+   "lesson": "coast-island",
+   "card": "s1-0"
+  },
+  "4e921e7c-b28c-4240-9d0c-d5575214da80": {
+   "lesson": "coast-island",
+   "card": "s1-4"
+  },
+  "36fb663d-a624-4053-946e-27a6bb16c95d": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "ea93fdb2-ae98-46ed-9f59-d54d9590f7a6": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "4808d50d-bb99-4be5-972d-18b27e7e232b": {
+   "lesson": "coast-island",
+   "card": "s1-2"
+  },
+  "6f0323ad-b0e8-4249-bcfd-1f08a230dc10": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "26230bd9-f1db-4a7c-8c52-be3b49957f60": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "617dfc07-ced9-46d9-b42c-2c5d0fcf879c": {
+   "lesson": "weather-climate",
+   "card": "s0-0"
+  },
+  "bde6260c-8aeb-45fa-837d-fc31e2a9c577": {
+   "lesson": "hydrology",
+   "card": "s3-3"
+  },
+  "06363b57-8c86-4595-ab5f-85d64e34d195": {
+   "lesson": "weather-climate",
+   "card": "s0-0"
+  },
+  "b5055b1f-4e96-44a8-b137-9dc503d59b60": {
+   "lesson": "weather-climate",
+   "card": "s0-2"
+  },
+  "244f7705-b471-4d14-ad83-5fc5fd3eb104": {
+   "lesson": "hydrology",
+   "card": "s2-0"
+  },
+  "087e846c-398d-4a95-932d-13b52adf5429": {
+   "lesson": "weather-climate",
+   "card": "s3-3"
+  },
+  "224fadb4-3bb1-43bc-b023-03f28044799d": {
+   "lesson": "weather-climate",
+   "card": "s3-5"
+  },
+  "879f987f-67f4-4ad3-b89a-19dcda752aca": {
+   "lesson": "hydrology",
+   "card": "s2-0"
+  },
+  "48f739f0-73b4-4887-8e7a-9e503af98597": {
+   "lesson": "hydrology",
+   "card": "s4-0"
+  },
+  "6b1e1007-99a5-4ad4-8a16-992de79713aa": {
+   "lesson": "hydrology",
+   "card": "s2-1"
+  },
+  "166345cc-1350-40ca-a8db-a5627e7bb925": {
+   "lesson": "hydrology",
+   "card": "s1-1"
+  },
+  "afe1689d-5a74-4500-bc73-06b659339b42": {
+   "lesson": "hydrology",
+   "card": "s4-1"
+  },
+  "10888ff3-addc-4658-8f22-f1c5e68cfc7b": {
+   "lesson": "weather-climate",
+   "card": "s2-0"
+  },
+  "0e22eec0-c709-4907-9cc5-ad2117c36a66": {
+   "lesson": "weather-climate",
+   "card": "s0-5"
+  },
+  "90ba944f-bd5a-4124-adf1-951021f1ba6a": {
+   "lesson": "weather-climate",
+   "card": "s3-2"
+  },
+  "685e7ad6-84e0-4246-9e27-de915be657aa": {
+   "lesson": "hydrology",
+   "card": "s3-0"
+  },
+  "9835bd57-5c14-4541-a882-046179feb734": {
+   "lesson": "weather-climate",
+   "card": "s0-3"
+  },
+  "61be1635-b977-41b6-b01c-8a708a28c80f": {
+   "lesson": "weather-climate",
+   "card": "s3-5"
+  },
+  "65948095-7c0e-4d10-af8f-6890e59d3478": {
+   "lesson": "hydrology",
+   "card": "s2-0"
+  },
+  "ee58b006-b8b0-423b-a6a0-95ac3961304d": {
+   "lesson": "hydrology",
+   "card": "s2-4"
+  },
+  "2e3837bf-9f92-40c1-b9b4-daa0be783d1e": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-5"
+  },
+  "7359a63e-418c-4e9a-939e-2050ce34ec1f": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-1"
+  },
+  "2d5193ab-f7fe-4bfb-9a14-91d5e223c15e": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-1"
+  },
+  "9307f821-375e-4792-9e1d-e94dfbf39f59": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-3"
+  },
+  "2168b1da-07fd-45ce-8f5e-c44890b87834": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-4"
+  },
+  "c06f4fb6-2f50-44be-9e79-1e6d7fe91035": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-4"
+  },
+  "fdf31b28-edd2-4e3c-918b-7c1039061fe3": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-4"
+  },
+  "b5d3720c-bb0b-4349-9a06-122784872521": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-9"
+  },
+  "cdc3e171-e863-431f-a4ce-8372264e1b6e": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-0"
+  },
+  "c071ff9c-bfa5-4bb5-85f1-f241a16707a6": {
+   "lesson": "ne-asia-nature",
+   "card": "s1-4"
+  },
+  "a74068cb-ae15-49b5-be6e-3497924ff30e": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-8"
+  },
+  "2d0e7470-e0f8-4c22-bf89-9e03cdffd72c": {
+   "lesson": "ne-asia-economy",
+   "card": "s0-3"
+  },
+  "8471a31b-6256-44d4-9710-11f828e7c591": {
+   "lesson": "ne-asia-economy",
+   "card": "s0-0"
+  },
+  "8a42fab5-ffe1-4094-8e23-febedf02b5b6": {
+   "lesson": "ne-asia-economy",
+   "card": "s0-4"
+  },
+  "9bb3b8ed-55f0-4a05-ad5b-5f2f6a20e89c": {
+   "lesson": "ne-asia-economy",
+   "card": "s1-8"
+  },
+  "cbf309d5-8fea-48a8-96e3-5d4f6b16c9b7": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-5"
+  },
+  "4a659982-2d13-4b82-9778-043b0ff8476a": {
+   "lesson": "ne-asia-economy",
+   "card": "s1-1"
+  },
+  "277e9bd1-1e24-4a7d-bc1f-f9a79b5a588c": {
+   "lesson": "ne-asia-economy",
+   "card": "s1-1"
+  },
+  "5afafecb-c47a-4a7b-82e3-262c42151674": {
+   "lesson": "ne-asia-economy",
+   "card": "s1-5"
+  },
+  "200339d2-4382-4729-b87c-76220d8d2cdc": {
+   "lesson": "ne-asia-economy",
+   "card": "s1-8"
+  },
+  "e8a5b4b1-e880-4c0b-88e1-c745ba9b5076": {
+   "lesson": "ssa-nature",
+   "card": "s1-0"
+  },
+  "fc47c73f-29b9-4351-8126-33f82f902fbd": {
+   "lesson": "ssa-nature",
+   "card": "s0-1"
+  },
+  "8b5de360-dad6-42e6-bdd3-bc787f1a1940": {
+   "lesson": "ssa-nature",
+   "card": "s0-2"
+  },
+  "06dffbd7-59a0-4588-86fb-c525333d8fb5": {
+   "lesson": "ssa-nature",
+   "card": "s0-3"
+  },
+  "ec0a76d8-9489-4a3c-8eb1-43cf079b623f": {
+   "lesson": "ssa-nature",
+   "card": "s1-4"
+  },
+  "393232b2-9d09-4b00-adf4-e3de982b53b4": {
+   "lesson": "sub-saharan",
+   "card": "s3-0"
+  },
+  "197f0893-6f2d-4b97-987e-a0337ba2e972": {
+   "lesson": "ssa-nature",
+   "card": "s0-6"
+  },
+  "ea807e39-875f-4937-a67f-e31c9c676c7e": {
+   "lesson": "sub-saharan",
+   "card": "s1-3"
+  },
+  "90609e31-c972-45a7-95da-9c763f734db6": {
+   "lesson": "ssa-nature",
+   "card": "s1-3"
+  },
+  "7f6f4e27-754c-412b-afec-3fcc803bf9ca": {
+   "lesson": "ssa-nature",
+   "card": "s1-3"
+  },
+  "924054cd-7538-48fb-bba7-0e95f780309b": {
+   "lesson": "sub-saharan",
+   "card": "s0-1"
+  },
+  "1c4e75c0-b765-4a44-9e6b-5f201155d654": {
+   "lesson": "sub-saharan",
+   "card": "s4-1"
+  },
+  "480ff6ec-e430-440e-934c-7634a354ba4d": {
+   "lesson": "sub-saharan",
+   "card": "s0-2"
+  },
+  "daeb12c7-aa5f-4d16-9909-6a764c66ce62": {
+   "lesson": "sub-saharan",
+   "card": "s1-5"
+  },
+  "d192af74-ebc3-4b69-85f5-74d2eea72145": {
+   "lesson": "ssa-nature",
+   "card": "s1-1"
+  },
+  "51327abd-a665-4d9c-a195-add3abb8fc4a": {
+   "lesson": "sub-saharan",
+   "card": "s4-1"
+  },
+  "050927f7-a208-4fad-abfe-eb075defe2ec": {
+   "lesson": "sub-saharan",
+   "card": "s1-5"
+  },
+  "c76526ef-eb47-4a7e-8e42-cccb771be9b9": {
+   "lesson": "sub-saharan",
+   "card": "s4-0"
+  },
+  "473b81de-909d-4b73-9506-80585ff4091e": {
+   "lesson": "sub-saharan",
+   "card": "s4-0"
+  },
+  "cb045beb-8a1a-4aec-8bac-4eb802aa210a": {
+   "lesson": "sub-saharan",
+   "card": "s4-0"
+  },
+  "b339d143-883a-4de9-95d4-bdcce014050d": {
+   "lesson": "set",
+   "card": "s3-1"
+  },
+  "41e940a3-f48c-43f8-b245-eda907bbd9bd": {
+   "lesson": "set",
+   "card": "s0-1"
+  },
+  "2010aeeb-ad38-431a-bdcc-d88f9da78f2d": {
+   "lesson": "set",
+   "card": "s2-0"
+  },
+  "3889f12e-4e3a-42a1-b10b-c3b5c9559fd2": {
+   "lesson": "set",
+   "card": "s3-0"
+  },
+  "a032f128-f942-46de-970b-7303d738430f": {
+   "lesson": "set",
+   "card": "s0-1"
+  },
+  "07115ea4-9f4a-4639-ab26-5a7c550b165f": {
+   "lesson": "set",
+   "card": "s2-1"
+  },
+  "714009f1-30dd-44d2-b89d-b86c0a6e15ac": {
+   "lesson": "reg",
+   "card": "s1-3"
+  },
+  "54e4c8e9-09a6-4413-9bad-a584d9f2ea08": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "b5c1e67f-d154-4cbf-8921-cd60248e7a64": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "d16688cd-36b3-4067-8ead-255a9076f598": {
+   "lesson": "set",
+   "card": "s1-1"
+  },
+  "b039af5f-64fe-4c8a-9ea0-db89f03d8d95": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "9356cda5-7fff-4f62-b6fb-a9bf38d7c02b": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "491a8c08-e815-4b76-aa4f-c32a4a470f9d": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "74d1a571-23e7-4aca-9c44-31ed1eed33c9": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "c202e15d-93ed-4825-8e1a-1190772e16cb": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "1c98a41f-d4e6-4a8b-8a89-3301746fcec7": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "0c194b95-1096-40b9-8edd-f81f583df122": {
+   "lesson": "reg",
+   "card": "s1-2"
+  },
+  "862e077b-eed1-412a-91ac-6806153c6b39": {
+   "lesson": "reg",
+   "card": "s0-1"
+  },
+  "4876230e-50e5-488c-bdda-8b6cb2c1b458": {
+   "lesson": "set",
+   "card": "s2-0"
+  },
+  "7d0933a5-b583-4ddd-9f75-613a6b0753ce": {
+   "lesson": "reg",
+   "card": "s1-0"
+  },
+  "70a6a760-8bff-4b71-be44-4e696f369411": {
+   "lesson": "tw-food",
+   "card": "s2-0"
+  },
+  "aeea01fa-b0ac-4e07-a719-ae113db629a4": {
+   "lesson": "russia",
+   "card": "s0-4"
+  },
+  "7a3fcafd-4773-42fa-ab63-732434acf09c": {
+   "lesson": "tw-settle",
+   "card": "s0-1"
+  },
+  "e60a2c0d-b358-47ff-b471-953a590b2c42": {
+   "lesson": "wana-conflict",
+   "card": "s0-0"
+  },
+  "2f1036d5-625f-449b-bd6a-a43f563516ed": {
+   "lesson": "ind",
+   "card": "s0-2"
+  },
+  "5e378e78-6a61-41d9-bdab-ff9c10aff29b": {
+   "lesson": "set",
+   "card": "s2-1"
+  },
+  "af2e6eb4-7fc9-49e7-9703-781072533699": {
+   "lesson": "sub-saharan",
+   "card": "s1-4"
+  },
+  "c06046ea-6c00-4754-873d-45664f6536ad": {
+   "lesson": "ne-asia-nature",
+   "card": "s0-6"
+  },
+  "970df3f9-4ec7-45bb-9698-f361456cefe4": {
+   "lesson": "chn-population",
+   "card": "s0-2"
+  },
+  "241bfdc8-f1e2-4a25-91eb-7afb5f5ff172": {
+   "lesson": "s-asia",
+   "card": "s1-2"
+  },
+  "8724bedd-5edd-47d9-b7b0-7a5bc03d35e5": {
+   "lesson": "ethnic",
+   "card": "s0-2"
+  },
+  "f6d4bbf7-fc81-4dbd-9ba2-234b6e3d5f1f": {
+   "lesson": "hydrology",
+   "card": "s1-1"
+  },
+  "f0a2b143-389a-4c72-8948-3edeab8ec1ee": {
+   "lesson": "ind",
+   "card": "s0-5"
+  },
+  "1f90c095-92e3-4502-af77-7a4b38223bc8": {
+   "lesson": "hydrology",
+   "card": "s4-0"
+  },
+  "1077a3b9-9388-4c7d-a99c-1517d8a54c16": {
+   "lesson": "oceania",
+   "card": "s1-1"
+  },
+  "a7492199-dad5-4035-892a-a6a79bb17116": {
+   "lesson": "chn-economy",
+   "card": "s2-1"
+  },
+  "995475fd-f627-46b4-9e79-a932b88d242f": {
+   "lesson": "s-asia",
+   "card": "s0-1"
+  },
+  "79156173-92da-4a12-aea5-2742f7a054f5": {
+   "lesson": "agr",
+   "card": "s1-1"
+  },
+  "22205383-20c7-4e09-b68b-70cb23194264": {
+   "lesson": "reg",
+   "card": "s1-3"
+  },
+  "ccd35f3a-0629-4282-b896-51fea9eee2c0": {
+   "lesson": "polar",
+   "card": "s1-2"
+  },
+  "5ad7c4f1-d39b-497c-bc73-a962363788da": {
+   "lesson": "chn-population",
+   "card": "s2-5"
+  },
+  "73a9616f-9421-426b-a02a-b4574d01585f": {
+   "lesson": "coast-island",
+   "card": "s0-1"
+  },
+  "94e4c571-4e6f-4859-82c8-062cdd998708": {
+   "lesson": "nafrica",
+   "card": "s0-1"
+  },
+  "314df644-d84c-45d4-a796-09d0f41ec359": {
+   "lesson": "chn-landform",
+   "card": "s1-2"
+  },
+  "b66e091d-296c-42e2-aff6-25221aaf0630": {
+   "lesson": "ind",
+   "card": "s1-2"
+  },
+  "f82889d1-15c0-4695-b9ff-5561f6049700": {
+   "lesson": "oceania",
+   "card": "s0-0"
+  },
+  "d3dc17a7-1891-4002-8628-c7de66b14a1f": {
+   "lesson": "s-asia",
+   "card": "s1-0"
+  },
+  "6f0467c6-8adb-4952-a314-f39c725361ca": {
+   "lesson": "latin-america",
+   "card": "s0-5"
+  },
+  "9fdbc70a-e956-40da-9ef0-32b936205e8d": {
+   "lesson": "weather-climate",
+   "card": "s2-0"
+  },
+  "27db23cd-ecc7-4062-9c93-15fe99c41459": {
+   "lesson": "reg",
+   "card": "s1-0"
+  },
+  "eab3fff3-180b-43f1-a115-62d02bf0103b": {
+   "lesson": "russia",
+   "card": "s1-0"
+  },
+  "a73fc282-b678-424e-b266-a6eb1162b598": {
+   "lesson": "chn-landform",
+   "card": "s2-0"
+  },
+  "4719eec9-4ecc-4840-b73d-91ab6d892aa1": {
+   "lesson": "agr",
+   "card": "s1-2"
+  },
+  "9e5a392f-2df9-456b-8249-504510404910": {
+   "lesson": "taiwan-landform",
+   "card": "s1-0"
+  },
+  "a9c97361-b020-46a0-ad94-c51851c715d6": {
+   "lesson": "weather-climate",
+   "card": "s0-6"
+  },
+  "caec2801-b498-4442-b2ba-dc08cae484a4": {
+   "lesson": "chn-economy",
+   "card": "s1-4"
+  },
+  "594265f8-18db-416c-845a-9925e368f414": {
+   "lesson": "coast-island",
+   "card": "s4-1"
+  },
+  "4610b545-30fb-43ee-bb72-996258a76d45": {
+   "lesson": "chn-landform",
+   "card": "s1-2"
+  },
+  "d576f1cd-8ed9-4994-9786-3da9069f64e7": {
+   "lesson": "reg",
+   "card": "s1-2"
+  },
+  "cd548e2a-fc92-4ddf-af14-6b8b70735cd5": {
+   "lesson": "s-asia",
+   "card": "s0-4"
+  },
+  "e6a6556f-52c7-47c1-ad3a-a7095a0cf46d": {
+   "lesson": "latin-america",
+   "card": "s0-5"
+  },
+  "ec6b296e-ceff-459b-9ce5-95d64426fe61": {
+   "lesson": "location-map",
+   "card": "s3-0"
+  },
+  "823cef13-bb66-4efd-b8a9-287380770ac3": {
+   "lesson": "agr",
+   "card": "s1-1"
+  },
+  "6fc392c2-f9bb-4020-b393-27ec19233a62": {
+   "lesson": "reg",
+   "card": "s3-1"
+  },
+  "3a3499d1-e235-4693-817f-13c74934739e": {
+   "lesson": "ind",
+   "card": "s0-5"
+  },
+  "fcf8d7de-b26d-4445-aa17-cffe579a9221": {
+   "lesson": "weather-climate",
+   "card": "s3-0"
+  },
+  "73a3d282-10c0-416c-881e-e1a5b0b695c5": {
+   "lesson": "chn-economy",
+   "card": "s1-2"
+  },
+  "50fdfd27-c7ea-4af8-83cd-09fbf539bf0a": {
+   "lesson": "taiwan-landform",
+   "card": "s1-0"
+  },
+  "8562c299-c727-4ec1-b45c-3f880b0bf546": {
+   "lesson": "sub-saharan",
+   "card": "s0-1"
+  },
+  "643fc583-6a38-4175-8dba-362ea25642a8": {
+   "lesson": "chn-landform",
+   "card": "s1-1"
+  },
+  "7b2ffd1f-3b1c-439f-b290-5e93a152003a": {
+   "lesson": "location-map",
+   "card": "s3-0"
+  },
+  "e4eaee19-e91e-455a-af89-04f00bd39b44": {
+   "lesson": "n-america",
+   "card": "s1-5"
+  },
+  "7d6beab9-c271-42d4-81b5-a34b08d9501e": {
+   "lesson": "oceania",
+   "card": "s1-4"
+  },
+  "f2d6b65c-b0b7-4182-8875-7c48f0101cee": {
+   "lesson": "europe",
+   "card": "s0-2"
+  },
+  "9e0775e5-688f-4ee2-b0a0-055c4b09158a": {
+   "lesson": "se-asia",
+   "card": "s0-1"
+  },
+  "679f624f-7160-4f50-828e-524c3d20683c": {
+   "lesson": "chn-climate",
+   "card": "s0-1"
+  },
+  "a0583826-c626-4891-9e93-9d8336ec8c44": {
+   "lesson": "population",
+   "card": "s3-0"
+  },
+  "3e488227-6caf-404c-9e77-691e03f4797e": {
+   "lesson": "latin-america",
+   "card": "s0-0"
+  },
+  "69a1dd5b-69fd-4a67-85fb-79f7a6b5bb68": {
+   "lesson": "wana-conflict",
+   "card": "s0-2"
+  },
+  "acd279e4-ffb2-474b-a0ed-bedbd05a29fa": {
+   "lesson": "coast-island",
+   "card": "s1-4"
+  },
+  "28ccb95a-5e9b-4b34-8c9a-027ae520f915": {
+   "lesson": "chn-climate",
+   "card": "s0-3"
+  },
+  "8e3cd6e0-d461-4e45-bf6f-d9a9c529a70e": {
+   "lesson": "hydrology",
+   "card": "s3-2"
+  },
+  "ae10c547-0f39-47ca-9db0-697f92d13ddc": {
+   "lesson": "tw-food",
+   "card": "s2-0"
+  },
+  "e694f3dc-a2bd-48c6-9625-cf8f1a4ed7bf": {
+   "lesson": "latin-america",
+   "card": "s0-5"
+  },
+  "414af0ae-61d1-4e59-bb83-63e85836d96d": {
+   "lesson": "se-asia",
+   "card": "s0-0"
+  },
+  "e2fc7b46-3faa-4440-8471-6e27c2713542": {
+   "lesson": "agr",
+   "card": "s2-0"
+  },
+  "095432ba-ab99-41c0-8b89-edb690e53701": {
+   "lesson": "europe",
+   "card": "s2-1"
+  },
+  "9c8e8b01-d1f7-4cf3-9ab9-a11c027677c3": {
+   "lesson": "chn-economy",
+   "card": "s2-3"
+  },
+  "846e816a-e9d4-460e-a413-efd7e3af5102": {
+   "lesson": "weather-climate",
+   "card": "s1-0"
+  },
+  "6291c4b4-9e0e-4b16-a8f6-9ffc9e2c4e19": {
+   "lesson": "sub-saharan",
+   "card": "s1-5"
+  },
+  "ed51596e-4fdf-4ec3-ad8b-4921ca93879c": {
+   "lesson": "ethnic",
+   "card": "s1-2"
+  },
+  "4f4cfd79-8caa-424f-9e15-0cc9c1789add": {
+   "lesson": "coast-island",
+   "card": "s1-1"
+  },
+  "c2234dd0-a327-4cd4-b87a-578017e4b469": {
+   "lesson": "russia",
+   "card": "s0-5"
+  },
+  "f97557c3-7bdb-4bd5-8c50-9b7f3d9c6711": {
+   "lesson": "weather-climate",
+   "card": "s3-3"
+  },
+  "08ea2cef-0f02-4c2f-89fd-1917dfa57384": {
+   "lesson": "russia",
+   "card": "s0-5"
+  },
+  "453d337f-b003-4b50-934d-89459e64dd5d": {
+   "lesson": "chn-landform",
+   "card": "s1-2"
+  },
+  "e0057e39-65ad-4af0-8698-e80f6bd67b9f": {
+   "lesson": "chn-economy",
+   "card": "s1-5"
+  },
+  "96d18635-e0ee-4be1-b8c5-4ac7e6299d35": {
+   "lesson": "agr",
+   "card": "s2-1"
+  },
+  "1a1a0007-e89c-45d2-804a-d71c2ecd334c": {
+   "lesson": "polar",
+   "card": "s1-2"
+  },
+  "0c295cab-302e-4c24-a6ef-e9a1feb0c7ea": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "21d0c13d-72f5-42ed-82ec-e70978028064": {
+   "lesson": "ind",
+   "card": "s0-2"
+  },
+  "ca6707de-c88a-419b-b45c-03ab5bf73f49": {
+   "lesson": "chn-economy",
+   "card": "s2-0"
+  },
+  "e7f4f271-e328-46e8-a64d-37fdd45cd153": {
+   "lesson": "n-america",
+   "card": "s1-5"
+  },
+  "94b0cc3c-1bf0-459c-ac0f-7c0cbfafc55b": {
+   "lesson": "wana-conflict",
+   "card": "s1-1"
+  },
+  "936bbb77-b857-4216-9557-f59e229920db": {
+   "lesson": "ethnic",
+   "card": "s0-3"
+  },
+  "ee444a50-b684-4ef5-ba95-0d2d0a35450c": {
+   "lesson": "europe",
+   "card": "s1-4"
+  },
+  "3a4cc964-bc35-4849-b877-4e054bef3c5b": {
+   "lesson": "latin-america",
+   "card": "s1-4"
+  },
+  "c4a7e5fe-02cc-4f43-8850-7961e112ddd2": {
+   "lesson": "coast-island",
+   "card": "s1-4"
+  },
+  "6788cb44-e4b0-40ba-9ced-3490dde2356a": {
+   "lesson": "chn-economy",
+   "card": "s1-4"
+  },
+  "e7206421-ffe1-4519-af47-3b39f2cb399f": {
+   "lesson": "hydrology",
+   "card": "s5-2"
+  },
+  "39d0cc58-a7d6-466a-9f44-5d099076686c": {
+   "lesson": "wana-conflict",
+   "card": "s0-0"
+  },
+  "7677119b-5413-4403-b237-a3b9f380d81f": {
+   "lesson": "chn-population",
+   "card": "s1-0"
+  },
+  "64b3635f-7f40-453d-a077-8ed5dd25eff2": {
+   "lesson": "latin-america",
+   "card": "s0-5"
+  },
+  "281ede49-e82f-427c-9a5a-1494cf5280b3": {
+   "lesson": "nafrica",
+   "card": "s0-0"
+  },
+  "fac5b2c9-cf59-4454-9620-c2c87574f52a": {
+   "lesson": "chn-climate",
+   "card": "s1-1"
+  },
+  "444b5669-ae4f-4088-9c34-c4e51aaee2f3": {
+   "lesson": "se-asia",
+   "card": "s0-2"
+  },
+  "4293a31d-93b4-4b91-a443-25d9e938c964": {
+   "lesson": "hydrology",
+   "card": "s1-1"
+  },
+  "56aae27d-9149-4416-b696-90eeb90c2067": {
+   "lesson": "latin-america",
+   "card": "s1-4"
+  },
+  "05388458-7c0e-44fb-89c7-62450644e702": {
+   "lesson": "chn-economy",
+   "card": "s2-1"
+  },
+  "e9008d2e-0250-40f9-88b1-9dd6b4ce7e8d": {
+   "lesson": "reg",
+   "card": "s1-3"
+  },
+  "48dfe8cc-1faa-48ff-b34d-8cf0b2c29ab7": {
+   "lesson": "agr",
+   "card": "s2-2"
+  },
+  "2890d211-ef36-4186-ba0b-154c6edae9c9": {
+   "lesson": "ethnic",
+   "card": "s2-1"
+  },
+  "25adff04-0843-43f2-9514-854486a52d29": {
+   "lesson": "reg",
+   "card": "s0-0"
+  },
+  "0b9c4f72-541b-41fd-bcb8-8a26518151b5": {
+   "lesson": "s-asia",
+   "card": "s0-6"
+  },
+  "1f03e6eb-2a4b-4143-bd25-9edff0c95ad0": {
+   "lesson": "agr",
+   "card": "s2-2"
+  },
+  "e49239b4-10b1-4115-8849-2d6f16c4e31b": {
+   "lesson": "sub-saharan",
+   "card": "s0-4"
+  },
+  "42ece43a-9490-4cc2-a680-c248aba31631": {
+   "lesson": "chn-economy",
+   "card": "s2-1"
+  },
+  "104e0dac-74b8-418c-9b5c-63ac54557f92": {
+   "lesson": "n-america",
+   "card": "s1-5"
+  },
+  "ed80c29b-784f-40c1-9f71-0b77350a55cf": {
+   "lesson": "location-map",
+   "card": "s4-0"
+  },
+  "0b27e92e-9b9b-4047-b59a-7ef9be5c600c": {
+   "lesson": "chn-landform",
+   "card": "s2-0"
+  },
+  "573d3738-b4dd-46b1-8210-85c47ccc4e5b": {
+   "lesson": "weather-climate",
+   "card": "s4-0"
+  },
+  "66054aa8-e878-4ea1-ad78-30323d3d44c7": {
+   "lesson": "hydrology",
+   "card": "s2-3"
+  },
+  "76c2cfe9-39ce-40f9-b217-87efcab6807e": {
+   "lesson": "russia",
+   "card": "s0-0"
+  },
+  "69673ee2-d0a9-437e-8ba0-4538b0fc7b9d": {
+   "lesson": "taiwan-landform",
+   "card": "s2-1"
+  },
+  "c512793b-ee2c-4548-937c-978ff71184b1": {
+   "lesson": "location-map",
+   "card": "s2-0"
+  },
+  "f453ee41-3a3f-4838-a4fe-1964db5d2ed0": {
+   "lesson": "europe",
+   "card": "s2-0"
+  },
+  "cd7e8a65-9686-4d82-b3f0-b794ab87c5ab": {
+   "lesson": "ind",
+   "card": "s0-2"
+  },
+  "e4f5e8ca-cc71-4413-abb9-a232e2cda061": {
+   "lesson": "population",
+   "card": "s2-3"
+  },
+  "000e2171-2ffc-4cea-b06d-2698d79aec3c": {
+   "lesson": "s-asia",
+   "card": "s4-1"
+  },
+  "1668e540-9a35-4abb-851b-32d573b89f14": {
+   "lesson": "wana-conflict",
+   "card": "s0-2"
+  },
+  "7c0a8ee3-a065-434e-9e14-0e183306fe69": {
+   "lesson": "n-america",
+   "card": "s0-1"
+  },
+  "f68d33a7-0ace-495e-95f0-c31c9680e717": {
+   "lesson": "weather-climate",
+   "card": "s0-2"
+  },
+  "bebf9394-72c5-46c9-afbc-138c85ba7d36": {
+   "lesson": "taiwan-world",
+   "card": "s2-0"
+  },
+  "e81a87fd-a34c-4c9a-b81c-3bd1c6f05122": {
+   "lesson": "reg",
+   "card": "s1-3"
+  },
+  "cefba573-79cb-4ae6-9e5d-4c39a1cfacf7": {
+   "lesson": "europe",
+   "card": "s2-0"
+  },
+  "b8e835dd-f8d6-4732-9fbc-186dc0a36960": {
+   "lesson": "chn-economy",
+   "card": "s1-2"
+  },
+  "55e6d988-d29f-4bab-8955-ed565cd59fa2": {
+   "lesson": "chn-climate",
+   "card": "s0-3"
+  },
+  "82a96369-0354-4637-b007-15a2b3c0947b": {
+   "lesson": "europe",
+   "card": "s0-7"
+  },
+  "8f102f28-9473-482a-b44d-1dd831049088": {
+   "lesson": "coast-island",
+   "card": "s0-1"
+  },
+  "ea520690-1060-413d-8b06-472c860f3f47": {
+   "lesson": "chn-landform",
+   "card": "s1-2"
+  },
+  "5d048dd7-3da8-4510-aad1-fb74e145df84": {
+   "lesson": "nafrica",
+   "card": "s0-1"
+  },
+  "cce3779d-6dbb-470e-8eb5-c96a95a287e8": {
+   "lesson": "latin-america",
+   "card": "s0-5"
+  },
+  "da1c7c4e-8774-4a7d-b544-4294de0d1c2b": {
+   "lesson": "se-asia",
+   "card": "s1-1"
+  },
+  "ba044e16-e379-4db4-9273-4d42a1caca2f": {
+   "lesson": "chn-landform",
+   "card": "s1-2"
+  },
+  "2f9f3ce4-4542-4c54-a93e-000a6775ee06": {
+   "lesson": "ethnic",
+   "card": "s0-4"
+  },
+  "ebdf97f9-891a-424f-8f95-8bdb08f7efc5": {
+   "lesson": "s-asia",
+   "card": "s0-0"
+  },
+  "0c3355c9-85a5-42da-aa07-f7b50c35d1b5": {
+   "lesson": "ethnic",
+   "card": "s0-1"
+  },
+  "c1a12a92-f1c8-47e2-abac-75178bf5f992": {
+   "lesson": "coast-island",
+   "card": "s2-1"
+  },
+  "3737a9c0-58b3-4783-9a16-18650a4e511d": {
+   "lesson": "hydrology",
+   "card": "s5-2"
+  },
+  "4e9b044f-d4ad-45ee-843b-618d88152a71": {
+   "lesson": "se-asia",
+   "card": "s2-3"
+  },
+  "beefe176-6534-4762-93c4-3391885c1bdd": {
+   "lesson": "polar",
+   "card": "s1-0"
+  },
+  "1b272ad7-601d-4d49-813d-78ada21a8523": {
+   "lesson": "coast-island",
+   "card": "s1-4"
+  },
+  "373bae29-9a7e-4cd9-9652-c4fcbb1f9c82": {
+   "lesson": "ind",
+   "card": "s1-0"
+  },
+  "73f912cc-c98b-416a-85e0-176d9ce0cded": {
+   "lesson": "europe",
+   "card": "s0-8"
+  },
+  "ffb0e517-71d1-4548-84a2-8b212c7fcd49": {
+   "lesson": "chn-climate",
+   "card": "s1-2"
+  },
+  "9757416a-90fb-4b6d-a3a6-0450f712b418": {
+   "lesson": "n-america",
+   "card": "s1-4"
+  },
+  "9da673a0-f4bb-4a70-bb18-07199b6e1740": {
+   "lesson": "taiwan-landform",
+   "card": "s1-0"
+  },
+  "58fa4007-38da-48da-928a-4ff2c5799a93": {
+   "lesson": "chn-economy",
+   "card": "s1-5"
+  },
+  "037912d9-24a2-4554-b5c7-d107c7b1a434": {
+   "lesson": "chn-landform",
+   "card": "s1-3"
+  },
+  "dbd193e0-70d8-4ac9-8df5-05cfd3e33291": {
+   "lesson": "europe",
+   "card": "s1-0"
+  },
+  "72c2fc35-2943-49b1-a57f-a5de7172eaaf": {
+   "lesson": "chn-economy",
+   "card": "s2-2"
+  },
+  "f2d6725f-10ad-4f75-8d00-1a3a9a7c7208": {
+   "lesson": "chn-landform",
+   "card": "s2-0"
+  },
+  "9b5a3c6c-8030-4f93-88f1-e8b7136185d3": {
+   "lesson": "reg",
+   "card": "s1-1"
+  },
+  "4608373c-0912-4cac-9fab-d4443dd7dab6": {
+   "lesson": "wana-conflict",
+   "card": "s2-4"
+  },
+  "0fb8d796-8059-47a7-96e4-fb64c57cd94a": {
+   "lesson": "chn-climate",
+   "card": "s0-1"
+  },
+  "250e5005-5ce3-409e-9d32-adf8f64e1e2c": {
+   "lesson": "coast-island",
+   "card": "s4-1"
+  },
+  "dbff3960-dff9-4a23-b07e-cfba9c6d499a": {
+   "lesson": "sub-saharan",
+   "card": "s5-0"
+  },
+  "d126de57-8a99-4c2e-8126-fa554509d3d3": {
+   "lesson": "ethnic",
+   "card": "s2-1"
+  },
+  "870c688c-3f93-464c-bf5d-473558eb25bb": {
+   "lesson": "s-asia",
+   "card": "s0-6"
+  },
+  "062c3aa0-28d4-484c-a9c6-1a2c17164041": {
+   "lesson": "taiwan-world",
+   "card": "s1-1"
+  },
+  "e485b4e6-1224-4f96-997c-f0ea853e2434": {
+   "lesson": "hydrology",
+   "card": "s2-3"
+  },
+  "bf6a8f56-709b-4ef8-9136-8d7922af4580": {
+   "lesson": "location-map",
+   "card": "s0-1"
+  },
+  "fd2a4d08-c6eb-4d12-a023-34beffb23ce6": {
+   "lesson": "weather-climate",
+   "card": "s3-3"
+  },
+  "9982d3df-2b90-406c-ac76-24fbcbb3716d": {
+   "lesson": "chn-economy",
+   "card": "s1-1"
+  },
+  "3b754bb5-a5fb-4fcc-92d7-58ed563d9db0": {
+   "lesson": "oceania",
+   "card": "s1-1"
+  },
+  "1b5e10a4-3664-4ba8-8f41-c70e5376b004": {
+   "lesson": "chn-economy",
+   "card": "s1-4"
+  },
+  "5b87f76f-b238-4132-a5a1-66fb7e7a8cfb": {
+   "lesson": "ethnic",
+   "card": "s2-1"
+  },
+  "37f92d8e-c6bd-46bc-97c1-73591918a219": {
+   "lesson": "ind",
+   "card": "s0-5"
+  },
+  "517420c2-1c99-41bd-993e-a86c2dfb15f9": {
+   "lesson": "chn-economy",
+   "card": "s2-0"
+  }
+ }
+}

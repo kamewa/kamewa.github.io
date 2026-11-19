@@ -120,6 +120,8 @@ button:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
 .tag{flex:none;font-size:.78rem;font-weight:700;border-radius:999px;padding:1px 9px}
 .tag.ok{background:var(--mint-soft)}
 .tag.no{background:#ffd9e2}
+.relearn{margin-left:auto;flex-shrink:0;padding:2px 10px;border-radius:999px;background:#fff6d9;border:2px solid #f2c96b;color:#7a4e00;font-size:.85rem;font-weight:700;text-decoration:none;white-space:nowrap}
+.relearn:hover,.relearn:focus-visible{background:#ffe9a8}
 .foot{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .sound{
   border-radius:999px;border:2.5px solid #fff;background:rgba(255,255,255,.75);
@@ -1170,6 +1172,26 @@ fetch("data/questions.json", { cache: "no-store" }).then((r) => (r.ok ? r.json()
   const b = readBank(j); useBank(b, "網站題庫（data/questions.json）", false);
   if (idle()) home();
 }).catch(() => {});
+// 學習網站連結：做錯的題目顯示「📖 回去看這段」（設定在 data/lesson-links.json；沒有這個檔就不顯示）
+let lessonLinks = null;
+fetch("data/lesson-links.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => { lessonLinks = j; }).catch(() => {});
+function lessonUrl(item) {
+  const L = lessonLinks;
+  if (!L || !/^https:\/\//.test(L.site || "")) return "";
+  let hit = L.questions && L.questions[item.id];
+  if (!hit) {
+    const text = [item.q, ...(item.options || []), item.why || ""].join(" ");
+    const kw = (k) => { try { return new RegExp(k).test(text); } catch (e) { return false; } };
+    const r = (L.rules || []).find((r) => r.category === item.cat && r.unit === item.unit &&
+      (!r.theme || [].concat(r.theme).includes(item.theme)) && (!r.keyword || kw(r.keyword)));
+    hit = r ? { lesson: r.lesson } : null;
+  }
+  const map = hit && L.maps && L.maps[hit.lesson];
+  if (!map) return "";
+  return L.site + "#/l/" + encodeURIComponent(hit.lesson) + "/" + encodeURIComponent(map) + (hit.card ? "/" + encodeURIComponent(hit.card) : "");
+}
+const relearn = (item) => { const u = lessonUrl(item);
+  return u ? '<a class="relearn" href="' + esc(u) + '" target="_blank" rel="noopener" title="在新分頁開啟學習網站的這一段">📖 回去看這段</a>' : ""; };
 fetch("data/islands.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject())).then((j) => {
   published = normConfig(j);
   if (!hasDraft) { config = clone(published); if (idle()) home(); }
@@ -1339,7 +1361,8 @@ function pickLevel(l) {
 }
 
 /* ---------- 作答 ---------- */
-const toItem = (q, spot) => ({ spot: spot || "none", q: q.stem, options: q.options, answer: q.answer, why: q.explanation, img: q.image });
+const toItem = (q, spot) => ({ spot: spot || "none", q: q.stem, options: q.options, answer: q.answer, why: q.explanation, img: q.image,
+                               id: q.id, cat: q.category, unit: q.unit, theme: q.theme });
 function startQuiz() {
   const keep = attempt;
   quiz = level.kind === "practice"
@@ -1409,7 +1432,7 @@ function finish() {
   view.innerHTML = "<h2>" + title + '</h2><p class="score">' + (strict ? Math.round(score / quiz.length * 100) + " <small>分（答對 " + score + "／" + quiz.length + " 題）</small>"
       : score + " <small>／ " + quiz.length + " 題</small>") + "</p>" + extra + '<ul class="review">' +
     quiz.map((q, i) => '<li><span class="tag ' + (results[i] ? "ok" : "no") + '">' + (results[i] ? "答對" : strict ? "答錯" : "再看看") + "</span><span>第 " + (i + 1) + " 題" +
-      (strict ? "" : "　<b>" + esc(q.options[q.answer]) + "</b>") + "</span></li>").join("") +
+      (strict ? "" : "　<b>" + esc(q.options[q.answer]) + "</b>") + "</span>" + (results[i] ? "" : relearn(q)) + "</li>").join("") +
     '</ul><p class="sync" id="sync"></p>' + (strict ? "" : '<button class="go" id="again" type="button">再玩一次</button>') +
     '<button class="' + (strict ? "go" : "ghost") + '" id="back" type="button">回關卡選單</button>';
   if (!strict) $("again").addEventListener("click", () => { sfx.tap(); startQuiz(); });
