@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110363',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110364',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -242,5 +242,46 @@ window.SITE = {
       on: { oceania: { x: 19.7, y: 60.6 } } },
     { id: 'polar',           name: '兩極地區與全球氣候變遷', book: '三上 第6章', status: 'open', file: 'lessons/polar.js',
       on: { antarctica: { x: 53.8, y: 47.8 }, arctic: { x: 50.0, y: 50.0 } } }
-  ]
+  ],
+
+  /* ---------- 星願群島（闖關評量）連結 ----------
+     每一課最下面會出現「🏝️ 去闖關」按鈕，同一個分頁開啟群島的島嶼頁。
+     lessons：這一課要連到哪一座（或兩座）島；不想出現按鈕就刪掉那一行。
+     島嶼代號：terrain 地形、place 位置、climate 氣候、water 水文、people 人口、
+               traffic 交通、industry 產業、village 聚落、issue 議題、other 會考綜合       */
+  quiz: {
+    url: 'https://kamewa.github.io/island-quiz/',
+    islands: {
+      terrain:  { name: '粉彩地形島', en: 'Terrain Island',  page: 'terrain.html' },
+      place:    { name: '星辰尋夢島', en: 'Location Island', page: 'star.html' },
+      climate:  { name: '四季魔法島', en: 'Climate Island',  page: 'season.html' },
+      water:    { name: '晶泉瀑布島', en: 'Water Island',    page: 'water.html' },
+      people:   { name: '繁晶慶典島', en: 'People Island',   page: 'people.html' },
+      traffic:  { name: '晶軌夢遊島', en: 'Transport Island', page: 'rail.html' },
+      industry: { name: '糖晶工坊島', en: 'Industry Island', page: 'sugar.html' },
+      village:  { name: '晶語童話島', en: 'Settlement Island', page: 'town.html' },
+      issue:    { name: '晶願守護島', en: 'Issues Island',   page: 'guard.html' },
+      other:    { name: '幻彩祕境島', en: 'Mystery Island',  page: 'mystic.html' }
+    },
+    lessons: {
+      'location-map': ['place'],            'taiwan-world': ['place'],
+      'taiwan-landform': ['terrain'],       'coast-island': ['terrain', 'place'],
+      'weather-climate': ['climate'],       hydrology: ['water'],
+      population: ['people'],               ethnic: ['people'],
+      agr: ['industry'],                    ind: ['industry', 'traffic'],
+      set: ['village'],                     reg: ['industry', 'traffic'],
+      'chn-landform': ['terrain', 'water'], 'chn-climate': ['climate'],
+      'chn-population': ['people', 'village'], 'chn-economy': ['industry', 'traffic'],
+      'tw-admin': ['place', 'village'],     'tw-settle': ['village'],
+      'tw-food': ['industry', 'issue'],
+      'ne-asia-nature': ['terrain', 'climate'], 'ne-asia-economy': ['industry'],
+      'se-asia': ['terrain', 'industry'],   's-asia': ['people', 'industry'],
+      'wasia-nature': ['terrain', 'climate'], 'wana-conflict': ['people', 'issue'],
+      nafrica: ['terrain', 'water'],        'ssa-nature': ['terrain', 'climate'],
+      'sub-saharan': ['industry', 'issue'],
+      europe: ['climate', 'industry'],      russia: ['climate', 'industry'],
+      'n-america': ['industry', 'climate'], 'latin-america': ['terrain', 'people'],
+      oceania: ['climate', 'industry'],     polar: ['climate', 'issue']
+    }
+  }
 };

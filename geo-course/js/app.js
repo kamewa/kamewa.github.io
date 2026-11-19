@@ -407,8 +407,9 @@
       ${k.image ? imgFig(k.image) : ''}
       ${k.images?.length ? `<div class="fig-row">${k.images.map((im) => imgFig(im)).join('')}</div>` : ''}
       ${terrainBtns(k)}`;
-  const conceptCard = (k) => `
-      <article class="toy-card lift top-color concept-card c-${k.color || 'teal'} ${((k.grid?.length || 0) >= 3 || k.image || k.images?.length) ? 'wide' : ''}">
+  // aid：卡片的自動錨點（第幾節-第幾張，例如 s2-1）；k.key 是老師自訂、改版也不會變的固定代號
+  const conceptCard = (k, aid) => `
+      <article class="toy-card lift top-color concept-card c-${k.color || 'teal'} ${((k.grid?.length || 0) >= 3 || k.image || k.images?.length) ? 'wide' : ''}"${aid ? ` id="card-${aid}"` : ''}${k.key ? ` data-key="${esc(k.key)}"` : ''}>
         <div class="concept-top"><span class="concept-icon">${k.icon || '📌'}</span><h3>${esc(k.title)}</h3></div>
         ${conceptInner(k)}
       </article>`;
@@ -424,7 +425,38 @@
         <div class="quiz-explain"><b class="quiz-result"></b> ${md(q.explain || '')}</div>
       </div>`;
 
-  async function renderLesson(lid, fromCid) {
+  // 「🏝️ 去闖關」：連到星願群島的島嶼頁（同一個分頁）；對照表在 site-data.js 的 quiz
+  function quizBtns(lid) {
+    const Q = SITE.quiz, ids = (Q?.lessons?.[lid] || []).filter((k) => Q.islands?.[k]);
+    if (!ids.length) return '';
+    return `<section class="section quiz-go"><div class="toy-card quiz-go-card">
+        <div class="quiz-go-text"><b>${L('🏝️ 學完了，去星願群島闖關！', '🏝️ Done? Try the island quiz!')}</b>
+          <span>${L('做錯的題目可以按「📖 回去看這段」回到這裡複習。', 'If you miss a question, tap “📖 Review this part” to come back here.')}</span></div>
+        <div class="quiz-go-btns">${ids.map((k) => { const i = Q.islands[k];
+          return `<a class="toy-btn c-purple" href="${esc(Q.url + i.page)}">${L('去闖關：', 'Quiz: ')}${esc(EN && i.en ? i.en : i.name)}</a>`; }).join('')}</div>
+      </div></section>`;
+  }
+  // 從群島「回去看這段」進來：捲到那張卡片並標示；找不到（課程改版）就提示從本課開始
+  function focusAnchor(d, raw) {
+    let a = decodeURIComponent(raw || '').trim();
+    if (!a) return;
+    a = (d.anchors && d.anchors[a]) || a;     // 大改版時的新舊錨點對照（課程檔的 anchors）
+    let el = null;
+    if (/^k-/.test(a)) el = app.querySelector(`[data-key="${CSS.escape(a.slice(2))}"]`);
+    else if (/^(s\d+-\d+|c\d+)$/.test(a)) el = document.getElementById('card-' + a);
+    else if (/^s\d+$/.test(a)) el = document.getElementById('sec-' + a.slice(1));
+    if (!el) {
+      const hd = app.querySelector('.page-header-box');
+      hd?.insertAdjacentHTML('afterend', `<div class="toy-card anchor-note">📌 ${L('這段內容已更新，請從本課開始複習。', 'This part has been updated. Please review the lesson from the start.')}</div>`);
+      return;
+    }
+    el.classList.add('anchor-focus');
+    if (el.classList.contains('concept-card')) el.insertAdjacentHTML('afterbegin', `<span class="anchor-tag">${L('📍 你要複習的地方', '📍 Review this part')}</span>`);
+    const go = () => el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(go, 80); setTimeout(go, 700);   // 圖片載入後版面會變，再捲一次
+  }
+
+  async function renderLesson(lid, fromCid, anchor) {
     const l = lessonById(lid);
     if (!l) return renderNotFound();
     const cid = (fromCid && l.on[fromCid]) ? fromCid : Object.keys(l.on)[0];
@@ -483,14 +515,14 @@
 
       ${(d.sections || []).map((sec, si) => `<section class="section lesson-sec c-${sec.color || 'teal'}" id="sec-${si}">
         <div class="sec-band"><span class="sec-code">${esc(sec.code)}</span><h2>${sec.icon || ''} ${esc(sec.title)}</h2></div>
-        <div class="grid-2">${(sec.concepts || []).map(conceptCard).join('')}</div>
+        <div class="grid-2">${(sec.concepts || []).map((k, ki) => conceptCard(k, `s${si}-${ki}`)).join('')}</div>
         ${sec.think?.length ? `<div class="think-list">${sec.think.map(thinkCard).join('')}</div>` : ''}
         ${sec.quiz?.length ? `<div class="quiz-list">${sec.quiz.map((q, qi) => quizCard(q, si + '-' + qi)).join('')}</div>` : ''}
         ${sec.can ? `<div class="can-do">🙋 ${md(sec.can)}</div>` : ''}
       </section>`).join('')}
 
       ${d.concepts?.length ? `<section class="section"><div class="section-head"><span class="section-icon">💡</span><h2>${L('重點概念', 'Key Ideas')}</h2><span class="toy-pill c-yellow">${L(`${d.concepts.length} 個觀念`, `${d.concepts.length} ideas`)}</span></div>
-        <div class="grid-2">${d.concepts.map(conceptCard).join('')}</div></section>` : ''}
+        <div class="grid-2">${d.concepts.map((k, ki) => conceptCard(k, `c${ki}`)).join('')}</div></section>` : ''}
 
       ${d.myths?.length ? `<section class="section"><div class="section-head"><span class="section-icon">🧐</span><h2>${L('常見迷思', 'Common Mistakes')}</h2><span class="toy-pill c-red">${L('容易搞錯的地方', 'Easy to get wrong')}</span></div>
         <div style="display:grid;gap:18px">${d.myths.map((m) => `
@@ -512,6 +544,7 @@
           ${d.checklist.map((t, i) => `<button class="check-item ${doneSet.has(i) ? 'done' : ''}" data-i="${i}"><span class="check-box">✓</span><span>${md(t)}</span></button>`).join('')}
         </div></section>` : ''}
 
+      ${quizBtns(l.id)}
       <nav class="lesson-nav">
         <a class="toy-btn toy-btn-ghost" href="#/world">${L('🌏 回世界地圖', '🌏 Back to World Map')}</a>
         <button type="button" class="toy-btn c-red" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">${L('↑ 回本課程標題', '↑ Back to Top')}</button>
@@ -540,6 +573,7 @@
 
     buildSlides(d, l, c, next);
     if (state.mode === 'slides') { state.index = 0; showSlide(0); }
+    if (anchor) focusAnchor(d, anchor);
   }
 
   function bindQuizzes(root) {
@@ -754,11 +788,11 @@
   function route() {
     const parts = (location.hash.replace(/^#\/?/, '') || 'world').split('/');
     $('#modeToggle').hidden = true;
-    if (parts[0] !== 'l') { setMode('review'); state.index = 0; state.slides = []; }
+    if (parts[0] !== 'l' || parts[3]) { setMode('review'); state.index = 0; if (parts[0] !== 'l') state.slides = []; }
     else state.index = 0;
     window.scrollTo(0, 0);
     if (parts[0] === 'c') renderContinent(parts[1]);
-    else if (parts[0] === 'l') renderLesson(parts[1], parts[2]);
+    else if (parts[0] === 'l') renderLesson(parts[1], parts[2], parts[3]);
     else renderWorld();
     setHeaderHeight();
   }
