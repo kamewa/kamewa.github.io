@@ -1120,7 +1120,7 @@ const DIFFS = ["基礎", "進階", "思考", "統整"];
 const RANK = { 記憶: 0, 理解: 0, 應用: 1, 分析: 2, 評鑑: 2, 創造: 3, 記: 0, 理: 0, 應: 1, 分: 2, 評: 2, 創: 3 };
 const PASS_RATE = 0.6; // 答對六成（無條件進位）算過關
 const CONFIG_KEY = "island-quiz-config-draft";
-const LEGACY_CAT = { 世界: "通論", 南美洲: "中南美洲", 極地: "南極洲", 台灣: "臺灣" };
+const LEGACY_CAT = { 南美洲: "中南美洲", 極地: "南極洲", 台灣: "臺灣" };
 const THEMES = ["位置", "地形", "氣候", "水文", "人口", "交通", "產業", "聚落", "議題", "其他"];
 const LEGACY_THEME = { 位置與範圍: "位置", 水文與海岸: "水文" };
 function themeOf(o) { const t = String(o.theme ?? o.topic ?? "").trim(); if (THEMES.includes(t)) return t; const u = String(o.unit || o.chapter || "").trim(); return LEGACY_THEME[u] || (THEMES.includes(u) ? u : ""); }
@@ -1181,7 +1181,8 @@ function normIsland(raw, fallback) {
   });
   const theme = THEMES.includes(r.theme) ? r.theme : (f.theme || "");
   const examPool = typeof r.examPool === "boolean" ? r.examPool : Boolean(f.examPool);
-  return { name: String(r.name || f.name || "島嶼"), theme, units, practiceCount: count, assessments, examPool };
+  const regions = [...new Set((Array.isArray(r.regions) ? r.regions : f.regions || []).map((x) => String(x || "").trim()).filter(Boolean))];
+  return { name: String(r.name || f.name || "島嶼"), theme, regions, units, practiceCount: count, assessments, examPool };
 }
 function normConfig(raw) {
   if (!raw || typeof raw !== "object" || !raw.islands || typeof raw.islands !== "object") throw new Error("這不是星願群島的關卡設定檔。");
@@ -1202,7 +1203,9 @@ const isl = () => config.islands[ISLAND_ID];
 // 依評量系統的「主題」抽題；「另外加入的單元」是選用的補充
 // 幻彩祕境島：另外收錄所有會考題（題目結尾標有「（000年會考）」）
 const isExamQuestion = (q) => /\d+\s*年會考）\s*$/.test(String(q.stem || ""));
-const inIsland = (q) => !q.disabled && ((isl().theme && q.theme === isl().theme) || isl().units.some((u) => u.category === q.category && u.unit === q.unit) || (isl().examPool && isExamQuestion(q)));
+// 出題區域：空白＝全部區域；「臺灣」＝整個分類，「世界/東北亞」＝分類下的單元
+const inRegion = (q) => !isl().regions.length || isl().regions.some((r) => r === q.category || r === q.category + "/" + q.unit);
+const inIsland = (q) => !q.disabled && ((isl().theme ? q.theme === isl().theme && inRegion(q) : isl().regions.length > 0 && inRegion(q)) || isl().units.some((u) => u.category === q.category && u.unit === q.unit) || (isl().examPool && isExamQuestion(q)));
 const islandPool = () => bankSrc.list.filter(inIsland);
 const poolOf = (d) => islandPool().filter((q) => q.diff === d);
 const practiceLevels = () => DIFFS.map((name, i) => ({ id: "p" + (i + 1), kind: "practice", name, pool: poolOf(i) }));

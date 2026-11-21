@@ -323,6 +323,15 @@ a.ed-done{text-decoration:none;display:inline-grid;place-items:center}
 .unit-add{display:flex;gap:6px;flex-wrap:wrap}
 .unit-add select{width:auto}
 .unit-add input{flex:1;min-width:8em}
+.region-pick{display:flex;flex-direction:column;gap:6px}
+.rg-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rg-row.sub{padding-left:10px;border-left:3px solid var(--mint-soft, #c8f7e6)}
+.rg-row.sub>span{font-size:.82rem;font-weight:800;color:var(--plum)}
+.rg{border:2px solid var(--soft, #eadcf5);background:#fff;border-radius:999px;padding:4px 10px;font-weight:800;font-size:.86rem;color:var(--plum);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.rg small{font-size:.74rem;font-weight:800;opacity:.65}
+.rg.on{background:var(--pink);border-color:var(--pink);color:#fff}
+.rg.on small{opacity:.9}
+.rg.zero{opacity:.5}
 .gate{position:fixed;inset:0;display:grid;place-items:center;padding:16px}
 .gate[hidden]{display:none}
 .gate-card{width:min(400px,100%);background:#fffafd;border-radius:26px;padding:24px 22px 20px;border:3px solid #fff;box-shadow:0 0 0 3px #ffd3e6,0 14px 30px rgba(183,120,220,.32);display:flex;flex-direction:column;gap:12px}
@@ -374,7 +383,7 @@ a.ed-done{text-decoration:none;display:inline-grid;place-items:center}
     <div class="ed-body">
       <div class="ed-side">
         <div><label class="ed-lab" for="edIsland">設定哪一座島</label><select id="edIsland"></select></div>
-        <div class="units"><span class="ed-lab">這座島的主題：<b id="edTheme"></b></span><span class="ed-lab">另外加入的單元（選用）</span><ul class="unit-list" id="unitList"></ul>
+        <div class="units"><span class="ed-lab">這座島的主題：<b id="edTheme"></b></span><span class="ed-lab">出題區域（都不選＝全部區域）</span><div class="region-pick" id="regionPick"></div><span class="ed-lab">另外加入的單元（選用）</span><ul class="unit-list" id="unitList"></ul>
           <div class="unit-add"><select id="unitCat" aria-label="分類"></select><input id="unitName" list="unitNames" type="text" maxlength="20" placeholder="單元名稱，例如 氣候" aria-label="單元名稱"><datalist id="unitNames"></datalist><button class="mini add" id="unitAdd" type="button">加入</button></div>
         </div>
         <label class="ed-pass" for="edCount">練習每次抽幾題
@@ -464,7 +473,7 @@ const DIFFS = ["基礎", "進階", "思考", "統整"];
 const RANK = { 記憶: 0, 理解: 0, 應用: 1, 分析: 2, 評鑑: 2, 創造: 3, 記: 0, 理: 0, 應: 1, 分: 2, 評: 2, 創: 3 };
 const PASS_RATE = 0.6; // 答對六成（無條件進位）算過關
 const CONFIG_KEY = "island-quiz-config-draft";
-const LEGACY_CAT = { 世界: "通論", 南美洲: "中南美洲", 極地: "南極洲", 台灣: "臺灣" };
+const LEGACY_CAT = { 南美洲: "中南美洲", 極地: "南極洲", 台灣: "臺灣" };
 const THEMES = ["位置", "地形", "氣候", "水文", "人口", "交通", "產業", "聚落", "議題", "其他"];
 const LEGACY_THEME = { 位置與範圍: "位置", 水文與海岸: "水文" };
 function themeOf(o) { const t = String(o.theme ?? o.topic ?? "").trim(); if (THEMES.includes(t)) return t; const u = String(o.unit || o.chapter || "").trim(); return LEGACY_THEME[u] || (THEMES.includes(u) ? u : ""); }
@@ -525,7 +534,8 @@ function normIsland(raw, fallback) {
   });
   const theme = THEMES.includes(r.theme) ? r.theme : (f.theme || "");
   const examPool = typeof r.examPool === "boolean" ? r.examPool : Boolean(f.examPool);
-  return { name: String(r.name || f.name || "島嶼"), theme, units, practiceCount: count, assessments, examPool };
+  const regions = [...new Set((Array.isArray(r.regions) ? r.regions : f.regions || []).map((x) => String(x || "").trim()).filter(Boolean))];
+  return { name: String(r.name || f.name || "島嶼"), theme, regions, units, practiceCount: count, assessments, examPool };
 }
 function normConfig(raw) {
   if (!raw || typeof raw !== "object" || !raw.islands || typeof raw.islands !== "object") throw new Error("這不是星願群島的關卡設定檔。");
@@ -546,7 +556,9 @@ const isl = () => config.islands[ISLAND_ID];
 // 依評量系統的「主題」抽題；「另外加入的單元」是選用的補充
 // 幻彩祕境島：另外收錄所有會考題（題目結尾標有「（000年會考）」）
 const isExamQuestion = (q) => /\d+\s*年會考）\s*$/.test(String(q.stem || ""));
-const inIsland = (q) => !q.disabled && ((isl().theme && q.theme === isl().theme) || isl().units.some((u) => u.category === q.category && u.unit === q.unit) || (isl().examPool && isExamQuestion(q)));
+// 出題區域：空白＝全部區域；「臺灣」＝整個分類，「世界/東北亞」＝分類下的單元
+const inRegion = (q) => !isl().regions.length || isl().regions.some((r) => r === q.category || r === q.category + "/" + q.unit);
+const inIsland = (q) => !q.disabled && ((isl().theme ? q.theme === isl().theme && inRegion(q) : isl().regions.length > 0 && inRegion(q)) || isl().units.some((u) => u.category === q.category && u.unit === q.unit) || (isl().examPool && isExamQuestion(q)));
 const islandPool = () => bankSrc.list.filter(inIsland);
 const poolOf = (d) => islandPool().filter((q) => q.diff === d);
 const practiceLevels = () => DIFFS.map((name, i) => ({ id: "p" + (i + 1), kind: "practice", name, pool: poolOf(i) }));
@@ -695,7 +707,7 @@ function edRender() {
   $("edTitle").textContent = "關卡設定";
   $("edBank").textContent = "題庫：" + bankSrc.label + "，共 " + bankSrc.list.length + " 題" + (bankSrc.skipped ? "（另有 " + bankSrc.skipped + " 題格式不完整，已略過）" : "") +
     "；本島可用 " + pool.length + " 題（" + DIFFS.map((n, i) => n + " " + pool.filter((q) => q.diff === i).length).join("、") + "）";
-  $("edUnits").textContent = (I.theme ? "主題「" + I.theme + "」" : "未設定主題") + (I.units.length ? "＋" + I.units.map((u) => u.category + "／" + u.unit).join("、") : "") + (I.examPool ? "＋所有會考題" : ""); $("edTheme").textContent = (I.theme || "未設定") + (I.examPool ? "，另收錄所有會考題" : ""); drawUnits();
+  $("edUnits").textContent = (I.theme ? "主題「" + I.theme + "」" : "未設定主題") + (I.regions.length ? "（" + I.regions.map(regionLabel).join("、") + "）" : I.theme ? "（全部區域）" : "") + (I.units.length ? "＋" + I.units.map((u) => u.category + "／" + u.unit).join("、") : "") + (I.examPool ? "＋所有會考題" : ""); $("edTheme").textContent = (I.theme || "未設定") + (I.examPool ? "，另收錄所有會考題" : ""); drawUnits();
   $("edCount").value = I.practiceCount;
   // 評量關卡
   $("edLevel").innerHTML = I.assessments.length ? I.assessments.map((a, i) => '<option value="' + i + '">' + esc(a.name) + "（" + a.items.length + " 題）</option>").join("")
@@ -832,8 +844,33 @@ document.addEventListener("click", (e) => { const b = e.target.closest(".tab"); 
 $("edIsland").innerHTML = ISLAND_ORDER.map((k) => '<option value="' + k + '">' + esc(DEFAULT_CONFIG.islands[k].name) + "</option>").join("");
 $("edIsland").addEventListener("change", () => { ISLAND_ID = $("edIsland").value; ed.lv = 0; ed.filter = -1; ed.search = ""; $("edSearch").value = ""; edRender(); edMsg("現在設定的是「" + isl().name + "」。"); });
 // 單元：題庫裡有的分類與單元會出現在選單裡，也可以自己輸入
+const WORLD_ORDER = ["全球概述", "大洋洲與兩極", "東北亞", "東南亞和南亞", "西亞與北非", "漠南非洲", "歐洲與俄羅斯", "美洲", "統整"];
+const regionLabel = (r) => (r.includes("/") ? r.split("/").slice(1).join("/") : r);
+function drawRegions() {
+  const I = isl();
+  const base = bankSrc.list.filter((q) => !q.disabled && (!I.theme || q.theme === I.theme));
+  const n = (r) => base.filter((q) => r === q.category || r === q.category + "/" + q.unit).length;
+  const chip = (r, label) => { const on = I.regions.includes(r), c = n(r);
+    return '<button type="button" class="rg' + (on ? " on" : "") + (c ? "" : " zero") + '" data-r="' + esc(r) + '" aria-pressed="' + on + '">' + esc(label) + "<small>" + c + "</small></button>"; };
+  const cats = [...new Set(["臺灣", "中國", "世界", "地理議題"].concat(base.map((q) => q.category).filter(Boolean), I.regions.filter((r) => !r.includes("/"))))];
+  const pos = (u) => { const i = WORLD_ORDER.indexOf(u); return i < 0 ? 99 : i; };
+  const world = [...new Set(base.filter((q) => q.category === "世界").map((q) => q.unit).filter(Boolean)
+    .concat(I.regions.filter((r) => r.startsWith("世界/")).map(regionLabel)))].sort((a, b) => pos(a) - pos(b));
+  $("regionPick").innerHTML = '<div class="rg-row"><button type="button" class="rg' + (I.regions.length ? "" : " on") + '" data-r="" aria-pressed="' + !I.regions.length + '">全部區域<small>' + base.length + "</small></button>" +
+    cats.map((c) => chip(c, c)).join("") + "</div>" +
+    (world.length ? '<div class="rg-row sub"><span>世界分區</span>' + world.map((u) => chip("世界/" + u, u)).join("") + "</div>" : "");
+}
+$("regionPick").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-r]"); if (!b) return;
+  const I = isl(), r = b.dataset.r;
+  if (!r) { if (!I.regions.length) return; I.regions = []; edChanged("出題區域改為「全部區域」。"); return; }
+  const i = I.regions.indexOf(r);
+  if (i >= 0) { I.regions.splice(i, 1); edChanged("已移除出題區域「" + regionLabel(r) + "」。"); }
+  else { I.regions.push(r); edChanged("已加入出題區域「" + regionLabel(r) + "」。"); }
+});
 function drawUnits() {
   const I = isl();
+  drawRegions();
   $("unitList").innerHTML = I.units.length ? I.units.map((u, i) => "<li>" + esc(u.category + "／" + u.unit) + '<button type="button" data-i="' + i + '" aria-label="移除 ' + esc(u.category + u.unit) + '">×</button></li>').join("")
     : '<li class="empty">沒有也可以，練習會依主題抽題</li>';
   const cats = [...new Set(["臺灣", "中國", "世界", "地理議題", "其他"].concat(bankSrc.list.map((q) => q.category).filter(Boolean)))];
