@@ -156,7 +156,7 @@ const $ = (id) => document.getElementById(id);
    ============================================================ */
 const BASE = "https://kamewa.github.io/island-quiz/";
 const ISLANDS = [
-  { id: "castle",  name: "城堡島",     kind: "終極挑戰", x: 1,   z: 0.5,  r: 8.6, state: "尚未開放", text: "夢幻王國的城堡就在這裡。帶著十座島蒐集到的智慧水晶，迎接最後的終極試煉。" },
+  { id: "castle",  name: "城堡島",     kind: "區域挑戰｜終極試煉", x: 1,   z: 0.5,  r: 8.6, state: "可參觀｜評量建造中", url: BASE + "castle.html", text: "一座有各種地形的大島，散布著世界各地風格的城堡，每座城堡對應一個區域；山水峰林裡的雲霧峰林閣，通往收藏歷屆會考題的山水藏經閣。" },
   { id: "place",   name: "星辰尋夢島", kind: "課程 01｜位置", x: -27, z: -13, r: 4.2, state: "已開放", url: BASE + "star.html", text: "水晶燈塔的星光掃過海面，燈塔四周的花圃排成八方位羅盤，在這裡學會辨認方位。" },
   { id: "terrain", name: "粉彩地形島", kind: "課程 02｜地形", x: -12, z: -15, r: 4.8, state: "已開放", url: BASE + "terrain.html", text: "山地、丘陵、台地、盆地、平原都在這座島上，轉一轉就能看清楚高低起伏。島上的金紫水晶等你來收集。" },
   { id: "climate", name: "四季魔法島", kind: "課程 03｜氣候", x: 25, z: -13, r: 4.5, state: "已開放", url: BASE + "season.html", text: "世界樹隨著春夏秋冬換上不同的顏色，坐在雲上的太陽帶來雨、雪、雷、冰和彩虹。" },
@@ -167,7 +167,7 @@ const ISLANDS = [
   { id: "village", name: "晶語童話島", kind: "課程 08｜聚落", x: -24, z: 16,  r: 4.2, state: "已開放", url: BASE + "town.html", text: "沿著河流從上游的童話集村、散村到河口的小城市，粉晶為聚落帶來能源，看見城鄉的差異。" },
   { id: "issue",   name: "晶願守護島", kind: "課程 09｜議題", x: -6,  z: 16,  r: 5.0, state: "已開放", url: BASE + "guard.html", text: "受傷的島、守護行動、永續的島，三個階段之間切換，看見人與環境的互動和永續發展。" },
   { id: "other",   name: "幻彩祕境島", kind: "課程 10｜其他", x: 11,  z: 17,  r: 4.5, state: "已開放", url: BASE + "mystic.html", text: "古代遺跡中央的魔法陣上漂浮著神祕的巨大水晶，九顆晶石亮起時它會短暫甦醒。" },
-  { id: "sky",     name: "天空之島",   kind: "神祕島", x: 12,  z: -13, r: 3.2, state: "功能未定", text: "漂浮在雲上、四處慢慢移動的小島。它的用途還是祕密。" }
+  { id: "sky",     name: "星海鯨島",   kind: "成就殿堂", x: 12,  z: -13, r: 3.2, state: "可參觀｜成就系統建造中", url: BASE + "whale.html", text: "一隻背著小島的星空鯨，帶你到雲上的浮世繪之海。鯨島們背著世界各地的原住民族聚落環游，通關後回到這裡點亮星願。" }
 ];
 
 /* ---------- 地形島的高度函式（和「粉彩地形島」完全相同，縮小使用） ---------- */
@@ -1360,37 +1360,54 @@ function init3D() {
   }
 
   /* ============================================================
-   C 天空之島：漂浮在空中，慢慢到處移動
+   C 星海鯨島：一隻背著小島的星空鯨，在城堡島前方的天空慢慢游
    ============================================================ */
   const sky = new THREE.Group(); scene.add(sky); groups.sky = sky;
   (function () {
-    const rock = new THREE.Mesh(new THREE.ConeGeometry(2.6, 3.4, 9), M(0xd9c4f2)); rock.rotation.x = Math.PI; rock.position.y = -1.7; sky.add(rock);
-    part(sky, "cone", 0xc6aef0, 1.2, -1.5, 0.8, 1.1, 2.2, 1.1).rotation.x = Math.PI;
-    part(sky, "cyl", 0x9cf0c4, 0, 0.12, 0, 2.75, 0.3, 2.75); part(sky, "cyl", 0xc6f48e, 0, 0.3, 0, 2.2, 0.1, 2.2);
-    for (let i = 0; i < 6; i++) { const a = i / 6 * 6.283; part(sky, "cyl", 0xfff3ea, Math.cos(a) * 0.8, 0.9, Math.sin(a) * 0.8, 0.08, 1.1, 0.08); }   // 涼亭
-    part(sky, "cyl", 0xffd3e6, 0, 0.4, 0, 1.05, 0.1, 1.05); part(sky, "cyl", 0xffd3e6, 0, 1.48, 0, 1.0, 0.08, 1.0);
-    part(sky, "ball", 0xffe27a, 0, 1.5, 0, 0.9, 0.6, 0.9, { emissive: 0x5a4200 }); part(sky, "ball", 0xff6fae, 0, 2.14, 0, 0.1);
-    [[1.8, 0.6], [-1.7, 0.9], [-1.2, -1.6], [1.4, -1.5]].forEach(([x, z], i) => tree(sky, x, 0.32, z, 0.8, [0xff9ccb, 0xffb8dc][i % 2]));
-    [[0.6, -2.7, 0.5, 0xb79cff], [-0.9, -2.2, 0.38, 0xffa9d0], [1.5, -2.0, 0.3, 0x9fe8ff], [-1.6, -1.5, 0.28, 0xb79cff]].forEach(([x, y, s, hex]) => gem(sky, x, y, s * 0.6, s, hex, 0));
-    const halo = new THREE.Mesh(new THREE.TorusGeometry(3.6, 0.06, 8, 64), new THREE.MeshBasicMaterial({ color: 0xffe27a, transparent: true, opacity: 0.85, fog: false }));
-    halo.rotation.x = Math.PI / 2 - 0.25; sky.add(halo);
-    [[2.6, -0.9, 1.2, 0.8], [-2.7, -1.2, -0.6, 0.9], [0.2, -2.6, 2.0, 0.7], [-0.6, -1.0, -2.6, 0.75]].forEach(([x, y, z, s]) => cloud(sky, x, y, z, s));
-    const fall = part(sky, "box", 0xc9f1ff, 0, -1.6, 2.5, 0.5, 3.2, 0.08, { transparent: true, opacity: 0.6 });                                       // 從島邊落下的水
+    const whale = new THREE.Group(); sky.add(whale); whale.position.y = -1.0;      // 頭朝 +z
+    const BODY = 0x8a98ff, BELLY = 0xfff3ea, FIN = 0x9fa9ff;
+    part(whale, "ball", BODY, 0, 0, 0.2, 1.75, 1.25, 3.3);                         // 身體
+    part(whale, "ball", BELLY, 0, -0.42, 0.75, 1.45, 0.82, 2.45);                  // 奶油色肚子
+    part(whale, "ball", BODY, 0, 0.12, 2.05, 1.45, 1.0, 1.35);                     // 圓圓的頭（藍鯨那種鈍頭）
+    const stock = part(whale, "taper", BODY, 0, 0.05, -3.0, 0.62, 1.9, 0.5); stock.rotation.x = -Math.PI / 2;   // 尾柄
+    const tail = new THREE.Group(); tail.position.set(0, 0.05, -3.85); whale.add(tail);
+    [-1, 1].forEach((s) => { const f = part(tail, "ball", FIN, s * 0.75, 0, -0.35, 0.95, 0.1, 0.42); f.rotation.y = s * 0.5; });   // 往後掃的尾鰭
+    const fins = [-1, 1].map((s) => { const f = part(whale, "ball", BELLY, s * 1.65, -0.55, 0.9, 1.0, 0.1, 0.38); f.rotation.set(0, s * 0.6, s * -0.35); return f; });   // 胸鰭
+    [-1, 1].forEach((s) => { part(whale, "ball", 0x3a2a6a, s * 1.22, -0.05, 2.55, 0.14, 0.16, 0.14); part(whale, "ball", 0xffffff, s * 1.3, 0.02, 2.62, 0.05); });  // 眼睛
+    [[1.5, 0.15, 0.4], [-1.5, 0.25, 0.1], [1.35, 0.55, -1.2], [-1.4, 0.5, -1.4], [1.62, -0.3, -0.4], [-1.6, -0.2, 1.1]].forEach(([x, y, z]) => part(whale, "gem", 0xffe27a, x, y, z, 0.07, 0.13, 0.07, { emissive: 0x6a5000 }));  // 身上的小星點
+    // 背上的小島：草地、星願涼亭、小樹、水晶
+    const isle = new THREE.Group(); isle.position.set(0, 1.0, -0.1); whale.add(isle);
+    part(isle, "cyl", 0xe2d2ff, 0, -0.1, 0, 1.75, 0.35, 2.3); part(isle, "cyl", 0x9cf0c4, 0, 0.12, 0, 1.65, 0.22, 2.15); part(isle, "cyl", 0xc6f48e, 0, 0.26, 0, 1.25, 0.08, 1.7);
+    for (let i = 0; i < 6; i++) { const a = i / 6 * 6.283; part(isle, "cyl", 0xfff3ea, Math.cos(a) * 0.55, 0.75, Math.sin(a) * 0.55, 0.06, 0.9, 0.06); }   // 涼亭
+    part(isle, "cyl", 0xffd3e6, 0, 0.32, 0, 0.75, 0.08, 0.75); part(isle, "cyl", 0xffd3e6, 0, 1.2, 0, 0.72, 0.07, 0.72);
+    part(isle, "ball", 0xffe27a, 0, 1.22, 0, 0.66, 0.45, 0.66, { emissive: 0x5a4200 }); part(isle, "ball", 0xff6fae, 0, 1.7, 0, 0.08);
+    [[1.0, 1.25], [-1.05, 0.95], [-0.95, -1.3], [1.0, -1.25]].forEach(([x, z], i) => tree(isle, x, 0.3, z, 0.55, [0xff9ccb, 0xffb8dc][i % 2]));
+    gem(isle, 0.15, 0.3, -1.75, 0.32, 0xb79cff, 0.15);
+    // 噴水
+    const spray = part(whale, "ball", 0xe8f8ff, 0, 1.4, 1.7, 0.3, 0.6, 0.3, { transparent: true, opacity: 0 });
+    // 繞著鯨的金色星環
+    const halo = new THREE.Mesh(new THREE.TorusGeometry(4.3, 0.05, 8, 72), new THREE.MeshBasicMaterial({ color: 0xffe27a, transparent: true, opacity: 0.8, fog: false }));
+    halo.rotation.x = Math.PI / 2 - 0.2; halo.position.y = -0.6; sky.add(halo);
+    [[2.9, -2.0, 1.6, 0.7], [-3.0, -2.2, -0.9, 0.8], [0.4, -2.6, -3.2, 0.6]].forEach(([x, y, z, s]) => cloud(sky, x, y, z, s));
     const shade = new THREE.Mesh(new THREE.CircleGeometry(3, 32), new THREE.MeshBasicMaterial({ color: 0x4a2260, transparent: true, opacity: 0.12, depthWrite: false }));
     shade.rotation.x = -Math.PI / 2; shade.position.y = 0.04; scene.add(shade);
-    const d = ISLANDS.find((i) => i.id === "sky");
-    // 像雲一樣，在城堡島前方的那片海上空很慢、不規則地漂移（幾組不同週期的波疊在一起，路線不會重複）
+    // 像雲一樣，在城堡島前方的那片海上空很慢、不規則地游（幾組不同週期的波疊在一起，路線不會重複）；鯨頭朝游的方向
     const SKY_C = [7, -15.5], SKY_R = [7.5, 4.8];
-    let drift = 0;
+    let drift = 0, heading = 0.6;
+    const at = (q) => [SKY_C[0] + (0.55 * Math.sin(q * 0.029 + 0.7) + 0.3 * Math.sin(q * 0.047 + 2.1) + 0.15 * Math.sin(q * 0.083 + 4.0)) * SKY_R[0],
+                       SKY_C[1] + (0.55 * Math.sin(q * 0.023 + 1.9) + 0.3 * Math.sin(q * 0.041 + 0.4) + 0.15 * Math.sin(q * 0.071 + 5.2)) * SKY_R[1]];
     ticks.push((t, dt) => {
       const k = reduceMotion ? 0 : t;
       if (!reduceMotion && !(selected && selected.id === "sky")) drift += dt;       // 看介紹時先停下來
-      const u = 0.55 * Math.sin(drift * 0.029 + 0.7) + 0.3 * Math.sin(drift * 0.047 + 2.1) + 0.15 * Math.sin(drift * 0.083 + 4.0);
-      const v = 0.55 * Math.sin(drift * 0.023 + 1.9) + 0.3 * Math.sin(drift * 0.041 + 0.4) + 0.15 * Math.sin(drift * 0.071 + 5.2);
-      sky.position.set(SKY_C[0] + u * SKY_R[0], 8.5 + Math.sin(k * 0.45) * 0.3, SKY_C[1] + v * SKY_R[1]);
-      sky.rotation.y = 0.6 + Math.sin(drift * 0.019) * 0.9; halo.rotation.z = k * 0.15;
+      const p = at(drift), q = at(drift + 1);
+      sky.position.set(p[0], 8.5 + Math.sin(k * 0.45) * 0.3, p[1]);
+      const want = Math.atan2(q[0] - p[0], q[1] - p[1]); let dh = ((want - heading + Math.PI) % 6.283 + 6.283) % 6.283 - Math.PI; heading += dh * Math.min(1, dt * 0.6);
+      sky.rotation.y = heading;
+      whale.rotation.z = Math.sin(k * 0.5) * 0.05; whale.rotation.x = Math.sin(k * 0.7) * 0.03;
+      tail.rotation.x = Math.sin(k * 1.4) * 0.35; fins.forEach((f, i) => { f.rotation.z = (i ? -0.35 : 0.35) + Math.sin(k * 1.4 + i) * 0.12; });
+      halo.rotation.z = k * 0.15;
+      const c = (k % 9) / 1.6, on = !reduceMotion && c < 1; spray.material.opacity = on ? Math.sin(c * Math.PI) * 0.75 : 0; spray.scale.set(0.3 + c * 0.25, 0.6 + c * 0.9, 0.3 + c * 0.25); spray.position.y = 1.4 + c * 0.6;
       shade.position.x = sky.position.x; shade.position.z = sky.position.z;
-      fall.material.opacity = 0.5 + (reduceMotion ? 0 : 0.15 * Math.sin(k * 5));
     });
   })();
 
