@@ -598,7 +598,7 @@ const SITES = [
   { id: "cherry", name: "櫻花庭", x: -7.4, z: 11.2, s: 1.0, pad: 1.2, text: "西南方的庭園開滿櫻花，亭子與迴廊沿著小池塘排開。" },
   { id: "academy", name: "茶園書院", x: 14.2, z: 9.2, s: 1.0, pad: 1.3, text: "層層茶園梯田的上方，有一座安靜的書院，四周竹林隨風擺動。" },
   { id: "bamboo", name: "竹林小築", x: 8.6, z: 13.6, s: 0.95, pad: 1.0, text: "竹林深處的小屋，旁邊有小溪流過，是讀書沉思的好地方。" },
-  { id: "deck", name: "觀雲台", x: -9.2, z: -15.6, s: 0.95, pad: 1.0, peak: true, text: "西北方山峰頂上的平台，雲帶從腳下飄過，常常能看見若隱若現的金龍。" },
+  { id: "deck", name: "觀雲台", x: -9.2, z: -15.6, s: 0.95, pad: 1.0, peak: true, text: "西北方山峰頂上的平台，雲帶從腳下飄過，常能看見青龍追逐龍珠。祥龍獻瑞，金榜題名！" },
   { id: "fisher", name: "拱橋漁家", x: -14.6, z: 12.4, s: 1.0, pad: 1.2, text: "西南海灣邊的小漁村，石拱橋跨過河口，漁船停在岸邊。" },
   { id: "lamp", name: "南灣燈亭", x: 3.6, z: 18.4, s: 0.95, pad: 1.0, text: "南方海灣的出口，一座點著燈的亭子守著河口，為往來的船指路。" },
   { id: "east", name: "東峰仙居", x: 18.6, z: -8.2, s: 1.0, pad: 1.0, peak: true, text: "東方山峰頂上的仙居，青綠色的屋瓦藏在松樹與雲霧之間。" }
@@ -863,7 +863,7 @@ SBUILD.lamp = (B, env) => {
 SBUILD.east = (B, env) => { const K = ss(B, env); return K.ge(0, 0, 0, 0.9, 2, C.jade, C.white); };
 
 /* ============================================================
-   山水藏經閣：畫面、仙境動畫（雲帶、仙鶴、金色祥雲、洞窟金光、懸浮小山、金龍）、鏡頭與名牌
+   山水藏經閣：畫面、仙境動畫（雲帶、仙鶴、金色祥雲、洞窟金光、懸浮小山、青龍追珠）、鏡頭與名牌
    ============================================================ */
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const LOW = window.matchMedia("(max-width: 700px)").matches || (navigator.hardwareConcurrency || 8) <= 4;
@@ -885,10 +885,12 @@ const HEX = {}; const rgbOf = (hex) => HEX[hex] || (HEX[hex] = hexRGB(hex));
 function mixTo(c, hex, f) { if (f <= 0) return; f = Math.min(1, f); const t = rgbOf(hex); c[0] += (t[0] - c[0]) * f; c[1] += (t[1] - c[1]) * f; c[2] += (t[2] - c[2]) * f; }
 function groundColor(x, z, h, ny, c) {
   const m = ssMask(x, z);
-  if (h < 0) {
+  if (h < 0) h = 0.02;   // 海面不透明，水下的部分看不到；用岸邊的沙色，避免水下顏色從三角形邊緣滲上沙灘變成鋸齒
+  if (h < -99) {
     const lk = lakeK(x, z) * smooth(-0.05, 0.05, m);
     const v = rgbOf(0x3fc4b8); c[0] = v[0]; c[1] = v[1]; c[2] = v[2];
-    mixTo(c, 0x1d5fb0, smooth(0.1, 1.6, -h) * (1 - lk)); mixTo(c, 0x2a9fb0, lk * smooth(0.2, 0.6, -h) * 0.5);
+    mixTo(c, 0x2a8fc8, smooth(0.1, 0.6, -h) * (1 - lk)); mixTo(c, 0x2a9fb0, lk * smooth(0.2, 0.6, -h) * 0.5);
+    mixTo(c, 0xcfe3ee, smooth(0.5, 1.15, -h) * (1 - lk));   // 再深一點就淡成和外海一樣的顏色，海底的邊緣看不出來
     return c;
   }
   const v = rgbOf(0xb4dc6a); c[0] = v[0]; c[1] = v[1]; c[2] = v[2];
@@ -896,11 +898,11 @@ function groundColor(x, z, h, ny, c) {
   mixTo(c, 0x3fb58f, smooth(0.9, 2.2, h));
   mixTo(c, 0x2f93b8, smooth(2.4, 3.8, h));
   mixTo(c, 0x2f5fb8, smooth(3.9, 5.6, h));
-  mixTo(c, 0x2a5a9a, smooth(0.8, 0.5, ny) * 0.7);
+  mixTo(c, 0x2a5a9a, smooth(0.8, 0.5, ny) * 0.7 * smooth(0.4, 1.2, h));   // 岸邊不做陡坡變暗，免得沙灘出現一條條鋸齒
   // 茶園梯田的條紋
   const tea = G(x, z, 13.6, 10.2, 2.8, 1); if (tea > 0.25 && h > 0.6) mixTo(c, Math.floor(h * 10) % 2 ? 0x8fd06a : 0x5fb85a, 0.8);
   // 沙灘與水岸
-  mixTo(c, 0xf2e2ae, (1 - smooth(0.08, 0.3, h)) * (1 - smooth(0.02, 0.1, m)));
+  mixTo(c, 0xf2e2ae, (1 - smooth(0.1, 0.55, h)) * (1 - smooth(0.02, 0.1, m)));
   mixTo(c, 0xd9e8a8, (1 - smooth(0.05, 0.25, h)) * lakeK(x, z));
   // 宮殿台地與中軸線
   const pal = (1 - smooth(4.2, 5.2, Math.max(Math.abs(x), Math.abs(z + 12.8) * 1.3))); mixTo(c, 0xefe6d0, pal * 0.6);
@@ -923,15 +925,17 @@ function init3D() {
   const NX = LOW ? 180 : 260, NZ = LOW ? 170 : 245, W = 60, D = 56;
   const geo = new THREE.PlaneGeometry(W, D, NX, NZ); geo.rotateX(-Math.PI / 2);
   const pos = geo.attributes.position, hs = new Float32Array(pos.count);
-  for (let i = 0; i < pos.count; i++) { const h = islandHeight(pos.getX(i), pos.getZ(i)); pos.setY(i, h); hs[i] = h; }
+  for (let i = 0; i < pos.count; i++) { let h = islandHeight(pos.getX(i), pos.getZ(i)); h = Math.max(h, -1.4); pos.setY(i, h); hs[i] = h; }   // 岸邊在海面附近變陡，海岸線才會乾淨俐落、不會鋸齒狀閃爍
   const src = geo.index.array, keep = [];
-  for (let i = 0; i < src.length; i += 3) if (Math.max(hs[src[i]], hs[src[i + 1]], hs[src[i + 2]]) > -2.1) keep.push(src[i], src[i + 1], src[i + 2]);
+  for (let i = 0; i < src.length; i += 3) if (Math.max(hs[src[i]], hs[src[i + 1]], hs[src[i + 2]]) > -1.39) keep.push(src[i], src[i + 1], src[i + 2]);
   geo.setIndex(keep); geo.computeVertexNormals();
   const nor = geo.attributes.normal, cols = new Float32Array(pos.count * 3), c = [0, 0, 0];
-  for (let i = 0; i < pos.count; i++) { groundColor(pos.getX(i), pos.getZ(i), hs[i], nor.getY(i), c); cols[i * 3] = c[0]; cols[i * 3 + 1] = c[1]; cols[i * 3 + 2] = c[2]; }
+  const hBlur = (x, z, h0) => { let sum = h0 * 2, n = 2; for (let k = 0; k < 8; k++) { const a = k / 8 * TAU; sum += Math.max(-1.4, islandHeight(x + Math.cos(a) * 0.6, z + Math.sin(a) * 0.6)); n++; } return sum / n; };   // 顏色依「周圍平均高度」漸變，陡坡上的沙灘與草地交界才不會變成鋸齒
+  const nyS = (x, z) => { const e = 0.45, dx = (islandHeight(x + e, z) - islandHeight(x - e, z)) / (2 * e), dz = (islandHeight(x, z + e) - islandHeight(x, z - e)) / (2 * e); return 1 / Math.sqrt(1 + dx * dx + dz * dz); };   // 用比較大範圍算坡度，著色才不會一格一格出現鋸齒
+  for (let i = 0; i < pos.count; i++) { groundColor(pos.getX(i), pos.getZ(i), hBlur(pos.getX(i), pos.getZ(i), hs[i]), nyS(pos.getX(i), pos.getZ(i)), c); cols[i * 3] = c[0]; cols[i * 3 + 1] = c[1]; cols[i * 3 + 2] = c[2]; }
   geo.setAttribute("color", new THREE.BufferAttribute(cols, 3));
   scene.add(new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true })));
-  const sea = new THREE.Mesh(new THREE.CircleGeometry(260, 72), new THREE.MeshBasicMaterial({ color: 0x3fa8de, transparent: true, opacity: 0.72, depthWrite: false }));
+  const sea = new THREE.Mesh(new THREE.CircleGeometry(260, 72), new THREE.MeshBasicMaterial({ color: 0x62b6e2, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));   // 不透明的海面：看不到海底地形的邊緣，海岸線也不會鋸齒狀閃爍
   sea.rotation.x = -Math.PI / 2; sea.renderOrder = 1; scene.add(sea);
 
   /* ---------- 建築、石峰、樹木（合併網格） ---------- */
@@ -1033,8 +1037,31 @@ function init3D() {
   // 石門飛瀑
   fall([-14.2, gy(-14.2, -11.6) + 0.1, -11.4], [-13.4, Math.max(0.05, gy(-13.4, -8.9)), -8.9], 0.7);
   // 三疊飛瀑（東邊山壁，三段）
-  const F3 = [[17.4, -3.9], [16.1, -3.3], [14.8, -2.9], [13.4, -2.6]];
-  for (let i = 0; i < 3; i++) fall([F3[i][0], gy(F3[i][0], F3[i][1]) + 0.05, F3[i][1]], [F3[i + 1][0], Math.max(0.05, gy(F3[i + 1][0], F3[i + 1][1])), F3[i + 1][1]], 0.75 - i * 0.08);
+  // 像階梯一樣：崖口直落 → 落在岩台上橫流一小段 → 再直落 → 岩台 → 再直落進水潭
+  {
+    const A = [17.4, -3.9], Bp = [13.4, -2.6], Lh = Math.hypot(Bp[0] - A[0], Bp[1] - A[1]);
+    const d = new THREE.Vector3((Bp[0] - A[0]) / Lh, 0, (Bp[1] - A[1]) / Lh), lat = new THREE.Vector3(-d.z, 0, d.x), UPv = new THREE.Vector3(0, 1, 0);
+    const P = (u, y) => new THREE.Vector3(A[0] + d.x * u, y, A[1] + d.z * u);
+    // 三層岩台：[起點 u, 邊緣 u, 台面高度]；水在台面上流到邊緣再落下
+    const shelves = [[0.75, 2.0, 8.6], [2.0, 2.95, 5.8], [2.95, 3.5, 3.4]], pool = 0.12, widths = [0.72, 0.62, 0.54];
+    const RB = makeBatch(true), ry = Math.atan2(d.x, d.z);
+    shelves.forEach(([u0, u1, top], k) => {
+      let low = top; for (let q = 0; q <= 8; q++) low = Math.min(low, gy(A[0] + d.x * (u0 + (u1 - u0) * q / 8), A[1] + d.z * (u0 + (u1 - u0) * q / 8)));
+      const c = P((u0 + u1) / 2 - 0.08, 0), wid = 1.5 - k * 0.12, len = u1 - u0 + 0.12;
+      RB.add("box", 0x2f6fb0, c.x, low - 0.4, c.z, wid, top - low + 0.4, len, ry, 0, 0, { grad: [0x2a4f9a, 0x3a8fb0, 0.9] });
+      RB.add("box", 0x4fb58a, c.x, top - 0.02, c.z, wid * 0.98, 0.08, len * 0.98, ry);                                    // 台面的青苔
+      [-1, 1].forEach((sd) => { const p = c.clone().addScaledVector(lat, sd * wid * 0.5); RB.add("sph", 0x2f6fb0, p.x, top - 0.55, p.z, 0.32, 0.5, len * 0.45, ry); });   // 兩側圓潤的岩塊
+    });
+    const rm = new THREE.Mesh(new THREE.BufferGeometry(), lam);
+    rm.geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(RB.p), 3)); rm.geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(RB.n), 3)); rm.geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(RB.c), 3));
+    scene.add(rm);
+    // 水：台面上的水道（平放）＋邊緣的直落水幕
+    const flat = (u0, u1, y, w) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, u1 - u0), wfMat); m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(lat, d, UPv)); m.position.copy(P((u0 + u1) / 2 - 0.05, y + 0.1)); m.renderOrder = 2; scene.add(m); };
+    const drop = (u, yTop, yBot, w) => { const t = P(u + 0.1, yTop + 0.1), b = P(u + 0.14, yBot); fall([t.x, t.y, t.z], [b.x, b.y, b.z], w); };
+    flat(0.75, 2.0, 8.6, widths[0]); drop(2.0, 8.6, 5.8, widths[0]);
+    flat(2.0, 2.95, 5.8, widths[1]); drop(2.95, 5.8, 3.4, widths[1]);
+    flat(2.95, 3.5, 3.4, widths[2]); drop(3.5, 3.4, pool, widths[2]);
+  }
   // 北方宮殿後的細瀑
   fall([3.2, gy(3.2, -17.4) + 0.05, -17.4], [3.0, gy(3.0, -15.6) + 0.02, -15.6], 0.4);
   ticks.push((t, dt) => { wfTex.offset.y += dt * 0.9; mists.forEach((m, i) => { m.material.opacity = 0.5 + 0.2 * Math.sin(t * 2 + i); }); });
@@ -1063,6 +1090,26 @@ function init3D() {
     ticks.push((t) => { beams.rotation.y = t * 0.06; aura.material.opacity = 0.35 + 0.12 * Math.sin(t * 0.8); beamMat.opacity = 0.07 + 0.04 * Math.sin(t * 0.6); });
   }
 
+  /* ---------- 懸浮小山 ---------- */
+  // 懸浮小山的瀑布：從草地流到島緣，越過邊緣後直直落下（不貼岩壁），越往下越淡
+  const tailAlpha = (() => { const cv = document.createElement("canvas"); cv.width = 4; cv.height = 64; const x = cv.getContext("2d"), g2 = x.createLinearGradient(0, 0, 0, 64); g2.addColorStop(0, "#fff"); g2.addColorStop(1, "#000"); x.fillStyle = g2; x.fillRect(0, 0, 4, 64); return new THREE.CanvasTexture(cv); })();
+  const wfTailMat = new THREE.MeshBasicMaterial({ map: wfTex, alphaMap: tailAlpha, transparent: true, opacity: 0.85, side: THREE.DoubleSide, depthWrite: false });
+  function islandFall(s, phi) {
+    const grp = new THREE.Group(), dir = [Math.cos(phi), Math.sin(phi)], side = [-Math.sin(phi), Math.cos(phi)], hw = 0.13 * s;
+    // 岩體（倒放的 karst）：半徑與深度的對照 [半徑, 深度比例]
+    const path = [[0.72 * s, 0.13 * s], [0.97 * s, 0.13 * s], [1.08 * s, 0.07 * s], [1.12 * s, -0.05 * s]];   // 草地上的小溪流到島緣、越過邊緣
+    const pos = [], uv = [], idx = []; let len = 0;
+    path.forEach(([r, y], k) => {
+      if (k) { const [r0, y0] = path[k - 1]; len += Math.hypot(r - r0, y - y0); }
+      [-1, 1].forEach((sd) => { pos.push(dir[0] * r + side[0] * hw * sd, y, dir[1] * r + side[1] * hw * sd); uv.push(sd < 0 ? 0 : 1, len / 1.5); });
+      if (k) { const a = (k - 1) * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    });
+    const geo2 = new THREE.BufferGeometry(); geo2.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); geo2.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); geo2.setIndex(idx);
+    const face = new THREE.Mesh(geo2, wfMat); face.renderOrder = 2; grp.add(face);
+    const [rl, yl] = path[path.length - 1], tl = 3.6;   // 從島緣直直落下，離開岩壁，越往下越淡
+    const tail = new THREE.Mesh(new THREE.PlaneGeometry(hw * 2, tl), wfTailMat); tail.position.set(dir[0] * rl, yl - tl / 2, dir[1] * rl); tail.rotation.y = -phi - Math.PI / 2; tail.renderOrder = 2; grp.add(tail);
+    return grp;
+  }
   /* ---------- 懸浮小山（各自垂著細瀑） ---------- */
   const floaters = [[-17, -15, 11.5, 1.1], [18, 14, 12.5, 0.9], [-19, 11, 13.5, 0.75], [15, -17, 13, 0.8], [0, 21, 14, 0.7]].map(([x, z, y, s], i) => {
     const g = new THREE.Group(); g.position.set(x, y, z); scene.add(g);
@@ -1074,7 +1121,7 @@ function init3D() {
     const m = new THREE.Mesh(new THREE.BufferGeometry(), lam);
     m.geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(B.p), 3)); m.geometry.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(B.n), 3)); m.geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(B.c), 3));
     g.add(m);
-    const w = new THREE.Mesh(new THREE.PlaneGeometry(0.22 * s, 6), wfMat); w.position.set(0.7 * s, -3.2, 0.2 * s); g.add(w);
+    g.add(islandFall(s, 0.28 + i * 0.9));
     return { g, y, ph: i * 1.3 };
   });
   function pineIn(B, x, y, z, s) { B.add("cyl", 0x7a5a4a, x, y, z, 0.04 * s, 0.4 * s); [[0, 0.36, 0.36], [0.12, 0.5, 0.26]].forEach(([dx, dy, r]) => B.add("sph", 0x2f8f6f, x + dx * s, y + dy * s, z, r * s, r * 0.32 * s, r * s)); }
@@ -1120,43 +1167,247 @@ function init3D() {
     const f = Math.sin(t * 2.4 + c.ph * 3) * 0.45; c.L.rotation.z = f; c.R.rotation.z = -f;
   }));
 
-  /* ---------- 若隱若現的金龍：在雲帶之間盤旋，時而現身、時而隱沒 ---------- */
+  /* ---------- 青龍追珠：青綠鑲金的龍追著燃燒的龍珠，在雲帶之間穿梭；點龍珠，龍珠會竄走 ---------- */
   const dragon = (() => {
-    const N = LOW ? 34 : 52, segs = [], g = new THREE.Group(); scene.add(g);
-    const mat = new THREE.MeshPhongMaterial({ color: 0xf3c04a, emissive: 0x8a5a00, emissiveIntensity: 0.4, shininess: 90, specular: 0xfff1b0, transparent: true, opacity: 0 });
-    const finMat = new THREE.MeshPhongMaterial({ color: 0xff8f3c, emissive: 0x7a2a00, emissiveIntensity: 0.3, transparent: true, opacity: 0 });
-    const segGeo = new THREE.SphereGeometry(1, 10, 8), finGeo = new THREE.ConeGeometry(0.5, 1, 4);
-    for (let i = 0; i < N; i++) {
-      const t = i / (N - 1), r = 0.3 * (1 - t * 0.78) * (i < 4 ? 0.85 + i * 0.05 : 1);
-      const m = new THREE.Mesh(segGeo, mat); m.scale.set(r, r, r * 1.3); g.add(m);
-      let fin = null; if (i % 2 === 0 && i > 2 && i < N - 2) { fin = new THREE.Mesh(finGeo, finMat); fin.scale.set(r * 0.5, r * 0.9, r * 0.5); g.add(fin); }
-      segs.push({ m, r, fin });
-    }
-    // 頭：口鼻、角、鬚
-    const head = new THREE.Group(); g.add(head);
-    const skull = new THREE.Mesh(new THREE.SphereGeometry(0.36, 10, 8), mat); skull.scale.set(1, 0.85, 1.25); head.add(skull);
-    const snout = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 6), mat); snout.scale.set(1, 0.7, 1.4); snout.position.set(0, -0.05, 0.38); head.add(snout);
-    [-1, 1].forEach((s) => {
-      const horn = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.45, 5), finMat); horn.position.set(s * 0.16, 0.3, -0.15); horn.rotation.set(-0.8, 0, s * 0.35); head.add(horn);
-      const wh = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.006, 0.7, 4), finMat); wh.position.set(s * 0.22, -0.1, 0.55); wh.rotation.set(1.2, 0, s * 0.9); head.add(wh);
-      const eye = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6, 5), LM(0xff5a3c, { transparent: true })); eye.position.set(s * 0.18, 0.1, 0.22); head.add(eye);
-    });
-    // 四隻小爪
-    const claws = [6, 9, N - 18, N - 14].map(() => { const c = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.35, 4), mat); g.add(c); return c; });
-    const path = (u) => new THREE.Vector3(13.5 * Math.cos(u) + 3.5 * Math.sin(2.3 * u), 7.6 + 1.6 * Math.sin(1.7 * u) + 0.8 * Math.sin(3.1 * u), 11 * Math.sin(u) + 3 * Math.cos(1.6 * u));
-    const tmp = new THREE.Vector3(), nxt = new THREE.Vector3();
-    return (t) => {
-      const u0 = t * 0.09, spacing = 0.024;
-      const vis = smooth(0.15, 0.55, Math.sin(t * 0.13) * 0.5 + 0.5 + 0.25 * Math.sin(t * 0.41));
-      mat.opacity = finMat.opacity = vis * 0.95; g.visible = vis > 0.02;
-      for (let i = 0; i < N; i++) {
-        const u = u0 - (i + 1) * spacing, p = path(u); p.y += Math.sin(t * 2.2 - i * 0.35) * 0.18;
-        const s = segs[i]; s.m.position.copy(p); nxt.copy(path(u + 0.01)); nxt.y += Math.sin(t * 2.2 - (i - 0.4) * 0.35) * 0.18; s.m.lookAt(nxt);
-        if (s.fin) { s.fin.position.copy(p).y += s.r * 1.05; s.fin.rotation.set(0, 0, 0); s.fin.lookAt(nxt.x, nxt.y + s.r, nxt.z); s.fin.rotateX(Math.PI / 2 - 0.6); }
+    const NR = LOW ? 44 : 64, RAD = LOW ? 8 : 12, LEN = 12;
+    const canvasTex = (w, h, draw) => { const cv = document.createElement("canvas"); cv.width = w; cv.height = h; draw(cv.getContext("2d"), w, h); const t = new THREE.CanvasTexture(cv); return t; };
+    // 鱗片：青綠色、每片鑲金邊；腹部是奶白色的一節一節腹甲（v 0.38～0.62 是腹部）
+    const scaleTex = canvasTex(256, 256, (x, W, H) => {
+      const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#1f8f86"); g.addColorStop(0.3, "#2aa79a"); g.addColorStop(0.7, "#2aa79a"); g.addColorStop(1, "#1f8f86");
+      x.fillStyle = g; x.fillRect(0, 0, W, H);
+      const s = 32;
+      for (let row = -1; row < H / (s * 0.55) + 1; row++) for (let col = -1; col < W / s + 1; col++) {
+        const cx = col * s + (row % 2 ? s / 2 : 0), cy = row * s * 0.55;
+        x.fillStyle = row % 3 === 0 ? "#2fb6a6" : "#239a8e"; x.beginPath(); x.arc(cx, cy, s * 0.52, 0, Math.PI); x.fill();
+        x.strokeStyle = "#f2cf6a"; x.lineWidth = 2.2; x.beginPath(); x.arc(cx, cy, s * 0.52, 0.05, Math.PI - 0.05); x.stroke();
       }
-      const hp = path(u0); head.position.copy(hp); head.lookAt(tmp.copy(path(u0 + 0.015)));
-      [6, 9, N - 18, N - 14].forEach((k, j) => { const p = segs[k].m.position; claws[j].position.set(p.x, p.y - segs[k].r * 1.1, p.z); claws[j].rotation.set(Math.PI + Math.sin(t * 3 + j) * 0.4, 0, 0); });
+      // 腹甲
+      const by0 = H * 0.36, by1 = H * 0.64;
+      const bg = x.createLinearGradient(0, by0, 0, by1); bg.addColorStop(0, "#f6e7c8"); bg.addColorStop(0.5, "#fff7e6"); bg.addColorStop(1, "#f6e7c8");
+      x.fillStyle = bg; x.fillRect(0, by0, W, by1 - by0);
+      x.strokeStyle = "#e0b45a"; x.lineWidth = 2.5; x.strokeRect(-2, by0, W + 4, by1 - by0);
+      for (let px = 0; px < W; px += 24) { x.beginPath(); x.moveTo(px, by0); x.quadraticCurveTo(px + 6, (by0 + by1) / 2, px, by1); x.stroke(); }
+    });
+    scaleTex.wrapS = scaleTex.wrapT = THREE.RepeatWrapping;
+    const flameTex = (c0, c1, c2) => canvasTex(64, 128, (x) => {
+      const g = x.createLinearGradient(0, 128, 0, 0); g.addColorStop(0, c0); g.addColorStop(0.55, c1); g.addColorStop(1, c2);
+      x.fillStyle = g; x.beginPath(); x.moveTo(10, 128); x.bezierCurveTo(0, 80, 30, 70, 22, 30); x.bezierCurveTo(34, 50, 40, 20, 34, 0); x.bezierCurveTo(52, 30, 60, 70, 54, 128); x.closePath(); x.fill();
+      x.strokeStyle = "rgba(255,226,140,.9)"; x.lineWidth = 2.5; x.stroke();
+    });
+    const redFlame = flameTex("#c8262a", "#ef4a36", "#ff9a5a"), creamFlame = flameTex("#f3e6cc", "#fff6e6", "#ffffff");
+    const bodyMat = new THREE.MeshPhongMaterial({ map: scaleTex, shininess: 55, specular: 0x6a5a30, emissive: 0x0b2a28, emissiveIntensity: 0.6, side: THREE.DoubleSide });
+    const tealMat = new THREE.MeshPhongMaterial({ color: 0x249d90, shininess: 50, specular: 0x6a5a30, emissive: 0x0b2a28 });
+    const goldMat = new THREE.MeshPhongMaterial({ color: 0xf2c94c, emissive: 0x7a5200, emissiveIntensity: 0.5, shininess: 90, specular: 0xfff1b0 });
+    const creamMat = LM(0xfff3dc), whiteMat = LM(0xffffff), darkMat = LM(0x3a1a10), redMat = LM(0xd8323a);
+    const flameMat = (tex) => new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide, depthWrite: false, alphaTest: 0.05 });
+    // 多條火舌的火焰：長短不一、尖端往後捲（貼圖的 +x 對應龍身的後方）
+    const fireTex = canvasTex(128, 256, (x) => {
+      const tongue = (bx, bw, h, curl, c0, c1, c2) => {
+        const g2 = x.createLinearGradient(0, 256, 0, 256 - h); g2.addColorStop(0, c0); g2.addColorStop(0.55, c1); g2.addColorStop(1, c2);
+        x.fillStyle = g2; x.beginPath(); x.moveTo(bx - bw / 2, 256);
+        x.bezierCurveTo(bx - bw * 0.7, 256 - h * 0.45, bx + curl * 0.2, 256 - h * 0.7, bx + curl, 256 - h);
+        x.bezierCurveTo(bx + curl * 0.35, 256 - h * 0.62, bx + bw * 0.9, 256 - h * 0.4, bx + bw / 2, 256);
+        x.closePath(); x.fill(); x.strokeStyle = "rgba(255,214,120,.95)"; x.lineWidth = 2.5; x.stroke();
+      };
+      tongue(64, 70, 235, 40, "#b81e26", "#e2342e", "#ff8a4a");
+      tongue(36, 44, 170, 30, "#c42228", "#ef4a36", "#ffa45a");
+      tongue(92, 44, 190, 34, "#c42228", "#ef4a36", "#ffa45a");
+      tongue(20, 28, 110, 22, "#d02a2a", "#f25a3c", "#ffc070");
+      tongue(108, 28, 125, 20, "#d02a2a", "#f25a3c", "#ffc070");
+      tongue(64, 26, 120, 16, "#ff8a3a", "#ffb050", "#ffe08a");     // 中心較亮的芯
+    });
+    const redM = flameMat(fireTex), creamM = flameMat(creamFlame);
+    const flamePlane = new THREE.PlaneGeometry(1, 1); flamePlane.translate(0, 0.5, 0);    // 底部是原點，往 +y 長
+    const g = new THREE.Group(); scene.add(g);
+
+    // 身體：一條連續的長管，每一格依龍走過的軌跡重新排列
+    const bodyGeo = new THREE.BufferGeometry(), nV = NR * (RAD + 1);
+    const bPos = new Float32Array(nV * 3), bUv = new Float32Array(nV * 2), bIdx = [];
+    for (let i = 0; i < NR; i++) for (let j = 0; j <= RAD; j++) { const k = i * (RAD + 1) + j; bUv[k * 2] = i / (NR - 1) * 14; bUv[k * 2 + 1] = j / RAD; }
+    for (let i = 0; i < NR - 1; i++) for (let j = 0; j < RAD; j++) { const a = i * (RAD + 1) + j, b = a + RAD + 1; bIdx.push(a, b, a + 1, b, b + 1, a + 1); }
+    bodyGeo.setAttribute("position", new THREE.BufferAttribute(bPos, 3)); bodyGeo.setAttribute("uv", new THREE.BufferAttribute(bUv, 2)); bodyGeo.setIndex(bIdx);
+    const body = new THREE.Mesh(bodyGeo, bodyMat); body.frustumCulled = false; g.add(body);
+    const radAt = (s) => { const base = 0.42 * (1 - Math.pow(s, 1.3) * 0.86); return s < 0.05 ? base * (0.8 + s * 4) : base * (1 + 0.12 * Math.sin(s * Math.PI * 1.5)); };   // s：0 頭 → 1 尾
+
+    // 背上一排紅色火焰鰭
+    const dorsal = []; for (let i = 3; i < NR - 3; i += LOW ? 3 : 2) { const m = new THREE.Mesh(flamePlane, redM); g.add(m); dorsal.push({ m, i }); }
+    // 尾端的火焰尾
+    const tailF = [[0.12, 1.0], [0.42, 0.85], [0.75, 0.6], [-0.22, 0.7], [-0.55, 0.5]].map(([a, k]) => { const m = new THREE.Mesh(flamePlane, redM); g.add(m); return { m, a, k }; });
+
+    // 四肢：腿、手肘的紅火焰、金爪
+    const mkLeg = (side, front) => {
+      const root = new THREE.Group(); g.add(root);
+      const hip = new THREE.Group(); root.add(hip);
+      const up = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.12, 0.4, 7), tealMat); up.position.y = -0.2; hip.add(up);
+      const knee = new THREE.Group(); knee.position.y = -0.4; hip.add(knee);
+      const lo = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.09, 0.34, 7), tealMat); lo.position.y = -0.17; knee.add(lo);
+      const elbow = new THREE.Mesh(flamePlane, redM); elbow.scale.set(0.28, 0.5, 1); elbow.rotation.set(0, 0, side * 2.4); knee.add(elbow);
+      const foot = new THREE.Group(); foot.position.y = -0.34; knee.add(foot);
+      for (let c = 0; c < 4; c++) { const cl = new THREE.Mesh(new THREE.ConeGeometry(0.035, 0.22, 5), goldMat); const a = (c - 1.5) * 0.45; cl.position.set(Math.sin(a) * 0.07, -0.08, Math.cos(a) * 0.07); cl.rotation.set(Math.PI * 0.75, a, 0); foot.add(cl); }
+      return { root, hip, knee, side, front, ring: Math.round(NR * (front ? 0.14 : 0.5)) };
     };
+    const legs = [mkLeg(-1, true), mkLeg(1, true), mkLeg(-1, false), mkLeg(1, false)];
+
+    // 頭（頭的局部座標：+z 朝前、+y 朝上）
+    const head = new THREE.Group(); head.scale.setScalar(1.35); g.add(head);
+    const skull = new THREE.Mesh(new THREE.SphereGeometry(0.38, 14, 10), tealMat); skull.scale.set(1, 0.85, 1.1); head.add(skull);
+    const snout = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.22, 0.62), tealMat); snout.position.set(0, 0.0, 0.5); head.add(snout);
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.16, 10, 8), tealMat); nose.scale.set(1.3, 0.9, 0.9); nose.position.set(0, 0.06, 0.82); head.add(nose);
+    [-1, 1].forEach((s) => { const n = new THREE.Mesh(new THREE.SphereGeometry(0.04, 6, 5), darkMat); n.position.set(s * 0.09, 0.1, 0.94); head.add(n); });
+    const upperLip = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.05, 0.55), redMat); upperLip.position.set(0, -0.12, 0.52); head.add(upperLip);
+    for (let k = 0; k < 4; k++) [-1, 1].forEach((s) => { const th = new THREE.Mesh(new THREE.ConeGeometry(0.025, 0.1, 4), whiteMat); th.rotation.x = Math.PI; th.position.set(s * (0.07 + k * 0.03), -0.17, 0.75 - k * 0.12); head.add(th); });
+    const jaw = new THREE.Group(); jaw.position.set(0, -0.14, 0.12); head.add(jaw);
+    const jawM = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.1, 0.62), tealMat); jawM.position.set(0, -0.04, 0.34); jaw.add(jawM);
+    const tongue = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.03, 0.5), redMat); tongue.position.set(0, 0.02, 0.36); jaw.add(tongue);
+    for (let k = 0; k < 3; k++) [-1, 1].forEach((s) => { const th = new THREE.Mesh(new THREE.ConeGeometry(0.022, 0.09, 4), whiteMat); th.position.set(s * (0.07 + k * 0.025), 0.05, 0.6 - k * 0.12); jaw.add(th); });
+    const beard = new THREE.Mesh(flamePlane, creamM); beard.scale.set(0.45, 0.6, 1); beard.position.set(0, -0.06, 0.2); beard.rotation.set(Math.PI * 0.8, 0, 0); jaw.add(beard);
+    [-1, 1].forEach((s) => {
+      const eyeW = new THREE.Mesh(new THREE.SphereGeometry(0.09, 10, 8), goldMat); eyeW.position.set(s * 0.22, 0.17, 0.3); head.add(eyeW);
+      const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 6), darkMat); pupil.position.set(s * 0.27, 0.19, 0.36); head.add(pupil);
+      const brow = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.05, 0.22), tealMat); brow.position.set(s * 0.2, 0.28, 0.3); brow.rotation.z = -s * 0.35; head.add(brow);
+      // 金色分叉鹿角
+      const horn = new THREE.Group(); horn.position.set(s * 0.17, 0.3, -0.05); horn.rotation.set(-0.85, 0, -s * 0.55); head.add(horn);
+      const main = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.045, 0.75, 6), goldMat); main.position.y = 0.37; horn.add(main);
+      [[0.28, 0.75, 0.32, 0.35], [0.5, 0.6, 0.26, -0.45], [0.7, 0.5, 0.2, 0.3]].forEach(([y, a, l, rx]) => { const rz = -s * a, br = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.028, l, 5), goldMat); br.position.set(-Math.sin(rz) * l * 0.5, y + Math.cos(rz) * l * 0.5, 0); br.rotation.set(rx, 0, rz); horn.add(br); });
+      // 鬃毛（紅白火焰往後飄）
+      for (let k = 0; k < 3; k++) { const mn = new THREE.Mesh(flamePlane, k === 1 ? creamM : redM); mn.scale.set(0.35, 0.7 - k * 0.1, 1); mn.position.set(s * 0.3, 0.05 - k * 0.12, -0.15); mn.rotation.set(-1.9 + k * 0.25, s * 0.5, s * 0.4); head.add(mn); }
+    });
+    // 兩條長長的金鬚：一節一節跟在後面飄
+    const WN = 16, whiskers = [-1, 1].map((s) => ({ s, pts: Array.from({ length: WN }, () => new THREE.Vector3()), mesh: null, init: false }));
+    const whiskMat = goldMat;
+
+    // 龍珠：旋轉的紅金漩渦火球、外圈火焰光暈、拖著火星
+    const pearlTex = canvasTex(256, 128, (x, W, H) => {
+      const g2 = x.createLinearGradient(0, 0, W, 0); g2.addColorStop(0, "#ffcf4a"); g2.addColorStop(0.5, "#ff9a2a"); g2.addColorStop(1, "#ffcf4a");
+      x.fillStyle = g2; x.fillRect(0, 0, W, H);
+      x.strokeStyle = "#d8262a"; x.lineWidth = 14; x.lineCap = "round";
+      for (let k = 0; k < 3; k++) { x.beginPath(); for (let i = 0; i <= 40; i++) { const u = i / 40, px = (k / 3 + u * 0.55) * W, py = H * (0.15 + u * 0.7) + Math.sin(u * 6) * 8; if (i) x.lineTo(px % W, py); else x.moveTo(px % W, py); } x.stroke(); }
+      x.strokeStyle = "rgba(255,250,220,.9)"; x.lineWidth = 4;
+      for (let k = 0; k < 3; k++) { x.beginPath(); for (let i = 0; i <= 40; i++) { const u = i / 40, px = (k / 3 + 0.08 + u * 0.55) * W, py = H * (0.1 + u * 0.7) + Math.sin(u * 6) * 8; if (i) x.lineTo(px % W, py); else x.moveTo(px % W, py); } x.stroke(); }
+    });
+    const pearl = new THREE.Group(); scene.add(pearl);
+    const orb = new THREE.Mesh(new THREE.SphereGeometry(0.42, 20, 14), new THREE.MeshBasicMaterial({ map: pearlTex })); pearl.add(orb);
+    const halo1 = glow("rgba(255,240,180,1)", "rgba(255,160,60,.6)", 1.8, 0.8, true); pearl.add(halo1);
+    const halo2 = glow("rgba(255,200,120,.8)", "rgba(255,90,40,.35)", 3.2, 0.45, true); pearl.add(halo2);
+    const flames = []; for (let k = 0; k < 7; k++) { const f = new THREE.Sprite(new THREE.SpriteMaterial({ map: redFlame, transparent: true, depthWrite: false, opacity: 0.9 })); f.scale.set(0.35, 0.75, 1); pearl.add(f); flames.push(f); }
+    const sparks = []; for (let k = 0; k < (LOW ? 16 : 28); k++) { const sp = glow("rgba(255,245,200,1)", "rgba(255,170,60,.6)", 0.25, 0, true); scene.add(sp); sparks.push({ sp, life: 0, v: new THREE.Vector3() }); }
+    let sparkK = 0, sparkT = 0;
+    const burst = (n, p) => { for (let k = 0; k < n; k++) { const s = sparks[sparkK++ % sparks.length]; s.life = 1; s.sp.position.copy(p); s.v.set((Math.random() - 0.5) * 4, (Math.random() - 0.2) * 3, (Math.random() - 0.5) * 4); } };
+
+    // 龍珠的路線：繞著主殿和山峰、在雲帶的高度上下起伏；被點或偶爾自己會竄到旁邊
+    // 避開地形：先把山峰、石柱、建築的高度做成一張「最低飛行高度」表（每格 0.5）
+    const GS = 0.5, GN = 128, GO = -32, clear = new Float32Array(GN * GN);
+    for (let gi = 0; gi < GN; gi++) for (let gj = 0; gj < GN; gj++) { const x = GO + gi * GS, z = GO + gj * GS; clear[gi * GN + gj] = ground(x, z) + 0.9; }
+    const stamp = (cx, cz, r, h) => { const i0 = Math.max(0, Math.floor((cx - r - GO) / GS)), i1 = Math.min(GN - 1, Math.ceil((cx + r - GO) / GS)), j0 = Math.max(0, Math.floor((cz - r - GO) / GS)), j1 = Math.min(GN - 1, Math.ceil((cz + r - GO) / GS)); for (let gi = i0; gi <= i1; gi++) for (let gj = j0; gj <= j1; gj++) { const x = GO + gi * GS, z = GO + gj * GS; if (Math.hypot(x - cx, z - cz) <= r) clear[gi * GN + gj] = Math.max(clear[gi * GN + gj], h); } };
+    peaks.forEach(([x, z, r, top]) => stamp(x, z, r + 0.6, top + 1.0));                      // 石柱（含頂上的松樹）
+    SITES.forEach((st) => stamp(st.x, st.z, st.id === "main" ? 4.6 : 1.7 * st.s, st.baseY + (st.top || 2) * st.s + 0.4));   // 樓閣、寶塔、主殿
+    const MARGIN = 1.7;   // 龍身半徑＋垂下來的腳爪
+    const floorAt = (x, z) => { const gi = Math.round((x - GO) / GS), gj = Math.round((z - GO) / GS); let m = 0; for (let a = -2; a <= 2; a++) for (let b = -2; b <= 2; b++) { const ii = gi + a, jj = gj + b; if (ii >= 0 && jj >= 0 && ii < GN && jj < GN) m = Math.max(m, clear[ii * GN + jj]); } return m + MARGIN; };
+    // 飛行路線：一條預先算好的平滑環形航道。高度先依地形「抬高」，再前後大範圍抹平，爬升和下降都很和緩
+    const routeXZ = (u) => [10.5 * Math.cos(u) + 1.5 * Math.sin(2 * u), 8.8 * Math.sin(u) + 1.2 * Math.cos(3 * u) + 1.0];
+    const routeY0 = (u) => 6.8 + 0.9 * Math.sin(2 * u) + 0.4 * Math.sin(3 * u);
+    const RM = 480, rx = new Float32Array(RM), ry = new Float32Array(RM), rz = new Float32Array(RM), req = new Float32Array(RM);
+    for (let i = 0; i < RM; i++) { const u = i / RM * TAU, [x, z] = routeXZ(u); rx[i] = x; rz[i] = z; req[i] = Math.max(routeY0(u), floorAt(x, z)); }
+    const wrap = (i) => ((i % RM) + RM) % RM;
+    // 「斜坡包絡」：每一點的高度至少要能用不超過約 17 度的緩坡，越過附近每一個障礙；再輕輕抹平
+    { const SL = 0.3, dxz = new Float32Array(RM + 1);
+      for (let i = 1; i <= RM; i++) dxz[i] = dxz[i - 1] + Math.hypot(rx[wrap(i)] - rx[i - 1], rz[wrap(i)] - rz[i - 1]);
+      const per = dxz[RM], env = new Float32Array(RM);
+      for (let i = 0; i < RM; i++) { let m = 0; for (let j = 0; j < RM; j++) { let d = Math.abs(dxz[i] - dxz[j]); d = Math.min(d, per - d); m = Math.max(m, req[j] + 0.5 - SL * d); } env[i] = m; }
+      let cur = env; for (let pass = 0; pass < 3; pass++) { const nx = new Float32Array(RM); for (let i = 0; i < RM; i++) { let sum = 0; for (let k = -12; k <= 12; k++) sum += cur[wrap(i + k)]; nx[i] = sum / 25; } cur = nx; }
+      for (let i = 0; i < RM; i++) ry[i] = cur[i]; }
+    // 依弧長重新取樣，讓龍以固定速度沿航道前進
+    const RL = new Float32Array(RM + 1); for (let i = 1; i <= RM; i++) { const j = wrap(i), k = i - 1; RL[i] = RL[i - 1] + Math.hypot(rx[j] - rx[k], ry[j] - ry[k], rz[j] - rz[k]); }
+    const LOOP = RL[RM];
+    const routeAt = (sv, out) => { sv = ((sv % LOOP) + LOOP) % LOOP; let lo = 0, hi = RM; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (RL[m] <= sv) lo = m; else hi = m; } const f = (sv - RL[lo]) / (RL[hi] - RL[lo] || 1), a = lo, b2 = wrap(hi); return out.set(rx[a] + (rx[b2] - rx[a]) * f, ry[a] + (ry[b2] - ry[a]) * f, rz[a] + (rz[b2] - rz[a]) * f); };
+    // 追珠：龍珠在航道上、龍頭前方約 2.4 的地方；被點或偶爾自己會「往前竄」，龍再慢慢加速追上
+    const GAP = 2.4; let sHead = 0, gap = GAP, gapGoal = GAP, hold = 0, nextDart = 10, speed = 1.6;
+    const dart = (big) => { gapGoal = big ? 7.5 : 5; hold = big ? 2.2 : 1.6; burst(big ? 14 : 6, pearl.position); };
+
+    const hp = new THREE.Vector3(), hv = new THREE.Vector3();
+    const UP = new THREE.Vector3(0, 1, 0), T = new THREE.Vector3(), Nn = new THREE.Vector3(), Bn = new THREE.Vector3(), tmp = new THREE.Vector3(), tmp2 = new THREE.Vector3(), mtx = new THREE.Matrix4();
+    const frames = Array.from({ length: NR }, () => ({ b: new THREE.Vector3(), p: new THREE.Vector3(), T: new THREE.Vector3(), N: new THREE.Vector3(), B: new THREE.Vector3(), r: 0 }));
+    let lastT = 0;
+    const orient = (obj, B, N, Tt) => { mtx.makeBasis(B, N, Tt); obj.quaternion.setFromRotationMatrix(mtx); };
+    const update = function (t) {
+      const dt = clamp(t - lastT, 0, 0.05); lastT = t;
+      // 龍珠往前竄，再被龍追近（全部平滑過渡）
+      if (t > nextDart) { dart(false); nextDart = t + 9 + Math.random() * 7; }
+      if (hold > 0) hold -= dt; else gapGoal = GAP;
+      gap += (gapGoal - gap) * (1 - Math.exp(-dt * (gapGoal > gap ? 1.6 : 0.35)));
+      const wantSpeed = 1.6 + Math.max(0, gap - GAP) * 0.35; speed += (wantSpeed - speed) * (1 - Math.exp(-dt * 1.2));
+      sHead += speed * dt;
+      const pp = routeAt(sHead + gap, new THREE.Vector3());
+      pp.y += Math.sin(t * 1.3) * 0.12;
+      pearl.position.copy(pp);
+      orb.rotation.y = t * 2.2; orb.rotation.z = Math.sin(t * 0.7) * 0.4;
+      halo1.material.opacity = 0.65 + 0.15 * Math.sin(t * 6); halo2.scale.setScalar(3.0 + 0.3 * Math.sin(t * 3.3));
+      flames.forEach((f, k) => { const a = t * 1.6 + k / flames.length * TAU; f.position.set(Math.cos(a) * 0.55, Math.sin(a) * 0.55, 0.05); f.material.rotation = a - Math.PI / 2; f.scale.set(0.35, 0.6 + 0.25 * Math.sin(t * 9 + k), 1); });
+      sparkT += dt; if (sparkT > 0.08) { sparkT = 0; const s = sparks[sparkK++ % sparks.length]; s.life = 1; s.sp.position.copy(pp); s.v.set((Math.random() - 0.5) * 0.8, (Math.random() - 0.3) * 0.8, (Math.random() - 0.5) * 0.8); }
+      sparks.forEach((s) => { if (s.life <= 0) { s.sp.material.opacity = 0; return; } s.life -= dt * 1.1; s.sp.position.addScaledVector(s.v, dt); s.v.multiplyScalar(Math.exp(-dt * 1.5)); s.sp.material.opacity = Math.max(0, s.life) * 0.9; s.sp.scale.setScalar(0.12 + 0.2 * s.life); });
+      // 龍頭在航道上
+      routeAt(sHead, hp); routeAt(sHead + 0.3, hv).sub(hp).normalize();
+      // 沿軌跡排列身體（加一點 S 形擺動）
+      const ds = LEN / (NR - 1);
+      for (let i = 0; i < NR; i++) routeAt(sHead - i * ds, frames[i].p);
+      for (let i = 0; i < NR; i++) {
+        const f = frames[i], a = frames[Math.max(0, i - 1)].p, b = frames[Math.min(NR - 1, i + 1)].p;
+        f.T.copy(a).sub(b); if (f.T.lengthSq() < 1e-8) f.T.copy(hv); f.T.normalize();
+        f.N.copy(UP).addScaledVector(f.T, -UP.dot(f.T)); if (f.N.lengthSq() < 1e-6) f.N.set(1, 0, 0); f.N.normalize();
+        f.B.crossVectors(f.N, f.T).normalize();
+        const s = i / (NR - 1); f.r = radAt(s);
+        f.b.copy(f.p);
+        const w = Math.sin(i * 0.22 - t * 3.2) * 0.22 * Math.min(1, s * 4) * (1 - 0.6 * smooth(0.8, 1, s));
+        f.p.addScaledVector(f.B, w).addScaledVector(f.N, Math.cos(i * 0.18 - t * 2.6) * 0.1 * Math.min(1, s * 4));
+      }
+      for (let i = 0; i < NR; i++) {
+        const f = frames[i];
+        for (let j = 0; j <= RAD; j++) {
+          const ang = j / RAD * TAU, c = Math.cos(ang), sn = Math.sin(ang), k = (i * (RAD + 1) + j) * 3;
+          const ry = f.r * (c < 0 ? 0.88 : 1);
+          bPos[k] = f.p.x + (f.N.x * c * ry + f.B.x * sn * f.r); bPos[k + 1] = f.p.y + (f.N.y * c * ry + f.B.y * sn * f.r); bPos[k + 2] = f.p.z + (f.N.z * c * ry + f.B.z * sn * f.r);
+        }
+      }
+      bodyGeo.attributes.position.needsUpdate = true; bodyGeo.computeVertexNormals();
+      dorsal.forEach(({ m, i }) => { const f = frames[i], s = i / (NR - 1); m.position.copy(f.p).addScaledVector(f.N, f.r * 0.85); orient(m, f.B, f.N, f.T); m.rotateY(Math.PI / 2); m.rotateZ(-0.55); m.rotateZ(Math.sin(t * 3 - i * 0.4) * 0.12); const h = (0.62 + 0.12 * Math.sin(t * 6 - i * 0.5)) * (1 - s * 0.45); m.scale.set(0.62 * (1 - s * 0.4), h, 1); });
+      const tf = frames[NR - 1];
+      // 尾火的方向：用沒有加擺動的軌跡算出穩定的方向，左右擺動限制在 ±15 度（共 30 度）以內
+      const tb = frames[NR - 9].b.clone().sub(frames[NR - 1].b).normalize(), tn = UP.clone().addScaledVector(tb, -UP.dot(tb)).normalize();
+      tb.applyAxisAngle(tn, Math.sin(t * 2.2) * 0.26); const tbb = new THREE.Vector3().crossVectors(tn, tb).normalize();
+      tailF.forEach(({ m, a, k }) => { m.position.copy(tf.p); orient(m, tbb, tn, tb); m.rotateY(Math.PI / 2); m.rotateZ(-Math.PI / 2 + a + Math.sin(t * 3.5 + a * 3) * 0.05); m.scale.set(0.75 * k, (1.7 + 0.2 * Math.sin(t * 6 + a * 4)) * k, 1); });
+      // 四肢：划水的動作；靠近龍珠時，前爪伸出去抓
+      const reach = smooth(3.6, 1.8, hp.distanceTo(pp));
+      legs.forEach((L, k) => {
+        const f = frames[L.ring]; L.root.position.copy(f.p).addScaledVector(f.B, L.side * f.r * 0.85).addScaledVector(f.N, -f.r * 0.35); orient(L.root, f.B, f.N, f.T);
+        const sw = Math.sin(t * 3 + k * 1.7 + (L.front ? 0 : Math.PI));
+        const grab = L.front && L.side > 0 ? reach : 0;
+        L.hip.rotation.set(0.9 + sw * 0.45 - grab * 2.0, 0, L.side * 0.7); L.knee.rotation.set(-1.4 - sw * 0.3 + grab * 1.1, 0, 0);
+      });
+      // 頭
+      const f0 = frames[0]; head.position.copy(f0.p).addScaledVector(f0.T, 0.25);
+      const lookT = tmp.copy(pp).sub(head.position).normalize().lerp(f0.T, 0.45).normalize();
+      const hN = tmp2.copy(UP).addScaledVector(lookT, -UP.dot(lookT)).normalize(), hB = new THREE.Vector3().crossVectors(hN, lookT).normalize();
+      orient(head, hB, hN, lookT);
+      jaw.rotation.x = 0.25 + reach * 0.35 + 0.08 * Math.sin(t * 2.3);
+      // 金鬚
+      head.updateMatrixWorld();
+      whiskers.forEach((wk) => {
+        const anchor = head.localToWorld(new THREE.Vector3(wk.s * 0.2, 0.0, 0.82));
+        const back = new THREE.Vector3().copy(lookT).multiplyScalar(-1).addScaledVector(hB, wk.s * 0.5).addScaledVector(hN, -0.25).normalize();
+        if (!wk.init) { wk.init = true; wk.pts.forEach((p, k) => p.copy(anchor).addScaledVector(back, k * 0.13)); }
+        wk.pts[0].copy(anchor);
+        for (let k = 1; k < WN; k++) {
+          const p = wk.pts[k], prev = wk.pts[k - 1];
+          const wave = new THREE.Vector3().copy(hN).multiplyScalar(Math.sin(t * 4 - k * 0.6) * 0.05);
+          p.lerp(tmp.copy(prev).addScaledVector(back, 0.17).add(wave), 1 - Math.exp(-dt * 10));
+          const d = p.distanceTo(prev); if (d > 0.2) p.sub(prev).multiplyScalar(0.2 / d).add(prev);
+        }
+        if (wk.mesh) { wk.mesh.geometry.dispose(); g.remove(wk.mesh); }
+        wk.mesh = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(wk.pts), 20, 0.026, 4, false), whiskMat); g.add(wk.mesh);
+      });
+    };
+    update.pearl = pearl; update.head = head; update.state = () => ({ sHead, gap, speed }); update.rawAt = (x, z) => { const gi = Math.round((x - GO) / GS), gj = Math.round((z - GO) / GS); return gi >= 0 && gj >= 0 && gi < GN && gj < GN ? clear[gi * GN + gj] - 0.9 + 0.0 : 0; }; update.tail = frames; update.dart = () => dart(true);
+    return update;
   })();
   ticks.push(dragon);
 
@@ -1234,8 +1485,9 @@ function init3D() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && selected) home(); });
   const screenOf = (p) => { v3.set(p[0], p[1], p[2]).project(camera); const r = canvas.getBoundingClientRect(); return { x: r.left + (v3.x + 1) / 2 * r.width, y: r.top + (1 - v3.y) / 2 * r.height, z: v3.z }; };
   function nearest(px, py) { let best = null, bd = 70; for (const t of tags) { const s = screenOf(t.mid); if (s.z > 1) continue; const d = Math.hypot(s.x - px, s.y - py); if (d < bd) { bd = d; best = t.st; } } return best; }
-  function pickAt(x, y) { const st = nearest(x, y); if (st) select(st); }
-  function hover(e) { canvas.classList.toggle("pick", !!nearest(e.clientX, e.clientY)); }
+  const nearPearl = (px, py) => { const p = dragon.pearl.position, s = screenOf([p.x, p.y, p.z]); return s.z < 1 && Math.hypot(s.x - px, s.y - py) < 42; };
+  function pickAt(x, y) { if (nearPearl(x, y)) { dragon.dart(); return; } const st = nearest(x, y); if (st) select(st); }
+  function hover(e) { canvas.classList.toggle("pick", nearPearl(e.clientX, e.clientY) || !!nearest(e.clientX, e.clientY)); }
   function placeTags() {
     const r = canvas.getBoundingClientRect();
     for (const t of tags) {
