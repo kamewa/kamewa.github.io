@@ -1445,7 +1445,7 @@ function init3D() {
   const cam = Object.assign({}, HOME), goal = Object.assign({}, HOME);
   let aspect = 1, selected = null, hovered = null;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-  const fit = () => (aspect < 2.1 ? Math.min(3.4, 2.1 / aspect) : 1); // 畫面越窄，鏡頭拉得越遠
+  const fit = () => (aspect < 2.1 ? Math.min(4.6, 2.1 / aspect) : 1); // 畫面越窄，鏡頭拉得越遠
   function select(d) {
     selected = d;
     if (!d) { Object.assign(goal, { phi: HOME.phi, radius: HOME.radius, tx: 0, ty: 0, tz: HOME.tz }); onSelect(null); return; }
@@ -1497,7 +1497,7 @@ function init3D() {
     if (selected && selected.id === "sky") { const p = sky.position; goal.tx = p.x; goal.ty = p.y; goal.tz = p.z; }
     const k = 1 - Math.exp(-dt * 3.2);
     for (const key in cam) cam[key] += (goal[key] - cam[key]) * k;
-    const r = cam.radius * fit(), s = Math.sin(cam.phi);
+    const r = cam.radius * fit(), s = Math.sin(cam.phi); scene.fog.near = 80 * fit(); scene.fog.far = 190 * fit();   // 直式手機鏡頭拉遠時，霧也跟著拉遠
     camera.position.set(cam.tx + r * s * Math.sin(cam.theta), cam.ty + r * Math.cos(cam.phi), cam.tz + r * s * Math.cos(cam.theta));
     camera.lookAt(cam.tx, cam.ty, cam.tz);
     camera.updateMatrixWorld();
