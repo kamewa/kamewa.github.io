@@ -701,24 +701,69 @@
     while (over() && z > 0.62) { z -= 0.04; body.style.zoom = z.toFixed(2); }
   }
 
+  /* 手機（窄螢幕或橫向的矮螢幕）：簡報模式自動收起網站標題列，投影片才放得大 */
+  const PHONE = window.matchMedia('(max-width: 760px), (max-height: 500px)');
+  function setCompact() {
+    document.body.classList.toggle('slides-compact', state.mode === 'slides' && PHONE.matches);
+    if (state.mode === 'slides' && !$('#rotateHint')) {   // 直向手機的「轉橫向」提示
+      const h = document.createElement('div'); h.id = 'rotateHint'; h.className = 'rotate-hint';
+      h.innerHTML = `<span></span><button type="button" aria-label="${L('關閉提示', 'Close')}">✕</button>`;
+      h.querySelector('button').addEventListener('click', () => document.body.classList.add('hint-off'));
+      document.body.appendChild(h);
+    }
+    const t = $('#rotateHint span'); if (t) t.textContent = L('📱 轉成橫向，投影片會更大', '📱 Turn your phone sideways for bigger slides');
+  }
+
   function fitSlide() {
     if (state.mode !== 'slides') return;
+    setCompact();
     setHeaderHeight();
-    const head = document.body.classList.contains('is-fullscreen') ? 0 : $('.toy-header').offsetHeight;
-    const dockH = 86;
-    const w = window.innerWidth - 32, h = window.innerHeight - head - dockH - 24;
-    const s = Math.max(0.2, Math.min(w / 1280, h / 720));
+    const head = $('.toy-header').offsetHeight;   // 全螢幕、沉浸模式或手機時標題列隱藏，高度為 0
+    const dock = $('#dock').getBoundingClientRect();
+    const dockSpace = dock.height ? Math.max(0, window.innerHeight - dock.top) + 8 : 86;   // 依控制列實際高度預留空間
+    const pad = PHONE.matches ? 8 : 16;
+    $('#slidesWrap').style.paddingBottom = dockSpace + 'px';
+    const w = window.innerWidth - pad * 2, h = window.innerHeight - head - dockSpace - pad;
+    const s = Math.max(0.1, Math.min(w / 1280, h / 720));
     $('#slideScaler').style.transform = `scale(${s})`;
+  }
+
+  /* 全螢幕：Android／電腦用真正的全螢幕；iPad 用 Safari 的寫法；
+     iPhone 不支援網頁全螢幕，改成「沉浸模式」（隱藏標題列，投影片放到最大） */
+  const fsElement = () => document.fullscreenElement || document.webkitFullscreenElement || null;
+  function syncFullscreen() {
+    document.body.classList.toggle('is-fullscreen', !!fsElement() || !!state.pseudoFs);
+    fitSlide();
+  }
+  function setPseudoFs(on) {
+    state.pseudoFs = on;
+    const portrait = window.matchMedia('(orientation: portrait)').matches;
+    if (on) toast(PHONE.matches ? (portrait ? L('手機瀏覽器不支援網頁全螢幕，投影片已放到最大；轉成橫向會更大', 'Full screen is not available on this phone. Turn the phone sideways for bigger slides.')
+                                            : L('手機瀏覽器不支援網頁全螢幕，投影片已放到最大', 'Full screen is not available on this phone. The slides are already as big as possible.'))
+                                : L('這個瀏覽器不支援全螢幕，已改成沉浸模式', 'Full screen is not available here, so the slides now fill the window'));
+    syncFullscreen();
+  }
+  function enterFullscreen() {
+    const el = document.documentElement, req = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (!req) { setPseudoFs(true); return; }
+    try { const r = req.call(el); if (r && r.catch) r.catch(() => setPseudoFs(true)); }
+    catch (e) { setPseudoFs(true); }
+  }
+  function exitFullscreen() {
+    if (fsElement()) { const ex = document.exitFullscreen || document.webkitExitFullscreen; try { const r = ex && ex.call(document); if (r && r.catch) r.catch(() => {}); } catch (e) {} }
+    if (state.pseudoFs) { state.pseudoFs = false; syncFullscreen(); }
   }
 
   function setMode(m) {
     state.mode = m;
     document.body.classList.toggle('mode-slides', m === 'slides');
     document.querySelectorAll('.mode-btn').forEach((b) => b.classList.toggle('active', b.dataset.mode === m));
-    if (m === 'slides') { showSlide(state.index); window.scrollTo(0, 0); }
+    if (m === 'slides') { setCompact(); showSlide(state.index); window.scrollTo(0, 0); fitSlide(); }
     else {
       closePanels();
-      if (document.fullscreenElement) document.exitFullscreen?.();
+      exitFullscreen();
+      document.body.classList.remove('slides-compact');
+      setHeaderHeight();
     }
   }
 
@@ -745,8 +790,7 @@
         $('#notesDrawer').classList.toggle('open', state.notesOpen);
         $('[data-act="notes"].dock-btn').classList.toggle('on', state.notesOpen); break;
       case 'fullscreen':
-        if (document.fullscreenElement) document.exitFullscreen();
-        else document.documentElement.requestFullscreen?.().catch(() => toast(L('這個瀏覽器不支援全螢幕', 'This browser does not support full screen')));
+        if (fsElement() || state.pseudoFs) exitFullscreen(); else enterFullscreen();
         break;
       case 'exit': setMode('review'); break;
     }
@@ -784,10 +828,8 @@
     if (Math.abs(dx) > 50) act(dx < 0 ? 'next' : 'prev');
   });
 
-  document.addEventListener('fullscreenchange', () => {
-    document.body.classList.toggle('is-fullscreen', !!document.fullscreenElement);
-    fitSlide();
-  });
+  document.addEventListener('fullscreenchange', syncFullscreen);
+  document.addEventListener('webkitfullscreenchange', syncFullscreen);
   window.addEventListener('resize', () => { setHeaderHeight(); fitSlide(); fitSlideText(); });
 
   /* ---------- 路由 ---------- */

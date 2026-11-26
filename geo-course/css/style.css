@@ -948,3 +948,22 @@ strong .zh-gloss, .zh-gloss strong { font-weight: 400; }
 .quiz-go-card.is-locked { background: var(--bg-subtle); border-color: var(--line); }
 .quiz-go-card.is-locked .quiz-go-text b { color: var(--ink-secondary); }
 .quiz-lock { background: #E6DCCD; color: var(--ink-tertiary); box-shadow: none; cursor: not-allowed; pointer-events: none; }
+
+/* ---------- 手機的簡報模式：收起標題列、控制列貼近底部、直向時提示轉橫向 ---------- */
+body.mode-slides.slides-compact .toy-header { display: none; }
+body.mode-slides.slides-compact .slides-wrap { top: 0; }
+body.mode-slides.slides-compact .slide-progress { top: 0; }
+body.mode-slides.slides-compact .presenter-dock { bottom: calc(8px + env(safe-area-inset-bottom, 0px)); }
+body.mode-slides.slides-compact .notes-drawer { bottom: 76px; max-height: calc(100vh - 100px); overflow: auto; }
+.rotate-hint { display: none; }
+@media (orientation: portrait) {
+  body.mode-slides.slides-compact:not(.hint-off) .rotate-hint {
+    display: flex; align-items: center; gap: 6px; position: fixed; top: calc(14px + env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); z-index: 940;
+    background: rgba(45,37,31,.92); color: #FFD796; font-family: var(--font-heading); font-size: .95rem; padding: 7px 8px 7px 16px; border-radius: 999px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  }
+  .rotate-hint button { border: 0; background: rgba(255,255,255,.12); color: #F3ECE0; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: .85rem; }
+}
+body.mode-slides.slides-compact .dock-btn .dock-text { display: none; }
+body.mode-slides.slides-compact .presenter-dock { gap: 2px; padding: 6px 8px; }
+body.mode-slides.slides-compact .dock-btn { padding: 8px 10px; }
+body.mode-slides.slides-compact .dock-btn-primary { padding: 9px 16px; }
