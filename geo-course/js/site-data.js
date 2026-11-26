@@ -14,7 +14,7 @@ window.SITE = {
   subtitle: '區域地理・複習與簡報',
   logo: '和',
   logoImage: 'images/logo-he.png',   // 左上角主視覺：老師自製的「和」字印（換圖只要改這一行；刪掉這行就改回文字）
-  version: '2026110364',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
+  version: '2026110365',   // 每次更新網站時改這個數字，學生的瀏覽器就會讀到新版
   // 網站放在 GitHub 上的正式網址（工具的「網頁嵌入碼」會用到）；搬家時只要改這一行
   publishedUrl: 'https://kamewa.github.io/geo-course/',
 
@@ -250,6 +250,8 @@ window.SITE = {
      島嶼代號：terrain 地形、place 位置、climate 氣候、water 水文、people 人口、
                traffic 交通、industry 產業、village 聚落、issue 議題、other 會考綜合       */
   quiz: {
+    // locked: true ＝ 每一課最下面顯示「🔒 即將開放」（評量系統的試題準備好之前先鎖定）；改成 false 就恢復下面的島嶼按鈕
+    locked: true,
     url: 'https://kamewa.github.io/island-quiz/',
     islands: {
       terrain:  { name: '粉彩地形島', en: 'Terrain Island',  page: 'terrain.html' },

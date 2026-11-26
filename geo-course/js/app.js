@@ -427,7 +427,13 @@
 
   // 「🏝️ 去闖關」：連到星願群島的島嶼頁（同一個分頁）；對照表在 site-data.js 的 quiz
   function quizBtns(lid) {
-    const Q = SITE.quiz, ids = (Q?.lessons?.[lid] || []).filter((k) => Q.islands?.[k]);
+    const Q = SITE.quiz;
+    if (Q?.locked) return `<section class="section quiz-go"><div class="toy-card quiz-go-card is-locked">
+        <div class="quiz-go-text"><b>${L('📝 本課評量', '📝 Lesson Quiz')}</b>
+          <span>${L('老師正在準備本課的評量，完成後會在這裡開放，敬請期待！', 'Your teacher is preparing the quiz for this lesson. It will open here soon!')}</span></div>
+        <div class="quiz-go-btns"><span class="toy-btn quiz-lock" aria-disabled="true">${L('🔒 即將開放', '🔒 Coming soon')}</span></div>
+      </div></section>`;
+    const ids = (Q?.lessons?.[lid] || []).filter((k) => Q.islands?.[k]);
     if (!ids.length) return '';
     return `<section class="section quiz-go"><div class="toy-card quiz-go-card">
         <div class="quiz-go-text"><b>${L('🏝️ 學完了，去星願群島闖關！', '🏝️ Done? Try the island quiz!')}</b>

@@ -945,3 +945,6 @@ strong .zh-gloss, .zh-gloss strong { font-weight: 400; }
 .anchor-tag { display: inline-block; margin-bottom: 8px; padding: 3px 12px; border-radius: var(--radius-pill); background: var(--toy-yellow); color: #fff; font-weight: 700; font-size: .85rem; }
 @keyframes anchorGlow { 0%, 100% { box-shadow: var(--toy-shadow-md); } 50% { box-shadow: 0 0 0 10px rgba(242,163,67,.28), var(--toy-shadow-md); } }
 @media (prefers-reduced-motion: reduce) { .concept-card.anchor-focus { animation: none; } }
+.quiz-go-card.is-locked { background: var(--bg-subtle); border-color: var(--line); }
+.quiz-go-card.is-locked .quiz-go-text b { color: var(--ink-secondary); }
+.quiz-lock { background: #E6DCCD; color: var(--ink-tertiary); box-shadow: none; cursor: not-allowed; pointer-events: none; }
