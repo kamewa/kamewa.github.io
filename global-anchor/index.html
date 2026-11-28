@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全球空間錨點</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* VOICE: 清楚、明亮的地理課教具，投影在教室大螢幕上也一眼看得懂
+IDEA: 掛在黑板上的浮雕世界地圖，加上一個可以移動的經緯十字定位器
+PICTURE: 精準的等距圓柱投影世界地圖（150°E 置中），白色浮雕陸地、四邊經緯度刻度
+COLOUR and TYPE: 天空藍底、白色陸地、印章朱紅當作錨點色；Noto Sans TC + Barlow 數字
+LAYOUT: 地圖佔主要版面，右側（窄螢幕在下方）是錨點資訊的副展示視窗 */
+:root{color-scheme:light dark;
+--bg:light-dark(#d3e9f9,#0a1b2a);--panel:light-dark(#ffffff,#10273a);
+--ink:light-dark(#0f2d44,#e4f0f9);--muted:light-dark(#4b687e,#9fb8cb);
+--line:light-dark(#cde1f0,#21405a);--chip:light-dark(#eaf4fc,#163249);
+--sea1:light-dark(#c6e4f9,#133b59);--sea2:light-dark(#a6d0f1,#0b2a42);
+--land:light-dark(#ffffff,#e6eef5);--depth:light-dark(#8fb9da,#03111c);
+--grid:light-dark(rgba(29,106,163,.15),rgba(170,210,240,.13));
+--grid2:light-dark(rgba(29,106,163,.34),rgba(170,210,240,.3));
+--key:light-dark(#18649c,#86c8ff);--accent:light-dark(#ef7d00,#ff9d33);
+--eq:light-dark(#de2910,#ff4b3a);--trop:light-dark(#e09a00,#ffc23d);
+--mid:#8a96a3;--east:#2e7d32;--west:#a5d66f;--north:#7b3fa6;--south:#cdb0e6}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+html{overflow-y:scroll}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Noto Sans TC",system-ui,sans-serif;overflow-x:clip}
+.num{font-family:Barlow,"Noto Sans TC",sans-serif;font-variant-numeric:tabular-nums}
+header{max-width:1520px;margin:0 auto;padding:clamp(18px,2.4vw,30px) max(3vw,16px) 6px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px}
+h1{margin:0;font-size:clamp(30px,3.4vw,46px);line-height:1.05;font-weight:900;letter-spacing:.03em}
+header p{margin:0;color:var(--muted)}
+h1{display:inline-flex;align-items:center;gap:.28em}.logo{height:1em;width:1em;display:block;flex:none}
+main{max-width:1520px;margin:0 auto;padding:10px max(3vw,16px) 28px;display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:18px;align-items:start}
+.card{background:var(--panel);border-radius:18px;box-shadow:0 1px 0 var(--line),0 14px 34px -22px rgba(15,45,68,.55)}
+.mapcard{padding:12px 10px 16px 12px}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 46px}
+.fig{position:relative;overflow:hidden}
+#globeopts:not([hidden]){display:inline-flex;align-items:center;gap:10px}
+.btn{font:inherit;font-size:15px;border:1.5px solid var(--line);background:var(--chip);color:var(--ink);border-radius:10px;min-height:40px;padding:0 12px;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.glab{fill:var(--ink);font:600 12.5px Barlow,"Noto Sans TC",sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:3px;stroke-linejoin:round;opacity:.85}
+#map.globe{cursor:grab}#map.globe:active{cursor:grabbing}
+#base,#tzc{position:absolute;left:0;top:0;pointer-events:none}
+#map{position:relative;display:block;width:100%;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.latbox{position:relative}
+.sl{position:relative;touch-action:none;cursor:pointer;outline:none}
+.sl .trk{position:absolute;border-radius:6px}
+.sl .thm{position:absolute;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.sl:focus-visible .thm{outline:3px solid var(--key);outline-offset:2px}
+#lat{position:absolute;left:1px;width:44px}
+#lat .trk{left:17px;width:10px;top:0;bottom:0;background:linear-gradient(to bottom,var(--north) 0 50%,var(--south) 50% 100%)}
+#lat .thm{left:22px}
+#lon{height:44px}
+#lon .trk{top:17px;height:10px;left:0;right:0;background:linear-gradient(to right,var(--west) 0 8.3333%,var(--east) 8.3333% 58.3333%,var(--west) 58.3333% 100%)}
+#lon .thm{top:22px}
+.sliderlab{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.status{position:absolute;inset:0;display:grid;place-content:center;gap:10px;text-align:center;padding:20px;color:var(--ink);font-weight:500;pointer-events:none}
+.status[hidden]{display:none}.status label{pointer-events:auto}
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin:8px 0 12px;font-size:15px}
+.seg{display:inline-flex;background:var(--chip);border-radius:12px;padding:3px}
+.seg button{font:inherit;font-size:15px;border:0;background:none;color:var(--ink);min-height:38px;min-width:48px;padding:0 10px;border-radius:9px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--panel);color:var(--accent);font-weight:700;box-shadow:0 1px 3px rgba(15,45,68,.25)}
+.check{display:inline-flex;align-items:center;gap:8px;min-height:44px;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--accent)}
+.cities{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cities button{font:inherit;text-align:left;border:1.5px solid var(--line);background:var(--chip);color:var(--ink);border-radius:12px;padding:8px 12px;min-height:58px;cursor:pointer;display:grid;gap:1px;transition:border-color .15s,background .15s}
+.cities button:hover{border-color:var(--key)}
+.cities button[aria-pressed=true]{border-color:var(--accent);background:var(--panel)}
+.cities b{font-size:17px}.cities small{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+button:focus-visible,input:focus-visible{outline:3px solid var(--key);outline-offset:2px}
+.panel{padding:20px 22px;position:sticky;top:14px}
+.panel h2{margin:0 0 10px;font-size:15px;color:var(--muted);font-weight:700}
+.coord{border-left:5px solid var(--accent);padding:2px 0 2px 14px;margin-bottom:12px}
+.big{font-size:clamp(34px,3vw,44px);font-weight:700;line-height:1.08;white-space:nowrap}
+.say{color:var(--muted);font-size:15px;margin-bottom:6px}
+.pair{font-size:15px;margin:10px 0 14px;padding:8px 12px;background:var(--chip);border-radius:10px}
+dl{margin:0;display:grid;gap:0}
+dl div{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+dt{color:var(--muted);font-size:14px;padding-top:2px}dd{margin:0;font-weight:500}
+dd small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.clock{margin:2px 0 14px;display:flex;align-items:baseline;gap:4px 14px;flex-wrap:wrap}
+.clk{font-size:clamp(30px,2.6vw,38px);font-weight:700;line-height:1.1}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);width:100%}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;border:1px solid var(--line)}
+.tzl{fill:var(--muted);font:700 12px Barlow,sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:3px}
+.hemi{display:flex;flex-wrap:wrap;gap:6px}.hemi span{background:var(--chip);border-radius:20px;padding:1px 10px}
+footer{max-width:1520px;margin:0 auto;padding:0 max(3vw,16px) 26px;font-size:13px;color:var(--muted)}
+/* map svg */
+.sea{fill:url(#seaG)}.g1{stroke:var(--grid);fill:none;stroke-width:1}.g2{stroke:var(--grid2);fill:none;stroke-width:1.2}
+.depth{fill:var(--depth);opacity:.85}.land{fill:var(--land);stroke:var(--land);stroke-width:.6}
+.frame{fill:none;stroke:var(--grid2);stroke-width:1.5}
+.edge{fill:var(--muted);font:600 13px Barlow,"Noto Sans TC",sans-serif}
+.tick{stroke:var(--muted);stroke-width:1}
+.key{stroke:var(--key);stroke-width:1.6;fill:none}.key.d{stroke-dasharray:7 5}.key.eq{stroke:var(--eq);stroke-width:2.2}.key.tr{stroke:var(--trop);stroke-width:2}
+.keyt.eq{fill:var(--eq)}.keyt.tr{fill:var(--trop)}
+.keyt{fill:var(--key);font:700 12.5px "Noto Sans TC",sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+.city{fill:var(--ink);stroke:var(--land);stroke-width:1.2}.city.p{fill:var(--key)}.city.home{fill:var(--accent)}
+.ct{fill:var(--ink);font:500 12.5px "Noto Sans TC",sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:3.5px;stroke-linejoin:round}
+.ct.p{font-weight:700;font-size:13.5px}
+.cross{stroke-width:3;fill:none}
+.ring{fill:none;stroke:var(--accent);stroke-width:2.5;transform-box:fill-box;transform-origin:center;animation:pulse 1.8s ease-out infinite}
+.dot{fill:var(--accent);stroke:#fff;stroke-width:2.5}
+.pill{fill:var(--accent)}.pillt{fill:#fff;font:700 13px Barlow,"Noto Sans TC",sans-serif}
+@keyframes pulse{from{transform:scale(.6);opacity:1}to{transform:scale(2.4);opacity:0}}
+@media (prefers-reduced-motion:reduce){.ring{animation:none;opacity:.5}}
+@media(max-width:1120px){main{grid-template-columns:minmax(0,1fr)}.panel{position:static}}
+@media(max-width:720px){.cities{grid-template-columns:repeat(2,minmax(0,1fr))}.stage{grid-template-columns:minmax(0,1fr) 40px}#lat{width:38px}#lat .trk{left:14px}#lat .thm{left:19px}.mapcard{padding:8px 6px 12px 6px}}
+</style>
+</head>
+<body>
+<header>
+<h1><img class="logo" src="data:image/png;base64,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" alt="和">全球空間錨點</h1>
+<p>拖動經線與緯線，兩線交會處就是地球上的一個絕對位置。</p>
+</header>
+<main>
+<section class="card mapcard" aria-label="世界地圖與經緯度控制">
+<div class="stage">
+<div class="fig" id="fig">
+<canvas id="base" aria-hidden="true"></canvas>
+<canvas id="tzc" aria-hidden="true"></canvas>
+<svg id="map" role="img" aria-label="以東經150度為中心的世界地圖，可點擊或拖曳設定錨點"></svg>
+<div class="status" id="status">正在載入世界地圖資料…</div>
+</div>
+<div class="latbox"><div class="sl" id="lat" role="slider" tabindex="0" aria-orientation="vertical" aria-label="緯度（上北下南）" aria-valuemin="-90" aria-valuemax="90"><div class="trk"></div><div class="thm"></div></div></div>
+</div>
+<div id="lonwrap">
+<div class="sl" id="lon" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="經度（地圖由左到右）"><div class="trk"></div><div class="thm"></div></div>
+<div class="sliderlab"><span>↔ 經度滑桿：<b style="color:var(--east)">■</b> 東半球　<b style="color:var(--west)">■</b> 西半球</span><span>緯度滑桿：<b style="color:var(--north)">■</b> 北半球　<b style="color:var(--south)">■</b> 南半球</span></div>
+</div>
+<div class="tools">
+<div class="seg" id="view" role="group" aria-label="顯示方式"><button data-v="flat" aria-pressed="true">平面地圖</button><button data-v="globe" aria-pressed="false">地球儀</button></div>
+<span id="globeopts" hidden><label class="check"><input type="checkbox" id="autorot"> 自動旋轉</label><button class="btn" id="recenter" type="button">回到錨點</button></span>
+<span>移動間隔</span>
+<div class="seg" id="steps" role="group" aria-label="移動間隔">
+<button data-s="0.5" aria-pressed="false">0.5°</button><button data-s="1" aria-pressed="true">1°</button><button data-s="5" aria-pressed="false">5°</button><button data-s="15" aria-pressed="false">15°</button>
+</div>
+<label class="check"><input type="checkbox" id="allnames"> 顯示所有城市名稱</label>
+<span>時區圖層</span>
+<div class="seg" id="tzmode" role="group" aria-label="時區圖層">
+<button data-m="off" aria-pressed="false">關閉</button><button data-m="theo" aria-pressed="false">理論時區</button><button data-m="real" aria-pressed="true">真實時區</button>
+</div>
+<div class="legend" id="legend"><span><i style="background:rgba(40,70,100,.22)"></i>灰白交替：相鄰時區</span><span><i style="background:rgba(190,120,40,.35)"></i>暖灰：非整點時區（如 +5:30）</span><span><i style="background:rgba(239,125,0,.4)"></i>橘色：與錨點同一時差的地區</span></div>
+</div>
+<div class="cities" id="cities" aria-label="預設城市"></div>
+</section>
+
+<aside class="card panel" aria-live="polite" aria-label="錨點資訊">
+<h2>錨點資訊・絕對位置</h2>
+<div class="coord">
+<div class="big num" id="rLat">25°02′N</div>
+<div class="say" id="sLat">北緯 25 度 02 分</div>
+<div class="big num" id="rLon">121°34′E</div>
+<div class="say" id="sLon">東經 121 度 34 分</div>
+</div>
+<div class="seg" id="fmt" role="group" aria-label="座標寫法">
+<button data-f="dms" aria-pressed="true">度・分</button><button data-f="dec" aria-pressed="false">小數度</button>
+</div>
+<div class="pair num" id="pair">(25°02′N, 121°34′E)</div>
+<h2>錨點現在時間</h2>
+<div class="clock"><div class="clk num" id="cTime">--:--:--</div><div class="say" id="cDate">時區資料載入中…</div></div>
+<dl>
+<div><dt>所在半球</dt><dd id="fHemi"></dd></div>
+<div><dt>經緯線</dt><dd id="fLines"></dd></div>
+<div><dt>最近城市</dt><dd id="fNear"></dd></div>
+<div><dt>相對位置</dt><dd id="fRel"></dd></div>
+<div><dt>五帶</dt><dd id="fZone"></dd></div>
+<div><dt>真實時區</dt><dd id="fReal"></dd></div>
+<div><dt>與臺北時差</dt><dd id="fDiff"></dd></div>
+<div><dt>理論與真實</dt><dd id="fTz"></dd></div>
+</dl>
+</aside>
+</main>
+<footer>地圖：等距圓柱投影，以 150°E 為中央經線；陸地資料源自 Natural Earth（公有領域）。回歸線與極圈依實際值 23.44°、66.56° 繪製（課本取 23.5°、66.5°）。</footer>
+
+<script src="d3.min.js"></script>
+<script>
+{
+const $=s=>document.querySelector(s);
+const TROP=23.44,POLAR=66.56,CENTER=150,LEFT=CENTER-180;
+const HOME={n:'臺北',e:'Taipei',lat:25.03,lon:121.56};
+const PRESET=[
+{n:'嘉義',e:'Chiayi',lat:23.48,lon:120.45,tag:'北回歸線'},
+{n:'倫敦',e:'London',lat:51.48,lon:0,tag:'本初子午線'},
+{n:'基多',e:'Quito',lat:-0.18,lon:-78.47,tag:'赤道'},
+{n:'羅瓦涅米',e:'Rovaniemi',lat:66.5,lon:25.73,tag:'北極圈'},
+{n:'紐約',e:'New York',lat:40.71,lon:-74.01,tag:'北半球・西半球'},
+{n:'雪梨',e:'Sydney',lat:-33.87,lon:151.21,tag:'南半球・東半球'},
+{n:'聖保羅',e:'São Paulo',lat:-23.55,lon:-46.63,tag:'南回歸線'},
+{n:'蘇瓦',e:'Suva',lat:-18.14,lon:178.44,tag:'國際換日線旁'}];
+const OTHER=[['東京',35.68,139.69],['首爾',37.57,126.98],['北京',39.9,116.41],['上海',31.23,121.47],['香港',22.32,114.17],['馬尼拉',14.6,120.98],['曼谷',13.76,100.5],['新加坡',1.35,103.82],['雅加達',-6.21,106.85],['新德里',28.61,77.21],['孟買',19.08,72.88],['杜拜',25.2,55.27],['莫斯科',55.76,37.62],['伊斯坦堡',41.01,28.98],['開羅',30.04,31.24],['奈洛比',-1.29,36.82],['拉哥斯',6.52,3.38],['開普敦',-33.92,18.42],['巴黎',48.86,2.35],['柏林',52.52,13.4],['羅馬',41.9,12.5],['馬德里',40.42,-3.7],['雷克雅維克',64.15,-21.94],['洛杉磯',34.05,-118.24],['溫哥華',49.28,-123.12],['墨西哥城',19.43,-99.13],['檀香山',21.31,-157.86],['安克拉治',61.22,-149.9],['利馬',-12.05,-77.04],['布宜諾斯艾利斯',-34.6,-58.38],['聖地牙哥',-33.45,-70.67],['里約熱內盧',-22.91,-43.17],['奧克蘭',-36.85,174.76],['伯斯',-31.95,115.86]].map(([n,lat,lon])=>({n,lat,lon}));
+const ALL=[HOME,...PRESET,...OTHER];
+/* 國際換日線轉折點（緯度, 經度）：北段與南段為傳統畫法；吉里巴斯、薩摩亞、托克勞一帶依美國國務院 2012 年製圖指引 */
+const IDL=[[90,180],[75,180],[68.25,-169],[65.5,-169],[52.5,170],[47.5,180],[-2.5094,180],[-2.5094,-158.4867],[-0.2281,-158.4867],[1.4981,-160.6397],[4.9372,-160.6397],[4.9372,-155.5286],[-9.9092,-150.0003],[-11.6453,-150.0003],[-11.6453,-154.5661],[-5.8422,-156.0806],[-5.8422,-169.3961],[-9.4283,-170.9928],[-11.0572,-171.2939],[-13.9681,-171.0033],[-14.4311,-171.2367],[-15,-172.5],[-45,-172.5],[-51.1833,180],[-90,180]];
+
+let view='flat',vc=[150,0],GG={},landLow=null,wantFollow=false,noFollow=false,gd=null,hiT=0,autoOn=false,spinning=false;
+let lat=HOME.lat,lon=HOME.lon,step=1,fmt='dms',showAll=false,landFC=null,G={},anim=0;
+const svg=$('#map'),latIn=$('#lat'),lonIn=$('#lon');
+const norm=l=>{let v=((l+180)%360+360)%360-180;return Math.abs(v+180)<1e-9&&l>0?180:v};
+const toU=l=>((l-LEFT)%360+360)%360;
+const snap=v=>Math.round(v/step)*step;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const near=(a,b)=>Math.abs(a-b)<1e-6;
+
+function dms(v){const a=Math.abs(v);let d=Math.floor(a),m=Math.round((a-d)*60);if(m===60){d++;m=0}return [d,String(m).padStart(2,'0')]}
+function latStr(v){if(near(v,0))return fmt==='dms'?'0°00′':'0.00°';if(fmt==='dec')return Math.abs(v).toFixed(2)+'°'+(v>0?'N':'S');const[d,m]=dms(v);return d+'°'+m+'′'+(v>0?'N':'S')}
+function lonStr(v){const a=Math.abs(v),s=near(a,0)||near(a,180)?'':(v>0?'E':'W');if(fmt==='dec')return a.toFixed(2)+'°'+s;const[d,m]=dms(v);return d+'°'+m+'′'+s}
+function latSay(v){const[d,m]=dms(v);if(near(v,0))return '緯度 0 度（赤道）';return (v>0?'北緯 ':'南緯 ')+d+' 度 '+m+' 分'}
+function lonSay(v){const[d,m]=dms(v),a=Math.abs(v);if(near(a,0))return '經度 0 度（本初子午線）';if(near(a,180))return '經度 180 度';return (v>0?'東經 ':'西經 ')+d+' 度 '+m+' 分'}
+const edgeLon=l=>{l=norm(l);const a=Math.abs(l);return a===0?'0°':a===180?'180°':a+'°'+(l>0?'E':'W')};
+const edgeLat=l=>l===0?'0°':Math.abs(l)+'°'+(l>0?'N':'S');
+
+function km(a,b){const r=Math.PI/180,dl=(b.lat-a.lat)*r,dn=(b.lon-a.lon)*r;const h=Math.sin(dl/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dn/2)**2;return 2*6371*Math.asin(Math.min(1,Math.sqrt(h)))}
+
+/* ---------- TopoJSON 解碼（不需外部函式庫） ---------- */
+function topoToFC(topo,name){
+const t=topo.transform;
+const arcs=topo.arcs.map(a=>{let x=0,y=0;return a.map(p=>{if(!t)return [p[0],p[1]];x+=p[0];y+=p[1];return [x*t.scale[0]+t.translate[0],y*t.scale[1]+t.translate[1]]})});
+const ring=ids=>{const out=[];ids.forEach((i,k)=>{let a=i<0?arcs[~i].slice().reverse():arcs[i];if(k)a=a.slice(1);out.push(...a)});return out};
+const geom=g=>g.type==='Polygon'?{type:'Polygon',coordinates:g.arcs.map(ring)}:g.type==='MultiPolygon'?{type:'MultiPolygon',coordinates:g.arcs.map(p=>p.map(ring))}:null;
+const obj=topo.objects[name]||topo.objects[Object.keys(topo.objects)[0]];
+const list=obj.type==='GeometryCollection'?obj.geometries:[obj];
+return {type:'FeatureCollection',features:list.map(geom).filter(Boolean).map(g=>({type:'Feature',properties:{},geometry:g}))};
+}
+function fixWinding(fc){
+for(const f of fc.features){const g=f.geometry;const polys=g.type==='Polygon'?[g.coordinates]:g.coordinates;
+for(const p of polys){if(d3.geoArea({type:'Polygon',coordinates:p})>2*Math.PI)p.forEach(r=>r.reverse())}}
+return fc;
+}
+function useData(d){
+let fc=d.type==='Topology'?topoToFC(d,'land'):d.type==='FeatureCollection'?d:{type:'FeatureCollection',features:[{type:'Feature',properties:{},geometry:d.geometry||d}]};
+landFC=fixWinding(fc);$('#status').hidden=true;draw();
+}
+const SOURCES=[
+{src:'https://cdn.jsdelivr.net/npm/plotly.js@2.35.2/dist/plotly-geo-assets.js',get:()=>{const t=window.PlotlyGeoAssets&&PlotlyGeoAssets.topojson;const w=t&&(t.world_50m||t['world_50m']);if(!(w&&w.objects&&w.objects.land))return null;const lo=t.world_110m;if(lo&&lo.objects&&lo.objects.land)landLow=fixWinding(topoToFC(lo,'land'));return topoToFC(w,'land')}},
+{src:'https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.min.js',get:()=>{const t=window.Datamap&&Datamap.prototype.worldTopo;return t?topoToFC(t,'world'):null}}];
+function loadScript(src){return new Promise((ok,no)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s);setTimeout(no,25000)})}
+async function loadLand(){
+for(const s of SOURCES){try{await loadScript(s.src);const fc=s.get();if(fc&&fc.features.length){useData(fc);return}}catch(e){}}
+const st=$('#status');
+st.innerHTML='<div>世界地圖資料暫時無法載入，經緯網與錨點仍可使用。</div><label>手動載入 TopoJSON／GeoJSON 檔：<input type="file" id="upl" accept=".json,.geojson,.topojson"></label>';
+$('#upl').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{useData(JSON.parse(t))}catch(err){st.firstChild.textContent='檔案格式無法辨識。'}})});
+}
+
+/* ---------- 繪製 ---------- */
+function draw(){
+if(view==='morph')return;
+if(view==='globe'){layoutGlobe();renderGlobe('high');lastW=Math.round($('#fig').clientWidth);update();return}
+$('#map').classList.remove('globe');
+const W=svg.clientWidth||900,small=W<620;
+const ml=small?40:50,mr=small?40:50,mt=26,mb=26;
+const mw=W-ml-mr,mh=mw/2,H=mh+mt+mb;
+G={ml,mt,mw,mh,W,H,small};
+svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);
+const xOf=l=>ml+toU(l)/360*mw,yOf=a=>mt+(90-a)/180*mh;G.xOf=xOf;G.yOf=yOf;
+const proj=d3.geoEquirectangular().rotate([-CENTER,0]).scale(mw/(2*Math.PI)).translate([ml+mw/2,mt+mh/2]).precision(.2);
+let s=`<defs><linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--sea1)"/><stop offset="1" stop-color="var(--sea2)"/></linearGradient>
+<filter id="sh" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="1.5" dy="3" stdDeviation="2.6" flood-color="#0b3a5e" flood-opacity=".35"/></filter>
+<clipPath id="clip"><rect x="${ml}" y="${mt}" width="${mw}" height="${mh}"/></clipPath></defs>
+<g clip-path="url(#clip)">`;
+paintBase(proj,small);renderTZ();
+const keys=[[0,'赤道 0°',' eq'],[TROP,'北回歸線 23.5°N',' d tr'],[-TROP,'南回歸線 23.5°S',' d tr'],[POLAR,'北極圈 66.5°N',' d'],[-POLAR,'南極圈 66.5°S',' d']];
+for(const[a,t,c]of keys){const y=yOf(a);s+=`<line class="key${c}" x1="${ml}" x2="${ml+mw}" y1="${y}" y2="${y}"/>`;if(!small)s+=`<text class="keyt${c.replace(' d','')}" x="${xOf(-20)}" y="${y-5}">${t}</text>`}
+{const x=xOf(0);s+=`<line class="key" x1="${x}" x2="${x}" y1="${mt}" y2="${mt+mh}"/>`;if(!small)s+=`<text class="keyt" x="${x+5}" y="${yOf(-56)}">本初子午線 0°</text>`}
+s+=`<polyline class="key d" fill="none" points="${IDL.map(([a,l])=>xOf(l)+','+yOf(a)).join(' ')}"/>`;if(!small)s+=`<text class="keyt" x="${xOf(180)+5}" y="${yOf(-60)}">國際換日線</text>`;
+if(tzMode==='theo')for(let k=-11;k<=12;k++){const x=xOf(15*k);if(x<ml+14||x>ml+mw-14)continue;s+=`<text class="tzl" x="${x}" y="${mt+15}" text-anchor="middle">${k===12?'±12':(k>0?'+':k<0?'−':'')+Math.abs(k)}</text>`}
+for(const c of ALL){const p=PRESET.includes(c),h=c===HOME,x=xOf(c.lon),y=yOf(c.lat);
+s+=`<circle class="city${p?' p':''}${h?' home':''}" cx="${x}" cy="${y}" r="${p||h?4.2:3}"><title>${esc(c.n)}</title></circle>`;
+if((p||h)&&!small||showAll){const right=x<ml+mw-70;s+=`<text class="ct${p||h?' p':''}" x="${right?x+7:x-7}" y="${h?y-6:y+4.5}" text-anchor="${right?'start':'end'}">${esc(c.n)}</text>`}}
+s+=`</g><rect class="frame" x="${ml}" y="${mt}" width="${mw}" height="${mh}"/>`;
+const lstep=small?60:30;
+for(let u=0;u<=360;u+=10){const x=ml+u/360*mw,big=u%lstep===0;s+=`<line class="tick" x1="${x}" x2="${x}" y1="${mt-(big?6:3)}" y2="${mt}"/><line class="tick" x1="${x}" x2="${x}" y1="${mt+mh}" y2="${mt+mh+(big?6:3)}"/>`;
+if(big){const t=edgeLon(u+LEFT);s+=`<text class="edge" x="${x}" y="${mt-9}" text-anchor="middle">${t}</text><text class="edge" x="${x}" y="${mt+mh+20}" text-anchor="middle">${t}</text>`}}
+for(let a=-90;a<=90;a+=10){const y=yOf(a),big=a%30===0;s+=`<line class="tick" x1="${ml-(big?6:3)}" x2="${ml}" y1="${y}" y2="${y}"/><line class="tick" x1="${ml+mw}" x2="${ml+mw+(big?6:3)}" y1="${y}" y2="${y}"/>`;
+if(big){const t=edgeLat(a);s+=`<text class="edge" x="${ml-9}" y="${y+4.5}" text-anchor="end">${t}</text><text class="edge" x="${ml+mw+9}" y="${y+4.5}">${t}</text>`}}
+s+='<g id="dyn"></g>';
+svg.innerHTML=s;lastW=Math.round($('#fig').clientWidth);
+latIn.style.top=mt+'px';latIn.style.height=mh+'px';
+$('#lonwrap').style.margin=`0 ${46+mr}px 0 ${ml}px`;
+update();
+}
+const probe=document.createElement('i');probe.style.display='none';document.body.appendChild(probe);
+const col=v=>{probe.style.color=`var(${v})`;return getComputedStyle(probe).color};
+function paintBase(proj,small){
+const{ml,mt,mw,mh,W,H}=G,c=$('#base'),r=devicePixelRatio||1;
+c.width=Math.round(W*r);c.height=Math.round(H*r);c.style.width='100%';c.style.height='auto';
+const x=c.getContext('2d');x.setTransform(r,0,0,r,0,0);x.clearRect(0,0,W,H);
+x.save();x.beginPath();x.rect(ml,mt,mw,mh);x.clip();
+const g=x.createLinearGradient(0,mt,0,mt+mh);g.addColorStop(0,col('--sea1'));g.addColorStop(1,col('--sea2'));x.fillStyle=g;x.fillRect(ml,mt,mw,mh);
+for(let u=0;u<=360;u+=10){const X=ml+u/360*mw;x.strokeStyle=col(u%30?'--grid':'--grid2');x.lineWidth=u%30?1:1.2;x.beginPath();x.moveTo(X,mt);x.lineTo(X,mt+mh);x.stroke()}
+for(let a=-80;a<=80;a+=10){const Y=G.yOf(a);x.strokeStyle=col(a%30?'--grid':'--grid2');x.lineWidth=a%30?1:1.2;x.beginPath();x.moveTo(ml,Y);x.lineTo(ml+mw,Y);x.stroke()}
+if(landFC){
+const off=small?1.5:2.5;
+x.save();x.translate(0,off);x.beginPath();d3.geoPath(proj,x)(landFC);
+x.shadowColor='rgba(11,58,94,.38)';x.shadowBlur=small?4:7;x.shadowOffsetX=1.5;x.shadowOffsetY=3;
+x.fillStyle=col('--depth');x.fill();x.restore();
+x.beginPath();d3.geoPath(proj,x)(landFC);x.fillStyle=col('--land');x.fill();x.strokeStyle=col('--land');x.lineWidth=.6;x.stroke();
+}
+x.restore();
+}
+const lonC=()=>{const a=Math.abs(lon);return near(a,0)||near(a,180)?['var(--mid)','#fff']:lon>0?['var(--east)','#fff']:['var(--west)','#0f2d44']};
+const latC=()=>near(lat,0)?['var(--mid)','#fff']:lat>0?['var(--north)','#fff']:['var(--south)','#0f2d44'];
+function update(){
+if(!G.xOf)return;
+if(view==='globe'&&wantFollow){vc=[lon,lat];renderGlobe('low')}wantFollow=false;
+const{ml,mt,mw,mh,W,xOf,yOf}=G,x=xOf(lon),y=yOf(lat);
+const lt=latStr(lat),ln=lonStr(lon);
+if(view==='globe')globeDyn();else if(view==='flat'){const pw=fmt==='dms'?70:66,px=Math.min(Math.max(x,ml+pw/2),ml+mw-pw/2),py=Math.min(Math.max(y,mt+11),mt+mh-11);
+const LC=lonC(),AC=latC();
+$('#dyn').innerHTML=`<line class="cross" style="stroke:${LC[0]}" x1="${x}" x2="${x}" y1="${mt}" y2="${mt+mh}"/><line class="cross" style="stroke:${AC[0]}" x1="${ml}" x2="${ml+mw}" y1="${y}" y2="${y}"/>
+<circle class="ring" cx="${x}" cy="${y}" r="8"/><circle class="dot" cx="${x}" cy="${y}" r="6"/>
+<rect class="pill" style="fill:${LC[0]}" x="${px-pw/2}" y="${mt+mh+3}" width="${pw}" height="22" rx="11"/><text class="pillt" style="fill:${LC[1]}" x="${px}" y="${mt+mh+19}" text-anchor="middle">${ln}</text>
+<rect class="pill" style="fill:${AC[0]}" x="${ml+3}" y="${py-11}" width="${pw}" height="22" rx="11"/><text class="pillt" style="fill:${AC[1]}" x="${ml+3+pw/2}" y="${py+5}" text-anchor="middle">${lt}</text>`;}
+latIn.querySelector('.thm').style.background=latC()[0];lonIn.querySelector('.thm').style.background=lonC()[0];
+latIn.querySelector('.thm').style.top=(90-lat)/180*100+'%';lonIn.querySelector('.thm').style.left=toU(lon)/360*100+'%';
+latIn.setAttribute('aria-valuenow',lat.toFixed(2));latIn.setAttribute('aria-valuetext',latSay(lat));lonIn.setAttribute('aria-valuenow',lon.toFixed(2));lonIn.setAttribute('aria-valuetext',lonSay(lon));
+$('#rLat').textContent=lt;$('#rLon').textContent=ln;$('#sLat').textContent=latSay(lat);$('#sLon').textContent=lonSay(lon);
+$('#pair').textContent=`(${lt}, ${ln})`;
+{const o=curOffset();if(o!==hiOff)renderTZ()}
+panel();
+for(const b of document.querySelectorAll('#cities button')){const c=PRESET[+b.dataset.i];b.setAttribute('aria-pressed',near(c.lat,lat)&&near(c.lon,lon))}
+}
+function panel(){
+const a=Math.abs(lon);
+const ns=near(lat,0)?'赤道上（南北半球交界）':lat>0?'北半球':'南半球';
+const ew=near(a,0)||near(a,180)?(near(a,0)?'本初子午線上（東西半球交界）':'180° 經線上（東西半球交界）'):lon>0?'東半球':'西半球';
+$('#fHemi').innerHTML=`<span class="hemi"><span>${ns}</span><span>${ew}</span></span>`;
+const L=[[90,'北極點'],[POLAR,'北極圈'],[TROP,'北回歸線'],[0,'赤道'],[-TROP,'南回歸線'],[-POLAR,'南極圈'],[-90,'南極點']];
+let lt='';const hit=L.find(([v])=>Math.abs(lat-v)<0.75);
+if(hit)lt=`正好在<b>${hit[1]}</b>附近`;else{for(let i=0;i<L.length-1;i++)if(lat<L[i][0]&&lat>L[i+1][0])lt=`位於${L[i][1]}與${L[i+1][1]}之間`}
+let lo;if(a<0.75)lo='正好在本初子午線附近';else if(a>179.25)lo='正好在 180° 經線附近';else lo=`在本初子午線以${lon>0?'東':'西'} ${Math.round(a)}°`;
+$('#fLines').innerHTML=`${lt}<small>${lo}</small>`;
+const here={lat,lon};let best=null,bd=1e9;for(const c of ALL){const d=km(here,c);if(d<bd){bd=d;best=c}}
+$('#fNear').innerHTML=bd<15?`就在<b>${esc(best.n)}</b>`:`${esc(best.n)}<small class="num">直線距離約 ${Math.round(bd).toLocaleString()} 公里</small>`;
+const d=km(HOME,here);
+if(d<20)$('#fRel').innerHTML='就在臺北<small>這是我們的基準點</small>';
+else{let dl=lon-HOME.lon;dl=((dl+180)%360+360)%360-180;const ang=Math.atan2(lat-HOME.lat,dl)*180/Math.PI;
+const D=['東','東北','北','西北','西','西南','南','東南'][((Math.round(ang/45))%8+8)%8];
+$('#fRel').innerHTML=`在臺北的<b>${D}方</b><small class="num">依經緯網判斷；直線距離約 ${Math.round(d).toLocaleString()} 公里</small>`}
+const z=Math.abs(lat)>POLAR?'寒帶':Math.abs(lat)>TROP?'溫帶':'熱帶';
+$('#fZone').innerHTML=(z==='熱帶'?'熱帶':(lat>0?'北':'南')+z)+`<small>${z==='熱帶'?'介於南、北回歸線之間':z==='溫帶'?'介於回歸線與極圈之間':'極圈以內'}</small>`;
+clockTick();
+}
+function setPos(a,l){lat=Math.max(-90,Math.min(90,a));lon=norm(l);wantFollow=!noFollow;noFollow=false;update()}
+function flyTo(c){
+cancelAnimationFrame(anim);
+const a0=lat,l0=lon;let dl=c.lon-l0;dl=((dl+180)%360+360)%360-180;
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){setPos(c.lat,c.lon);return}
+const t0=performance.now(),T=750;
+const f=now=>{const k=Math.min(1,(now-t0)/T),e=k<.5?2*k*k:1-(-2*k+2)**2/2;
+if(k<1){lat=a0+(c.lat-a0)*e;lon=norm(l0+dl*e);wantFollow=true;update();anim=requestAnimationFrame(f)}else setPos(c.lat,c.lon)};
+anim=requestAnimationFrame(f);
+}
+
+/* ---------- 時區 ---------- */
+const TZURL='https://cdn.jsdelivr.net/npm/@photostructure/tz-lookup@11.8.0/tz.js';
+const GW=1440,GH=720,RES=0.25;
+let tzMode='real',tzReady=false,tzFail=false,offReal=null,hiOff=null;
+const offTheo=new Int16Array(GW*GH);
+for(let j=0;j<GH;j++)for(let i=0;i<GW;i++)offTheo[j*GW+i]=Math.round(norm(LEFT+(i+.5)*RES)/15)*60;
+const fixTz=t=>t==='Asia/Urumqi'?'Asia/Shanghai':t;
+const fmts=new Map();
+function fmt1(tz,k,o){const key=tz+k;if(!fmts.has(key))fmts.set(key,new Intl.DateTimeFormat(k.startsWith('zh')?'zh-TW':'en-US',Object.assign({timeZone:tz},o)));return fmts.get(key)}
+function offMin(tz,d){const p=fmt1(tz,'off',{timeZoneName:'longOffset'}).formatToParts(d||new Date()).find(x=>x.type==='timeZoneName').value;
+const m=p.match(/GMT([+-−])(\d{1,2}):?(\d{2})?/);if(!m)return 0;return (m[1]==='+'?1:-1)*(+m[2]*60+(+m[3]||0))}
+const offCache=new Map();
+function offNow(tz){if(!offCache.has(tz))offCache.set(tz,offMin(tz));return offCache.get(tz)}
+function buildReal(){offCache.clear();const a=new Int16Array(GW*GH);
+for(let j=0;j<GH;j++){const la=90-(j+.5)*RES;for(let i=0;i<GW;i++){let t;try{t=fixTz(tzlookup(la,norm(LEFT+(i+.5)*RES)))}catch(e){t='Etc/GMT'}a[j*GW+i]=offNow(t)}}
+offReal=a}
+function anchorTz(){let l=norm(lon);if(l>=180)l=179.999;try{return tzlookup(Math.max(-89.9,Math.min(89.9,lat)),l)}catch(e){return 'Etc/GMT'}}
+function curOffset(){if(tzMode==='real'&&tzReady)return offNow(fixTz(anchorTz()));return Math.round(norm(lon)/15)*60}
+const fmtOff=m=>{const s=m<0?'−':'+',a=Math.abs(m),h=Math.floor(a/60),mm=a%60;return 'UTC'+s+h+(mm?':'+String(mm).padStart(2,'0'):'')};
+const offImg=document.createElement('canvas');offImg.width=GW;offImg.height=GH;
+function renderTZ(){
+if(view==='globe'){clearTimeout(hiT);hiT=setTimeout(()=>renderGlobe('high'),220);return}if(view!=='flat')return;
+const c=$('#tzc');if(!G.W)return;const r=devicePixelRatio||1,{ml,mt,mw,mh,W,H}=G;
+if(c.width!==Math.round(W*r)||c.height!==Math.round(H*r)){c.width=Math.round(W*r);c.height=Math.round(H*r)}c.style.width='100%';c.style.height='auto';
+const x=c.getContext('2d');x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,c.width,c.height);
+$('#legend').style.display=tzMode==='off'?'none':'';
+hiOff=curOffset();
+const arr=tzMode==='real'?offReal:tzMode==='theo'?offTheo:null;if(!arr)return;
+const bg=col('--bg').match(/\d+/g).map(Number),dark=bg[0]+bg[1]+bg[2]<300;
+const C=dark?{odd:[255,255,255,.08],frac:[255,190,110,.17],line:[200,225,245,.42],hi:[255,157,51,.30]}:{odd:[40,70,100,.12],frac:[190,120,40,.22],line:[30,55,80,.5],hi:[239,125,0,.28]};
+const ctx=offImg.getContext('2d'),img=ctx.createImageData(GW,GH),d=img.data;
+for(let j=0;j<GH;j++)for(let i=0;i<GW;i++){const k=j*GW+i,o=arr[k];let cc=null;
+if((i<GW-1&&arr[k+1]!==o)||(j<GH-1&&arr[k+GW]!==o))cc=C.line;
+else if(o===hiOff)cc=C.hi;else if(o%60)cc=C.frac;else if(((o/60)%2+2)%2===1)cc=C.odd;
+if(cc){const q=k*4;d[q]=cc[0];d[q+1]=cc[1];d[q+2]=cc[2];d[q+3]=cc[3]*255}}
+ctx.putImageData(img,0,0);
+x.setTransform(r,0,0,r,0,0);x.imageSmoothingEnabled=true;x.drawImage(offImg,ml,mt,mw,mh);
+}
+function clockTick(){
+const theo=Math.round(norm(lon)/15)*60;
+if(!tzReady){$('#fTz').innerHTML=`理論 ${fmtOff(theo)}<small>${tzFail?'真實時區資料無法載入，只顯示理論時區':'真實時區資料載入中…'}</small>`;
+$('#fReal').textContent='—';$('#fDiff').textContent='—';if(tzFail){$('#cTime').textContent='--:--:--';$('#cDate').textContent='時區資料無法載入'}return}
+const raw=anchorTz(),tz=fixTz(raw),now=new Date(),off=offMin(tz,now);
+$('#cTime').textContent=fmt1(tz,'zht',{hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(now);
+const ymd=z=>fmt1(z,'ymd',{year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
+const dd=ymd(tz),dt=ymd('Asia/Taipei');
+$('#cDate').textContent=fmt1(tz,'zhd',{month:'long',day:'numeric',weekday:'short'}).format(now)+(dd===dt?'':dd>dt?'・比臺北早一天':'・比臺北晚一天');
+const name=(fmt1(tz,'zhn',{timeZoneName:'long'}).formatToParts(now).find(p=>p.type==='timeZoneName')||{}).value||'';
+const y=now.getUTCFullYear(),jan=offMin(tz,new Date(Date.UTC(y,0,1))),jul=offMin(tz,new Date(Date.UTC(y,6,1)));
+const dst=jan!==jul&&off===Math.max(jan,jul);
+let note=tz.startsWith('Etc/')?'公海上依經度劃分的時區':tz.replace(/_/g,' ');
+if(raw==='Asia/Urumqi')note='中國官方使用北京時間；新疆當地也常用非官方的 UTC+6';
+$('#fReal').innerHTML=`<span class="num">${fmtOff(off)}</span>　${esc(name)}<small>${esc(note)}${dst?'・目前實施日光節約時間':''}</small>`;
+const df=off-480,ah=Math.floor(Math.abs(df)/60),am=Math.abs(df)%60,hs=ah+' 小時'+(am?' '+am+' 分':'');
+$('#fDiff').innerHTML=df===0?'與臺北相同':`比臺北${df>0?'快':'慢'} <b class="num">${hs}</b>`;
+const g=off-theo,gh=Math.floor(Math.abs(g)/60),gm=Math.abs(g)%60,gs=gh+' 小時'+(gm?' '+gm+' 分':'');
+$('#fTz').innerHTML=`理論 <span class="num">${fmtOff(theo)}</span>，真實 <span class="num">${fmtOff(off)}</span><small>${g===0?'兩者一致':`真實時間比理論${g>0?'快':'慢'} ${gs}`}・理論時區＝經度 ÷ 15</small>`;
+}
+function loadTz(){loadScript(TZURL).then(()=>{if(typeof tzlookup!=='function')throw 0;tzReady=true;buildReal();renderTZ();clockTick()}).catch(()=>{tzFail=true;clockTick()})}
+setInterval(clockTick,1000);
+setInterval(()=>{if(tzReady){buildReal();renderTZ()}},600000);
+
+/* ---------- 地球儀 ---------- */
+const PAR=a=>({type:'LineString',coordinates:d3.range(-180,180.01,2).map(l=>[l,a])});
+const MER=l=>({type:'LineString',coordinates:d3.range(-90,90.01,2).map(a=>[l,a])});
+const IDLGEO={type:'LineString',coordinates:IDL.flatMap(([a,l],i)=>{if(!i)return [[l,a]];const[pa,pl]=IDL[i-1];let d=l-pl;if(d>180)d-=360;if(d<-180)d+=360;const n=Math.max(1,Math.ceil(Math.max(Math.abs(d),Math.abs(a-pa))));return d3.range(1,n+1).map(k=>[pl+d*k/n,pa+(a-pa)*k/n])})};
+const KEYGEO=[[PAR(0),'key eq'],[PAR(TROP),'key d tr'],[PAR(-TROP),'key d tr'],[PAR(POLAR),'key d'],[PAR(-POLAR),'key d'],[MER(0),'key'],[IDLGEO,'key d']];
+const flatLayout=()=>{const W=svg.clientWidth||900,small=W<620,ml=small?40:50,mr=ml,mt=26,mw=W-ml-mr,mh=mw/2;return{W,small,ml,mr,mt,mw,mh,H:mh+52}};
+function globeLayout(){const f=flatLayout(),Hg=Math.round(Math.min(f.W,780)),R=Hg/2-24;return Object.assign(f,{Hg,R,cx:f.W/2,cy:Hg/2})}
+function sizeCanvases(W,H){const r=devicePixelRatio||1;for(const id of ['#base','#tzc']){const c=$(id);c.width=Math.round(W*r);c.height=Math.round(H*r);c.style.width='100%';c.style.height='auto'}}
+function layoutGlobe(){GG=globeLayout();const{W,Hg,cy,R,ml,mr}=GG;svg.setAttribute('viewBox',`0 0 ${W} ${Hg}`);svg.setAttribute('height',Hg);sizeCanvases(W,Hg);
+latIn.style.top=(cy-R)+'px';latIn.style.height=2*R+'px';$('#lonwrap').style.margin=`0 ${46+mr}px 0 ${ml}px`;$('#map').classList.add('globe')}
+const globeProj=()=>d3.geoOrthographic().scale(GG.R).translate([GG.cx,GG.cy]).rotate([-vc[0],-vc[1]]).clipAngle(90).precision(.4);
+const visible=p=>d3.geoDistance(p,vc)<Math.PI/2-0.02;
+function paintGlobeBase(proj,q){
+const{W,Hg,cx,cy,R}=GG,c=$('#base'),r=devicePixelRatio||1,x=c.getContext('2d');x.setTransform(r,0,0,r,0,0);x.clearRect(0,0,W,Hg);
+const bg=col('--bg').match(/\d+/g).map(Number),dark=bg[0]+bg[1]+bg[2]<300,path=d3.geoPath(proj,x);
+x.save();x.beginPath();x.arc(cx,cy,R,0,2*Math.PI);x.shadowColor=dark?'rgba(120,190,255,.45)':'rgba(60,140,210,.45)';x.shadowBlur=28;x.fillStyle=col('--sea2');x.fill();x.restore();
+const g=x.createRadialGradient(cx-.35*R,cy-.4*R,R*.05,cx,cy,R);g.addColorStop(0,col('--sea1'));g.addColorStop(1,col('--sea2'));
+x.beginPath();x.arc(cx,cy,R,0,2*Math.PI);x.fillStyle=g;x.fill();
+x.beginPath();path(d3.geoGraticule10());x.strokeStyle=col('--grid');x.lineWidth=1;x.stroke();
+x.beginPath();path(d3.geoGraticule().step([30,30])());x.strokeStyle=col('--grid2');x.lineWidth=1.2;x.stroke();
+const land=q==='low'&&landLow?landLow:landFC;
+if(land){x.save();x.translate(0,2);x.beginPath();path(land);x.shadowColor='rgba(11,58,94,.35)';x.shadowBlur=6;x.shadowOffsetY=2;x.fillStyle=col('--depth');x.fill();x.restore();
+x.beginPath();path(land);x.fillStyle=col('--land');x.fill();x.strokeStyle=col('--land');x.lineWidth=.6;x.stroke()}
+const sh=x.createRadialGradient(cx-.35*R,cy-.4*R,R*.05,cx,cy,R*1.02);sh.addColorStop(0,'rgba(255,255,255,.22)');sh.addColorStop(.45,'rgba(255,255,255,0)');sh.addColorStop(1,dark?'rgba(0,0,0,.45)':'rgba(10,40,70,.30)');
+x.beginPath();x.arc(cx,cy,R,0,2*Math.PI);x.fillStyle=sh;x.fill();x.strokeStyle=col('--grid2');x.lineWidth=1.2;x.stroke();
+}
+function geoOverlay(proj,opt){
+const path=d3.geoPath(proj);let s='';
+for(const[gj,c]of KEYGEO){const d=path(gj);if(d)s+=`<path class="${c}" d="${d}"/>`}
+const ctr=opt.center,lim=opt.lim;
+for(const c of ALL){const pt=[c.lon,c.lat];if(d3.geoDistance(pt,ctr)>lim)continue;const p=proj(pt);if(!p)continue;const pr=PRESET.includes(c),h=c===HOME;
+s+=`<circle class="city${pr?' p':''}${h?' home':''}" cx="${p[0]}" cy="${p[1]}" r="${pr||h?4.2:3}"><title>${esc(c.n)}</title></circle>`;
+if(opt.labels&&((pr||h)&&!GG.small||showAll))s+=`<text class="ct${pr||h?' p':''}" x="${p[0]+7}" y="${h?p[1]-6:p[1]+4.5}">${esc(c.n)}</text>`}
+return s}
+function globeStatic(proj){
+let s=geoOverlay(proj,{center:vc,lim:Math.PI/2-0.02,labels:true});
+for(let l=-150;l<=180;l+=30){const pt=[l,0];if(!visible(pt))continue;const p=proj(pt);s+=`<text class="glab" x="${p[0]}" y="${p[1]+15}" text-anchor="middle">${edgeLon(l)}</text>`}
+for(const a of[-60,-30,30,60]){const pt=[vc[0],a];if(!visible(pt))continue;const p=proj(pt);s+=`<text class="glab" x="${p[0]+6}" y="${p[1]-5}">${edgeLat(a)}</text>`}
+return s}
+function globeDyn(){
+const proj=globeProj(),path=d3.geoPath(proj),d1=path(MER(lon)),d2=path(PAR(lat));let s='';
+if(d1)s+=`<path class="cross" style="stroke:${lonC()[0]}" d="${d1}"/>`;if(d2)s+=`<path class="cross" style="stroke:${latC()[0]}" d="${d2}"/>`;
+if(visible([lon,lat])){const[x,y]=proj([lon,lat]),t=`${latStr(lat)}, ${lonStr(lon)}`,w=t.length*7.4+18,right=x+w+16<GG.W,px=right?x+14:x-14-w;
+s+=`<circle class="ring" cx="${x}" cy="${y}" r="8"/><circle class="dot" cx="${x}" cy="${y}" r="6"/><rect class="pill" x="${px}" y="${y-36}" width="${w}" height="22" rx="11"/><text class="pillt" x="${px+w/2}" y="${y-20}" text-anchor="middle">${t}</text>`}
+const g=$('#dyn');if(g)g.innerHTML=s}
+function renderGlobe(q){
+if(view!=='globe')return;const proj=globeProj();paintGlobeBase(proj,q);
+svg.innerHTML=globeStatic(proj)+'<g id="dyn"></g>';globeDyn();
+const c=$('#tzc'),x=c.getContext('2d');x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,c.width,c.height);
+clearTimeout(hiT);if(q==='low')hiT=setTimeout(()=>renderGlobe('high'),220);else paintGlobeTZ(proj);
+}
+const gImg=document.createElement('canvas');
+function paintGlobeTZ(proj){
+$('#legend').style.display=tzMode==='off'?'none':'';hiOff=curOffset();
+const arr=tzMode==='real'?offReal:tzMode==='theo'?offTheo:null;if(!arr)return;
+const{cx,cy,R}=GG,st=2,n=Math.ceil(2*R/st),o=new Int16Array(n*n).fill(-32768);
+for(let j=0;j<n;j++){const y=cy-R+(j+.5)*st;for(let i=0;i<n;i++){const x=cx-R+(i+.5)*st;if((x-cx)**2+(y-cy)**2>R*R)continue;const p=proj.invert([x,y]);if(!p)continue;
+const ii=Math.min(GW-1,Math.floor(toU(p[0])/RES)),jj=Math.min(GH-1,Math.max(0,Math.floor((90-p[1])/RES)));o[j*n+i]=arr[jj*GW+ii]}}
+const bg=col('--bg').match(/\d+/g).map(Number),dark=bg[0]+bg[1]+bg[2]<300;
+const C=dark?{odd:[255,255,255,.08],frac:[255,190,110,.17],line:[200,225,245,.42],hi:[255,157,51,.30]}:{odd:[40,70,100,.12],frac:[190,120,40,.22],line:[30,55,80,.5],hi:[239,125,0,.28]};
+gImg.width=n;gImg.height=n;const ctx=gImg.getContext('2d'),img=ctx.createImageData(n,n),d=img.data;
+for(let k=0;k<n*n;k++){const v=o[k];if(v===-32768)continue;const i=k%n;let cc=null;
+if((i<n-1&&o[k+1]!==-32768&&o[k+1]!==v)||(k+n<n*n&&o[k+n]!==-32768&&o[k+n]!==v))cc=C.line;else if(v===hiOff)cc=C.hi;else if(v%60)cc=C.frac;else if(((v/60)%2+2)%2===1)cc=C.odd;
+if(cc){const q=k*4;d[q]=cc[0];d[q+1]=cc[1];d[q+2]=cc[2];d[q+3]=cc[3]*255}}
+ctx.putImageData(img,0,0);
+const c=$('#tzc'),r=devicePixelRatio||1,x=c.getContext('2d');x.setTransform(r,0,0,r,0,0);x.save();x.beginPath();x.arc(cx,cy,R,0,2*Math.PI);x.clip();x.imageSmoothingEnabled=true;x.drawImage(gImg,cx-R,cy-R,2*R,2*R);x.restore();
+}
+function morphTo(target){
+if(view==='morph')return;const from=view==='globe'?1:0,to=target==='globe'?1:0;if(from===to)return;
+cancelAnimationFrame(anim);clearTimeout(hiT);if(to)vc=[lon,lat];
+const f=flatLayout(),g=globeLayout(),Hm=Math.max(f.H,g.Hg);GG=g;
+view='morph';sizeCanvases(f.W,Hm);$('#tzc').getContext('2d').clearRect(0,0,9e4,9e4);$('#map').classList.remove('globe');
+for(const b of $('#view').children)b.setAttribute('aria-pressed',b.dataset.v===target);$('#globeopts').hidden=!to;
+const lam0=-CENTER,dl=norm(-vc[0]-lam0),T=matchMedia('(prefers-reduced-motion: reduce)').matches?0:1300,t0=performance.now();
+const sF=f.mw/(2*Math.PI),fc=[f.ml+f.mw/2,f.mt+f.mh/2];
+const step=now=>{const k=T?Math.min(1,(now-t0)/T):1,e=k<.5?4*k*k*k:1-(-2*k+2)**3/2,t=from+(to-from)*e;
+const a=Math.min(1,t/.35),u=Math.max(0,(t-.35)/.65);
+const H=f.H+(g.Hg-f.H)*t;svg.setAttribute('viewBox',`0 0 ${f.W} ${H}`);svg.setAttribute('height',H);
+const raw=(l,p)=>{const A=d3.geoEquirectangularRaw(l,p);if(!u)return A;const B=d3.geoOrthographicRaw(l,p);return [A[0]+(B[0]-A[0])*u,A[1]+(B[1]-A[1])*u]};
+const rot=[lam0+dl*a,-vc[1]*u],sc=sF*(1-u)+g.R*u,tr=[fc[0]*(1-u)+g.cx*u,fc[1]*(1-u)+g.cy*u];
+const front=d3.geoProjection(raw).rotate(rot).scale(sc).translate(tr).clipAngle(90).precision(.6);
+const full=u?null:d3.geoProjection(raw).rotate(rot).scale(sc).translate(tr).precision(.6);
+const r=devicePixelRatio||1,c=$('#base'),x=c.getContext('2d');x.setTransform(r,0,0,r,0,0);x.clearRect(0,0,f.W,Hm);
+const land=landLow||landFC;
+const layer=(pj,al)=>{if(al<=0.01)return;const path=d3.geoPath(pj,x);x.globalAlpha=al;
+x.beginPath();path({type:'Sphere'});x.fillStyle=col('--sea1');x.fill();
+x.beginPath();path(d3.geoGraticule10());x.strokeStyle=col('--grid');x.lineWidth=1;x.stroke();
+if(land){x.beginPath();path(land);x.fillStyle=col('--land');x.fill()}
+x.beginPath();path({type:'Sphere'});x.strokeStyle=col('--grid2');x.lineWidth=1.2;x.stroke();x.globalAlpha=1};
+if(full)layer(full,1-a);layer(front,1);
+const ctr=[-rot[0],-rot[1]];
+let s='';if(full&&a<.98){const pth=d3.geoPath(full);s+=`<g opacity="${(1-a).toFixed(3)}">`;for(const[gj,cl]of KEYGEO){const d=pth(gj);if(d)s+=`<path class="${cl}" d="${d}"/>`}s+='</g>'}
+s+=geoOverlay(front,{center:ctr,lim:Math.PI/2-0.02,labels:false});
+if(d3.geoDistance([lon,lat],ctr)<Math.PI/2-0.02){const p=front([lon,lat]);s+=`<circle class="dot" cx="${p[0]}" cy="${p[1]}" r="6"/>`}
+svg.innerHTML=s;
+latIn.style.top=(f.mt*(1-t)+(g.cy-g.R)*t)+'px';latIn.style.height=(f.mh*(1-t)+2*g.R*t)+'px';
+if(k<1)requestAnimationFrame(step);else{view=to?'globe':'flat';draw();if(to&&autoOn)startSpin()}};
+requestAnimationFrame(step);
+}
+function startSpin(){if(spinning)return;spinning=true;let last=performance.now();
+const f=now=>{if(!autoOn||view!=='globe'){spinning=false;if(view==='globe')renderGlobe('high');return}
+const dt=Math.min(64,now-last);last=now;if(!gd){vc=[norm(vc[0]-dt*0.006),vc[1]];renderGlobe('low')}requestAnimationFrame(f)};requestAnimationFrame(f)}
+function recenter(){if(view!=='globe')return;const a=[...vc],dl=norm(lon-a[0]),da=lat-a[1],t0=performance.now();
+const f=now=>{const k=Math.min(1,(now-t0)/700),e=k<.5?2*k*k:1-(-2*k+2)**2/2;vc=[norm(a[0]+dl*e),a[1]+da*e];renderGlobe(k<1?'low':'high');if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+$('#view').addEventListener('click',e=>{const b=e.target.closest('button');if(b)morphTo(b.dataset.v)});
+$('#autorot').addEventListener('change',e=>{autoOn=e.target.checked;if(autoOn)startSpin()});
+$('#recenter').addEventListener('click',recenter);
+const gpt=e=>{const r=svg.getBoundingClientRect(),k=GG.W/r.width;return [(e.clientX-r.left)*k,(e.clientY-r.top)*k]};
+svg.addEventListener('pointerdown',e=>{if(view!=='globe')return;const[x,y]=gpt(e);if((x-GG.cx)**2+(y-GG.cy)**2>GG.R**2)return;
+gd={x:e.clientX,y:e.clientY,vc:[...vc],moved:false};svg.setPointerCapture(e.pointerId)});
+svg.addEventListener('pointermove',e=>{if(!gd||view!=='globe')return;const r=svg.getBoundingClientRect(),k=GG.W/r.width,dx=(e.clientX-gd.x)*k,dy=(e.clientY-gd.y)*k;
+if(!gd.moved&&Math.hypot(dx,dy)<4)return;gd.moved=true;const deg=180/(Math.PI*GG.R);
+vc=[norm(gd.vc[0]-dx*deg),Math.max(-90,Math.min(90,gd.vc[1]+dy*deg))];renderGlobe('low')});
+const gup=e=>{if(!gd)return;const m=gd.moved;gd=null;if(view!=='globe')return;
+if(!m){const p=globeProj().invert(gpt(e));if(p&&visible(p)){cancelAnimationFrame(anim);noFollow=true;setPos(snap(p[1]),snap(p[0]))}}};
+svg.addEventListener('pointerup',gup);svg.addEventListener('pointercancel',()=>{gd=null});
+
+/* ---------- 互動 ---------- */
+$('#cities').innerHTML=PRESET.map((c,i)=>`<button data-i="${i}" aria-pressed="false"><b>${c.n}</b><small>${c.tag}</small></button>`).join('');
+$('#cities').addEventListener('click',e=>{const b=e.target.closest('button');if(b)flyTo(PRESET[+b.dataset.i])});
+function slider(el,vert){
+const val=e=>{const r=el.querySelector('.trk').getBoundingClientRect();return vert?Math.max(0,Math.min(1,(e.clientY-r.top)/r.height)):Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))};
+const set=k=>{cancelAnimationFrame(anim);if(vert)setPos(snap(90-k*180),lon);else setPos(lat,snap(k*360)+LEFT)};
+let on=false;
+el.addEventListener('pointerdown',e=>{on=true;el.setPointerCapture(e.pointerId);el.focus();set(val(e))});
+el.addEventListener('pointermove',e=>{if(on)set(val(e))});
+el.addEventListener('pointerup',()=>on=false);el.addEventListener('pointercancel',()=>on=false);
+el.addEventListener('keydown',e=>{const big=Math.max(step*5,5);let d=0;
+if(['ArrowUp','ArrowRight'].includes(e.key))d=step;else if(['ArrowDown','ArrowLeft'].includes(e.key))d=-step;else if(e.key==='PageUp')d=big;else if(e.key==='PageDown')d=-big;
+else if(e.key==='Home'||e.key==='End'){e.preventDefault();cancelAnimationFrame(anim);if(vert)setPos(e.key==='Home'?-90:90,lon);else setPos(lat,(e.key==='Home'?0:359.999)+LEFT);return}else return;
+e.preventDefault();cancelAnimationFrame(anim);if(vert)setPos(snap(lat+d),lon);else{const u=Math.max(0,Math.min(360,toU(lon)+d));setPos(lat,snap(u)+LEFT)}});
+}
+slider(latIn,true);slider(lonIn,false);
+$('#steps').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;step=+b.dataset.s;
+for(const x of $('#steps').children)x.setAttribute('aria-pressed',x===b);setPos(snap(lat),snap(lon-LEFT)+LEFT)});
+$('#fmt').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;fmt=b.dataset.f;for(const x of $('#fmt').children)x.setAttribute('aria-pressed',x===b);update()});
+$('#allnames').addEventListener('change',e=>{showAll=e.target.checked;draw()});
+$('#tzmode').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;tzMode=b.dataset.m;for(const x of $('#tzmode').children)x.setAttribute('aria-pressed',x===b);draw()});
+let dragging=false;
+function fromPointer(e){const r=svg.getBoundingClientRect(),k=G.W/r.width,x=(e.clientX-r.left)*k,y=(e.clientY-r.top)*k;
+const u=Math.max(0,Math.min(360,(x-G.ml)/G.mw*360)),a=Math.max(-90,Math.min(90,90-(y-G.mt)/G.mh*180));return [snap(a),snap(u)+LEFT]}
+svg.addEventListener('pointerdown',e=>{if(view!=='flat')return;const r=svg.getBoundingClientRect(),k=G.W/r.width,x=(e.clientX-r.left)*k,y=(e.clientY-r.top)*k;
+if(x<G.ml-4||x>G.ml+G.mw+4||y<G.mt-4||y>G.mt+G.mh+4)return;cancelAnimationFrame(anim);dragging=true;svg.setPointerCapture(e.pointerId);const[a,l]=fromPointer(e);setPos(a,l)});
+svg.addEventListener('pointermove',e=>{if(dragging){const[a,l]=fromPointer(e);setPos(a,l)}});
+svg.addEventListener('pointerup',()=>dragging=false);svg.addEventListener('pointercancel',()=>dragging=false);
+let lastW=0,pend=0;
+const later=()=>{clearTimeout(pend);pend=setTimeout(draw,120)};
+const ro=new ResizeObserver(()=>{const w=Math.round($('#fig').clientWidth);if(Math.abs(w-lastW)>24)later()});ro.observe($('#fig'));
+const root=document.documentElement;
+const mo=new MutationObserver(rs=>{if(rs.some(r=>r.oldValue!==root.getAttribute('data-theme')))later()});
+mo.observe(root,{attributes:true,attributeFilter:['data-theme'],attributeOldValue:true});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',later);
+draw();loadLand();loadTz();
+}
+</script>
+</body>
+</html>
