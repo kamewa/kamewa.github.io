@@ -101,6 +101,7 @@ footer{max-width:1520px;margin:0 auto;padding:0 max(3vw,16px) 26px;font-size:13p
 .ct{fill:var(--ink);font:500 12.5px "Noto Sans TC",sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:3.5px;stroke-linejoin:round}
 .ct.p{font-weight:700;font-size:13.5px}
 .cross{stroke-width:3;fill:none}
+text.halo{fill:none!important}text.fill{stroke:none!important}
 .ring{fill:none;stroke:var(--accent);stroke-width:2.5;transform-box:fill-box;transform-origin:center;animation:pulse 1.8s ease-out infinite}
 .dot{fill:var(--accent);stroke:#fff;stroke-width:2.5}
 .pill{fill:var(--accent)}.pillt{fill:#fff;font:700 13px Barlow,"Noto Sans TC",sans-serif}
@@ -245,6 +246,8 @@ $('#upl').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;f
 }
 
 /* ---------- 繪製 ---------- */
+const TX=(L,cls,x,y,a,t)=>{const at=`x="${x}" y="${y}"${a?` text-anchor="${a}"`:''}`;L.h+=`<text class="${cls} halo" ${at}>${t}</text>`;L.f+=`<text class="${cls} fill" ${at}>${t}</text>`};
+const labPos=(c,x,y,right)=>c.n==='嘉義'?[x+6,y+16,'start']:c.n==='蘇瓦'||!right?[x-6,y-7,'end']:[x+6,y-7,'start'];
 function draw(){
 if(view==='morph')return;
 if(view==='globe'){layoutGlobe();renderGlobe('high');lastW=Math.round($('#fig').clientWidth);update();return}
@@ -262,13 +265,15 @@ let s=`<defs><linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset=
 <g clip-path="url(#clip)">`;
 paintBase(proj,small);renderTZ();
 const keys=[[0,'赤道 0°',' eq'],[TROP,'北回歸線 23.5°N',' d tr'],[-TROP,'南回歸線 23.5°S',' d tr'],[POLAR,'北極圈 66.5°N',' d'],[-POLAR,'南極圈 66.5°S',' d']];
-for(const[a,t,c]of keys){const y=yOf(a);s+=`<line class="key${c}" x1="${ml}" x2="${ml+mw}" y1="${y}" y2="${y}"/>`;if(!small)s+=`<text class="keyt${c.replace(' d','')}" x="${xOf(-20)}" y="${y-5}">${t}</text>`}
-{const x=xOf(0);s+=`<line class="key" x1="${x}" x2="${x}" y1="${mt}" y2="${mt+mh}"/>`;if(!small)s+=`<text class="keyt" x="${x+5}" y="${yOf(-56)}">本初子午線 0°</text>`}
-s+=`<polyline class="key d" fill="none" points="${IDL.map(([a,l])=>xOf(l)+','+yOf(a)).join(' ')}"/>`;if(!small)s+=`<text class="keyt" x="${xOf(180)+5}" y="${yOf(-60)}">國際換日線</text>`;
-if(tzMode==='theo')for(let k=-11;k<=12;k++){const x=xOf(15*k);if(x<ml+14||x>ml+mw-14)continue;s+=`<text class="tzl" x="${x}" y="${mt+15}" text-anchor="middle">${k===12?'±12':(k>0?'+':k<0?'−':'')+Math.abs(k)}</text>`}
+const L={h:'',f:''};let lines='',small1='',big='';
+for(const[a,t,c]of keys){const y=yOf(a);lines+=`<line class="key${c}" x1="${ml}" x2="${ml+mw}" y1="${y}" y2="${y}"/>`;if(!small)TX(L,'keyt'+c.replace(' d',''),xOf(62),y-5,'',t)}
+{const x=xOf(0);lines+=`<line class="key" x1="${x}" x2="${x}" y1="${mt}" y2="${mt+mh}"/>`;if(!small)TX(L,'keyt',x+5,yOf(-56),'','本初子午線 0°')}
+lines+=`<polyline class="key d" fill="none" points="${IDL.map(([a,l])=>xOf(l)+','+yOf(a)).join(' ')}"/>`;if(!small)TX(L,'keyt',xOf(180)+5,yOf(-60),'','國際換日線');
+if(tzMode==='theo')for(let k=-11;k<=12;k++){const x=xOf(15*k);if(x<ml+14||x>ml+mw-14)continue;TX(L,'tzl',x,mt+15,'middle',k===12?'±12':(k>0?'+':k<0?'−':'')+Math.abs(k))}
 for(const c of ALL){const p=PRESET.includes(c),h=c===HOME,x=xOf(c.lon),y=yOf(c.lat);
-s+=`<circle class="city${p?' p':''}${h?' home':''}" cx="${x}" cy="${y}" r="${p||h?4.2:3}"><title>${esc(c.n)}</title></circle>`;
-if((p||h)&&!small||showAll){const right=x<ml+mw-70;s+=`<text class="ct${p||h?' p':''}" x="${right?x+7:x-7}" y="${h?y-6:y+4.5}" text-anchor="${right?'start':'end'}">${esc(c.n)}</text>`}}
+const dot=`<circle class="city${p?' p':''}${h?' home':''}" cx="${x}" cy="${y}" r="${p||h?4.2:3}"><title>${esc(c.n)}</title></circle>`;if(p||h)big+=dot;else small1+=dot;
+if((p||h)&&!small||showAll){const[lx,ly,an]=labPos(c,x,y,x<ml+mw-70);TX(L,'ct'+(p||h?' p':''),lx,ly,an,esc(c.n))}}
+s+=small1+L.h+lines+big+L.f;
 s+=`</g><rect class="frame" x="${ml}" y="${mt}" width="${mw}" height="${mh}"/>`;
 const lstep=small?60:30;
 for(let u=0;u<=360;u+=10){const x=ml+u/360*mw,big=u%lstep===0;s+=`<line class="tick" x1="${x}" x2="${x}" y1="${mt-(big?6:3)}" y2="${mt}"/><line class="tick" x1="${x}" x2="${x}" y1="${mt+mh}" y2="${mt+mh+(big?6:3)}"/>`;
@@ -443,18 +448,19 @@ const sh=x.createRadialGradient(cx-.35*R,cy-.4*R,R*.05,cx,cy,R*1.02);sh.addColor
 x.beginPath();x.arc(cx,cy,R,0,2*Math.PI);x.fillStyle=sh;x.fill();x.strokeStyle=col('--grid2');x.lineWidth=1.2;x.stroke();
 }
 function geoOverlay(proj,opt){
-const path=d3.geoPath(proj);let s='';
-for(const[gj,c]of KEYGEO){const d=path(gj);if(d)s+=`<path class="${c}" d="${d}"/>`}
+const path=d3.geoPath(proj),L={h:'',f:''};let lines='',small1='',big='';
+for(const[gj,c]of KEYGEO){const d=path(gj);if(d)lines+=`<path class="${c}" d="${d}"/>`}
 const ctr=opt.center,lim=opt.lim;
 for(const c of ALL){const pt=[c.lon,c.lat];if(d3.geoDistance(pt,ctr)>lim)continue;const p=proj(pt);if(!p)continue;const pr=PRESET.includes(c),h=c===HOME;
-s+=`<circle class="city${pr?' p':''}${h?' home':''}" cx="${p[0]}" cy="${p[1]}" r="${pr||h?4.2:3}"><title>${esc(c.n)}</title></circle>`;
-if(opt.labels&&((pr||h)&&!GG.small||showAll))s+=`<text class="ct${pr||h?' p':''}" x="${p[0]+7}" y="${h?p[1]-6:p[1]+4.5}">${esc(c.n)}</text>`}
-return s}
+const dot=`<circle class="city${pr?' p':''}${h?' home':''}" cx="${p[0]}" cy="${p[1]}" r="${pr||h?4.2:3}"><title>${esc(c.n)}</title></circle>`;if(pr||h)big+=dot;else small1+=dot;
+if(opt.labels&&((pr||h)&&!GG.small||showAll)){const[lx,ly,an]=labPos(c,p[0],p[1],p[0]<GG.W-80);TX(L,'ct'+(pr||h?' p':''),lx,ly,an,esc(c.n))}}
+for(const e of opt.extra||[])TX(L,...e);
+return small1+L.h+lines+big+L.f}
 function globeStatic(proj){
-let s=geoOverlay(proj,{center:vc,lim:Math.PI/2-0.02,labels:true});
-for(let l=-150;l<=180;l+=30){const pt=[l,0];if(!visible(pt))continue;const p=proj(pt);s+=`<text class="glab" x="${p[0]}" y="${p[1]+15}" text-anchor="middle">${edgeLon(l)}</text>`}
-for(const a of[-60,-30,30,60]){const pt=[vc[0],a];if(!visible(pt))continue;const p=proj(pt);s+=`<text class="glab" x="${p[0]+6}" y="${p[1]-5}">${edgeLat(a)}</text>`}
-return s}
+const extra=[];
+for(let l=-150;l<=180;l+=30){const pt=[l,0];if(!visible(pt))continue;const p=proj(pt);extra.push(['glab',p[0],p[1]+15,'middle',edgeLon(l)])}
+for(const a of[-60,-30,30,60]){const pt=[vc[0],a];if(!visible(pt))continue;const p=proj(pt);extra.push(['glab',p[0]+6,p[1]-5,'',edgeLat(a)])}
+return geoOverlay(proj,{center:vc,lim:Math.PI/2-0.02,labels:true,extra})}
 function globeDyn(){
 const proj=globeProj(),path=d3.geoPath(proj),d1=path(MER(lon)),d2=path(PAR(lat));let s='';
 if(d1)s+=`<path class="cross" style="stroke:${lonC()[0]}" d="${d1}"/>`;if(d2)s+=`<path class="cross" style="stroke:${latC()[0]}" d="${d2}"/>`;
