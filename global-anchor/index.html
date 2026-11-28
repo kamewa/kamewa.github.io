@@ -138,7 +138,6 @@ text.halo{fill:none!important}text.fill{stroke:none!important}
 <div class="seg" id="steps" role="group" aria-label="移動間隔">
 <button data-s="0.5" aria-pressed="false">0.5°</button><button data-s="1" aria-pressed="true">1°</button><button data-s="5" aria-pressed="false">5°</button><button data-s="15" aria-pressed="false">15°</button>
 </div>
-<label class="check"><input type="checkbox" id="allnames"> 顯示所有城市名稱</label>
 <span>時區圖層</span>
 <div class="seg" id="tzmode" role="group" aria-label="時區圖層">
 <button data-m="off" aria-pressed="false">關閉</button><button data-m="theo" aria-pressed="false">理論時區</button><button data-m="real" aria-pressed="true">真實時區</button>
@@ -246,7 +245,8 @@ $('#upl').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;f
 }
 
 /* ---------- 繪製 ---------- */
-const TX=(L,cls,x,y,a,t)=>{const at=`x="${x}" y="${y}"${a?` text-anchor="${a}"`:''}`;L.h+=`<text class="${cls} halo" ${at}>${t}</text>`;L.f+=`<text class="${cls} fill" ${at}>${t}</text>`};
+const LABELED=new Set(['臺北','倫敦','紐約','雪梨','聖保羅']);
+const TX=(L,cls,x,y,a,t,ex='')=>{const at=`x="${x}" y="${y}"${a?` text-anchor="${a}"`:''}${ex}`;L.h+=`<text class="${cls} halo" ${at}>${t}</text>`;L.f+=`<text class="${cls} fill" ${at}>${t}</text>`};
 const labPos=(c,x,y,right)=>c.n==='嘉義'?[x+6,y+16,'start']:c.n==='蘇瓦'||!right?[x-6,y-7,'end']:[x+6,y-7,'start'];
 function draw(){
 if(view==='morph')return;
@@ -266,14 +266,14 @@ let s=`<defs><linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset=
 paintBase(proj,small);renderTZ();
 const keys=[[0,'赤道',' eq'],[TROP,'北回歸線',' d tr'],[-TROP,'南回歸線',' d tr'],[POLAR,'北極圈',' d'],[-POLAR,'南極圈',' d']];
 const L={h:'',f:''};let lines='',small1='',big='';
-for(const[a,t,c]of keys){const y=yOf(a);lines+=`<line class="key${c}" x1="${ml}" x2="${ml+mw}" y1="${y}" y2="${y}"/>`;if(!small)TX(L,'keyt'+c.replace(' d',''),xOf(-20),y-5,'',t)}
-{const x=xOf(0);lines+=`<line class="key" x1="${x}" x2="${x}" y1="${mt}" y2="${mt+mh}"/>`;if(!small)TX(L,'keyt',x+5,yOf(-45),'','本初子午線')}
-lines+=`<polyline class="key d" fill="none" points="${IDL.map(([a,l])=>xOf(l)+','+yOf(a)).join(' ')}"/>`;if(!small)TX(L,'keyt',xOf(180)+5,yOf(-60),'','國際換日線');
+for(const[a,t,c]of keys){const y=yOf(a);lines+=`<line class="key${c}" x1="${ml}" x2="${ml+mw}" y1="${y}" y2="${y}"/>`;if(!small)TX(L,'keyt'+c.replace(' d',''),xOf(-20),a<0?y+15:y-5,'',t)}
+{const x=xOf(0);lines+=`<line class="key" x1="${x}" x2="${x}" y1="${mt}" y2="${mt+mh}"/>`;if(!small){const fs=Math.max(10,Math.min(13,(yOf(0)-yOf(TROP)-7)/5.05));TX(L,'keyt',x+fs*0.6+2,yOf(TROP)+4,'start','本初子午線',` style="writing-mode:vertical-rl;font-size:${fs.toFixed(1)}px"`)}}
+lines+=`<polyline class="key d" fill="none" points="${IDL.map(([a,l])=>xOf(l)+','+yOf(a)).join(' ')}"/>`;if(!small){const fs=Math.max(10,Math.min(13,(yOf(TROP)-yOf(46.5)-7)/5.05));TX(L,'keyt',xOf(180)+fs*0.6+2,yOf(46.5),'start','國際換日線',` style="writing-mode:vertical-rl;font-size:${fs.toFixed(1)}px"`)}
 if(tzMode==='theo')for(let k=-11;k<=12;k++){const x=xOf(15*k);if(x<ml+14||x>ml+mw-14)continue;TX(L,'tzl',x,mt+15,'middle',k===12?'±12':(k>0?'+':k<0?'−':'')+Math.abs(k))}
 for(const c of ALL){const p=PRESET.includes(c),h=c===HOME,x=xOf(c.lon),y=yOf(c.lat);
 const dot=`<circle class="city${p?' p':''}${h?' home':''}" cx="${x}" cy="${y}" r="${p||h?4.2:3}"><title>${esc(c.n)}</title></circle>`;if(p||h)big+=dot;else small1+=dot;
-if((p||h)&&!small||showAll){const[lx,ly,an]=labPos(c,x,y,x<ml+mw-70);TX(L,'ct'+(p||h?' p':''),lx,ly,an,esc(c.n))}}
-s+=small1+L.h+lines+big+L.f;
+if(LABELED.has(c.n)&&!small){const[lx,ly,an]=labPos(c,x,y,x<ml+mw-70);TX(L,'ct'+(p||h?' p':''),lx,ly,an,esc(c.n))}}
+s+=small1+L.h+'<g id="acth"></g>'+lines+big+L.f+'<g id="actf"></g>';
 s+=`</g><rect class="frame" x="${ml}" y="${mt}" width="${mw}" height="${mh}"/>`;
 const lstep=small?60:30;
 for(let u=0;u<=360;u+=10){const x=ml+u/360*mw,big=u%lstep===0;s+=`<line class="tick" x1="${x}" x2="${x}" y1="${mt-(big?6:3)}" y2="${mt}"/><line class="tick" x1="${x}" x2="${x}" y1="${mt+mh}" y2="${mt+mh+(big?6:3)}"/>`;
@@ -307,6 +307,11 @@ x.restore();
 }
 const lonC=()=>{const a=Math.abs(lon);return near(a,0)||near(a,180)?['var(--mid)','#fff']:lon>0?['var(--east)','#fff']:['var(--west)','#0f2d44']};
 const latC=()=>near(lat,0)?['var(--mid)','#fff']:lat>0?['var(--north)','#fff']:['var(--south)','#0f2d44'];
+function actLabel(){
+const gh=$('#acth'),gf=$('#actf');if(!gh||!gf)return;gh.innerHTML='';gf.innerHTML='';
+const c=ALL.find(c=>near(c.lat,lat)&&near(norm(c.lon),lon));if(!c||LABELED.has(c.n))return;
+let x,y,right;if(view==='flat'){x=G.xOf(c.lon);y=G.yOf(c.lat);right=x<G.ml+G.mw-70}else if(view==='globe'){if(!visible([c.lon,c.lat]))return;[x,y]=globeProj()([c.lon,c.lat]);right=x<GG.W-80}else return;
+const L={h:'',f:''},[lx,ly,an]=labPos(c,x,y,right);TX(L,'ct p',lx,ly,an,esc(c.n));gh.innerHTML=L.h;gf.innerHTML=L.f}
 function update(){
 if(!G.xOf)return;
 if(view==='globe'&&wantFollow){vc=[lon,lat];renderGlobe('low')}wantFollow=false;
@@ -324,7 +329,7 @@ latIn.setAttribute('aria-valuenow',lat.toFixed(2));latIn.setAttribute('aria-valu
 $('#rLat').textContent=lt;$('#rLon').textContent=ln;$('#sLat').textContent=latSay(lat);$('#sLon').textContent=lonSay(lon);
 $('#pair').textContent=`(${lt}, ${ln})`;
 {const o=curOffset();if(o!==hiOff)renderTZ()}
-panel();
+actLabel();panel();
 for(const b of document.querySelectorAll('#cities button')){const c=PRESET[+b.dataset.i];b.setAttribute('aria-pressed',near(c.lat,lat)&&near(c.lon,lon))}
 }
 function panel(){
@@ -453,9 +458,9 @@ for(const[gj,c]of KEYGEO){const d=path(gj);if(d)lines+=`<path class="${c}" d="${
 const ctr=opt.center,lim=opt.lim;
 for(const c of ALL){const pt=[c.lon,c.lat];if(d3.geoDistance(pt,ctr)>lim)continue;const p=proj(pt);if(!p)continue;const pr=PRESET.includes(c),h=c===HOME;
 const dot=`<circle class="city${pr?' p':''}${h?' home':''}" cx="${p[0]}" cy="${p[1]}" r="${pr||h?4.2:3}"><title>${esc(c.n)}</title></circle>`;if(pr||h)big+=dot;else small1+=dot;
-if(opt.labels&&((pr||h)&&!GG.small||showAll)){const[lx,ly,an]=labPos(c,p[0],p[1],p[0]<GG.W-80);TX(L,'ct'+(pr||h?' p':''),lx,ly,an,esc(c.n))}}
+if(opt.labels&&LABELED.has(c.n)&&!GG.small){const[lx,ly,an]=labPos(c,p[0],p[1],p[0]<GG.W-80);TX(L,'ct'+(pr||h?' p':''),lx,ly,an,esc(c.n))}}
 for(const e of opt.extra||[])TX(L,...e);
-return small1+L.h+lines+big+L.f}
+return small1+L.h+'<g id="acth"></g>'+lines+big+L.f+'<g id="actf"></g>'}
 function globeStatic(proj){
 const extra=[];
 for(let l=-150;l<=180;l+=30){const pt=[l,0];if(!visible(pt))continue;const p=proj(pt);extra.push(['glab',p[0],p[1]+15,'middle',edgeLon(l)])}
@@ -469,7 +474,7 @@ s+=`<circle class="ring" cx="${x}" cy="${y}" r="8"/><circle class="dot" cx="${x}
 const g=$('#dyn');if(g)g.innerHTML=s}
 function renderGlobe(q){
 if(view!=='globe')return;const proj=globeProj();paintGlobeBase(proj,q);
-svg.innerHTML=globeStatic(proj)+'<g id="dyn"></g>';globeDyn();
+svg.innerHTML=globeStatic(proj)+'<g id="dyn"></g>';globeDyn();actLabel();
 const c=$('#tzc'),x=c.getContext('2d');x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,c.width,c.height);
 clearTimeout(hiT);if(q==='low')hiT=setTimeout(()=>renderGlobe('high'),220);else paintGlobeTZ(proj);
 }
@@ -536,7 +541,8 @@ svg.addEventListener('pointermove',e=>{if(!gd||view!=='globe')return;const r=svg
 if(!gd.moved&&Math.hypot(dx,dy)<4)return;gd.moved=true;const deg=180/(Math.PI*GG.R);
 vc=[norm(gd.vc[0]-dx*deg),Math.max(-90,Math.min(90,gd.vc[1]+dy*deg))];renderGlobe('low')});
 const gup=e=>{if(!gd)return;const m=gd.moved;gd=null;if(view!=='globe')return;
-if(!m){const p=globeProj().invert(gpt(e));if(p&&visible(p)){cancelAnimationFrame(anim);noFollow=true;setPos(snap(p[1]),snap(p[0]))}}};
+if(!m){const q=gpt(e),pj=globeProj(),hit=ALL.find(c=>visible([c.lon,c.lat])&&Math.hypot(pj([c.lon,c.lat])[0]-q[0],pj([c.lon,c.lat])[1]-q[1])<9);cancelAnimationFrame(anim);noFollow=true;
+if(hit){setPos(hit.lat,hit.lon);return}const p=pj.invert(q);if(p&&visible(p))setPos(snap(p[1]),snap(p[0]));else noFollow=false}};
 svg.addEventListener('pointerup',gup);svg.addEventListener('pointercancel',()=>{gd=null});
 
 /* ---------- 互動 ---------- */
@@ -558,14 +564,14 @@ slider(latIn,true);slider(lonIn,false);
 $('#steps').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;step=+b.dataset.s;
 for(const x of $('#steps').children)x.setAttribute('aria-pressed',x===b);setPos(snap(lat),snap(lon-LEFT)+LEFT)});
 $('#fmt').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;fmt=b.dataset.f;for(const x of $('#fmt').children)x.setAttribute('aria-pressed',x===b);update()});
-$('#allnames').addEventListener('change',e=>{showAll=e.target.checked;draw()});
 $('#tzmode').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;tzMode=b.dataset.m;for(const x of $('#tzmode').children)x.setAttribute('aria-pressed',x===b);draw()});
-let dragging=false;
+let dragging=false,downXY=null;
 function fromPointer(e){const r=svg.getBoundingClientRect(),k=G.W/r.width,x=(e.clientX-r.left)*k,y=(e.clientY-r.top)*k;
 const u=Math.max(0,Math.min(360,(x-G.ml)/G.mw*360)),a=Math.max(-90,Math.min(90,90-(y-G.mt)/G.mh*180));return [snap(a),snap(u)+LEFT]}
 svg.addEventListener('pointerdown',e=>{if(view!=='flat')return;const r=svg.getBoundingClientRect(),k=G.W/r.width,x=(e.clientX-r.left)*k,y=(e.clientY-r.top)*k;
-if(x<G.ml-4||x>G.ml+G.mw+4||y<G.mt-4||y>G.mt+G.mh+4)return;cancelAnimationFrame(anim);dragging=true;svg.setPointerCapture(e.pointerId);const[a,l]=fromPointer(e);setPos(a,l)});
-svg.addEventListener('pointermove',e=>{if(dragging){const[a,l]=fromPointer(e);setPos(a,l)}});
+if(x<G.ml-4||x>G.ml+G.mw+4||y<G.mt-4||y>G.mt+G.mh+4)return;cancelAnimationFrame(anim);dragging=true;downXY=[e.clientX,e.clientY];svg.setPointerCapture(e.pointerId);
+const hit=ALL.find(c=>Math.hypot(G.xOf(c.lon)-x,G.yOf(c.lat)-y)<9);if(hit){setPos(hit.lat,hit.lon);return}const[a,l]=fromPointer(e);setPos(a,l)});
+svg.addEventListener('pointermove',e=>{if(dragging){if(downXY&&Math.hypot(e.clientX-downXY[0],e.clientY-downXY[1])<5)return;downXY=null;const[a,l]=fromPointer(e);setPos(a,l)}});
 svg.addEventListener('pointerup',()=>dragging=false);svg.addEventListener('pointercancel',()=>dragging=false);
 let lastW=0,pend=0;
 const later=()=>{clearTimeout(pend);pend=setTimeout(draw,120)};
