@@ -264,10 +264,10 @@ let s=`<defs><linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset=
 <clipPath id="clip"><rect x="${ml}" y="${mt}" width="${mw}" height="${mh}"/></clipPath></defs>
 <g clip-path="url(#clip)">`;
 paintBase(proj,small);renderTZ();
-const keys=[[0,'赤道 0°',' eq'],[TROP,'北回歸線 23.5°N',' d tr'],[-TROP,'南回歸線 23.5°S',' d tr'],[POLAR,'北極圈 66.5°N',' d'],[-POLAR,'南極圈 66.5°S',' d']];
+const keys=[[0,'赤道',' eq'],[TROP,'北回歸線',' d tr'],[-TROP,'南回歸線',' d tr'],[POLAR,'北極圈',' d'],[-POLAR,'南極圈',' d']];
 const L={h:'',f:''};let lines='',small1='',big='';
-for(const[a,t,c]of keys){const y=yOf(a);lines+=`<line class="key${c}" x1="${ml}" x2="${ml+mw}" y1="${y}" y2="${y}"/>`;if(!small)TX(L,'keyt'+c.replace(' d',''),xOf(62),y-5,'',t)}
-{const x=xOf(0);lines+=`<line class="key" x1="${x}" x2="${x}" y1="${mt}" y2="${mt+mh}"/>`;if(!small)TX(L,'keyt',x+5,yOf(-56),'','本初子午線 0°')}
+for(const[a,t,c]of keys){const y=yOf(a);lines+=`<line class="key${c}" x1="${ml}" x2="${ml+mw}" y1="${y}" y2="${y}"/>`;if(!small)TX(L,'keyt'+c.replace(' d',''),xOf(-20),y-5,'',t)}
+{const x=xOf(0);lines+=`<line class="key" x1="${x}" x2="${x}" y1="${mt}" y2="${mt+mh}"/>`;if(!small)TX(L,'keyt',x+5,yOf(-45),'','本初子午線')}
 lines+=`<polyline class="key d" fill="none" points="${IDL.map(([a,l])=>xOf(l)+','+yOf(a)).join(' ')}"/>`;if(!small)TX(L,'keyt',xOf(180)+5,yOf(-60),'','國際換日線');
 if(tzMode==='theo')for(let k=-11;k<=12;k++){const x=xOf(15*k);if(x<ml+14||x>ml+mw-14)continue;TX(L,'tzl',x,mt+15,'middle',k===12?'±12':(k>0?'+':k<0?'−':'')+Math.abs(k))}
 for(const c of ALL){const p=PRESET.includes(c),h=c===HOME,x=xOf(c.lon),y=yOf(c.lat);
